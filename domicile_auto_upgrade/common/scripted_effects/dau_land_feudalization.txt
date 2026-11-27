@@ -1,0 +1,307 @@
+﻿dau_land_feudalization_context_effect = {
+    save_scope_as = dau_land_province
+    scope:dau_land_payer = {
+        save_scope_as = actor
+    }
+    barony.holder = {
+        save_scope_as = recipient
+        save_scope_as = holder
+    }
+    county = {
+        save_scope_as = county
+    }
+    if = {
+        limit = {
+            barony = {
+                is_capital_barony = yes
+            }
+        }
+        county = {
+            save_scope_as = target
+        }
+    }
+    else = {
+        barony = {
+            save_scope_as = target
+        }
+    }
+    set_variable = {
+        name = dau_land_feudalization_route
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:recipient = {
+                this = scope:actor
+            }
+        }
+        set_variable = {
+            name = dau_land_feudalization_route
+            value = 0
+        }
+    }
+    set_variable = {
+        name = dau_land_feudalization_type
+        value = 1
+    }
+    if = {
+        limit = {
+            var:dau_land_feudalization_route = 1
+            scope:actor = {
+                government_has_flag = government_is_mandala
+            }
+        }
+        set_variable = {
+            name = dau_land_feudalization_type
+            value = 2
+        }
+    }
+}
+dau_land_consider_feudalization_effect = {
+    dau_land_feudalization_context_effect = yes
+    if = {
+        limit = {
+            dau_land_eligible_feudalization_trigger = yes
+        }
+        scope:dau_land_payer = {
+            set_variable = dau_land_any_eligible
+        }
+        set_variable = {
+            name = dau_land_c_gold
+            value = dau_land_cost_feudalization_gold
+        }
+        set_variable = {
+            name = dau_land_c_treasury
+            value = dau_land_cost_feudalization_treasury
+        }
+        set_variable = {
+            name = dau_land_c_prestige
+            value = dau_land_cost_feudalization_prestige
+        }
+        set_variable = {
+            name = dau_land_c_piety
+            value = dau_land_cost_feudalization_piety
+        }
+        set_variable = {
+            name = dau_land_c_influence
+            value = dau_land_cost_feudalization_influence
+        }
+        set_variable = {
+            name = dau_land_c_score
+            value = {
+                add = var:dau_land_c_gold
+                add = var:dau_land_c_treasury
+            }
+        }
+        if = {
+            limit = {
+                dau_land_affordable_trigger = yes
+            }
+            scope:dau_land_payer = {
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = {
+                                has_variable = dau_land_candidate
+                            }
+                            var:dau_land_best_rank > scope:dau_land_province.var:dau_land_rank
+                            AND = {
+                                var:dau_land_best_rank = scope:dau_land_province.var:dau_land_rank
+                                var:dau_land_best_score > scope:dau_land_province.var:dau_land_c_score
+                            }
+                        }
+                    }
+                    set_variable = {
+                        name = dau_land_candidate
+                        value = flag:dau_land_feudalize
+                    }
+                    set_variable = {
+                        name = dau_land_target
+                        value = scope:dau_land_province
+                    }
+                    set_variable = {
+                        name = dau_land_best_rank
+                        value = scope:dau_land_province.var:dau_land_rank
+                    }
+                    set_variable = {
+                        name = dau_land_best_score
+                        value = scope:dau_land_province.var:dau_land_c_score
+                    }
+                    set_variable = {
+                        name = dau_land_feudalize_route
+                        value = scope:dau_land_province.var:dau_land_feudalization_route
+                    }
+                    set_variable = {
+                        name = dau_land_feudalize_type
+                        value = scope:dau_land_province.var:dau_land_feudalization_type
+                    }
+                }
+            }
+        }
+    }
+}
+dau_land_feudalization_support_reward_effect = {
+    if = {
+        limit = {
+            var:dau_land_feudalize_route = 1
+        }
+        if = {
+            limit = {
+                var:dau_land_feudalize_type = 2
+            }
+            mandala_piety_gain_effect = {
+                PIETY_AMOUNT = massive_piety_gain
+            }
+            add_legitimacy_effect = {
+                LEGITIMACY = medium_legitimacy_gain
+            }
+        }
+        else = {
+            add_legitimacy_effect = {
+                LEGITIMACY = medium_legitimacy_gain
+            }
+        }
+        if = {
+            limit = {
+                government_has_flag = government_has_influence
+            }
+            change_influence = medium_influence_gain
+        }
+    }
+}
+dau_land_feudalize_effect = {
+    var:dau_land_target = {
+        dau_land_feudalization_context_effect = yes
+        if = {
+            limit = {
+                dau_land_eligible_feudalization_trigger = yes
+                scope:dau_land_payer = {
+                    has_variable = dau_land_feudalize_route
+                    has_variable = dau_land_feudalize_type
+                    var:dau_land_feudalize_route = scope:dau_land_province.var:dau_land_feudalization_route
+                    var:dau_land_feudalize_type = scope:dau_land_province.var:dau_land_feudalization_type
+                }
+            }
+            set_variable = {
+                name = dau_land_c_gold
+                value = dau_land_cost_feudalization_gold
+            }
+            set_variable = {
+                name = dau_land_c_treasury
+                value = dau_land_cost_feudalization_treasury
+            }
+            set_variable = {
+                name = dau_land_c_prestige
+                value = dau_land_cost_feudalization_prestige
+            }
+            set_variable = {
+                name = dau_land_c_piety
+                value = dau_land_cost_feudalization_piety
+            }
+            set_variable = {
+                name = dau_land_c_influence
+                value = dau_land_cost_feudalization_influence
+            }
+            if = {
+                limit = {
+                    dau_land_affordable_trigger = yes
+                }
+                scope:dau_land_payer = {
+                    set_variable = {
+                        name = dau_land_pay_gold
+                        value = scope:dau_land_province.var:dau_land_c_gold
+                    }
+                    set_variable = {
+                        name = dau_land_pay_treasury
+                        value = scope:dau_land_province.var:dau_land_c_treasury
+                    }
+                    set_variable = {
+                        name = dau_land_pay_prestige
+                        value = scope:dau_land_province.var:dau_land_c_prestige
+                    }
+                    set_variable = {
+                        name = dau_land_pay_piety
+                        value = scope:dau_land_province.var:dau_land_c_piety
+                    }
+                    set_variable = {
+                        name = dau_land_pay_influence
+                        value = scope:dau_land_province.var:dau_land_c_influence
+                    }
+                }
+                holding_pre_feudalize_effect = yes
+                if = {
+                    limit = {
+                        var:dau_land_feudalization_type = 2
+                    }
+                    set_holding_type = temple_citadel_holding
+                }
+                else = {
+                    set_holding_type = castle_holding
+                }
+                if = {
+                    limit = {
+                        OR = {
+                            AND = {
+                                var:dau_land_feudalization_type = 1
+                                has_holding_type = castle_holding
+                            }
+                            AND = {
+                                var:dau_land_feudalization_type = 2
+                                has_holding_type = temple_citadel_holding
+                            }
+                        }
+                    }
+                    set_variable = {
+                        name = dau_land_upgraded_today
+                        value = 1
+                        days = 1
+                    }
+                    scope:dau_land_payer = {
+                        dau_land_pay_effect = yes
+                        dau_land_feudalization_support_reward_effect = yes
+                        change_variable = {
+                            name = dau_land_last_count
+                            add = 1
+                        }
+                        change_variable = {
+                            name = dau_land_last_feudalized
+                            add = 1
+                        }
+                        set_variable = {
+                            name = dau_land_status
+                            value = 3
+                        }
+                    }
+                }
+                else = {
+                    scope:dau_land_payer = {
+                        set_variable = {
+                            name = dau_land_status
+                            value = 5
+                        }
+                        set_variable = dau_land_stop
+                    }
+                }
+            }
+            else = {
+                scope:dau_land_payer = {
+                    set_variable = {
+                        name = dau_land_status
+                        value = 2
+                    }
+                    set_variable = dau_land_stop
+                }
+            }
+        }
+        else = {
+            scope:dau_land_payer = {
+                set_variable = {
+                    name = dau_land_status
+                    value = 1
+                }
+                set_variable = dau_land_stop
+            }
+        }
+        dau_land_clear_province_effect = yes
+    }
+}

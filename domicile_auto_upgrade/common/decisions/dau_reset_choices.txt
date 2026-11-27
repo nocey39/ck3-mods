@@ -1,0 +1,8 @@
+﻿dau_reset_choice_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/decision_realm.dds" }
+    decision_group_type = dau_automation
+    is_shown = { is_ai = no has_domicile = yes dau_any_choice_suppression_trigger = yes }
+    is_valid = { has_domicile = yes }
+    effect = { hidden_effect = { dau_reset_choices_effect = yes dau_check_effect = yes } }
+    ai_check_interval = 0
+}

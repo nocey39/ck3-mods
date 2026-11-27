@@ -1,0 +1,216 @@
+﻿dau_land_base_cost_new_castle_gold = {
+    value = main_building_tier_1_cost
+}
+dau_land_base_cost_new_castle_treasury = {
+    value = 0
+}
+dau_land_base_cost_new_castle_prestige = {
+    value = 0
+}
+dau_land_base_cost_new_castle_piety = {
+    value = 0
+}
+dau_land_base_cost_new_castle_influence = {
+    value = 0
+}
+dau_land_base_cost_new_castle_treasury_or_gold = {
+    value = 0
+}
+dau_land_cost_new_castle_gold = {
+    value = dau_land_base_cost_new_castle_gold
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        value = 0
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_castle_treasury = {
+    value = dau_land_base_cost_new_castle_treasury
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        add = dau_land_base_cost_new_castle_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_castle_prestige = {
+    value = dau_land_base_cost_new_castle_prestige
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_castle_piety = {
+    value = dau_land_base_cost_new_castle_piety
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_castle_influence = {
+    value = dau_land_base_cost_new_castle_influence
+    multiply = dau_land_cost_factor
+}
+dau_land_base_cost_new_city_gold = {
+    value = main_building_tier_1_cost
+}
+dau_land_base_cost_new_city_treasury = {
+    value = 0
+}
+dau_land_base_cost_new_city_prestige = {
+    value = 0
+}
+dau_land_base_cost_new_city_piety = {
+    value = 0
+}
+dau_land_base_cost_new_city_influence = {
+    value = 0
+}
+dau_land_base_cost_new_city_treasury_or_gold = {
+    value = 0
+}
+dau_land_cost_new_city_gold = {
+    value = dau_land_base_cost_new_city_gold
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        value = 0
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_city_treasury = {
+    value = dau_land_base_cost_new_city_treasury
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        add = dau_land_base_cost_new_city_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_city_prestige = {
+    value = dau_land_base_cost_new_city_prestige
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_city_piety = {
+    value = dau_land_base_cost_new_city_piety
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_city_influence = {
+    value = dau_land_base_cost_new_city_influence
+    multiply = dau_land_cost_factor
+}
+dau_land_base_cost_new_temple_gold = {
+    value = main_building_tier_1_cost
+}
+dau_land_base_cost_new_temple_treasury = {
+    value = 0
+}
+dau_land_base_cost_new_temple_prestige = {
+    value = 0
+}
+dau_land_base_cost_new_temple_piety = {
+    value = 0
+}
+dau_land_base_cost_new_temple_influence = {
+    value = 0
+}
+dau_land_base_cost_new_temple_treasury_or_gold = {
+    value = 0
+}
+dau_land_cost_new_temple_gold = {
+    value = dau_land_base_cost_new_temple_gold
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        value = 0
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_temple_treasury = {
+    value = dau_land_base_cost_new_temple_treasury
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        add = dau_land_base_cost_new_temple_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_temple_prestige = {
+    value = dau_land_base_cost_new_temple_prestige
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_temple_piety = {
+    value = dau_land_base_cost_new_temple_piety
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_temple_influence = {
+    value = dau_land_base_cost_new_temple_influence
+    multiply = dau_land_cost_factor
+}
+dau_land_base_cost_new_citadel_gold = {
+    value = main_building_tier_1_cost
+}
+dau_land_base_cost_new_citadel_treasury = {
+    value = 0
+}
+dau_land_base_cost_new_citadel_prestige = {
+    value = 0
+}
+dau_land_base_cost_new_citadel_piety = {
+    value = 0
+}
+dau_land_base_cost_new_citadel_influence = {
+    value = 0
+}
+dau_land_base_cost_new_citadel_treasury_or_gold = {
+    value = 0
+}
+dau_land_cost_new_citadel_gold = {
+    value = dau_land_base_cost_new_citadel_gold
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        value = 0
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_citadel_treasury = {
+    value = dau_land_base_cost_new_citadel_treasury
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        add = dau_land_base_cost_new_citadel_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_citadel_prestige = {
+    value = dau_land_base_cost_new_citadel_prestige
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_citadel_piety = {
+    value = dau_land_base_cost_new_citadel_piety
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_new_citadel_influence = {
+    value = dau_land_base_cost_new_citadel_influence
+    multiply = dau_land_cost_factor
+}

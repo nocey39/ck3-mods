@@ -1,0 +1,224 @@
+﻿dau_land_new_standard_government_trigger = {
+    government_has_flag = government_is_settled_non_tribal
+    NOT = { government_has_flag = government_is_mandala }
+}
+dau_land_new_mandala_government_trigger = {
+    government_has_flag = government_is_mandala
+}
+dau_land_new_in_scope_trigger = {
+    exists = county.holder
+    scope:dau_land_payer = { var:dau_land_auto_holdings = 1 }
+    OR = {
+        # Scan driven by an explicit realm-scope loop (dau_land_scan_new_holdings_global_effect):
+        # the loop itself already limits which provinces are visited.
+        scope:dau_land_payer = { has_variable = dau_land_new_force_scope }
+        AND = {
+            dau_land_zone_new_owner_trigger = yes
+            OR = {
+                AND = {
+                    scope:dau_land_payer = {
+                        var:dau_land_group_1 = 1
+                    }
+                    county.holder = {
+                        this = scope:dau_land_payer
+                    }
+                }
+                AND = {
+                    scope:dau_land_payer = {
+                        var:dau_land_group_3 = 1
+                    }
+                    county.holder = {
+                        is_vassal_or_below_of = scope:dau_land_payer
+                        NOT = {
+                            this = scope:dau_land_payer
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+dau_land_new_county_ready_trigger = {
+    county.holder = {
+        OR = {
+            dau_land_new_standard_government_trigger = yes
+            dau_land_new_mandala_government_trigger = yes
+        }
+    }
+    # Parallel holding construction inside one county is allowed: each barony has its
+    # own construction slot. The target province still must be vacant and idle
+    # (see dau_land_new_available_trigger), so no double-build can happen per province.
+}
+dau_land_new_available_trigger = {
+    province_has_no_holding_trigger = yes
+    is_occupied = no
+    has_ongoing_holding_construction = no
+    has_ongoing_trade_post_construction = no
+    NOT = {
+        has_variable = dau_land_upgraded_today
+    }
+    dau_land_new_county_ready_trigger = yes
+}
+dau_land_new_required_complete_trigger = {
+    trigger_if = {
+        limit = {
+            county.holder = {
+                dau_land_new_mandala_government_trigger = yes
+            }
+        }
+        county = {
+            any_county_province = {
+                has_holding = yes
+                has_holding_type = temple_citadel_holding
+            }
+            any_county_province = {
+                has_holding = yes
+                has_holding_type = city_holding
+            }
+        }
+    }
+    trigger_else = {
+        county = { county_has_all_holding_types = yes }
+    }
+}
+dau_land_new_native_castle_trigger = {
+    barony_cannot_construct_holding = no
+    building_requirement_tribal = no
+    building_requirement_tribal_holding_in_county = yes
+    building_requirement_nomad = no
+    building_requirement_nomad_holding_in_county = yes
+    building_requirement_herder = no
+    building_requirement_herder_holding_in_county = yes
+    culture = {
+        has_innovation = innovation_motte
+    }
+    japan_castle_construction_trigger = yes
+}
+dau_land_eligible_new_castle = {
+    dau_land_new_in_scope_trigger = yes
+    dau_land_new_available_trigger = yes
+    OR = {
+        dau_land_new_required_complete_trigger = yes
+        AND = {
+            county.holder = {
+                dau_land_new_standard_government_trigger = yes
+            }
+            NOT = {
+                county = {
+                    any_county_province = {
+                        has_holding_type = castle_holding
+                    }
+                }
+            }
+        }
+    }
+    dau_land_new_native_castle_trigger = yes
+}
+dau_land_new_native_city_trigger = {
+    barony_cannot_construct_holding = no
+    building_requirement_tribal = no
+    building_requirement_tribal_holding_in_county = yes
+    building_requirement_nomad = no
+    building_requirement_nomad_holding_in_county = yes
+    building_requirement_herder = no
+    building_requirement_herder_holding_in_county = yes
+    culture = {
+        has_innovation = innovation_city_planning
+    }
+}
+dau_land_eligible_new_city = {
+    dau_land_new_in_scope_trigger = yes
+    dau_land_new_available_trigger = yes
+    OR = {
+        county = { county_has_no_city_trigger = yes }
+        dau_land_new_required_complete_trigger = yes
+    }
+    dau_land_new_native_city_trigger = yes
+}
+dau_land_new_native_temple_trigger = {
+    barony_cannot_construct_holding = no
+    scope:holder = {
+        NOT = {
+            government_has_flag = government_is_mandala
+        }
+    }
+    trigger_if = {
+        limit = {
+            NOT = {
+                scope:holder.culture = {
+                    has_cultural_parameter = tribals_can_into_temples
+                }
+            }
+        }
+        building_requirement_tribal = no
+        building_requirement_tribal_holding_in_county = yes
+    }
+    trigger_else = {
+        scope:holder.culture = {
+            has_cultural_parameter = tribals_can_into_temples
+        }
+    }
+    scope:holder = {
+        NOT = {
+            has_character_modifier = tgp_rebuilder_modifier
+        }
+    }
+    building_requirement_nomad = no
+    building_requirement_nomad_holding_in_county = yes
+    building_requirement_herder = no
+    building_requirement_herder_holding_in_county = yes
+    trigger_if = {
+        limit = {
+            NOT = {
+                scope:holder.culture = {
+                    has_cultural_parameter = tribals_can_into_temples
+                }
+            }
+        }
+        scope:holder.culture = {
+            has_innovation = innovation_city_planning
+        }
+    }
+    trigger_else = {
+        scope:holder.culture = {
+            has_cultural_parameter = tribals_can_into_temples
+        }
+    }
+}
+dau_land_eligible_new_temple = {
+    dau_land_new_in_scope_trigger = yes
+    dau_land_new_available_trigger = yes
+    county.holder = { dau_land_new_standard_government_trigger = yes }
+    OR = {
+        county = { county_has_no_church_trigger = yes }
+        dau_land_new_required_complete_trigger = yes
+    }
+    dau_land_new_native_temple_trigger = yes
+}
+dau_land_new_native_citadel_trigger = {
+    barony_cannot_construct_holding = no
+    scope:holder = {
+        government_has_flag = government_is_mandala
+    }
+    building_requirement_tribal = no
+    building_requirement_tribal_holding_in_county = yes
+    building_requirement_nomad = no
+    building_requirement_nomad_holding_in_county = yes
+    building_requirement_herder = no
+    building_requirement_herder_holding_in_county = yes
+}
+dau_land_eligible_new_citadel = {
+    dau_land_new_in_scope_trigger = yes
+    dau_land_new_available_trigger = yes
+    OR = {
+        dau_land_new_required_complete_trigger = yes
+        NOT = {
+            county = {
+                any_county_province = {
+                    has_holding_type = temple_citadel_holding
+                }
+            }
+        }
+    }
+    dau_land_new_native_citadel_trigger = yes
+}

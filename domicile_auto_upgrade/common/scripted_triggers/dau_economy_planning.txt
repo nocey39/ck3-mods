@@ -1,0 +1,19 @@
+﻿# Root = payer. Province and quotes are already bound by the normal scanner.
+dau_economy_candidate_wins_trigger = {
+    scope:dau_land_province.var:dau_econ_score > 0
+    OR = {
+        NOT = { has_variable = dau_land_candidate }
+        NOT = { has_variable = dau_econ_best }
+        var:dau_econ_best_priority < scope:dau_land_province.var:dau_econ_priority
+        AND = {
+            var:dau_econ_best_priority = scope:dau_land_province.var:dau_econ_priority
+            OR = {
+                var:dau_econ_best < scope:dau_land_province.var:dau_econ_score
+                AND = {
+                    var:dau_econ_best = scope:dau_land_province.var:dau_econ_score
+                    var:dau_land_best_score > scope:dau_land_province.var:dau_land_c_score
+                }
+            }
+        }
+    }
+}

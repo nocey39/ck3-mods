@@ -1,0 +1,206 @@
+﻿dau_land_base_cost_feudalization_personal_gold = {
+    value = 0
+}
+dau_land_base_cost_feudalization_personal_treasury = {
+    value = 0
+}
+dau_land_base_cost_feudalization_personal_prestige = {
+    value = 0
+}
+dau_land_base_cost_feudalization_personal_piety = {
+    value = 0
+}
+dau_land_base_cost_feudalization_personal_influence = {
+    value = 0
+}
+dau_land_base_cost_feudalization_personal_treasury_or_gold = {
+    value = 0
+    scope:actor = {
+        add = feudalize_holding_interaction_cost
+    }
+}
+dau_land_cost_feudalization_personal_gold = {
+    value = dau_land_base_cost_feudalization_personal_gold
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                has_treasury = no
+            }
+        }
+        add = dau_land_base_cost_feudalization_personal_treasury_or_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_personal_treasury = {
+    value = dau_land_base_cost_feudalization_personal_treasury
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        add = dau_land_base_cost_feudalization_personal_gold
+    }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                has_treasury = yes
+            }
+        }
+        add = dau_land_base_cost_feudalization_personal_treasury_or_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_personal_prestige = {
+    value = dau_land_base_cost_feudalization_personal_prestige
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_personal_piety = {
+    value = dau_land_base_cost_feudalization_personal_piety
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_personal_influence = {
+    value = dau_land_base_cost_feudalization_personal_influence
+    multiply = dau_land_cost_factor
+}
+dau_land_base_cost_feudalization_support_gold = {
+    value = 0
+}
+dau_land_base_cost_feudalization_support_treasury = {
+    value = 0
+}
+dau_land_base_cost_feudalization_support_prestige = {
+    value = 0
+}
+dau_land_base_cost_feudalization_support_piety = {
+    value = 0
+}
+dau_land_base_cost_feudalization_support_influence = {
+    value = 0
+}
+dau_land_base_cost_feudalization_support_treasury_or_gold = {
+    value = 0
+    scope:actor = {
+        add = feudalize_holding_interaction_cost
+    }
+}
+dau_land_cost_feudalization_support_gold = {
+    value = dau_land_base_cost_feudalization_support_gold
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                has_treasury = no
+            }
+        }
+        add = dau_land_base_cost_feudalization_support_treasury_or_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_support_treasury = {
+    value = dau_land_base_cost_feudalization_support_treasury
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                dau_land_uses_treasury_trigger = yes
+            }
+        }
+        add = dau_land_base_cost_feudalization_support_gold
+    }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                has_treasury = yes
+            }
+        }
+        add = dau_land_base_cost_feudalization_support_treasury_or_gold
+    }
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_support_prestige = {
+    value = dau_land_base_cost_feudalization_support_prestige
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_support_piety = {
+    value = dau_land_base_cost_feudalization_support_piety
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_support_influence = {
+    value = dau_land_base_cost_feudalization_support_influence
+    multiply = dau_land_cost_factor
+}
+dau_land_cost_feudalization_gold = {
+    value = 0
+    if = {
+        limit = {
+            var:dau_land_feudalization_route = 0
+        }
+        add = dau_land_cost_feudalization_personal_gold
+    }
+    else = {
+        add = dau_land_cost_feudalization_support_gold
+    }
+}
+dau_land_cost_feudalization_treasury = {
+    value = 0
+    if = {
+        limit = {
+            var:dau_land_feudalization_route = 0
+        }
+        add = dau_land_cost_feudalization_personal_treasury
+    }
+    else = {
+        add = dau_land_cost_feudalization_support_treasury
+    }
+}
+dau_land_cost_feudalization_prestige = {
+    value = 0
+    if = {
+        limit = {
+            var:dau_land_feudalization_route = 0
+        }
+        add = dau_land_cost_feudalization_personal_prestige
+    }
+    else = {
+        add = dau_land_cost_feudalization_support_prestige
+    }
+}
+dau_land_cost_feudalization_piety = {
+    value = 0
+    if = {
+        limit = {
+            var:dau_land_feudalization_route = 0
+        }
+        add = dau_land_cost_feudalization_personal_piety
+    }
+    else = {
+        add = dau_land_cost_feudalization_support_piety
+    }
+}
+dau_land_cost_feudalization_influence = {
+    value = 0
+    if = {
+        limit = {
+            var:dau_land_feudalization_route = 0
+        }
+        add = dau_land_cost_feudalization_personal_influence
+    }
+    else = {
+        add = dau_land_cost_feudalization_support_influence
+    }
+}

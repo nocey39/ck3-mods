@@ -1,0 +1,62 @@
+﻿dau_shared_gold_reserve = {
+    value = 0
+    if = {
+        limit = {
+            has_domicile = yes
+            domicile = {
+                has_variable = dau_enabled
+                has_variable = dau_gold_reserve
+            }
+        }
+        add = domicile.var:dau_gold_reserve
+    }
+    if = {
+        limit = {
+            has_variable = dau_land_enabled
+            has_variable = dau_land_gold_reserve
+        }
+        min = var:dau_land_gold_reserve
+    }
+}
+dau_shared_treasury_reserve = {
+    value = 0
+    if = {
+        limit = {
+            has_domicile = yes
+            domicile = {
+                has_variable = dau_enabled
+                has_variable = dau_treasury_reserve
+            }
+        }
+        add = domicile.var:dau_treasury_reserve
+    }
+    if = {
+        limit = {
+            has_variable = dau_land_enabled
+            has_variable = dau_land_treasury_reserve
+        }
+        min = var:dau_land_treasury_reserve
+    }
+}
+dau_shared_prestige_reserve = {
+    value = 0
+    if = {
+        limit = {
+            has_domicile = yes
+            domicile = {
+                has_variable = dau_enabled
+                has_variable = dau_prestige_reserve
+            }
+        }
+        add = domicile.var:dau_prestige_reserve
+    }
+    if = {
+        limit = {
+            has_variable = dau_land_enabled
+            has_variable = dau_land_prestige_reserve
+        }
+        min = var:dau_land_prestige_reserve
+    }
+}
+dau_shared_piety_reserve = 0
+dau_shared_influence_reserve = 0

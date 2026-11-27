@@ -1,0 +1,108 @@
+﻿# 纯升级版：启动/恢复检查链，只做建筑升级。
+
+on_game_start_after_lobby = { on_actions = { dau_upgrade_new_game } }
+dau_upgrade_new_game = {
+	effect = {
+		every_player = {
+			limit = {
+				is_ai = no
+				is_alive = yes
+				is_landed = yes
+			}
+			save_scope_as = dau_up_payer
+			dau_upgrade_defaults_effect = yes
+			dau_upgrade_start_effect = yes
+		}
+	}
+}
+
+quarterly_playable_pulse = { on_actions = { dau_upgrade_recover } }
+dau_upgrade_recover = {
+	trigger = {
+		is_ai = no
+		is_alive = yes
+		is_landed = yes
+	}
+	effect = {
+		save_scope_as = dau_up_payer
+		dau_upgrade_defaults_effect = yes
+		if = {
+			limit = { NOT = { has_variable = dau_up_pending } }
+			dau_upgrade_start_effect = yes
+		}
+	}
+}
+
+yearly_playable_pulse = { on_actions = { dau_upgrade_recover_year } }
+dau_upgrade_recover_year = {
+	trigger = {
+		is_ai = no
+		is_alive = yes
+		is_landed = yes
+	}
+	effect = {
+		save_scope_as = dau_up_payer
+		dau_upgrade_defaults_effect = yes
+		if = {
+			limit = { NOT = { has_variable = dau_up_pending } }
+			dau_upgrade_start_effect = yes
+		}
+	}
+}
+
+on_player_character_change = { on_actions = { dau_upgrade_succession } }
+dau_upgrade_succession = {
+	trigger = {
+		is_ai = no
+		is_alive = yes
+		exists = scope:previous_player_character
+	}
+	effect = {
+		save_scope_as = dau_up_payer
+		dau_upgrade_defaults_effect = yes
+		dau_upgrade_start_effect = yes
+	}
+}
+
+dau_upgrade_tick = {
+	effect = {
+		if = {
+			limit = {
+				has_variable = dau_up_pending
+				exists = scope:dau_up_ticket
+				scope:dau_up_ticket = var:dau_up_generation
+			}
+			remove_variable = dau_up_pending
+			if = {
+				limit = {
+					is_ai = no
+					is_alive = yes
+				}
+				save_scope_as = dau_up_payer
+				dau_upgrade_defaults_effect = yes
+				if = {
+					limit = {
+						var:dau_up_enabled = 1
+						is_landed = yes
+					}
+					dau_upgrade_check_effect = yes
+				}
+				dau_upgrade_start_effect = yes
+			}
+		}
+		else = {
+			remove_variable = dau_up_pending
+		}
+		if = {
+			limit = {
+				is_ai = no
+				is_alive = yes
+				is_landed = yes
+				NOT = { has_variable = dau_up_pending }
+			}
+			save_scope_as = dau_up_payer
+			dau_upgrade_defaults_effect = yes
+			dau_upgrade_start_effect = yes
+		}
+	}
+}

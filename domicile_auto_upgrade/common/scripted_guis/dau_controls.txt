@@ -1,0 +1,140 @@
+﻿dau_panel_gui = {
+    scope = character
+    is_shown = { has_variable = dau_panel_open }
+    effect = { remove_variable = dau_panel_open }
+}
+dau_toggle_gui = {
+    scope = character
+    is_shown = { domicile ?= { has_variable = dau_enabled } }
+    is_valid = { is_ai = no has_domicile = yes dau_supported_domicile_trigger = yes }
+    effect = {
+        dau_initialize_effect = yes
+        if = {
+            limit = { domicile = { has_variable = dau_enabled } }
+            domicile = { remove_variable = dau_enabled }
+        }
+        else = {
+            domicile = { set_variable = dau_enabled set_variable = { name = dau_elapsed value = 0 } }
+            dau_check_effect = yes
+        }
+        dau_save_settings_effect = yes
+        dau_restart_monthly_effect = yes
+    }
+}
+dau_manual_choice_gui = {
+    scope = character
+    is_shown = { domicile ?= { has_variable = dau_manual_choice } }
+    is_valid = { is_ai = no has_domicile = yes dau_supported_domicile_trigger = yes }
+    effect = { dau_toggle_manual_choice_effect = yes }
+}
+
+dau_check_gui = {
+    scope = character
+    is_valid = { is_ai = no has_domicile = yes domicile = { has_variable = dau_enabled } }
+    effect = { dau_check_effect = yes }
+}
+
+dau_gold_add_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_gold_reserve < 1000000 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_gold_reserve add = 100 } } dau_save_settings_effect = yes }
+}
+
+dau_gold_sub_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_gold_reserve >= 100 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_gold_reserve add = -100 } } dau_save_settings_effect = yes }
+}
+
+dau_treasury_add_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_treasury_reserve < 1000000 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_treasury_reserve add = 100 } } dau_save_settings_effect = yes }
+}
+
+dau_treasury_sub_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_treasury_reserve >= 100 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_treasury_reserve add = -100 } } dau_save_settings_effect = yes }
+}
+
+dau_prestige_add_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_prestige_reserve < 1000000 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_prestige_reserve add = 100 } } dau_save_settings_effect = yes }
+}
+
+dau_prestige_sub_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_prestige_reserve >= 100 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_prestige_reserve add = -100 } } dau_save_settings_effect = yes }
+}
+
+dau_herd_add_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_herd_reserve < 1000000 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_herd_reserve add = 1000 } } dau_save_settings_effect = yes }
+}
+
+dau_herd_sub_gui = {
+    scope = character
+    is_valid = { has_domicile = yes domicile = { var:dau_herd_reserve >= 1000 } }
+    effect = { dau_initialize_effect = yes domicile = { change_variable = { name = dau_herd_reserve add = -1000 } } dau_save_settings_effect = yes }
+}
+
+dau_interval_1_gui = {
+    scope = character
+    is_shown = { domicile ?= { var:dau_interval = 1 } }
+    is_valid = { has_domicile = yes }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_interval value = 1 } set_variable = { name = dau_elapsed value = 0 } } dau_save_settings_effect = yes dau_restart_monthly_effect = yes }
+}
+
+dau_interval_2_gui = {
+    scope = character
+    is_shown = { domicile ?= { var:dau_interval = 2 } }
+    is_valid = { has_domicile = yes }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_interval value = 2 } set_variable = { name = dau_elapsed value = 0 } } dau_save_settings_effect = yes dau_restart_monthly_effect = yes }
+}
+
+dau_interval_4_gui = {
+    scope = character
+    is_shown = { domicile ?= { var:dau_interval = 4 } }
+    is_valid = { has_domicile = yes }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_interval value = 4 } set_variable = { name = dau_elapsed value = 0 } } dau_save_settings_effect = yes dau_restart_monthly_effect = yes }
+}
+
+dau_priority_0_gui = {
+    scope = character
+    is_shown = { domicile ?= { var:dau_priority = 0 } }
+    is_valid = { has_domicile = yes }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_priority value = 0 } } dau_save_settings_effect = yes }
+}
+
+dau_priority_1_gui = {
+    scope = character
+    is_shown = { domicile ?= { var:dau_priority = 1 } }
+    is_valid = { has_domicile = yes }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_priority value = 1 } } dau_save_settings_effect = yes }
+}
+
+dau_cost_sub_gui = {
+    scope = character
+    is_valid = { is_ai = no has_domicile = yes domicile = { var:dau_cost_percent > 0 } }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_cost_percent value = { value = var:dau_cost_percent add = -10 min = 0 max = 100 } } } dau_save_settings_effect = yes }
+}
+dau_cost_add_gui = {
+    scope = character
+    is_valid = { is_ai = no has_domicile = yes domicile = { var:dau_cost_percent < 100 } }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_cost_percent value = { value = var:dau_cost_percent add = 10 min = 0 max = 100 } } } dau_save_settings_effect = yes }
+}
+
+dau_time_sub_gui = {
+    scope = character
+    is_valid = { is_ai = no has_domicile = yes domicile = { var:dau_time_percent > 0 } }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_time_percent value = { value = var:dau_time_percent add = -10 min = 0 max = 100 } } } dau_save_settings_effect = yes }
+}
+dau_time_add_gui = {
+    scope = character
+    is_valid = { is_ai = no has_domicile = yes domicile = { var:dau_time_percent < 100 } }
+    effect = { dau_initialize_effect = yes domicile = { set_variable = { name = dau_time_percent value = { value = var:dau_time_percent add = 10 min = 0 max = 100 } } } dau_save_settings_effect = yes }
+}

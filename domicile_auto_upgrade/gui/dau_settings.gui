@@ -1,0 +1,238 @@
+﻿widget = { name = "dau_overlay" size = { 100% 100% } layer = middle visible = "[And(Not(IsObserver), GetPlayer.IsValid)]" dau_settings_panel = {} }
+types dau_types {
+    type dau_checkbox = button_checkbox_label {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "checkbox" { checked = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+    type dau_option = button_standard {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "button_standard_current" { visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+    }
+    type dau_settings_panel = widget {
+        name = "dau_settings_panel" parentanchor = center size = { 640 720 } layer = middle filter_mouse = all alwaystransparent = no
+        datacontext = "[GetPlayer]" datacontext = "[GetScriptedGui('dau_panel_gui')]"
+        visible = "[GetPlayer.MakeScope.Var('dau_panel_open').IsSet]"
+        using = Window_Background using = Window_Decoration
+        text_single = { parentanchor = top|left position = { 110 20 } size = { 420 32 } autoresize = no
+            align = center|vcenter text = "dau_panel_title" fontsize = 26 default_format = "#high" }
+        button_close = { name = "dau_close" parentanchor = top|left position = { 558 24 } size = { 32 32 }
+            shortcut = "close_window" onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" tooltip = "CLOSE_TOOLTIP" }
+        widget = { name = "dau_fixed_overview" parentanchor = top|left position = { 48 68 } size = { 504 104 }
+            background = { using = Background_Area alpha = 0.35 }
+            dau_checkbox = { position = { 12 4 } size = { 328 34 }
+        datacontext = "[GetScriptedGui('dau_toggle_gui')]"
+        tooltip = "dau_enabled_help"
+        blockoverride "text" { text = "dau_enabled_label" fontsize = 16 }
+    }
+            button_primary = { tooltip = "dau_check_help"
+        position = { 348 4 } size = { 144 36 } text = "dau_check_now"
+        datacontext = "[GetScriptedGui('dau_check_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+            text_multi = { name = "dau_fixed_status" position = { 12 46 } size = { 480 52 } max_width = 480 autoresize = no
+                text = "dau_status_display" fontsize = 16 align = left tooltip = "dau_status_help" }
+        }
+        scrollbox = { parentanchor = top|left position = { 48 184 } size = { 544 510 }
+            blockoverride "scrollbox_margins" { margin_top = 0 margin_bottom = 0 margin_left = 0 margin_right = 0 }
+            blockoverride "scrollbox_background" {} blockoverride "scrollbox_background_fade" {}
+            blockoverride "scrollbox_content" {
+                vbox = { name = "dau_settings_body" minimumsize = { 504 0 } layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 12
+                    widget = { name = "dau_apply_game_rules" size = { 504 34 }
+        button_standard = { name = "dau_apply_game_rules_button" tooltip = "dau_preset_restore_residence_help"
+        position = { 0 0 } size = { 504 34 } text = "dau_preset_restore_label"
+        datacontext = "[GetScriptedGui('dau_preset_restore_residence_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+    }
+widget = { name = "dau_construction_settings" size = { 504 134 }
+            text_single = { position = { 0 0 } size = { 504 24 }
+        autoresize = no align = left|vcenter text = "dau_ui_construction" fontsize = 18 default_format = "#high" }
+            text_single = { position = { 0 32 } size = { 504 22 }
+        autoresize = no align = left|vcenter text = "dau_ui_upgrade_priority" fontsize = 18 tooltip = "dau_priority_help" }
+            dau_option = { position = { 0 58 } size = { 244 34 }
+        datacontext = "[GetScriptedGui('dau_priority_1_gui')]" text = "dau_priority_1"
+    }
+dau_option = { position = { 260 58 } size = { 244 34 }
+        datacontext = "[GetScriptedGui('dau_priority_0_gui')]" text = "dau_priority_0"
+    }
+            dau_checkbox = {
+                name = "dau_manual_choice_checkbox"
+                position = { 0 96 }
+                size = { 504 34 }
+                datacontext = "[GetScriptedGui('dau_manual_choice_gui')]"
+                tooltip = "dau_manual_choice_help"
+                blockoverride "text" { text = "dau_manual_choice_label" fontsize = 16 }
+            }
+        }
+widget = { name = "dau_prices_timing" size = { 504 74 }
+        text_single = { position = { 0 0 } size = { 504 24 }
+        autoresize = no align = left|vcenter text = "dau_ui_prices_timing" fontsize = 18 default_format = "#high" }
+        widget = { name = "dau_cost_controls" position = { 0 30 } size = { 504 40 }
+        text_single = { position = { 12 0 } size = { 260 40 }
+        autoresize = no align = left|vcenter text = "dau_ui_cost_label" fontsize = 18 tooltip = "dau_cost_help" }
+        button_standard = { name = "dau_cost_minus" tooltip = "dau_cost_step"
+        position = { 288 3 } size = { 40 34 } text = "dau_minus"
+        datacontext = "[GetScriptedGui('dau_cost_sub_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        text_single = { position = { 336 3 } size = { 96 34 }
+        autoresize = no align = center|vcenter text = "dau_cost_value" fontsize = 18 tooltip = "dau_cost_help" default_format = "#high" }
+        button_standard = { name = "dau_cost_plus" tooltip = "dau_cost_step"
+        position = { 444 3 } size = { 40 34 } text = "dau_plus"
+        datacontext = "[GetScriptedGui('dau_cost_add_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+    }
+    }
+vbox = { name = "dau_reserves" minimumsize = { 504 0 }
+        layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 6
+        widget = { name = "dau_reserve_heading" size = { 504 60 }
+            button_standard = { name = "dau_reserve_toggle" size = { 504 32 }
+                text = "[SelectLocalization(GetVariableSystem.Exists('dau_ui_reserves'), 'dau_ui_reserves_open', 'dau_ui_reserves_closed')]"
+                onclick = "[GetVariableSystem.Toggle('dau_ui_reserves')]" tooltip = "dau_ui_reserves_help"
+                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+            }
+            text_single = { position = { 12 36 } size = { 480 24 }
+        autoresize = no align = left|vcenter text = "dau_reserve_summary" fontsize = 16 tooltip = "dau_reserve_help" }
+        }
+        widget = { name = "dau_reserve_details" size = { 504 168 }
+            visible = "[GetVariableSystem.Exists('dau_ui_reserves')]"
+            background = { using = Background_Area alpha = 0.35 }
+            widget = { name = "dau_gold_reserve_row" position = { 0 0 } size = { 504 42 }
+        text_single = { position = { 16 0 } size = { 132 42 }
+        autoresize = no align = left|vcenter text = "dau_label_gold" fontsize = 18 }
+        text_single = { position = { 154 0 } size = { 110 42 }
+        autoresize = no align = right|vcenter text = "dau_value_gold" fontsize = 18 default_format = "#high" }
+        button_standard = { tooltip = "dau_step_100"
+        position = { 292 4 } size = { 40 34 } text = "dau_minus"
+        datacontext = "[GetScriptedGui('dau_gold_sub_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        button_standard = { tooltip = "dau_step_100"
+        position = { 340 4 } size = { 40 34 } text = "dau_plus"
+        datacontext = "[GetScriptedGui('dau_gold_add_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        text_single = { position = { 392 0 } size = { 96 42 }
+        autoresize = no align = center|vcenter text = "dau_step_label_100" fontsize = 15 }
+    }
+widget = { name = "dau_treasury_reserve_row" position = { 0 42 } size = { 504 42 }
+        text_single = { position = { 16 0 } size = { 132 42 }
+        autoresize = no align = left|vcenter text = "dau_label_treasury" fontsize = 18 }
+        text_single = { position = { 154 0 } size = { 110 42 }
+        autoresize = no align = right|vcenter text = "dau_value_treasury" fontsize = 18 default_format = "#high" }
+        button_standard = { tooltip = "dau_step_100"
+        position = { 292 4 } size = { 40 34 } text = "dau_minus"
+        datacontext = "[GetScriptedGui('dau_treasury_sub_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        button_standard = { tooltip = "dau_step_100"
+        position = { 340 4 } size = { 40 34 } text = "dau_plus"
+        datacontext = "[GetScriptedGui('dau_treasury_add_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        text_single = { position = { 392 0 } size = { 96 42 }
+        autoresize = no align = center|vcenter text = "dau_step_label_100" fontsize = 15 }
+    }
+widget = { name = "dau_prestige_reserve_row" position = { 0 84 } size = { 504 42 }
+        text_single = { position = { 16 0 } size = { 132 42 }
+        autoresize = no align = left|vcenter text = "dau_label_prestige" fontsize = 18 }
+        text_single = { position = { 154 0 } size = { 110 42 }
+        autoresize = no align = right|vcenter text = "dau_value_prestige" fontsize = 18 default_format = "#high" }
+        button_standard = { tooltip = "dau_step_100"
+        position = { 292 4 } size = { 40 34 } text = "dau_minus"
+        datacontext = "[GetScriptedGui('dau_prestige_sub_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        button_standard = { tooltip = "dau_step_100"
+        position = { 340 4 } size = { 40 34 } text = "dau_plus"
+        datacontext = "[GetScriptedGui('dau_prestige_add_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        text_single = { position = { 392 0 } size = { 96 42 }
+        autoresize = no align = center|vcenter text = "dau_step_label_100" fontsize = 15 }
+    }
+widget = { name = "dau_herd_reserve_row" position = { 0 126 } size = { 504 42 }
+        text_single = { position = { 16 0 } size = { 132 42 }
+        autoresize = no align = left|vcenter text = "dau_label_herd" fontsize = 18 }
+        text_single = { position = { 154 0 } size = { 110 42 }
+        autoresize = no align = right|vcenter text = "dau_value_herd" fontsize = 18 default_format = "#high" }
+        button_standard = { tooltip = "dau_step_1000"
+        position = { 292 4 } size = { 40 34 } text = "dau_minus"
+        datacontext = "[GetScriptedGui('dau_herd_sub_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        button_standard = { tooltip = "dau_step_1000"
+        position = { 340 4 } size = { 40 34 } text = "dau_plus"
+        datacontext = "[GetScriptedGui('dau_herd_add_gui')]"
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+        text_single = { position = { 392 0 } size = { 96 42 }
+        autoresize = no align = center|vcenter text = "dau_step_label_1000" fontsize = 15 }
+    }
+        }
+    }
+widget = { name = "dau_schedule" size = { 504 72 }
+        text_single = { position = { 0 0 } size = { 504 24 }
+        autoresize = no align = left|vcenter text = "dau_ui_schedule" fontsize = 18 default_format = "#high" }
+        widget = { name = "dau_interval_schedule" position = { 0 32 } size = { 504 36 } tooltip = "dau_interval_help"
+            text_single = { position = { 0 0 } size = { 136 36 }
+        autoresize = no align = left|vcenter text = "dau_interval_title" fontsize = 16 }
+            dau_option = { position = { 144 1 } size = { 112 34 }
+            datacontext = "[GetScriptedGui('dau_interval_1_gui')]" text = "dau_ui_interval_1" }
+dau_option = { position = { 264 1 } size = { 112 34 }
+            datacontext = "[GetScriptedGui('dau_interval_2_gui')]" text = "dau_ui_interval_2" }
+dau_option = { position = { 384 1 } size = { 112 34 }
+            datacontext = "[GetScriptedGui('dau_interval_4_gui')]" text = "dau_ui_interval_4" }
+        }
+    }
+widget = { name = "dau_notes" size = { 504 28 }
+            text_single = { position = { 0 0 } size = { 504 28 }
+        autoresize = no align = left|vcenter text = "dau_rules_summary" fontsize = 15 tooltip = "dau_rules_note" }
+        }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,123 @@
+﻿widget = { name = "dau_land_overlay" size = { 100% 100% } layer = middle visible = "[And(Not(IsObserver), GetPlayer.IsValid)]" dau_land_settings_panel = {} }
+types dau_land_types {
+    type dau_land_checkbox = button_checkbox_label {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "checkbox" { checked = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+    type dau_land_option = button_standard {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "button_standard_current" { visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+    }
+    type dau_land_settings_panel = widget {
+        name = "dau_land_settings_panel" parentanchor = center size = { 640 560 } layer = middle filter_mouse = all alwaystransparent = no
+        datacontext = "[GetPlayer]" datacontext = "[GetScriptedGui('dau_land_panel_gui')]"
+        visible = "[GetPlayer.MakeScope.Var('dau_land_panel_open').IsSet]"
+        using = Window_Background using = Window_Decoration
+        text_single = { parentanchor = top|left position = { 110 20 } size = { 420 32 } autoresize = no
+            align = center|vcenter text = "dau_land_panel_title" fontsize = 26 default_format = "#high" }
+        button_close = { name = "dau_land_close" parentanchor = top|left position = { 558 24 } size = { 32 32 }
+            shortcut = "close_window" onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" tooltip = "CLOSE_TOOLTIP" }
+        widget = { name = "dau_land_fixed_overview" parentanchor = top|left position = { 48 68 } size = { 504 104 }
+            background = { using = Background_Area alpha = 0.35 }
+            dau_land_checkbox = { position = { 12 4 } size = { 328 34 }
+                datacontext = "[GetScriptedGui('dau_land_toggle_gui')]"
+                tooltip = "dau_land_enabled_help"
+                blockoverride "text" { text = "dau_land_enabled_label" fontsize = 16 }
+            }
+            button_primary = { tooltip = "dau_land_check_help"
+                position = { 348 4 } size = { 144 36 } text = "dau_check_now"
+                datacontext = "[GetScriptedGui('dau_land_check_gui')]"
+                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+                    align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+            }
+            text_multi = { name = "dau_land_fixed_status" position = { 12 46 } size = { 480 52 } max_width = 480 autoresize = no
+                text = "dau_upgrade_status_display" fontsize = 16 align = left tooltip = "dau_land_rules_note" }
+        }
+        scrollbox = { parentanchor = top|left position = { 48 184 } size = { 544 340 }
+            blockoverride "scrollbox_margins" { margin_top = 0 margin_bottom = 0 margin_left = 0 margin_right = 0 }
+            blockoverride "scrollbox_background" {} blockoverride "scrollbox_background_fade" {}
+            blockoverride "scrollbox_content" {
+                vbox = { name = "dau_land_settings_body" minimumsize = { 504 0 } layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 12
+                    widget = { name = "dau_land_construction_settings" size = { 504 70 }
+                        text_single = { position = { 0 0 } size = { 504 24 }
+                            autoresize = no align = left|vcenter text = "dau_ui_construction" fontsize = 18 default_format = "#high" }
+                        widget = { name = "dau_land_scope_options" position = { 0 32 } size = { 504 36 }
+                            text_single = { position = { 0 0 } size = { 104 36 }
+                                autoresize = no align = left|vcenter text = "dau_ui_scope_label" fontsize = 16 }
+                            dau_land_checkbox = { position = { 108 1 } size = { 128 34 }
+                                datacontext = "[GetScriptedGui('dau_land_group_1_gui')]"
+                                tooltip = "dau_land_scope_help"
+                                blockoverride "text" { text = "dau_land_zone_group_1_label" fontsize = 16 }
+                            }
+                            dau_land_checkbox = { position = { 240 1 } size = { 128 34 }
+                                datacontext = "[GetScriptedGui('dau_land_group_2_gui')]"
+                                tooltip = "dau_land_scope_help"
+                                blockoverride "text" { text = "dau_land_zone_group_2_label" fontsize = 16 }
+                            }
+                            dau_land_checkbox = { position = { 372 1 } size = { 128 34 }
+                                datacontext = "[GetScriptedGui('dau_land_group_3_gui')]"
+                                tooltip = "dau_land_scope_help"
+                                blockoverride "text" { text = "dau_land_zone_group_3_label" fontsize = 16 }
+                            }
+                        }
+                    }
+                    widget = { name = "dau_land_prices_timing" size = { 504 74 }
+                        text_single = { position = { 0 0 } size = { 504 24 }
+                            autoresize = no align = left|vcenter text = "dau_land_ui_costs" fontsize = 18 default_format = "#high" }
+                        widget = { name = "dau_land_cost_controls" position = { 0 30 } size = { 504 40 }
+                            text_single = { position = { 12 0 } size = { 260 40 }
+                                autoresize = no align = left|vcenter text = "dau_ui_cost_label" fontsize = 18 tooltip = "dau_cost_help" }
+                            button_standard = { name = "dau_land_cost_minus" tooltip = "dau_cost_step"
+                                position = { 288 3 } size = { 40 34 } text = "dau_minus"
+                                datacontext = "[GetScriptedGui('dau_land_cost_sub_gui')]"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+                                    align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 336 3 } size = { 96 34 }
+                                autoresize = no align = center|vcenter text = "dau_upgrade_cost_value" fontsize = 18 tooltip = "dau_cost_help" default_format = "#high" }
+                            button_standard = { name = "dau_land_cost_plus" tooltip = "dau_cost_step"
+                                position = { 444 3 } size = { 40 34 } text = "dau_plus"
+                                datacontext = "[GetScriptedGui('dau_land_cost_add_gui')]"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 }
+                                    align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                        }
+                    }
+                    widget = { name = "dau_land_schedule" size = { 504 116 }
+                        text_single = { position = { 0 0 } size = { 504 24 }
+                            autoresize = no align = left|vcenter text = "dau_ui_schedule" fontsize = 18 default_format = "#high" }
+                        widget = { name = "dau_land_batch_schedule" position = { 0 32 } size = { 504 36 } tooltip = "dau_land_batch_help"
+                            text_single = { position = { 0 0 } size = { 136 36 }
+                                autoresize = no align = left|vcenter text = "dau_ui_batch_label" fontsize = 16 }
+                            dau_land_option = { position = { 144 1 } size = { 112 34 }
+                                datacontext = "[GetScriptedGui('dau_land_batch_5_gui')]" text = "dau_ui_batch_5" }
+                            dau_land_option = { position = { 264 1 } size = { 112 34 }
+                                datacontext = "[GetScriptedGui('dau_land_batch_10_gui')]" text = "dau_ui_batch_10" }
+                            dau_land_option = { position = { 384 1 } size = { 112 34 }
+                                datacontext = "[GetScriptedGui('dau_land_batch_20_gui')]" text = "dau_ui_batch_20" }
+                        }
+                        widget = { name = "dau_land_interval_schedule" position = { 0 76 } size = { 504 36 } tooltip = "dau_land_three_day_schedule_help"
+                            text_single = { position = { 0 0 } size = { 136 36 } autoresize = no align = left|vcenter text = "dau_interval_title" fontsize = 16 }
+                            dau_land_option = { position = { 144 1 } size = { 112 34 }
+                                datacontext = "[GetScriptedGui('dau_land_interval_3_gui')]" text = "dau_ui_interval_3" }
+                            dau_land_option = { position = { 264 1 } size = { 112 34 }
+                                datacontext = "[GetScriptedGui('dau_land_interval_7_gui')]" text = "dau_ui_interval_7" }
+                            dau_land_option = { position = { 384 1 } size = { 112 34 }
+                                datacontext = "[GetScriptedGui('dau_land_interval_1_gui')]" text = "dau_ui_interval_1" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

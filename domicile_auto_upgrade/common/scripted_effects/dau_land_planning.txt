@@ -1,0 +1,426 @@
+﻿dau_land_plan_from_categories_effect = {
+    set_variable = {
+        name = dau_land_plan_mode
+        value = 0
+    }
+    if = {
+        limit = {
+            var:dau_land_category_economy > 0
+            var:dau_land_category_military > 0
+        }
+        set_variable = {
+            name = dau_land_plan_mode
+            value = 3
+        }
+    }
+    else_if = {
+        limit = {
+            var:dau_land_category_economy > 0
+        }
+        set_variable = {
+            name = dau_land_plan_mode
+            value = 1
+        }
+    }
+    else_if = {
+        limit = {
+            var:dau_land_category_military > 0
+        }
+        set_variable = {
+            name = dau_land_plan_mode
+            value = 5
+        }
+    }
+    set_variable = {
+        name = dau_land_plan_defense
+        value = 0
+    }
+    if = {
+        limit = {
+            var:dau_land_category_defense > 0
+        }
+        set_variable = {
+            name = dau_land_plan_defense
+            value = 1
+        }
+    }
+    set_variable = dau_land_plan_v2
+}
+dau_land_plan_initialize_effect = {
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_plan_v2
+            }
+        }
+        if = {
+            limit = {
+                has_variable = dau_land_ratio_v1
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 0
+            }
+            if = {
+                limit = {
+                    var:dau_land_new_buildings = 1
+                }
+                set_variable = {
+                    name = dau_land_plan_mode
+                    value = 3
+                }
+                if = {
+                    limit = {
+                        var:dau_land_ratio >= 100
+                    }
+                    set_variable = {
+                        name = dau_land_plan_mode
+                        value = 1
+                    }
+                }
+                else_if = {
+                    limit = {
+                        var:dau_land_ratio <= 0
+                    }
+                    set_variable = {
+                        name = dau_land_plan_mode
+                        value = 5
+                    }
+                }
+                else_if = {
+                    limit = {
+                        var:dau_land_ratio > 50
+                    }
+                    set_variable = {
+                        name = dau_land_plan_mode
+                        value = 2
+                    }
+                }
+                else_if = {
+                    limit = {
+                        var:dau_land_ratio < 50
+                    }
+                    set_variable = {
+                        name = dau_land_plan_mode
+                        value = 4
+                    }
+                }
+            }
+            set_variable = {
+                name = dau_land_plan_defense
+                value = 0
+            }
+            if = {
+                limit = {
+                    var:dau_land_defense = 1
+                }
+                set_variable = {
+                    name = dau_land_plan_defense
+                    value = 1
+                }
+            }
+            set_variable = dau_land_plan_v2
+        }
+        else = {
+            dau_land_plan_from_categories_effect = yes
+        }
+        remove_variable = dau_land_seeded_v1
+        remove_variable = dau_land_seed_economy
+        remove_variable = dau_land_seed_military
+        remove_variable = dau_land_new_economy
+        remove_variable = dau_land_new_military
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_plan_mode
+            }
+        }
+        set_variable = {
+            name = dau_land_plan_mode
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            OR = {
+                var:dau_land_plan_mode < 0
+                var:dau_land_plan_mode > 5
+            }
+        }
+        set_variable = {
+            name = dau_land_plan_mode
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_plan_defense
+            }
+        }
+        set_variable = {
+            name = dau_land_plan_defense
+            value = 0
+        }
+    }
+    if = {
+        limit = { NOT = { has_variable = dau_land_plan_default_v3 } }
+        set_variable = dau_land_plan_default_v3
+        if = {
+            limit = {
+                var:dau_land_plan_mode = 0
+                var:dau_land_category_economy = 0
+                var:dau_land_category_military = 0
+                var:dau_land_category_defense = 0
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 3
+            }
+        }
+    }
+    if = {
+        limit = { NOT = { has_variable = dau_land_plan_default_v4 } }
+        set_variable = dau_land_plan_default_v4
+        if = {
+            limit = {
+                var:dau_land_plan_mode = 0
+                NOT = { has_variable = dau_land_plan_user_set_v1 }
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 3
+            }
+        }
+    }
+    dau_land_plan_apply_effect = yes
+}
+dau_land_plan_apply_effect = {
+    set_variable = {
+        name = dau_land_category_economy
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_category_military
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_category_defense
+        value = 0
+    }
+    if = {
+        limit = {
+            var:dau_land_plan_mode > 0
+            var:dau_land_plan_mode < 5
+        }
+        set_variable = {
+            name = dau_land_category_economy
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            var:dau_land_plan_mode >= 2
+        }
+        set_variable = {
+            name = dau_land_category_military
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            var:dau_land_plan_defense = 1
+        }
+        set_variable = {
+            name = dau_land_category_defense
+            value = 1
+        }
+    }
+}
+# Root = province. Counts already-built economy/military buildings through the
+# generated quote categories instead of per-building IDs.
+dau_land_plan_context_effect = {
+    set_variable = {
+        name = dau_plan_e
+        value = 0
+    }
+    set_variable = {
+        name = dau_plan_m
+        value = 0
+    }
+    set_variable = {
+        name = dau_plan_e_priority
+        value = 2
+    }
+    set_variable = {
+        name = dau_plan_m_priority
+        value = 2
+    }
+    every_built_buildings = {
+        building_type = {
+            save_scope_as = dau_native_building
+            scope:dau_land_payer = { dau_land_native_prepare_quote_effect = yes }
+            if = {
+                limit = {
+                    scope:dau_land_payer = { has_variable = dau_land_q_valid var:dau_land_q_category = 1 }
+                }
+                scope:dau_land_province = {
+                    change_variable = { name = dau_plan_e add = 1 }
+                }
+            }
+            if = {
+                limit = {
+                    scope:dau_land_payer = { has_variable = dau_land_q_valid var:dau_land_q_category = 2 }
+                }
+                scope:dau_land_province = {
+                    change_variable = { name = dau_plan_m add = 1 }
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                var:dau_land_plan_mode = 2
+            }
+        }
+        set_variable = {
+            name = dau_plan_gap_e
+            value = {
+                add = var:dau_plan_e
+                add = var:dau_plan_m
+                add = 1
+                multiply = 2
+                subtract = {
+                    value = var:dau_plan_e
+                    multiply = 3
+                }
+            }
+        }
+        set_variable = {
+            name = dau_plan_gap_m
+            value = {
+                add = var:dau_plan_e
+                add = var:dau_plan_m
+                add = 1
+                multiply = 1
+                subtract = {
+                    value = var:dau_plan_m
+                    multiply = 3
+                }
+            }
+        }
+        if = {
+            limit = {
+                var:dau_plan_gap_e >= var:dau_plan_gap_m
+            }
+            set_variable = {
+                name = dau_plan_m_priority
+                value = 3
+            }
+        }
+        else = {
+            set_variable = {
+                name = dau_plan_e_priority
+                value = 3
+            }
+        }
+    }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                var:dau_land_plan_mode = 3
+            }
+        }
+        set_variable = {
+            name = dau_plan_gap_e
+            value = {
+                add = var:dau_plan_e
+                add = var:dau_plan_m
+                add = 1
+                multiply = 1
+                subtract = {
+                    value = var:dau_plan_e
+                    multiply = 2
+                }
+            }
+        }
+        set_variable = {
+            name = dau_plan_gap_m
+            value = {
+                add = var:dau_plan_e
+                add = var:dau_plan_m
+                add = 1
+                multiply = 1
+                subtract = {
+                    value = var:dau_plan_m
+                    multiply = 2
+                }
+            }
+        }
+        if = {
+            limit = {
+                var:dau_plan_gap_e >= var:dau_plan_gap_m
+            }
+            set_variable = {
+                name = dau_plan_m_priority
+                value = 3
+            }
+        }
+        else = {
+            set_variable = {
+                name = dau_plan_e_priority
+                value = 3
+            }
+        }
+    }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                var:dau_land_plan_mode = 4
+            }
+        }
+        set_variable = {
+            name = dau_plan_gap_e
+            value = {
+                add = var:dau_plan_e
+                add = var:dau_plan_m
+                add = 1
+                multiply = 1
+                subtract = {
+                    value = var:dau_plan_e
+                    multiply = 3
+                }
+            }
+        }
+        set_variable = {
+            name = dau_plan_gap_m
+            value = {
+                add = var:dau_plan_e
+                add = var:dau_plan_m
+                add = 1
+                multiply = 2
+                subtract = {
+                    value = var:dau_plan_m
+                    multiply = 3
+                }
+            }
+        }
+        if = {
+            limit = {
+                var:dau_plan_gap_e >= var:dau_plan_gap_m
+            }
+            set_variable = {
+                name = dau_plan_m_priority
+                value = 3
+            }
+        }
+        else = {
+            set_variable = {
+                name = dau_plan_e_priority
+                value = 3
+            }
+        }
+    }
+}

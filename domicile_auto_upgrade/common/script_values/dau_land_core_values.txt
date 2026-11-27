@@ -1,0 +1,36 @@
+﻿dau_land_category_count = {
+    value = 0
+    if = {
+        limit = { var:dau_land_category_economy > 0 }
+        add = 1
+    }
+    if = {
+        limit = { var:dau_land_category_military > 0 }
+        add = 1
+    }
+    if = {
+        limit = { var:dau_land_category_defense > 0 }
+        add = 1
+    }
+}
+dau_land_cost_factor = {
+    value = 100
+    if = {
+        limit = {
+            exists = scope:dau_land_payer
+            scope:dau_land_payer = { has_variable = dau_land_cost_percent }
+        }
+        value = scope:dau_land_payer.var:dau_land_cost_percent
+    }
+    min = 0
+    max = 100
+    divide = 100
+}
+dau_land_last_upgraded_count = {
+    value = var:dau_land_last_count
+    subtract = var:dau_land_last_built
+    subtract = var:dau_land_last_created
+    subtract = var:dau_land_last_feudalized
+    subtract = var:dau_land_last_replaced
+    min = 0
+}

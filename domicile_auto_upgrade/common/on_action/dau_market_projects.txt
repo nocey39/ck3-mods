@@ -1,0 +1,22 @@
+﻿on_building_completed = { on_actions = { dau_market_project_completed } }
+on_building_cancelled = { on_actions = { dau_market_project_cancelled } }
+
+dau_market_project_completed = {
+    trigger = { has_variable = { name = dau_market_project name = dau_market_new_holding } }
+    effect = {
+        remove_variable = dau_market_project
+        remove_variable = dau_market_new_holding
+        # A market and its routes settle on their own monthly ticks.
+        barony.trade_market.trade_market_owner ?= {
+            set_variable = { name = dau_market_settling value = yes days = 32 }
+        }
+    }
+}
+
+dau_market_project_cancelled = {
+    trigger = { has_variable = { name = dau_market_project name = dau_market_new_holding } }
+    effect = {
+        remove_variable = dau_market_project
+        remove_variable = dau_market_new_holding
+    }
+}

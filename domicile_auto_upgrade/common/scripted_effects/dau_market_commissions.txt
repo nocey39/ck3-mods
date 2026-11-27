@@ -1,0 +1,151 @@
+﻿# Reuses vanilla eligibility, delivery projection and commission creation.
+# Normal distribution and profit routes have no scripted create/edit effect.
+dau_market_try_commissions_effect = {
+    if = {
+        limit = {
+            has_variable = dau_market_batch
+            has_variable = dau_market_commission_enabled
+            NOT = { has_variable = dau_market_commission_cooldown }
+            commission_trade_route_commissioner_trigger = yes
+            prestige >= { add = gdp_commission_route_cost_value add = dau_shared_prestige_reserve }
+            any_tributary = { is_ai = yes is_landless_merchant = yes }
+        }
+        every_in_list = {
+            variable = dau_market_anchors
+            limit = {
+                scope:dau_land_payer = {
+                    NOT = { has_variable = dau_market_commission_cooldown }
+                }
+                exists = var:dau_market_actual_link
+                holder = {
+                    OR = {
+                        this = scope:dau_land_payer
+                        is_vassal_or_below_of = scope:dau_land_payer
+                    }
+                }
+                OR = {
+                    has_variable_list = dau_market_requested_goods
+                    has_variable_list = dau_market_requested_categories
+                }
+            }
+            save_scope_as = dau_market_import_anchor
+            var:dau_market_actual_link = {
+                save_scope_as = dau_market_import_destination
+                if = {
+                    limit = { scope:dau_market_import_anchor = { has_variable = dau_market_food_shortage } }
+                    every_trade_good_type = {
+                        limit = { has_category = trade_good_category:trade_category_food }
+                        dau_market_try_good_commission_effect = yes
+                    }
+                }
+                if = {
+                    limit = { scope:dau_land_payer = { NOT = { has_variable = dau_market_commission_cooldown } } }
+                    every_trade_good_type = { dau_market_try_good_commission_effect = yes }
+                }
+            }
+        }
+    }
+}
+
+# Root = a native good in deficit, or a substitute in a deficit category.
+dau_market_try_good_commission_effect = {
+    save_scope_as = dau_market_import_good
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                NOT = { has_variable = dau_market_commission_cooldown }
+            }
+            scope:dau_market_import_destination = {
+                OR = {
+                    AND = {
+                        scope:dau_market_import_anchor = {
+                            is_target_in_variable_list = {
+                                name = dau_market_requested_goods
+                                target = scope:dau_market_import_good
+                            }
+                        }
+                        trade_good_unfulfilled_need = { target = scope:dau_market_import_good value > 0 }
+                    }
+                    AND = {
+                        exists = scope:dau_market_import_good.trade_good_need_category
+                        scope:dau_market_import_anchor = {
+                            is_target_in_variable_list = {
+                                name = dau_market_requested_categories
+                                target = scope:dau_market_import_good.trade_good_need_category
+                            }
+                        }
+                        trade_category_unfulfilled_need = {
+                            target = scope:dau_market_import_good.trade_good_need_category
+                            value > 0
+                        }
+                    }
+                }
+                NOT = {
+                    any_trade_route_in_market = {
+                        is_commission_route = yes
+                        commissioner = scope:dau_land_payer
+                        primary_trade_good = scope:dau_market_import_good
+                    }
+                }
+            }
+        }
+        scope:dau_land_payer = {
+            every_tributary = {
+                limit = {
+                    is_ai = yes
+                    is_landless_merchant = yes
+                    scope:dau_land_payer = { NOT = { has_variable = dau_market_commission_cooldown } }
+                }
+                save_scope_as = dau_market_import_merchant
+                if = {
+                    limit = {
+                        commission_trade_route_merchant_trigger = {
+                            COMMISSIONER = scope:dau_land_payer
+                            MERCHANT = scope:dau_market_import_merchant
+                        }
+                        scope:dau_land_payer = {
+                            NOT = { has_usable_hook = scope:dau_market_import_merchant }
+                            is_character_interaction_potentially_accepted = {
+                                interaction = commission_trade_route_interaction
+                                recipient = scope:dau_market_import_merchant
+                                required_response = yes
+                            }
+                        }
+                        commission_trade_route_good_trigger = {
+                            COMMISSIONER = scope:dau_land_payer
+                            MARKET = scope:dau_market_import_destination
+                            GOOD = scope:dau_market_import_good
+                            MERCHANT = scope:dau_market_import_merchant
+                        }
+                    }
+                    scope:dau_land_payer = { dau_market_create_commission_effect = yes }
+                }
+            }
+        }
+    }
+}
+
+dau_market_create_commission_effect = {
+    clear_saved_scope = new_commission_route
+    save_scope_value_as = { name = dau_market_commission_cost value = gdp_commission_route_cost_value }
+    if = {
+        limit = {
+            prestige >= { add = scope:dau_market_commission_cost add = dau_shared_prestige_reserve }
+        }
+        commission_merchant_effect = {
+            MERCHANT = scope:dau_market_import_merchant
+            GOOD = scope:dau_market_import_good
+            DEST = scope:dau_market_import_destination
+            YEARS = 10
+        }
+        if = {
+            limit = { exists = scope:new_commission_route }
+            set_variable = { name = dau_market_commission_cooldown value = yes days = 60 }
+            add_prestige = { value = scope:dau_market_commission_cost multiply = -1 }
+            scope:dau_market_import_merchant = {
+                add_prestige = { value = scope:dau_market_commission_cost divide = 2 }
+            }
+            set_variable = dau_market_commission_started
+        }
+    }
+}

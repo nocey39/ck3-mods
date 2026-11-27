@@ -1,0 +1,528 @@
+﻿dau_land_zone_initialize_effect = {
+    remove_variable = dau_land_region_enabled
+    remove_variable = dau_land_region_duchy
+    remove_variable = dau_land_region_kingdom
+    remove_variable = dau_land_region_empire
+    clear_variable_list = dau_land_region_provinces
+    clear_variable_list = dau_land_region_counties
+    remove_variable = dau_land_region_empty
+}
+dau_land_zone_clear_round_effect = {
+    clear_variable_list = dau_land_zone_all
+    clear_variable_list = dau_land_zone_counties
+    clear_variable_list = dau_land_zone_provinces
+    clear_variable_list = dau_land_zone_visited
+    clear_variable_list = dau_land_zone_deferred_groups
+    remove_variable = dau_land_zone_loaded
+    remove_variable = dau_land_zone_owner
+    remove_variable = dau_land_zone_any_eligible
+    remove_variable = dau_land_zone_pause
+    remove_variable = dau_land_zone_deferred_owned
+    clear_saved_scope = dau_land_zone_input
+    clear_saved_scope = dau_land_zone_group_input
+    clear_saved_scope = dau_land_zone_county
+    clear_saved_scope = dau_land_zone_try
+}
+dau_land_zone_group_context_effect = {
+    save_scope_as = dau_land_zone_group_input
+    if = {
+        limit = {
+            exists = kingdom
+        }
+        kingdom = {
+            save_scope_as = dau_land_zone_group_input
+        }
+    }
+}
+dau_land_zone_add_county_effect = {
+    if = {
+        limit = {
+            exists = holder
+            holder = {
+                is_vassal_or_below_of = scope:dau_land_payer
+                NOT = {
+                    this = scope:dau_land_payer
+                }
+            }
+            NOT = {
+                scope:dau_land_payer = {
+                    is_target_in_variable_list = {
+                        name = dau_land_zone_counties
+                        target = prev
+                    }
+                }
+            }
+        }
+        save_scope_as = dau_land_zone_county
+        scope:dau_land_payer = {
+            add_to_variable_list = {
+                name = dau_land_zone_counties
+                target = scope:dau_land_zone_county
+            }
+        }
+        save_scope_as = dau_land_zone_input
+        if = {
+            limit = {
+                exists = duchy
+            }
+            duchy = {
+                save_scope_as = dau_land_zone_input
+            }
+        }
+        scope:dau_land_payer = {
+            if = {
+                limit = {
+                    NOT = {
+                        is_target_in_variable_list = {
+                            name = dau_land_zone_all
+                            target = scope:dau_land_zone_input
+                        }
+                    }
+                }
+                add_to_variable_list = {
+                    name = dau_land_zone_all
+                    target = scope:dau_land_zone_input
+                }
+            }
+        }
+    }
+}
+dau_land_zone_prepare_effect = {
+    dau_land_zone_clear_round_effect = yes
+    if = {
+        limit = {
+            var:dau_land_group_1 = 1
+        }
+        every_directly_owned_province = {
+            if = {
+                limit = {
+                    has_variable = dau_land_upgraded_today
+                }
+                scope:dau_land_payer = {
+                    set_variable = dau_land_zone_deferred_owned
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            var:dau_land_group_2 = 1
+        }
+        every_held_title = {
+            limit = {
+                tier = tier_county
+            }
+            every_county_province = {
+                if = {
+                    limit = {
+                        has_variable = dau_land_upgraded_today
+                        NOT = {
+                            barony.holder ?= {
+                                this = scope:dau_land_payer
+                            }
+                        }
+                    }
+                    scope:dau_land_payer = {
+                        set_variable = dau_land_zone_deferred_owned
+                    }
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            var:dau_land_group_3 = 1
+        }
+        every_sub_realm_county = {
+            dau_land_zone_add_county_effect = yes
+        }
+        if = {
+            limit = {
+                has_variable = dau_land_zone_active
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dau_land_zone_all
+                        target = var:dau_land_zone_active
+                    }
+                }
+            }
+            remove_variable = dau_land_zone_active
+        }
+        if = {
+            limit = {
+                has_variable = dau_land_zone_active
+            }
+            var:dau_land_zone_active = {
+                dau_land_zone_group_context_effect = yes
+            }
+            set_variable = {
+                name = dau_land_zone_focus
+                value = scope:dau_land_zone_group_input
+            }
+        }
+        else_if = {
+            limit = {
+                has_variable = dau_land_zone_focus
+            }
+            remove_variable = dau_land_zone_focus_valid
+            every_in_list = {
+                variable = dau_land_zone_all
+                dau_land_zone_group_context_effect = yes
+                scope:dau_land_payer = {
+                    if = {
+                        limit = {
+                            var:dau_land_zone_focus = scope:dau_land_zone_group_input
+                        }
+                        set_variable = dau_land_zone_focus_valid
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        has_variable = dau_land_zone_focus_valid
+                    }
+                }
+                remove_variable = dau_land_zone_focus
+            }
+            remove_variable = dau_land_zone_focus_valid
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_zone_focus
+                }
+                exists = capital_county
+                any_in_list = {
+                    variable = dau_land_zone_all
+                    always = yes
+                }
+            }
+            capital_county = {
+                dau_land_zone_group_context_effect = yes
+                if = {
+                    limit = {
+                        NOT = {
+                            exists = kingdom
+                        }
+                        exists = duchy
+                    }
+                    duchy = {
+                        save_scope_as = dau_land_zone_group_input
+                    }
+                }
+            }
+            set_variable = {
+                name = dau_land_zone_focus
+                value = scope:dau_land_zone_group_input
+            }
+        }
+        if = {
+            limit = {
+                NOT = {
+                    any_in_list = {
+                        variable = dau_land_zone_all
+                        always = yes
+                    }
+                }
+            }
+            remove_variable = dau_land_zone_focus
+        }
+    }
+    else = {
+        remove_variable = dau_land_zone_active
+        remove_variable = dau_land_zone_focus
+    }
+}
+dau_land_zone_load_county_effect = {
+    if = {
+        limit = {
+            exists = holder
+            holder = {
+                is_vassal_or_below_of = scope:dau_land_payer
+                NOT = {
+                    this = scope:dau_land_payer
+                }
+            }
+        }
+        every_county_province = {
+            save_scope_as = dau_land_zone_input
+            scope:dau_land_payer = {
+                add_to_variable_list = {
+                    name = dau_land_zone_provinces
+                    target = scope:dau_land_zone_input
+                }
+            }
+        }
+    }
+}
+dau_land_zone_try_effect = {
+    save_scope_as = dau_land_zone_try
+    dau_land_zone_group_context_effect = yes
+    if = {
+        limit = {
+            NOT = {
+                scope:dau_land_payer = {
+                    has_variable = dau_land_zone_loaded
+                    var:dau_land_zone_loaded = scope:dau_land_zone_try
+                }
+            }
+        }
+        scope:dau_land_payer = {
+            clear_variable_list = dau_land_zone_provinces
+        }
+        if = {
+            limit = {
+                tier = tier_county
+            }
+            dau_land_zone_load_county_effect = yes
+        }
+        else = {
+            every_de_jure_county = {
+                dau_land_zone_load_county_effect = yes
+            }
+        }
+        scope:dau_land_payer = {
+            set_variable = {
+                name = dau_land_zone_loaded
+                value = scope:dau_land_zone_try
+            }
+        }
+    }
+    scope:dau_land_payer = {
+        dau_land_zone_find_project_effect = yes
+        if = {
+            limit = {
+                has_variable = dau_land_candidate
+            }
+            set_variable = {
+                name = dau_land_zone_active
+                value = scope:dau_land_zone_try
+            }
+            set_variable = {
+                name = dau_land_zone_focus
+                value = scope:dau_land_zone_group_input
+            }
+        }
+        else = {
+            add_to_variable_list = {
+                name = dau_land_zone_visited
+                target = scope:dau_land_zone_try
+            }
+            if = {
+                limit = {
+                    any_in_list = {
+                        variable = dau_land_zone_provinces
+                        has_variable = dau_land_upgraded_today
+                    }
+                }
+                add_to_variable_list = {
+                    name = dau_land_zone_deferred_groups
+                    target = scope:dau_land_zone_group_input
+                }
+            }
+        }
+    }
+}
+dau_land_zone_find_vassal_effect = {
+    if = {
+        limit = {
+            has_variable = dau_land_zone_active
+            is_target_in_variable_list = {
+                name = dau_land_zone_all
+                target = var:dau_land_zone_active
+            }
+            NOT = {
+                is_target_in_variable_list = {
+                    name = dau_land_zone_visited
+                    target = var:dau_land_zone_active
+                }
+            }
+        }
+        var:dau_land_zone_active = {
+            dau_land_zone_try_effect = yes
+        }
+    }
+    every_in_list = {
+        variable = dau_land_zone_all
+        if = {
+            limit = {
+                scope:dau_land_payer = {
+                    NOT = {
+                        has_variable = dau_land_candidate
+                    }
+                    NOT = {
+                        is_target_in_variable_list = {
+                            name = dau_land_zone_visited
+                            target = prev
+                        }
+                    }
+                }
+            }
+            dau_land_zone_group_context_effect = yes
+            if = {
+                limit = {
+                    scope:dau_land_payer = {
+                        has_variable = dau_land_zone_focus
+                        var:dau_land_zone_focus = scope:dau_land_zone_group_input
+                    }
+                }
+                dau_land_zone_try_effect = yes
+            }
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_candidate
+            }
+            has_variable = dau_land_zone_focus
+            is_target_in_variable_list = {
+                name = dau_land_zone_deferred_groups
+                target = var:dau_land_zone_focus
+            }
+        }
+        set_variable = dau_land_zone_pause
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_candidate
+            }
+            NOT = {
+                has_variable = dau_land_zone_pause
+            }
+        }
+        every_in_list = {
+            variable = dau_land_zone_all
+            if = {
+                limit = {
+                    scope:dau_land_payer = {
+                        NOT = {
+                            has_variable = dau_land_candidate
+                        }
+                        NOT = {
+                            is_target_in_variable_list = {
+                                name = dau_land_zone_visited
+                                target = prev
+                            }
+                        }
+                    }
+                }
+                dau_land_zone_try_effect = yes
+            }
+        }
+    }
+}
+dau_land_zone_find_project_effect = {
+    dau_land_plan_apply_effect = yes
+    dau_land_clear_player_effect = yes
+    set_variable = {
+        name = dau_land_best_rank
+        value = 3
+    }
+    set_variable = {
+        name = dau_land_best_score
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_best_cat_priority
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_best_q_priority
+        value = 0
+    }
+    if = {
+        limit = {
+            var:dau_land_feudalize = 1
+        }
+        set_variable = dau_land_scan_feudalization
+        dau_land_scan_scope_effect = yes
+        remove_variable = dau_land_scan_feudalization
+    }
+    if = {
+        limit = {
+            NOT = { has_variable = dau_land_candidate }
+            var:dau_land_zone_owner = 1
+            has_variable = dau_market_batch
+        }
+        set_variable = dau_econ_scan
+        if = {
+            limit = { var:dau_land_auto_holdings = 1 }
+            dau_land_scan_new_holdings_effect = yes
+        }
+        set_variable = dau_market_scan
+        dau_land_scan_scope_effect = yes
+        remove_variable = dau_market_scan
+        remove_variable = dau_econ_scan
+    }
+    else_if = {
+        limit = {
+            NOT = { has_variable = dau_land_candidate }
+            var:dau_land_auto_holdings = 1
+        }
+        dau_land_scan_new_holdings_effect = yes
+    }
+    # Global new-holding pass: cover every province of the payer's realm scope,
+    # not only the current zone/focus of the other phases.
+    if = {
+        limit = {
+            NOT = { has_variable = dau_land_candidate }
+            var:dau_land_auto_holdings = 1
+        }
+        set_variable = dau_land_new_force_scope
+        if = {
+            limit = { var:dau_land_group_1 = 1 }
+            every_directly_owned_province = {
+                dau_land_scan_new_holding_province_effect = yes
+            }
+            every_held_title = {
+                limit = { tier = tier_county }
+                every_county_province = {
+                    dau_land_scan_new_holding_province_effect = yes
+                }
+            }
+        }
+        if = {
+            limit = { var:dau_land_group_3 = 1 }
+            every_sub_realm_county = {
+                every_county_province = {
+                    dau_land_scan_new_holding_province_effect = yes
+                }
+            }
+        }
+        remove_variable = dau_land_new_force_scope
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_candidate
+            }
+            NOT = { AND = { var:dau_land_zone_owner = 1 has_variable = dau_market_batch } }
+            dau_land_category_count > 0
+        }
+        set_variable = dau_land_scan_empty
+        set_variable = {
+            name = dau_land_best_category
+            value = 4
+        }
+        dau_land_scan_scope_effect = yes
+        remove_variable = dau_land_scan_empty
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_candidate
+            }
+            NOT = { AND = { var:dau_land_zone_owner = 1 has_variable = dau_market_batch } }
+        }
+        dau_land_scan_scope_effect = yes
+    }
+    if = {
+        limit = {
+            has_variable = dau_land_any_eligible
+        }
+        set_variable = dau_land_zone_any_eligible
+    }
+}

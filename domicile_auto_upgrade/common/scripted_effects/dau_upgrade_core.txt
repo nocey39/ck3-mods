@@ -1,0 +1,237 @@
+﻿# 纯升级版核心逻辑：只对已存在的建筑执行升级（不动住所）。
+
+dau_upgrade_defaults_effect = {
+    if = { limit = { NOT = { has_variable = dau_up_enabled } } set_variable = { name = dau_up_enabled value = 1 } }
+    if = { limit = { NOT = { has_variable = dau_up_cost_percent } } set_variable = { name = dau_up_cost_percent value = 100 } }
+    if = { limit = { NOT = { has_variable = dau_up_interval } } set_variable = { name = dau_up_interval value = 3 } }
+    if = { limit = { NOT = { has_variable = dau_up_batch } } set_variable = { name = dau_up_batch value = 20 } }
+    if = { limit = { NOT = { has_variable = dau_up_group_1 } } set_variable = { name = dau_up_group_1 value = 1 } }
+    if = { limit = { NOT = { has_variable = dau_up_group_2 } } set_variable = { name = dau_up_group_2 value = 1 } }
+    if = { limit = { NOT = { has_variable = dau_up_group_3 } } set_variable = { name = dau_up_group_3 value = 0 } }
+    if = { limit = { NOT = { has_variable = dau_up_generation } } set_variable = { name = dau_up_generation value = 0 } }
+    if = { limit = { NOT = { has_variable = dau_up_last_count } } set_variable = { name = dau_up_last_count value = 0 } }
+    if = { limit = { NOT = { has_variable = dau_up_status } } set_variable = { name = dau_up_status value = 0 } }
+}
+
+dau_upgrade_start_effect = {
+    if = {
+        limit = {
+            NOT = { has_variable = dau_up_pending }
+            var:dau_up_enabled = 1
+            is_landed = yes
+            is_ai = no
+        }
+        change_variable = { name = dau_up_generation add = 1 }
+        set_variable = dau_up_pending
+        save_scope_value_as = { name = dau_up_ticket value = var:dau_up_generation }
+        if = {
+            limit = { var:dau_up_interval = 3 }
+            trigger_event = { on_action = dau_upgrade_tick days = 3 }
+        }
+        else_if = {
+            limit = { var:dau_up_interval = 7 }
+            trigger_event = { on_action = dau_upgrade_tick days = 7 }
+        }
+        else = {
+            trigger_event = { on_action = dau_upgrade_tick months = 1 }
+        }
+    }
+}
+
+dau_upgrade_restart_effect = {
+    remove_variable = dau_up_pending
+    dau_upgrade_start_effect = yes
+}
+
+# Root = 玩家角色。一次检查：单遍扫描全部管理范围内的省份，最多升级 batch 处。
+dau_upgrade_check_effect = {
+    remove_variable = dau_up_stop
+    set_variable = { name = dau_up_last_count value = 0 }
+    set_variable = { name = dau_up_status value = 0 }
+    if = {
+        limit = {
+            var:dau_up_group_1 = 0
+            var:dau_up_group_2 = 0
+            var:dau_up_group_3 = 0
+        }
+        set_variable = { name = dau_up_status value = 1 }
+    }
+    else = {
+        if = {
+            limit = {
+                NOT = { has_variable = dau_up_stop }
+                var:dau_up_group_1 = 1
+            }
+            every_directly_owned_province = {
+                dau_upgrade_province_effect = yes
+            }
+        }
+        if = {
+            limit = {
+                NOT = { has_variable = dau_up_stop }
+                var:dau_up_group_2 = 1
+            }
+            every_held_title = {
+                limit = { tier = tier_county }
+                every_county_province = {
+                    dau_upgrade_province_effect = yes
+                }
+            }
+        }
+        if = {
+            limit = {
+                NOT = { has_variable = dau_up_stop }
+                var:dau_up_group_3 = 1
+            }
+            every_sub_realm_county = {
+                limit = {
+                    NOT = {
+                        holder = { this = scope:dau_up_payer }
+                    }
+                }
+                every_county_province = {
+                    dau_upgrade_province_effect = yes
+                }
+            }
+        }
+        if = {
+            limit = {
+                scope:dau_up_payer = { NOT = { has_variable = dau_up_stop } }
+            }
+            every_owned_trade_post_district = {
+                dau_upgrade_trade_post_effect = yes
+            }
+        }
+        if = {
+            limit = { var:dau_up_last_count > 0 }
+            set_variable = { name = dau_up_status value = 4 }
+        }
+        else = {
+            set_variable = { name = dau_up_status value = 2 }
+        }
+    }
+}
+
+# Root = 省份。找到该省第一处可升级建筑并开工。
+dau_upgrade_province_effect = {
+    if = {
+        limit = {
+            scope:dau_up_payer = { NOT = { has_variable = dau_up_stop } }
+            has_ongoing_holding_construction = no
+            has_ongoing_trade_post_construction = no
+            is_occupied = no
+            NOT = { has_variable = dau_up_done_today }
+        }
+        save_scope_as = dau_up_province
+        set_variable = { name = dau_up_found value = 0 }
+        scope:dau_up_payer = {
+            set_variable = {
+                name = dau_up_pay_gold
+                value = var:dau_up_cost_percent
+            }
+        }
+        every_building_type = {
+            limit = { has_previous_building_level = yes }
+            if = {
+                limit = {
+                    scope:dau_up_province = { var:dau_up_found = 0 }
+                    scope:dau_up_payer = { gold >= var:dau_up_pay_gold }
+                }
+                save_scope_as = dau_up_building
+                scope:dau_up_province = {
+                    if = {
+                        limit = {
+                            can_start_building_construction_for_owner = scope:dau_up_building
+                        }
+                        set_variable = { name = dau_up_found value = 1 }
+                        scope:dau_up_payer = {
+                            if = {
+                                limit = { var:dau_up_pay_gold > 0 }
+                                remove_short_term_gold = var:dau_up_pay_gold
+                            }
+                            change_variable = { name = dau_up_last_count add = 1 }
+                            if = {
+                                limit = { var:dau_up_last_count >= var:dau_up_batch }
+                                set_variable = dau_up_stop
+                            }
+                        }
+                        start_building_construction_for_holder = scope:dau_up_building
+                        set_variable = {
+                            name = dau_up_done_today
+                            value = 1
+                            days = 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+dau_upgrade_manual_check_effect = {
+    save_scope_as = dau_up_payer
+    dau_upgrade_defaults_effect = yes
+    remove_variable = dau_up_pending
+    if = {
+        limit = { var:dau_up_enabled = 1 }
+        dau_upgrade_check_effect = yes
+    }
+    dau_upgrade_start_effect = yes
+}
+
+# Root = 玩家拥有的贸易站区划。引擎不允许脚本对贸易站建筑走普通施工，
+# 这里用 add_building 完成升级，并按固定价格扣费。
+dau_upgrade_trade_post_effect = {
+    save_scope_as = dau_up_tp_district
+    if = {
+        limit = {
+            scope:dau_up_payer = { NOT = { has_variable = dau_up_stop } }
+        }
+        set_variable = {
+            name = dau_up_pay_gold
+            value = scope:dau_up_payer.var:dau_up_cost_percent
+        }
+        set_variable = { name = dau_up_tp_found value = 0 }
+        every_building_type = {
+            limit = { has_previous_building_level = yes }
+            if = {
+                limit = {
+                    scope:dau_up_tp_district = { var:dau_up_tp_found = 0 }
+                    OR = {
+                        scope:dau_up_tp_district = { var:dau_up_pay_gold = 0 }
+                        scope:dau_up_payer = {
+                            gold >= scope:dau_up_tp_district.var:dau_up_pay_gold
+                        }
+                    }
+                }
+                save_scope_as = dau_up_tp_bld
+                if = {
+                    limit = {
+                        scope:dau_up_tp_district = {
+                            can_start_building_construction_for_owner = scope:dau_up_tp_bld
+                        }
+                    }
+                    scope:dau_up_tp_district = {
+                        set_variable = { name = dau_up_tp_found value = 1 }
+                    }
+                    scope:dau_up_payer = {
+                        if = {
+                            limit = { scope:dau_up_tp_district.var:dau_up_pay_gold > 0 }
+                            remove_short_term_gold = scope:dau_up_tp_district.var:dau_up_pay_gold
+                        }
+                        change_variable = { name = dau_up_last_count add = 1 }
+                        if = {
+                            limit = { var:dau_up_last_count >= var:dau_up_batch }
+                            set_variable = dau_up_stop
+                        }
+                    }
+                    scope:dau_up_tp_district = {
+                        add_building = scope:dau_up_tp_bld
+                    }
+                }
+            }
+        }
+        remove_variable = dau_up_pay_gold
+        remove_variable = dau_up_tp_found
+    }
+}

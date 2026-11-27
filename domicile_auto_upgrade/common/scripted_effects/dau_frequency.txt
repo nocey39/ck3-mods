@@ -1,0 +1,72 @@
+﻿dau_start_monthly_effect = {
+    if = { limit = { dau_monthly_active_trigger = yes NOT = { has_variable = dau_monthly_pending } }
+        if = { limit = { NOT = { has_variable = dau_monthly_generation } } set_variable = { name = dau_monthly_generation value = 0 } }
+        change_variable = { name = dau_monthly_generation add = 1 }
+        set_variable = dau_monthly_pending
+        save_scope_value_as = { name = dau_monthly_ticket value = var:dau_monthly_generation }
+        trigger_event = { on_action = dau_monthly_check months = 1 }
+    }
+}
+dau_restart_monthly_effect = {
+    remove_variable = dau_monthly_pending
+    dau_start_monthly_effect = yes
+}
+
+dau_land_start_monthly_effect = {
+    if = {
+        limit = {
+            dau_land_monthly_active_trigger = yes
+            NOT = {
+                has_variable = dau_land_monthly_pending
+            }
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_monthly_generation
+                }
+            }
+            set_variable = {
+                name = dau_land_monthly_generation
+                value = 0
+            }
+        }
+        change_variable = {
+            name = dau_land_monthly_generation
+            add = 1
+        }
+        set_variable = dau_land_monthly_pending
+        save_scope_value_as = {
+            name = dau_land_monthly_ticket
+            value = var:dau_land_monthly_generation
+        }
+        if = {
+            limit = {
+                var:dau_land_interval = 3
+            }
+            trigger_event = {
+                on_action = dau_land_monthly_check
+                days = 3
+            }
+        }
+        else_if = {
+            limit = {
+                var:dau_land_interval = 7
+            }
+            trigger_event = {
+                on_action = dau_land_monthly_check
+                days = 7
+            }
+        }
+        else = {
+            trigger_event = {
+                on_action = dau_land_monthly_check
+                months = 1
+            }
+        }
+    }
+}
+dau_land_restart_monthly_effect = {
+    remove_variable = dau_land_monthly_pending
+    dau_land_start_monthly_effect = yes
+}

@@ -1,0 +1,208 @@
+﻿# These are comparable estimates, in monthly tax equivalents, not quoted income.
+# Root = province; the caller has already checked native eligibility, budget and supply.
+dau_economy_rate_project_effect = {
+    dau_economy_apply_building_profile_effect = yes
+    set_variable = {
+        name = dau_econ_benefit
+        value = {
+            value = var:dau_econ_tax
+            add = { value = var:dau_econ_tax_conditioned multiply = 0.5 }
+            if = {
+                limit = { has_holding = yes exists = barony.trade_market }
+                # A quoted input can still lose out to other holdings at allocation.
+                add = { value = var:dau_econ_supply_tax multiply = 0.25 min = -3 max = 3 }
+            }
+            if = {
+                limit = { has_holding = yes }
+                # Only a share of observed tax will match a particular tax modifier.
+                add = {
+                    value = total_monthly_tax_income
+                    multiply = var:dau_econ_tax_mult
+                    multiply = 0.20
+                    min = -2
+                    max = 2
+                }
+            }
+            if = {
+                limit = { has_variable = dau_econ_market_relief }
+                add = { value = var:dau_econ_market_relief multiply = 0.035 max = 2 }
+            }
+            if = {
+                limit = { has_variable = dau_econ_market_essential }
+                add = { value = var:dau_econ_market_essential multiply = 0.060 max = 3 }
+            }
+            if = {
+                limit = {
+                    has_variable = dau_econ_candidate_category
+                    var:dau_econ_candidate_category = 2
+                    scope:dau_land_payer = { var:dau_land_plan_mode >= 4 }
+                }
+                add = 0.35
+                if = {
+                    limit = { scope:dau_land_payer = { var:dau_land_plan_mode = 5 } }
+                    add = 0.45
+                }
+            }
+            if = {
+                limit = {
+                    has_variable = dau_econ_candidate_category
+                    var:dau_econ_candidate_category = 3
+                    scope:dau_land_payer = { var:dau_land_plan_defense = 1 }
+                }
+                add = 0.35
+            }
+            if = {
+                limit = { NOT = { has_variable = dau_econ_known } }
+                # Keep unmodeled projects eligible with a low-confidence estimate.
+                add = 0.05
+            }
+        }
+    }
+    if = {
+        limit = {
+            exists = county
+            OR = {
+                AND = { var:dau_econ_control != 0 county = { county_control_baseline < 50 } }
+                AND = { var:dau_econ_opinion != 0 county = { base_popular_opinion < 0 } }
+            }
+        }
+        dau_economy_value_county_recovery_effect = yes
+    }
+    if = {
+        limit = {
+            var:dau_econ_growth > 0
+            county ?= {
+                OR = { county_control_baseline < 60 base_popular_opinion < 10 }
+            }
+        }
+        change_variable = {
+            name = dau_econ_benefit
+            subtract = { value = var:dau_econ_growth multiply = 0.015 max = 1 }
+        }
+    }
+    set_variable = { name = dau_econ_priority value = 0 }
+    if = {
+        limit = {
+            has_variable = dau_econ_market_founding_relief
+            has_variable = dau_econ_market_essential
+            var:dau_econ_market_essential > 0
+        }
+        set_variable = { name = dau_econ_priority value = 1 }
+    }
+    set_variable = {
+        name = dau_econ_score
+        value = {
+            value = var:dau_econ_benefit
+            divide = {
+                value = 1
+                add = {
+                    value = var:dau_econ_days
+                    if = { limit = { var:dau_econ_days <= 0 } add = 365 }
+                    divide = 720
+                }
+                if = {
+                    limit = { var:dau_land_c_gold > 0 }
+                    add = {
+                        value = var:dau_land_c_gold
+                        divide = {
+                            value = scope:dau_land_payer.gold
+                            subtract = scope:dau_land_payer.dau_shared_gold_reserve
+                            min = 1
+                        }
+                        multiply = 2
+                        if = {
+                            limit = {
+                                scope:dau_land_payer = {
+                                    has_variable = dau_econ_gold_observed
+                                    var:dau_econ_gold_observed < 0
+                                }
+                            }
+                            multiply = 1.5
+                        }
+                    }
+                }
+                if = {
+                    limit = { var:dau_land_c_treasury > 0 }
+                    add = {
+                        value = var:dau_land_c_treasury
+                        divide = {
+                            value = scope:dau_land_payer.treasury
+                            subtract = scope:dau_land_payer.dau_shared_treasury_reserve
+                            min = 1
+                        }
+                        multiply = 2
+                        if = {
+                            limit = {
+                                scope:dau_land_payer = {
+                                    has_variable = dau_econ_treasury_observed
+                                    var:dau_econ_treasury_observed < 0
+                                }
+                            }
+                            multiply = 1.5
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if = {
+        limit = { var:dau_econ_score <= 0 }
+        scope:dau_land_payer = { set_variable = dau_econ_no_return }
+    }
+    remove_variable = dau_econ_benefit
+    remove_variable = dau_econ_tax
+    remove_variable = dau_econ_tax_conditioned
+    remove_variable = dau_econ_supply_tax
+    remove_variable = dau_econ_tax_mult
+    remove_variable = dau_econ_control
+    remove_variable = dau_econ_opinion
+    remove_variable = dau_econ_days
+    remove_variable = dau_econ_growth
+    remove_variable = dau_econ_known
+    remove_variable = dau_econ_candidate_category
+    clear_saved_scope = dau_economy_building
+}
+
+# Control and opinion affect existing county income, not only the project tile.
+dau_economy_value_county_recovery_effect = {
+    set_variable = { name = dau_econ_county_tax value = 0 }
+    county = {
+        every_county_province = {
+            limit = { has_holding = yes barony.holder ?= { this = scope:dau_land_payer } }
+            scope:dau_land_province = {
+                change_variable = { name = dau_econ_county_tax add = prev.total_monthly_tax_income }
+            }
+        }
+    }
+    change_variable = {
+        name = dau_econ_benefit
+        add = {
+            value = var:dau_econ_county_tax
+            add = 0.25
+            multiply = {
+                value = 0
+                if = {
+                    limit = { county = { county_control_baseline < 50 } }
+                    add = {
+                        value = var:dau_econ_control
+                        min = -20
+                        max = { value = 50 subtract = county.county_control_baseline max = 20 }
+                        multiply = 0.012
+                    }
+                }
+                if = {
+                    limit = { county = { base_popular_opinion < 0 } }
+                    add = {
+                        value = var:dau_econ_opinion
+                        min = -20
+                        max = { value = 0 subtract = county.base_popular_opinion max = 20 }
+                        multiply = 0.004
+                    }
+                }
+            }
+            min = -3
+            max = 3
+        }
+    }
+    remove_variable = dau_econ_county_tax
+}

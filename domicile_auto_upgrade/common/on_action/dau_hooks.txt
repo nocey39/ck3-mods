@@ -1,0 +1,17 @@
+﻿quarterly_playable_pulse = { on_actions = { dau_quarterly_check } }
+dau_quarterly_check = {
+    trigger = { is_ai = no is_alive = yes has_domicile = yes }
+    effect = {
+        dau_initialize_effect = yes
+        if = {
+            limit = { domicile = { has_variable = dau_enabled NOT = { var:dau_interval = 1 } } }
+            domicile = { change_variable = { name = dau_elapsed add = 1 } }
+            if = {
+                limit = { domicile = { var:dau_elapsed >= var:dau_interval } }
+                domicile = { set_variable = { name = dau_elapsed value = 0 } }
+                dau_check_effect = yes
+            }
+            dau_save_settings_effect = yes
+        }
+    }
+}

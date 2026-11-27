@@ -1,0 +1,48 @@
+﻿dau_market_status_text = {
+    type = character
+    text = {
+        trigger = { has_variable = dau_market_disabled }
+        localization_key = dau_market_disabled_text
+    }
+    text = {
+        trigger = { has_variable = dau_market_commission_started }
+        localization_key = dau_market_commission_started_text
+    }
+    text = {
+        trigger = { has_variable = dau_market_holding_wait }
+        localization_key = dau_market_holding_wait_text
+    }
+    text = {
+        trigger = { has_variable = dau_market_release has_variable = dau_market_wait }
+        localization_key = dau_market_relief_wait_text
+    }
+    text = {
+        trigger = { has_variable = dau_market_wait }
+        localization_key = dau_market_wait_text
+    }
+    text = {
+        trigger = { has_variable = dau_market_release }
+        localization_key = dau_market_relief_text
+    }
+    text = {
+        trigger = { has_variable = dau_market_input_committed }
+        localization_key = dau_market_committed_text
+    }
+    text = { localization_key = dau_market_ready_text }
+}
+
+dau_econ_observation_text = {
+    type = character
+    text = {
+        trigger = {
+            has_treasury = yes
+            has_variable = dau_econ_treasury_observed_change
+        }
+        localization_key = dau_econ_observation_both
+    }
+    text = {
+        trigger = { has_variable = dau_econ_gold_observed_change }
+        localization_key = dau_econ_observation_gold
+    }
+    text = { localization_key = dau_econ_observation_empty }
+}

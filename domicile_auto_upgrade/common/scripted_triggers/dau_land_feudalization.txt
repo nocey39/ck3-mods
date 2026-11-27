@@ -1,0 +1,159 @@
+﻿dau_land_feudalization_native_personal_trigger = {
+    scope:actor = {
+        NOR = {
+            government_has_flag = government_is_tribal
+            government_has_flag = government_is_in_steppe
+        }
+    }
+    scope:actor = {
+        this = scope:recipient
+    }
+    scope:target = {
+        holder = scope:actor
+        is_capital_barony = no
+        trigger_if = {
+            limit = {
+                tier <= tier_county
+            }
+            title_province = {
+                OR = {
+                    has_holding_type = tribal_holding
+                    has_holding_type = nomad_holding
+                    has_holding_type = herder_holding
+                }
+            }
+        }
+        trigger_else = {
+            custom_description = {
+                text = "feudalize_holding_interaction_title_not_county_or_below"
+                always = no
+            }
+        }
+    }
+    scope:target = {
+        trigger_if = {
+            limit = {
+                tier <= tier_county
+            }
+            title_province = {
+                barony_controller = scope:actor
+                has_ongoing_holding_construction = no
+                has_ongoing_trade_post_construction = no
+            }
+        }
+    }
+}
+dau_land_feudalization_native_support_trigger = {
+    scope:actor = {
+        trigger_if = {
+            limit = {
+                is_ai = yes
+            }
+            is_adult = yes
+            gold >= {
+                value = feudalize_holding_interaction_cost
+                multiply = 4
+            }
+            is_at_war = no
+            ai_has_pious_builder_personality = yes
+            NOT = {
+                has_variable = conqueror
+            }
+            ai_has_warlike_personality = no
+        }
+        NOR = {
+            government_has_flag = government_is_tribal
+            government_has_flag = government_is_nomadic
+        }
+    }
+    scope:recipient = {
+        target_is_liege_or_above = scope:actor
+        NOR = {
+            government_has_flag = government_is_tribal
+            government_has_flag = government_is_nomadic
+        }
+        this != scope:actor
+        any_held_title = {
+            tier <= tier_county
+            title_province ?= {
+                OR = {
+                    has_holding_type = tribal_holding
+                    has_holding_type = nomad_holding
+                    has_holding_type = herder_holding
+                }
+            }
+        }
+    }
+    scope:target = {
+        is_capital_barony = no
+        trigger_if = {
+            limit = {
+                tier <= tier_county
+            }
+            title_province = {
+                barony_controller = scope:recipient
+                has_ongoing_holding_construction = no
+                has_ongoing_trade_post_construction = no
+            }
+        }
+    }
+    scope:target = {
+        trigger_if = {
+            limit = {
+                tier <= tier_county
+            }
+            title_province = {
+                OR = {
+                    has_holding_type = tribal_holding
+                    has_holding_type = nomad_holding
+                    has_holding_type = herder_holding
+                }
+            }
+        }
+        trigger_else = {
+            custom_description = {
+                text = "feudalize_holding_interaction_title_not_county_or_below"
+                always = no
+            }
+        }
+    }
+}
+dau_land_eligible_feudalization_trigger = {
+    OR = {
+        has_holding_type = tribal_holding
+        has_holding_type = nomad_holding
+        has_holding_type = herder_holding
+    }
+    dau_land_in_scope_trigger = yes
+    dau_land_available_trigger = yes
+    scope:dau_land_payer = {
+        var:dau_land_feudalize = 1
+    }
+    exists = scope:actor
+    exists = scope:target
+    exists = scope:recipient
+    scope:actor = {
+        this = scope:dau_land_payer
+    }
+    barony.holder = {
+        this = scope:recipient
+    }
+    scope:target = {
+        holder = scope:recipient
+        tier <= tier_county
+        is_capital_barony = no
+        title_province = {
+            this = scope:dau_land_province
+        }
+    }
+    OR = {
+        AND = {
+            var:dau_land_feudalization_route = 0
+            dau_land_feudalization_native_personal_trigger = yes
+        }
+        AND = {
+            var:dau_land_feudalization_route = 1
+            dau_land_feudalization_native_support_trigger = yes
+        }
+    }
+}

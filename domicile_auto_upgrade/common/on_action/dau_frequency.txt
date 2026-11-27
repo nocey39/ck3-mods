@@ -1,0 +1,51 @@
+﻿dau_monthly_check = {
+    effect = {
+        if = {
+            limit = {
+                has_variable = dau_monthly_pending
+                exists = scope:dau_monthly_ticket
+                scope:dau_monthly_ticket = var:dau_monthly_generation
+            }
+            remove_variable = dau_monthly_pending
+            if = {
+                limit = {
+                    is_ai = no
+                    is_alive = yes
+                }
+                dau_initialize_effect = yes
+                if = {
+                    limit = {
+                        dau_monthly_active_trigger = yes
+                    }
+                    dau_check_effect = yes
+                }
+                dau_start_monthly_effect = yes
+            }
+        }
+    }
+}
+dau_land_monthly_check = {
+	effect = {
+		remove_variable = dau_land_monthly_pending
+	}
+}
+on_player_character_change = {
+    on_actions = {
+        dau_frequency_player_change
+    }
+}
+dau_frequency_player_change = {
+    trigger = {
+        is_ai = no
+        is_alive = yes
+    }
+    effect = {
+        dau_initialize_effect = yes
+        if = {
+            limit = {
+                is_landed = yes
+            }
+            dau_land_initialize_effect = yes
+        }
+    }
+}

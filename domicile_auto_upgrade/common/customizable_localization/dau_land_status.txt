@@ -1,0 +1,163 @@
+﻿dau_land_status_text = {
+    type = character
+    text = {
+        trigger = {
+            var:dau_land_status = 6
+        }
+        localization_key = dau_land_status_replace_failed
+    }
+    text = {
+        trigger = {
+            NOT = {
+                has_variable = dau_land_enabled
+            }
+        }
+        localization_key = dau_land_status_off
+    }
+    text = {
+        trigger = {
+            var:dau_land_group_1 = 0
+            var:dau_land_group_2 = 0
+            var:dau_land_group_3 = 0
+        }
+        localization_key = dau_land_status_no_scope
+    }
+    text = {
+        trigger = {
+            var:dau_land_last_count > 0
+        }
+        localization_key = dau_land_status_done
+    }
+    text = {
+        trigger = {
+            var:dau_land_status = 5
+        }
+        localization_key = dau_land_status_failed
+    }
+    text = {
+        trigger = {
+            has_variable = dau_market_wait
+            NOT = { has_variable = dau_market_disabled }
+        }
+        localization_key = dau_land_status_market_wait
+    }
+    text = {
+        trigger = {
+            has_variable = dau_econ_no_return
+            NOT = { has_variable = dau_market_disabled }
+        }
+        localization_key = dau_econ_no_return_text
+    }
+    text = {
+        trigger = {
+            var:dau_land_status = 2
+        }
+        localization_key = dau_land_status_budget
+    }
+    text = {
+        trigger = {
+            var:dau_land_status = 1
+        }
+        localization_key = dau_land_status_none
+    }
+    text = {
+        localization_key = dau_land_status_ready
+    }
+}
+dau_land_category_economy_text = {
+    type = character
+    text = {
+        trigger = {
+            var:dau_land_category_economy > 0
+        }
+        localization_key = dau_land_category_economy_on
+    }
+    text = {
+        localization_key = dau_land_category_economy_off
+    }
+}
+dau_land_category_military_text = {
+    type = character
+    text = {
+        trigger = {
+            var:dau_land_category_military > 0
+        }
+        localization_key = dau_land_category_military_on
+    }
+    text = {
+        localization_key = dau_land_category_military_off
+    }
+}
+dau_land_category_defense_text = {
+    type = character
+    text = {
+        trigger = {
+            var:dau_land_category_defense > 0
+        }
+        localization_key = dau_land_category_defense_on
+    }
+    text = {
+        localization_key = dau_land_category_defense_off
+    }
+}
+dau_land_plan_text = {
+    type = character
+    text = {
+        trigger = {
+            var:dau_land_plan_mode = 0
+        }
+        localization_key = dau_land_plan_0
+    }
+    text = {
+        trigger = {
+            var:dau_land_plan_mode = 1
+        }
+        localization_key = dau_land_plan_1
+    }
+    text = {
+        trigger = {
+            var:dau_land_plan_mode = 2
+        }
+        localization_key = dau_land_plan_2
+    }
+    text = {
+        trigger = {
+            var:dau_land_plan_mode = 3
+        }
+        localization_key = dau_land_plan_3
+    }
+    text = {
+        trigger = {
+            var:dau_land_plan_mode = 4
+        }
+        localization_key = dau_land_plan_4
+    }
+    text = {
+        trigger = {
+            var:dau_land_plan_mode = 5
+        }
+        localization_key = dau_land_plan_5
+    }
+    text = {
+        localization_key = dau_land_plan_0
+    }
+}
+dau_land_zone_progress_text = {
+    type = character
+    text = {
+        trigger = {
+            has_variable = dau_land_zone_idle
+        }
+        localization_key = dau_land_zone_idle_text
+    }
+    text = {
+        trigger = {
+            var:dau_land_group_3 = 1
+            has_variable = dau_land_zone_focus
+        }
+        localization_key = dau_land_zone_focus_text
+    }
+    text = {
+        localization_key = dau_land_zone_ready_text
+    }
+}

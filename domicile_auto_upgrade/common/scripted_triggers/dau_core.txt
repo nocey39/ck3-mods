@@ -1,0 +1,8 @@
+﻿dau_affordable_trigger = {
+    OR = { var:dau_c_gold = 0 gold >= { add = var:dau_c_gold add = dau_shared_gold_reserve } }
+    OR = { var:dau_c_treasury = 0 treasury >= { add = var:dau_c_treasury add = dau_shared_treasury_reserve } }
+    OR = { var:dau_c_prestige = 0 prestige >= { add = var:dau_c_prestige add = dau_shared_prestige_reserve } }
+    OR = { var:dau_c_herd = 0 domicile = { herd >= { add = prev.var:dau_c_herd add = var:dau_herd_reserve } } }
+    OR = { var:dau_c_influence = 0 influence >= var:dau_c_influence }
+    OR = { var:dau_c_piety = 0 piety >= var:dau_c_piety }
+}

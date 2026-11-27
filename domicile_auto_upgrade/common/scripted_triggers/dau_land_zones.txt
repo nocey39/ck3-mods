@@ -1,0 +1,92 @@
+﻿dau_land_zone_owner_trigger = {
+    OR = {
+        NOT = {
+            scope:dau_land_payer = {
+                has_variable = dau_land_zone_owner
+            }
+        }
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_zone_owner = 1
+            }
+            barony.holder ?= {
+                this = scope:dau_land_payer
+            }
+        }
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_zone_owner = 2
+            }
+            county.holder ?= {
+                this = scope:dau_land_payer
+            }
+            NOT = {
+                barony.holder ?= {
+                    this = scope:dau_land_payer
+                }
+            }
+        }
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_zone_owner = 3
+                has_variable = dau_land_zone_loaded
+            }
+            county.holder ?= {
+                is_vassal_or_below_of = scope:dau_land_payer
+                NOT = {
+                    this = scope:dau_land_payer
+                }
+            }
+            NOT = {
+                barony.holder ?= {
+                    this = scope:dau_land_payer
+                }
+            }
+            OR = {
+                county = {
+                    this = scope:dau_land_payer.var:dau_land_zone_loaded
+                }
+                county.duchy = {
+                    this = scope:dau_land_payer.var:dau_land_zone_loaded
+                }
+            }
+        }
+    }
+}
+dau_land_zone_new_owner_trigger = {
+    OR = {
+        NOT = {
+            scope:dau_land_payer = {
+                has_variable = dau_land_zone_owner
+            }
+        }
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_zone_owner = 1
+            }
+            county.holder ?= {
+                this = scope:dau_land_payer
+            }
+        }
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_zone_owner = 3
+                has_variable = dau_land_zone_loaded
+            }
+            county.holder ?= {
+                is_vassal_or_below_of = scope:dau_land_payer
+                NOT = {
+                    this = scope:dau_land_payer
+                }
+            }
+            OR = {
+                county = {
+                    this = scope:dau_land_payer.var:dau_land_zone_loaded
+                }
+                county.duchy = {
+                    this = scope:dau_land_payer.var:dau_land_zone_loaded
+                }
+            }
+        }
+    }
+}

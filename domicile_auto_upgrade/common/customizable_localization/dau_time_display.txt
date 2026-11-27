@@ -1,0 +1,10 @@
+﻿dau_time_display = {
+    type = character
+    text = { trigger = { domicile ?= { var:dau_time_percent = 0 } } localization_key = dau_time_fastest }
+    text = { localization_key = dau_time_percentage }
+}
+dau_land_time_display = {
+    type = character
+    text = { trigger = { var:dau_land_time_percent = 0 } localization_key = dau_time_fastest }
+    text = { localization_key = dau_land_time_percentage }
+}

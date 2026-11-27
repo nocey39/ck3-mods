@@ -1,0 +1,9 @@
+﻿dau_native_domicile_affordable_trigger = {
+    var:dau_c_gold >= 0
+    var:dau_c_treasury >= 0
+    var:dau_c_prestige >= 0
+    var:dau_c_piety >= 0
+    var:dau_c_influence >= 0
+    var:dau_c_herd >= 0
+    dau_affordable_trigger = yes
+}

@@ -1,0 +1,13 @@
+﻿dau_monthly_active_trigger = { is_ai = no is_alive = yes has_domicile = yes domicile = { has_variable = dau_enabled var:dau_interval = 1 } }
+
+dau_land_monthly_active_trigger = {
+    is_ai = no
+    is_alive = yes
+    is_landed = yes
+    has_variable = dau_land_enabled
+    OR = {
+        var:dau_land_interval = 1
+        var:dau_land_interval = 7
+        var:dau_land_interval = 3
+    }
+}

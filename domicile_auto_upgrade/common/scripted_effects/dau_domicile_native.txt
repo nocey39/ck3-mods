@@ -1,0 +1,74 @@
+﻿dau_native_domicile_price_effect = {
+    set_variable = { name = dau_c_gold value = { value = $GOLD$ multiply = dau_cost_factor } }
+    set_variable = { name = dau_c_treasury value = { value = $TREASURY$ multiply = dau_cost_factor } }
+    set_variable = { name = dau_c_prestige value = { value = $PRESTIGE$ multiply = dau_cost_factor } }
+    set_variable = { name = dau_c_piety value = { value = $PIETY$ multiply = dau_cost_factor } }
+    set_variable = { name = dau_c_influence value = { value = $INFLUENCE$ multiply = dau_cost_factor } }
+    set_variable = { name = dau_c_herd value = { value = $HERD$ multiply = dau_cost_factor } }
+    if = {
+        limit = { has_treasury = yes government_allows = replace_gold_cost_by_treasury }
+        change_variable = { name = dau_c_treasury add = { value = $FLEX_GOLD$ multiply = dau_cost_factor } }
+    }
+    else = {
+        change_variable = { name = dau_c_gold add = { value = $FLEX_GOLD$ multiply = dau_cost_factor } }
+    }
+}
+
+dau_native_domicile_record_price_effect = {
+    set_variable = { name = dau_pay_gold value = var:dau_c_gold }
+    set_variable = { name = dau_pay_treasury value = var:dau_c_treasury }
+    set_variable = { name = dau_pay_prestige value = var:dau_c_prestige }
+    set_variable = { name = dau_pay_piety value = var:dau_c_piety }
+    set_variable = { name = dau_pay_influence value = var:dau_c_influence }
+    set_variable = { name = dau_pay_herd value = var:dau_c_herd }
+}
+
+dau_native_domicile_consider_effect = {
+    set_variable = { name = dau_any_eligible value = 1 }
+    dau_native_domicile_price_effect = {
+        GOLD = $GOLD$ TREASURY = $TREASURY$ FLEX_GOLD = $FLEX_GOLD$ PRESTIGE = $PRESTIGE$
+        PIETY = $PIETY$ INFLUENCE = $INFLUENCE$ HERD = $HERD$
+    }
+    if = {
+        limit = { dau_native_domicile_affordable_trigger = yes }
+        set_variable = { name = dau_c_score value = { add = var:dau_c_gold add = var:dau_c_treasury } }
+        if = {
+            limit = {
+                OR = {
+                    NOT = { has_variable = dau_candidate }
+                    AND = { domicile = { var:dau_priority = 1 } var:dau_best_main < $MAIN$ }
+                    AND = {
+                        OR = { domicile = { var:dau_priority = 0 } var:dau_best_main = $MAIN$ }
+                        var:dau_c_score < var:dau_best_score
+                    }
+                }
+            }
+            set_variable = { name = dau_candidate value = flag:$BUILDING$ }
+            set_variable = { name = dau_best_main value = $MAIN$ }
+            set_variable = { name = dau_best_score value = var:dau_c_score }
+            set_variable = dau_native_domicile_selected
+        }
+    }
+}
+
+dau_native_domicile_start_effect = {
+    dau_native_domicile_price_effect = {
+        GOLD = $GOLD$ TREASURY = $TREASURY$ FLEX_GOLD = $FLEX_GOLD$ PRESTIGE = $PRESTIGE$
+        PIETY = $PIETY$ INFLUENCE = $INFLUENCE$ HERD = $HERD$
+    }
+    if = {
+        limit = {
+            domicile = { has_ongoing_domicile_construction = no }
+            dau_native_domicile_affordable_trigger = yes
+        }
+        dau_prepare_domicile_time_effect = yes
+        domicile = { construct_domicile_building = $BUILDING$ }
+        dau_cleanup_domicile_time_effect = yes
+        if = {
+            limit = { domicile = { OR = { has_domicile_construction = $BUILDING$ has_domicile_building = $BUILDING$ } } }
+            dau_native_domicile_record_price_effect = yes
+            dau_pay_selected_effect = yes
+            domicile = { set_variable = { name = dau_status value = 4 } }
+        }
+    }
+}

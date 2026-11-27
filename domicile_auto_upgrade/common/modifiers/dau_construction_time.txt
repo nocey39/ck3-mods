@@ -1,0 +1,60 @@
+﻿dau_domicile_time_0_modifier = {
+    domicile_build_speed = -1
+}
+dau_domicile_time_10_modifier = {
+    domicile_build_speed = -0.90
+}
+dau_domicile_time_20_modifier = {
+    domicile_build_speed = -0.80
+}
+dau_domicile_time_30_modifier = {
+    domicile_build_speed = -0.70
+}
+dau_domicile_time_40_modifier = {
+    domicile_build_speed = -0.60
+}
+dau_domicile_time_50_modifier = {
+    domicile_build_speed = -0.50
+}
+dau_domicile_time_60_modifier = {
+    domicile_build_speed = -0.40
+}
+dau_domicile_time_70_modifier = {
+    domicile_build_speed = -0.30
+}
+dau_domicile_time_80_modifier = {
+    domicile_build_speed = -0.20
+}
+dau_domicile_time_90_modifier = {
+    domicile_build_speed = -0.10
+}
+dau_holding_time_0_modifier = {
+    holding_build_speed = -1
+}
+dau_holding_time_10_modifier = {
+    holding_build_speed = -0.90
+}
+dau_holding_time_20_modifier = {
+    holding_build_speed = -0.80
+}
+dau_holding_time_30_modifier = {
+    holding_build_speed = -0.70
+}
+dau_holding_time_40_modifier = {
+    holding_build_speed = -0.60
+}
+dau_holding_time_50_modifier = {
+    holding_build_speed = -0.50
+}
+dau_holding_time_60_modifier = {
+    holding_build_speed = -0.40
+}
+dau_holding_time_70_modifier = {
+    holding_build_speed = -0.30
+}
+dau_holding_time_80_modifier = {
+    holding_build_speed = -0.20
+}
+dau_holding_time_90_modifier = {
+    holding_build_speed = -0.10
+}

@@ -1,0 +1,311 @@
+﻿# Root = empty province. Candidate type defines the native eligibility and quote.
+dau_land_consider_new_holding_effect = {
+    if = {
+        limit = { dau_land_eligible_new_$TYPE$ = yes }
+        if = {
+            limit = { scope:dau_land_payer = { NOT = { has_variable = dau_diag_elig_$TYPE$ } } }
+            scope:dau_land_payer = { set_variable = dau_diag_elig_$TYPE$ }
+            $TYPE$
+        }
+        scope:dau_land_payer = { set_variable = dau_land_any_eligible }
+        dau_land_quote_new_holding_effect = { TYPE = $TYPE$ }
+        if = {
+            limit = { dau_land_affordable_trigger = yes }
+            dau_land_evaluate_new_holding_supply_effect = { HOLDING = $HOLDING$ }
+            if = { limit = { has_variable = dau_market_blocked } }
+            remove_variable = dau_market_blocked
+            if = {
+                limit = { NOT = { has_variable = dau_market_blocked } }
+                dau_economy_rate_project_effect = yes
+                dau_land_rate_holding_owner_fit_effect = yes
+                scope:dau_land_payer = {
+                    if = {
+                        limit = { dau_economy_candidate_wins_trigger = yes }
+                        set_variable = { name = dau_land_candidate value = flag:dau_land_new_$TYPE$ }
+                        if = {
+                            limit = { NOT = { has_variable = dau_diag_cand } }
+                            set_variable = dau_diag_cand
+                        }
+                        set_variable = { name = dau_land_target value = scope:dau_land_province }
+                        set_variable = { name = dau_land_best_rank value = scope:dau_land_province.var:dau_land_rank }
+                        set_variable = { name = dau_land_best_score value = scope:dau_land_province.var:dau_land_c_score }
+                        set_variable = { name = dau_econ_best value = scope:dau_land_province.var:dau_econ_score }
+                        set_variable = { name = dau_econ_best_priority value = scope:dau_land_province.var:dau_econ_priority }
+                    }
+                }
+            }
+            else = { dau_land_report_new_holding_wait_effect = yes }
+            clear_saved_scope = dau_economy_holding
+            clear_saved_scope = dau_economy_building
+            dau_market_clear_candidate_effect = yes
+        }
+    }
+}
+
+dau_land_quote_new_holding_effect = {
+    set_variable = { name = dau_land_c_gold value = dau_land_cost_new_$TYPE$_gold }
+    set_variable = { name = dau_land_c_treasury value = dau_land_cost_new_$TYPE$_treasury }
+    set_variable = { name = dau_land_c_prestige value = dau_land_cost_new_$TYPE$_prestige }
+    set_variable = { name = dau_land_c_piety value = dau_land_cost_new_$TYPE$_piety }
+    set_variable = { name = dau_land_c_influence value = dau_land_cost_new_$TYPE$_influence }
+    set_variable = {
+        name = dau_land_c_score
+        value = { add = var:dau_land_c_gold add = var:dau_land_c_treasury }
+    }
+}
+
+dau_land_evaluate_new_holding_supply_effect = {
+    dau_market_clear_candidate_effect = yes
+    holding_type:$HOLDING$ = { save_scope_as = dau_economy_holding }
+    dau_economy_bind_holding_profile_effect = yes
+    if = {
+        limit = { dau_market_new_holding_allowed_trigger = yes }
+        dau_market_evaluate_founding_effect = yes
+    }
+    else = { set_variable = dau_market_blocked }
+}
+
+dau_land_report_new_holding_wait_effect = {
+    scope:dau_land_payer = {
+        set_variable = dau_market_wait
+        set_variable = dau_market_holding_wait
+    }
+}
+
+# The primary holding is a useful ownership signal. Domain pressure changes
+# priority while native validity and ownership transfers remain authoritative.
+dau_land_rate_holding_owner_fit_effect = {
+    if = {
+        limit = {
+            var:dau_econ_score > 0
+            scope:holder.government_type.primary_holding ?= { this = scope:dau_economy_holding }
+        }
+        if = {
+            limit = {
+                scope:holder = {
+                    government_has_flag = government_uses_domain_limit
+                    domain_limit_available < 1
+                }
+            }
+            change_variable = { name = dau_econ_score multiply = 0.8 }
+        }
+        else = { change_variable = { name = dau_econ_score multiply = 1.2 } }
+    }
+}
+
+# Root = payer. The chosen type, budget and inputs are rechecked at native start.
+dau_land_create_holding_effect = {
+    $TYPE$
+    var:dau_land_target = {
+        dau_land_new_context_effect = yes
+        if = {
+            limit = { dau_land_eligible_new_$TYPE$ = yes }
+            dau_land_quote_new_holding_effect = { TYPE = $TYPE$ }
+            if = {
+                limit = { dau_land_affordable_trigger = yes }
+                dau_land_evaluate_new_holding_supply_effect = { HOLDING = $HOLDING$ }
+                if = { limit = { has_variable = dau_market_blocked } }
+                remove_variable = dau_market_blocked
+                if = {
+                    limit = { NOT = { has_variable = dau_market_blocked } }
+                    scope:dau_land_payer = {
+                        set_variable = { name = dau_land_pay_gold value = scope:dau_land_province.var:dau_land_c_gold }
+                        set_variable = { name = dau_land_pay_treasury value = scope:dau_land_province.var:dau_land_c_treasury }
+                        set_variable = { name = dau_land_pay_prestige value = scope:dau_land_province.var:dau_land_c_prestige }
+                        set_variable = { name = dau_land_pay_piety value = scope:dau_land_province.var:dau_land_c_piety }
+                        set_variable = { name = dau_land_pay_influence value = scope:dau_land_province.var:dau_land_c_influence }
+                    }
+                    dau_prepare_holding_time_effect = yes
+                    begin_create_holding = { type = $HOLDING$ }
+                    dau_cleanup_holding_time_effect = yes
+                    if = {
+                        limit = {
+                            OR = {
+                                has_ongoing_holding_construction = yes
+                                has_holding_type = $HOLDING$
+                            }
+                        }
+                        dau_market_commit_holding_effect = yes
+                        scope:dau_land_payer = {
+                            dau_land_pay_effect = yes
+                            change_variable = { name = dau_land_last_count add = 1 }
+                            change_variable = { name = dau_land_last_created add = 1 }
+                            set_variable = { name = dau_land_status value = 3 }
+                        }
+                    }
+                    else = {
+                        scope:dau_land_payer = {
+                            set_variable = { name = dau_land_status value = 5 }
+                            set_variable = dau_land_stop
+                        }
+                    }
+                }
+                else = {
+                    dau_land_report_new_holding_wait_effect = yes
+                    scope:dau_land_payer = {
+                        set_variable = { name = dau_land_status value = 1 }
+                        set_variable = dau_land_stop
+                    }
+                }
+                clear_saved_scope = dau_economy_holding
+                clear_saved_scope = dau_economy_building
+            }
+            else = {
+                scope:dau_land_payer = {
+                    set_variable = { name = dau_land_status value = 2 }
+                    set_variable = dau_land_stop
+                }
+            }
+        }
+        else = {
+            scope:dau_land_payer = {
+                set_variable = { name = dau_land_status value = 1 }
+                set_variable = dau_land_stop
+            }
+        }
+        dau_land_clear_province_effect = yes
+    }
+}
+
+dau_land_consider_new_castle = {
+    dau_land_consider_new_holding_effect = { TYPE = castle HOLDING = castle_holding }
+}
+dau_land_create_castle_effect = {
+    dau_land_create_holding_effect = { TYPE = castle HOLDING = castle_holding }
+}
+
+dau_land_consider_new_city = {
+    dau_land_consider_new_holding_effect = { TYPE = city HOLDING = city_holding }
+}
+dau_land_create_city_effect = {
+    dau_land_create_holding_effect = { TYPE = city HOLDING = city_holding }
+}
+
+dau_land_consider_new_temple = {
+    dau_land_consider_new_holding_effect = { TYPE = temple HOLDING = church_holding }
+}
+dau_land_create_temple_effect = {
+    dau_land_create_holding_effect = { TYPE = temple HOLDING = church_holding }
+}
+
+dau_land_consider_new_citadel = {
+    dau_land_consider_new_holding_effect = { TYPE = citadel HOLDING = temple_citadel_holding }
+}
+dau_land_create_citadel_effect = {
+    dau_land_create_holding_effect = { TYPE = citadel HOLDING = temple_citadel_holding }
+}
+
+dau_land_new_context_effect = {
+    save_scope_as = dau_land_province
+    county.holder = {
+        save_scope_as = holder
+    }
+    county = {
+        save_scope_as = county
+    }
+}
+dau_land_scan_new_holding_province_effect = {
+    if = {
+        limit = { province_has_no_holding_trigger = yes }
+        if = {
+            limit = { scope:dau_land_payer = { NOT = { has_variable = dau_diag_empty } } }
+            scope:dau_land_payer = { set_variable = dau_diag_empty }
+        }
+    }
+    if = {
+        limit = {
+            dau_land_new_in_scope_trigger = yes
+            dau_land_new_available_trigger = yes
+        }
+        dau_land_new_context_effect = yes
+        set_variable = {
+            name = dau_land_rank
+            value = 2
+        }
+        if = {
+            limit = {
+                county.holder = {
+                    this = scope:dau_land_payer
+                }
+            }
+            set_variable = {
+                name = dau_land_rank
+                value = 0
+            }
+        }
+        dau_land_consider_new_castle = yes
+        dau_land_consider_new_city = yes
+        dau_land_consider_new_temple = yes
+        dau_land_consider_new_citadel = yes
+        dau_land_clear_province_effect = yes
+    }
+}
+dau_land_scan_new_holding_county_effect = {
+    every_county_province = {
+        dau_land_scan_new_holding_province_effect = yes
+    }
+}
+dau_land_scan_new_holdings_effect = {
+    if = {
+        limit = {
+            var:dau_land_zone_owner = 1
+            var:dau_land_auto_holdings = 1
+        }
+        every_held_title = {
+            limit = {
+                tier = tier_county
+            }
+            dau_land_scan_new_holding_county_effect = yes
+        }
+    }
+    else_if = {
+        limit = {
+            var:dau_land_zone_owner = 3
+            var:dau_land_auto_holdings = 1
+        }
+        every_in_list = {
+            variable = dau_land_zone_provinces
+            dau_land_scan_new_holding_province_effect = yes
+        }
+    }
+    else_if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_zone_owner
+            }
+        }
+        if = {
+            limit = {
+                var:dau_land_auto_holdings = 1
+            }
+            if = {
+                limit = {
+                    var:dau_land_group_1 = 1
+                }
+                every_held_title = {
+                    limit = {
+                        tier = tier_county
+                    }
+                    dau_land_scan_new_holding_county_effect = yes
+                }
+            }
+            if = {
+                limit = {
+                    var:dau_land_group_3 = 1
+                }
+                every_sub_realm_county = {
+                    limit = {
+                        exists = holder
+                        holder = {
+                            is_vassal_or_below_of = scope:dau_land_payer
+                            NOT = {
+                                this = scope:dau_land_payer
+                            }
+                        }
+                    }
+                    dau_land_scan_new_holding_county_effect = yes
+                }
+            }
+        }
+    }
+}

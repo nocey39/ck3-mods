@@ -1,0 +1,473 @@
+﻿# Compact land runtime. No building IDs, district types or mod names belong here.
+# The generated quote file owns dau_land_native_quote_effect and maps
+# scope:dau_native_building to a quote through dau_land_native_apply_quote_effect.
+#
+# Quote contract (root = payer character):
+#   scope:dau_native_building = the building_type being quoted
+#   scope:dau_land_province  = the province being considered
+#   dau_land_q_valid         = 1 when a quote exists
+#   dau_land_q_gold/treasury/flex_gold/prestige/piety/influence
+#   dau_land_q_category      = 0 general, 1 economy, 2 military, 3 defense
+
+# Called by the generated switch with literal cost arguments. Root is the payer.
+dau_land_native_apply_quote_effect = {
+    set_variable = { name = dau_land_q_valid value = 1 }
+    set_variable = { name = dau_land_q_gold value = $GOLD$ }
+    set_variable = { name = dau_land_q_treasury value = $TREASURY$ }
+    set_variable = { name = dau_land_q_flex_gold value = $FLEX_GOLD$ }
+    set_variable = { name = dau_land_q_prestige value = $PRESTIGE$ }
+    set_variable = { name = dau_land_q_piety value = $PIETY$ }
+    set_variable = { name = dau_land_q_influence value = $INFLUENCE$ }
+    set_variable = { name = dau_land_q_category value = $CATEGORY$ }
+}
+
+# Native membership checks take a literal building key. The quote catalog
+# supplies that key from the game's building definitions.
+dau_land_native_check_base_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = {
+                has_previous_building_level = no
+                is_district_type = no
+            }
+            scope:dau_land_province = {
+                NOT = { dau_land_native_base_fits_trigger = { BUILDING = $BUILDING$ } }
+            }
+        }
+        remove_variable = dau_land_q_valid
+    }
+}
+
+# Root = payer. A primary building can be registered by any native district.
+dau_land_native_note_empty_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { dau_land_native_empty_district_slot_trigger = { DISTRICT = $DISTRICT$ } }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+
+# Typed variants: the district's slot type is baked in by the generator instead of
+# being asked from the engine at runtime (the runtime district_slot_type test is unreliable).
+dau_land_native_note_empty_regular_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { has_free_district_slot = yes }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+dau_land_native_note_empty_resource_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { NOT = { exists = resource_district } }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+dau_land_native_note_empty_duchy_capital_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { NOT = { exists = duchy_capital_district } }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+dau_land_native_note_empty_special_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { has_special_district_slot = yes has_special_district = no }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+dau_land_native_note_empty_great_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { has_great_district_slot = yes has_great_district = no }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+dau_land_native_note_empty_entrepot_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { has_entrepot_district_slot = yes NOT = { exists = entrepot_district } }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+dau_land_native_note_empty_trade_post_district_slot_effect = {
+    if = {
+        limit = {
+            scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+            scope:dau_land_province = { NOT = { exists = trade_post_district } }
+        }
+        set_variable = dau_land_q_empty_district_slot
+    }
+}
+
+# Fallback hook used by the generated switch when a building_type has no row.
+# It intentionally leaves dau_land_q_valid unset: no quote means no construction.
+dau_land_native_quote_adapter_effect = {
+    dau_land_registered_quote_effect = yes
+}
+
+# Root = payer. Clears stale quote state, then evaluates the generated quote.
+dau_land_native_prepare_quote_effect = {
+    remove_variable = dau_land_q_valid
+    remove_variable = dau_land_q_empty_district_slot
+    set_variable = { name = dau_land_q_gold value = 0 }
+    set_variable = { name = dau_land_q_treasury value = 0 }
+    set_variable = { name = dau_land_q_flex_gold value = 0 }
+    set_variable = { name = dau_land_q_prestige value = 0 }
+    set_variable = { name = dau_land_q_piety value = 0 }
+    set_variable = { name = dau_land_q_influence value = 0 }
+    set_variable = { name = dau_land_q_category value = 0 }
+    set_variable = { name = dau_land_q_priority value = 0 }
+    if = {
+        limit = { exists = scope:dau_native_building }
+        dau_land_native_quote_effect = yes
+        if = {
+            limit = {
+                scope:dau_native_building = { has_previous_building_level = no is_district_type = yes }
+                NOT = { has_variable = dau_land_q_empty_district_slot }
+            }
+            remove_variable = dau_land_q_valid
+        }
+        remove_variable = dau_land_q_empty_district_slot
+    }
+}
+
+# Root = province. Converts the raw quote into the batch budget variables.
+dau_land_native_quote_cost_effect = {
+    set_variable = {
+        name = dau_land_c_gold
+        value = { value = scope:dau_land_payer.var:dau_land_q_gold multiply = dau_land_cost_factor min = 0 }
+    }
+    set_variable = {
+        name = dau_land_c_treasury
+        value = { value = scope:dau_land_payer.var:dau_land_q_treasury multiply = dau_land_cost_factor min = 0 }
+    }
+    set_variable = {
+        name = dau_land_c_prestige
+        value = { value = scope:dau_land_payer.var:dau_land_q_prestige multiply = dau_land_cost_factor min = 0 }
+    }
+    set_variable = {
+        name = dau_land_c_piety
+        value = { value = scope:dau_land_payer.var:dau_land_q_piety multiply = dau_land_cost_factor min = 0 }
+    }
+    set_variable = {
+        name = dau_land_c_influence
+        value = { value = scope:dau_land_payer.var:dau_land_q_influence multiply = dau_land_cost_factor min = 0 }
+    }
+    if = {
+        limit = { scope:dau_land_payer = { dau_land_uses_treasury_trigger = yes } }
+        set_variable = {
+            name = dau_land_c_treasury
+            value = {
+                value = var:dau_land_c_treasury
+                add = var:dau_land_c_gold
+                add = {
+                    value = scope:dau_land_payer.var:dau_land_q_flex_gold
+                    multiply = dau_land_cost_factor
+                }
+            }
+        }
+        set_variable = { name = dau_land_c_gold value = 0 }
+    }
+    else = {
+        change_variable = {
+            name = dau_land_c_gold
+            add = {
+                value = scope:dau_land_payer.var:dau_land_q_flex_gold
+                multiply = dau_land_cost_factor
+            }
+        }
+    }
+    set_variable = {
+        name = dau_land_c_score
+        value = { add = var:dau_land_c_gold add = var:dau_land_c_treasury }
+    }
+}
+
+# Root = building_type. Quote one eligible type and remember it if it wins.
+dau_land_native_consider_effect = {
+    scope:dau_land_payer = { dau_land_native_prepare_quote_effect = yes }
+    if = {
+        limit = {
+            scope:dau_land_payer = {
+                has_variable = dau_land_q_valid
+                dau_land_native_quote_nonnegative_trigger = yes
+                trigger_if = {
+                    limit = { has_variable = dau_land_scan_empty }
+                    dau_land_native_quote_category_trigger = yes
+                }
+            }
+        }
+        scope:dau_land_payer = { set_variable = dau_land_any_eligible }
+        scope:dau_land_province = {
+            dau_land_native_quote_cost_effect = yes
+            set_variable = { name = dau_land_cat_priority value = 1 }
+            if = {
+                limit = { scope:dau_land_payer = { var:dau_land_q_category = 1 } }
+                set_variable = { name = dau_land_cat_priority value = var:dau_plan_e_priority }
+            }
+            else_if = {
+                limit = { scope:dau_land_payer = { var:dau_land_q_category = 2 } }
+                set_variable = { name = dau_land_cat_priority value = var:dau_plan_m_priority }
+            }
+            else_if = {
+                limit = { scope:dau_land_payer = { var:dau_land_q_category = 3 } }
+                set_variable = { name = dau_land_cat_priority value = 2 }
+            }
+            set_variable = { name = dau_land_quote_priority value = 0 }
+            if = {
+                limit = { scope:dau_land_payer = { has_variable = dau_land_q_priority } }
+                set_variable = { name = dau_land_quote_priority value = scope:dau_land_payer.var:dau_land_q_priority }
+            }
+            if = {
+                limit = {
+                    scope:dau_land_payer = { has_variable = dau_market_scan }
+                    dau_land_affordable_trigger = yes
+                }
+                dau_market_evaluate_effect = yes
+            }
+            if = { limit = { has_variable = dau_market_blocked } }
+            remove_variable = dau_market_blocked
+            if = {
+                limit = {
+                    dau_land_affordable_trigger = yes
+                    NOT = { has_variable = dau_market_blocked }
+                }
+                if = {
+                    limit = { scope:dau_land_payer = { has_variable = dau_econ_scan } }
+                    scope:dau_native_building = { save_scope_as = dau_economy_building }
+                    set_variable = { name = dau_econ_candidate_category value = scope:dau_land_payer.var:dau_land_q_category }
+                    dau_economy_rate_project_effect = yes
+                }
+                scope:dau_land_payer = {
+                    if = {
+                        limit = {
+                            trigger_if = {
+                                limit = { has_variable = dau_econ_scan }
+                                dau_economy_candidate_wins_trigger = yes
+                            }
+                            trigger_else = {
+                                OR = {
+                                    NOT = { has_variable = dau_land_candidate }
+                                    var:dau_land_best_rank > scope:dau_land_province.var:dau_land_rank
+                                    AND = {
+                                        var:dau_land_best_rank = scope:dau_land_province.var:dau_land_rank
+                                        OR = {
+                                            var:dau_land_best_cat_priority < scope:dau_land_province.var:dau_land_cat_priority
+                                            AND = {
+                                                var:dau_land_best_cat_priority = scope:dau_land_province.var:dau_land_cat_priority
+                                                OR = {
+                                                    var:dau_land_best_q_priority < scope:dau_land_province.var:dau_land_quote_priority
+                                                    AND = {
+                                                        var:dau_land_best_q_priority = scope:dau_land_province.var:dau_land_quote_priority
+                                                        var:dau_land_best_score > scope:dau_land_province.var:dau_land_c_score
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        set_variable = { name = dau_land_candidate value = flag:dau_land_native_upgrade }
+                        set_variable = { name = dau_land_target value = scope:dau_land_province }
+                        set_variable = { name = dau_land_best_rank value = scope:dau_land_province.var:dau_land_rank }
+                        set_variable = { name = dau_land_best_score value = scope:dau_land_province.var:dau_land_c_score }
+                        if = {
+                            limit = { has_variable = dau_econ_scan }
+                            set_variable = { name = dau_econ_best value = scope:dau_land_province.var:dau_econ_score }
+                            set_variable = { name = dau_econ_best_priority value = scope:dau_land_province.var:dau_econ_priority }
+                        }
+                        set_variable = { name = dau_land_best_cat_priority value = scope:dau_land_province.var:dau_land_cat_priority }
+                        set_variable = { name = dau_land_best_q_priority value = scope:dau_land_province.var:dau_land_quote_priority }
+                        set_variable = { name = dau_land_type value = scope:dau_native_building }
+                        set_variable = { name = dau_land_quote_gold value = var:dau_land_q_gold }
+                        set_variable = { name = dau_land_quote_treasury value = var:dau_land_q_treasury }
+                        set_variable = { name = dau_land_quote_flex_gold value = var:dau_land_q_flex_gold }
+                        set_variable = { name = dau_land_quote_prestige value = var:dau_land_q_prestige }
+                        set_variable = { name = dau_land_quote_piety value = var:dau_land_q_piety }
+                        set_variable = { name = dau_land_quote_influence value = var:dau_land_q_influence }
+                        set_variable = { name = dau_land_quote_category value = var:dau_land_q_category }
+                        set_variable = { name = dau_land_quote_new value = 0 }
+                        if = {
+                            limit = { has_variable = dau_land_scan_empty }
+                            set_variable = { name = dau_land_quote_new value = 1 }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+# Root = province. Native scan over building types for this province.
+dau_land_native_scan_effect = {
+    every_building_type = {
+        limit = { dau_land_native_type_mode_trigger = yes }
+        save_scope_as = dau_native_building
+        scope:dau_land_province = {
+            if = {
+                limit = { can_start_building_construction_for_owner = scope:dau_native_building }
+                if = {
+                    limit = {
+                        scope:dau_land_payer = { has_variable = dau_market_scan }
+                        scope:dau_native_building = { has_previous_building_level = no }
+                    }
+                    scope:dau_land_payer = { set_variable = dau_land_scan_empty }
+                    scope:dau_native_building = { dau_land_native_consider_effect = yes }
+                    scope:dau_land_payer = { remove_variable = dau_land_scan_empty }
+                }
+                else = { scope:dau_native_building = { dau_land_native_consider_effect = yes } }
+                dau_market_clear_candidate_effect = yes
+            }
+        }
+    }
+}
+
+# Root = payer. Revalidate the saved type, quote, scope and budget before charging.
+dau_land_native_execute_effect = {
+    var:dau_land_target = {
+        dau_land_context_effect = yes
+        if = {
+            limit = {
+                scope:dau_land_payer = {
+                    has_variable = dau_land_type
+                    exists = var:dau_land_type
+                }
+            }
+            scope:dau_land_payer.var:dau_land_type = {
+                save_scope_as = dau_native_building
+                save_scope_as = dau_land_chosen_type
+            }
+            if = {
+                limit = {
+                    dau_land_in_scope_trigger = yes
+                    dau_land_available_trigger = yes
+                    can_start_building_construction_for_owner = scope:dau_land_chosen_type
+                    trigger_if = {
+                        limit = { scope:dau_land_payer = { var:dau_land_quote_new = 1 } }
+                        scope:dau_land_chosen_type = {
+                            NOR = {
+                                has_previous_building_level = yes
+                                building_type_has_flag = duchy_building
+                            }
+                        }
+                    }
+                    trigger_else = {
+                        scope:dau_land_chosen_type = { has_previous_building_level = yes }
+                    }
+                }
+                scope:dau_land_payer = { dau_land_native_prepare_quote_effect = yes }
+                if = {
+                    limit = {
+                        scope:dau_land_payer = {
+                            has_variable = dau_land_q_valid
+                            dau_land_native_quote_nonnegative_trigger = yes
+                            trigger_if = {
+                                limit = { var:dau_land_quote_new = 1 }
+                                dau_land_native_quote_category_trigger = yes
+                            }
+                            var:dau_land_q_gold = var:dau_land_quote_gold
+                            var:dau_land_q_treasury = var:dau_land_quote_treasury
+                            var:dau_land_q_flex_gold = var:dau_land_quote_flex_gold
+                            var:dau_land_q_prestige = var:dau_land_quote_prestige
+                            var:dau_land_q_piety = var:dau_land_quote_piety
+                            var:dau_land_q_influence = var:dau_land_quote_influence
+                            var:dau_land_q_category = var:dau_land_quote_category
+                        }
+                    }
+                    dau_land_native_quote_cost_effect = yes
+                    if = {
+                        limit = { scope:dau_land_payer = { has_variable = dau_market_batch var:dau_land_zone_owner = 1 } }
+                        dau_market_evaluate_effect = yes
+                    }
+                    if = { limit = { has_variable = dau_market_blocked } }
+                    remove_variable = dau_market_blocked
+                    if = {
+                        limit = {
+                            dau_land_affordable_trigger = yes
+                            NOT = { has_variable = dau_market_blocked }
+                        }
+                        dau_prepare_holding_time_effect = yes
+                        start_building_construction_for_holder = scope:dau_land_chosen_type
+                        dau_cleanup_holding_time_effect = yes
+                        if = {
+                            limit = {
+                                OR = {
+                                    has_ongoing_holding_construction = yes
+                                    has_ongoing_trade_post_construction = yes
+                                }
+                            }
+                            set_variable = { name = dau_land_upgraded_today value = 1 days = 1 }
+                            if = {
+                                limit = { scope:dau_land_payer = { has_variable = dau_market_batch var:dau_land_zone_owner = 1 } }
+                                dau_market_commit_effect = yes
+                            }
+                            scope:dau_land_payer = {
+                                if = {
+                                    limit = { NOT = { has_variable = dau_land_charge_guard } }
+                                    set_variable = dau_land_charge_guard
+                                    set_variable = { name = dau_land_pay_gold value = scope:dau_land_province.var:dau_land_c_gold }
+                                    set_variable = { name = dau_land_pay_treasury value = scope:dau_land_province.var:dau_land_c_treasury }
+                                    set_variable = { name = dau_land_pay_prestige value = scope:dau_land_province.var:dau_land_c_prestige }
+                                    set_variable = { name = dau_land_pay_piety value = scope:dau_land_province.var:dau_land_c_piety }
+                                    set_variable = { name = dau_land_pay_influence value = scope:dau_land_province.var:dau_land_c_influence }
+                                    dau_land_pay_effect = yes
+                                    change_variable = { name = dau_land_last_count add = 1 }
+                                    change_variable = { name = dau_land_last_built add = var:dau_land_quote_new }
+                                    set_variable = { name = dau_land_status value = 3 }
+                                }
+                            }
+                        }
+                        else = {
+                            scope:dau_land_payer = {
+                                set_variable = { name = dau_land_status value = 5 }
+                                set_variable = dau_land_stop
+                            }
+                        }
+                    }
+                    else = {
+                        scope:dau_land_payer = {
+                            set_variable = { name = dau_land_status value = 2 }
+                            set_variable = dau_land_stop
+                        }
+                    }
+                }
+                else = {
+                    scope:dau_land_payer = {
+                        set_variable = { name = dau_land_status value = 5 }
+                        set_variable = dau_land_stop
+                    }
+                }
+            }
+            else = {
+                scope:dau_land_payer = {
+                    set_variable = { name = dau_land_status value = 5 }
+                    set_variable = dau_land_stop
+                }
+            }
+        }
+        else = {
+            scope:dau_land_payer = {
+                set_variable = { name = dau_land_status value = 5 }
+                set_variable = dau_land_stop
+            }
+        }
+        dau_land_clear_province_effect = yes
+    }
+}

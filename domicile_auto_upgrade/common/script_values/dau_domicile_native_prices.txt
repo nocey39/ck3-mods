@@ -1,0 +1,269 @@
+﻿# Generated conditional domicile prices. Evaluated in the owner character scope.
+dau_native_domicile_cost_abf1018bdf9429ec4360 = { if = { limit = { government_has_flag = government_is_merchant } value = merchant_company_main_prestige_cost_tier_2_value } else = { value = 0 } }
+dau_native_domicile_cost_00a8981fb7ca7655c6cb = { if = { limit = { government_has_flag = government_is_merchant } value = merchant_company_main_prestige_cost_tier_3_value } else = { value = 0 } }
+dau_native_domicile_cost_0a16ec47d85e76c6e276 = { if = { limit = { government_has_flag = government_is_merchant } value = merchant_company_main_prestige_cost_tier_4_value } else = { value = 0 } }
+dau_native_domicile_cost_f1d1f5ff1b5acf6899a9 = { if = { limit = { government_has_flag = government_is_merchant } value = merchant_company_main_prestige_cost_tier_5_value } else = { value = 0 } }
+dau_native_domicile_cost_2791d2e6afc939b5511f = { if = { limit = { government_has_flag = government_is_merchant } value = merchant_company_main_prestige_cost_tier_6_value } else = { value = 0 } }
+dau_native_domicile_cost_870eb9a4c4414ed85967 = { value = company_external_prestige_cost_tier_2_value }
+dau_native_domicile_cost_7f653c8db3c7ed17a4a7 = { value = company_external_gold_cost_tier_2_value }
+dau_native_domicile_cost_0e77a9ab47f743b72c4b = { value = company_external_prestige_cost_tier_3_value }
+dau_native_domicile_cost_d4705ec0cb682cdac5eb = { value = company_external_gold_cost_tier_3_value }
+dau_native_domicile_cost_a186a8beff8f1b779cdf = { value = company_external_prestige_cost_tier_4_value }
+dau_native_domicile_cost_d4d490afdaed0c38a29b = { value = company_external_gold_cost_tier_4_value }
+dau_native_domicile_cost_3b865b5cff4ad2c4e030 = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_d277a8e7713191039996 = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_ef7f9978c07a7b9db470 = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_ff2623ac541203a2a0c4 = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_9a46eff128221472fd4c = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_9c2fce0ef547bc6af16c = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_86a7842ac0f357865049 = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_42a8602598386b3907b8 = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_1a787d7931ce2eeec738 = { value = company_external_prestige_cost_tier_2_value }
+dau_native_domicile_cost_7696347e9ce8baa1304a = { value = company_external_gold_cost_tier_2_value }
+dau_native_domicile_cost_3546222c71cf3dd8669f = { value = company_external_prestige_cost_tier_3_value }
+dau_native_domicile_cost_2c43395721bdd0b9961d = { value = company_external_gold_cost_tier_3_value }
+dau_native_domicile_cost_3c66351bb3593d5f3253 = { value = company_external_prestige_cost_tier_4_value }
+dau_native_domicile_cost_77110c3fa9e1d1443c5b = { value = company_external_gold_cost_tier_4_value }
+dau_native_domicile_cost_4836cd7d432133a8ece2 = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_d0cc33a756ed98653fbc = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_5eed27c0f9f217e158eb = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_dbbe2d2c301187d3893a = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_2f8991f9e22f654875c4 = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_fbcff106a65b0c9ff97f = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_aacec779724707aa1e4c = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_8393fc665aa794569b4e = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_082f1d13832199066995 = { value = company_external_prestige_cost_tier_2_value }
+dau_native_domicile_cost_2bac0ae879de3031acdf = { value = company_external_gold_cost_tier_2_value }
+dau_native_domicile_cost_279e322c8768acb51648 = { value = company_external_prestige_cost_tier_3_value }
+dau_native_domicile_cost_dc1a376e55483f09accb = { value = company_external_gold_cost_tier_3_value }
+dau_native_domicile_cost_6f05ded68b52ac46c427 = { value = company_external_prestige_cost_tier_4_value }
+dau_native_domicile_cost_f094523423ed9fc636c1 = { value = company_external_gold_cost_tier_4_value }
+dau_native_domicile_cost_ad33b720c534d5852db3 = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_b0a5c5f5317fdf5f45ae = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_a853bc2ef95648595321 = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_28b7c60aafb057d1a1e3 = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_ffbf5f7f800baad5d785 = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_191ab35bbf5c65a89b49 = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_321a4e0f0ae0536ebad2 = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_a1190b1bce96bc163b22 = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_b4eb31439fd092e98d20 = { value = merchant_company_upgrade_cost_tier_1_value }
+dau_native_domicile_cost_c962a46d3f88d84cc281 = { value = company_external_prestige_cost_tier_2_value }
+dau_native_domicile_cost_bf8594a7c795767a3717 = { value = company_external_gold_cost_tier_2_value }
+dau_native_domicile_cost_ba137f97052e3330d0bc = { value = company_external_prestige_cost_tier_3_value }
+dau_native_domicile_cost_acb2d3d67131c57cbee3 = { value = company_external_gold_cost_tier_3_value }
+dau_native_domicile_cost_19cad0200c4dfb9924d9 = { value = company_external_prestige_cost_tier_4_value }
+dau_native_domicile_cost_3c105d3f3cac91dc5aec = { value = company_external_gold_cost_tier_4_value }
+dau_native_domicile_cost_fb5b129140d576e26197 = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_8c029ec9e17861f83ed0 = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_a0598877ef7a042e9f1a = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_5de785afd45347055b08 = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_7e220936b5a55f8003e3 = { value = company_external_prestige_cost_tier_5_value }
+dau_native_domicile_cost_29a15ece641a24967207 = { value = company_external_gold_cost_tier_5_value }
+dau_native_domicile_cost_9b0d44168c18503f1d32 = { value = company_external_prestige_cost_tier_6_value }
+dau_native_domicile_cost_5eb786c4302834c5308d = { value = company_external_gold_cost_tier_6_value }
+dau_native_domicile_cost_a7aa3c289c590a7c3e4b = { value = estate_external_building_high_cost_tier_5_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_057de1ec042362ace757 = { value = estate_external_building_high_cost_tier_6_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_d3f56f4cb715d117c1bd = { value = estate_external_building_normal_cost_tier_5_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_98006b24e2b17f4f3b7f = { value = estate_external_building_normal_cost_tier_6_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_840b4f28503391bc1e9b = { value = estate_external_building_high_cost_tier_5_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_37b76f68e3616cd14151 = { value = estate_external_building_high_cost_tier_6_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_f71370e123ebb57ab427 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_1c5ddb952ca9edf2b582 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_fcb071b9efa1f0bf9ff1 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_a3b596853b3315ed0c11 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_2f564da238ee48736232 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_b2508d2fa658ff82a7c5 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_7c769c0472688d60dc07 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_12ffd1a9cd357918968d = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_940f782947ca6bfbeeb0 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_8333a4740f333721a3b9 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_7b56dacec4a2b55c5763 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_1b5cc4bab697f5c51811 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_temple } multiply = 0.75 desc = raid_insight_temple } }
+dau_native_domicile_cost_660c29851cb9aefb7048 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_7533e3d2c3edfea605d6 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_cef400a798f0e258aa5d = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_8050785aaca891f25d6c = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_ae79b61c5403ea09af6d = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_6964db1160df9e08c078 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_fab0c98f6be2d85dbd69 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_914f12c07803b449891b = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_9f316ff528bbfb4a0b82 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_352c84a252d9fc75fd22 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_332af527594ed7634494 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_3d78c05632743af7fb34 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_barracks } multiply = 0.75 desc = raid_insight_barracks } }
+dau_native_domicile_cost_d9146a8b64e1a6d0bc7e = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_98c6098c790af310d915 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_5c043f1b50086cedd80b = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_e8a34b0f02cc596a34ec = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_5befd506fbba88fcbed1 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_cd744253dbb59e7f15b8 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_b5e1337bf01ad84bddc5 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_0d6b84fb823010a2b1cb = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_3e2aa35bdcf945fd9804 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_f63aae83ec8ec5b4cb69 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_998a5bebc1d85ff6e03e = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_f5f1225bc6f2bfdb8dc2 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_watchtower } multiply = 0.75 desc = raid_insight_watchtower } }
+dau_native_domicile_cost_b09c34dd5643b0a5f884 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_3677a6276887cda0c918 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_12e6af533b9f5048d400 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_d43aa98ce5200d689b5b = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_1e6136e3a104905d94e5 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_51d050c7472313916440 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_e9e636e14d9f6a33cf55 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_22ccdf2bc22904ba8ea2 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_17a5da30db877661fb5f = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_3a5f554bbf23cae9459c = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_26fe7d5a97f7c5a25782 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_b731fda223c696cf9058 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_guardhouse } multiply = 0.75 desc = raid_insight_guardhouse } }
+dau_native_domicile_cost_12e4f9c682a426fdefc3 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_88610dc4b39ce4d0612d = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_4f96e0d6870ada6578d9 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_21543c507f1a7d7d767f = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_b4bf8282ae5827222da7 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_0917143f3ec9f922109e = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_0d2f5506f59f3018293b = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_ca90a1f9eef618ed1c71 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_2b387dcc8e669e38c8f5 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_0184bed02c8f1dec8130 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_277e81985a8a19c4892c = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_fa43731b48b22c40ddd2 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_d28b86375ec51f80bc21 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_21b9a10a27692f9c4502 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_cf466110bc9515e82d40 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_95f572a0c7536a46ab1d = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_garden } multiply = 0.75 desc = raid_insight_garden } }
+dau_native_domicile_cost_e340f9b2985f64100935 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_b36ee089b69ae350550a = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_573dea1017db1640f470 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_a8c3b46c7d107bc415c9 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_7d3179cd2cd3a33529a1 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_20c4d093de5c0c3b6e8f = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_6499802fe39662894815 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_fa66cc5bba4d74c00590 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_c27e4bdb3827435f6ac3 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_a527ebd0fa196abadf09 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_2c4ba34bd66b52ee4485 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_8382fb955622ac43a07e = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_stable } multiply = 0.75 desc = raid_insight_stable } }
+dau_native_domicile_cost_1695792477c8f7ec14d2 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_e51bc8293539fdf6cbbd = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_9273d6d23015c1fb590f = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_36d34c19b23d721f69b4 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_1a6e916561c6f3122b1f = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_bbe6ebd978a8071aabd0 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_cd31ac425b927b1a3807 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_317256c1d0558d2abf0d = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_8d015d4f077812c799f8 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_9c38477b1136802ddae9 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_efdddb8bea6567aae949 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_ac0a2cef56e027d70df8 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_workshop } multiply = 0.75 desc = raid_insight_workshop } }
+dau_native_domicile_cost_17d6b369e0473e8c36c9 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_ddc1bebee99bf5c5e635 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_be32738241292a5520c7 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_daffe9206410d2cb9d9d = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_c369fff14237b6f1dd2e = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_5cc229501cc79f364d9b = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_a4eeebb482bada34c274 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_31ecdc61ca6f674f3c22 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_80504280e1e7d15779c3 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_a8a2fad148b99ceb34d4 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_c65469f2e750ae5040ca = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_7b786215ec536ac2ed83 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_121e20cb7ddca2204a45 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_b369410b6f191af3880f = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_fb372bf98ea05c172e52 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_0fe79589793e9c45a60a = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_storage } multiply = 0.75 desc = raid_insight_storage } }
+dau_native_domicile_cost_e23bee4c1a908935ab8a = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_6e51b3f78ed3cadb43ee = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_bcc91f58f770c2a93766 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_96d02408795a151ae551 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_5c54bf3bb30243a3c8eb = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_1803ca0f8c552ba9fb7d = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_d1bbcbea5e79765a8cd7 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_4fabc280bf21e3f6c276 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_b7f1cfc67f19b3cb8253 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_b86cad51f0dd7b18e9f1 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_12206601d008cb6104af = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_ad8b51955d82cad16f63 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_market } multiply = 0.75 desc = raid_insight_market } }
+dau_native_domicile_cost_379ce9fcf9c9ab817eb3 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_ed2c91faa1f3eb62456c = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_e46757a0d1298a35f056 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_868fe2a4a167c5b9786c = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_b64fe243f3ad409e933c = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_2571a06ad738d515e572 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_bd412f3fb7d682767f91 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_645479b6f4dc5f43afe3 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_8f4b8c853f1203d98816 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_cc4be7dc0357bcc8522c = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_ccb46dabf4b960934942 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_e882653f8f0bcbfe8979 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grazing_land } multiply = 0.75 desc = raid_insight_grazing_land } }
+dau_native_domicile_cost_86570db9a6f16fefd411 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_18af0f1341e3895ab379 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_6963fab6ac33af5fc637 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_c4ffe7e5fb07b3464352 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_7ddbf24348a466cb86cb = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_4dbaffe35c31f90dc55e = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_2b5eada72e1478b60bb7 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_eaad3d320c6893fd5a16 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_4d34b335d5af3b29e1e4 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_d5155984ec4df43bac98 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_53393643857985ad5762 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_f0a68b912e5258ec4929 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_a00e9258a2714e5c5af1 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_da7688351d652a79682d = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_cc4baec2472d3dab1239 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_43178bd618decbc6179e = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_c8fd8ecbeac0b8dcb3a1 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_cf072c9a388a17a50f14 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_5bc9e4b31522aa955301 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_4bd3c2b0bcf19b52b87e = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_8536f283aa8061164720 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_96d6dcac551e1038aad6 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_573abcbde1ef39559812 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_4968646727be1eaec816 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_vineyard } multiply = 0.75 desc = raid_insight_vineyard } }
+dau_native_domicile_cost_b1b00d129a7ca187063c = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_19bf63f4a410629ba3ab = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_32655294da04d52f5829 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_acdd8e79f39aa2e635cf = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_5e27cfa33e59a23b1fc8 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_9207400fcaeba98fd4a1 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_baef613f8fa866d7b4eb = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_44baf7e233b6919fc047 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_00d893fe66a65a8b626e = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_1adcdfbc6c11fbf2c52c = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_1da793fd8b381eddf2c7 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_98e8d65985e50872b071 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_olive } multiply = 0.75 desc = raid_insight_olive } }
+dau_native_domicile_cost_bc9cc8f49f09026f50c5 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_f6e0b6841360b80da7f7 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_a695ddc17e6c5b09bbb3 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_bebc4286b1c4f8a4195f = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_fafd7c224857bfa5be06 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_e3448f87023d27259b4a = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_54d874c1b3e093bfea38 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_8db3daf54ec8beee326b = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_70e6a0fb9c9d72b6e7d8 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_cad0c66939c3182158ca = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_c7782db7e26aa3431b9a = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_c4b20f4cd38950801bfb = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_silk } multiply = 0.75 desc = raid_insight_silk } }
+dau_native_domicile_cost_ac5b24ff2f165b3798db = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_97ed7f7503a19481aeec = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_c13623bab275dc2b34a9 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_b42cc615afdde6b0b791 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_2341c53b1ffc6dcce5f2 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_c00b486292a2fe98ad91 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_ada4189ddedfd9ec8ac5 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_e6013e0eafd68a3dcbee = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_54f9c460d5117c039ee5 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_86ccf58fcee25275ec53 = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_baf2b49782c70d484358 = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_3a4db946c78c173c4f2d = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_tea } multiply = 0.75 desc = raid_insight_tea } }
+dau_native_domicile_cost_c1a3c0011480831dd692 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_91e9a2e17226f2fd86cc = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_c9ebfc34bad4c141d89d = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_2aee9d15459d38846098 = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_e7333f338b42d93cf9c4 = { value = estate_internal_building_normal_cost_tier_1_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_df55fd51098aed044f6f = { value = estate_internal_building_normal_cost_tier_2_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_7d5c40b4a579f7000f8a = { value = estate_internal_building_normal_cost_tier_3_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_16a52d813d44fd2f0e3c = { value = estate_internal_building_normal_cost_tier_4_value if = { limit = { has_character_modifier = raid_insight_grain_field } multiply = 0.75 desc = raid_insight_grain_field } }
+dau_native_domicile_cost_21b6ce861a37dc37ae71 = { value = estate_internal_building_normal_cost_tier_1_value }
+dau_native_domicile_cost_a3951f196d8081250399 = { value = estate_internal_building_normal_cost_tier_2_value }
+dau_native_domicile_cost_b664e01c9703cc73ca4d = { value = estate_internal_building_normal_cost_tier_3_value }
+dau_native_domicile_cost_f96348775d711d29001a = { value = estate_internal_building_normal_cost_tier_4_value }

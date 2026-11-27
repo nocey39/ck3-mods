@@ -1,0 +1,804 @@
+﻿# Direct holdings share the native market's observed supply and a construction
+# ledger. Only completed, observed supply can satisfy a new input requirement.
+
+dau_market_bind_effect = {
+    clear_saved_scope = dau_market
+    clear_saved_scope = dau_market_anchor
+    if = {
+        limit = { exists = barony.trade_market.trade_market_owner }
+        barony.trade_market = {
+            save_scope_as = dau_market
+            trade_market_owner = { save_scope_as = dau_market_anchor }
+        }
+    }
+}
+
+dau_market_bind_holder_effect = {
+    if = {
+        limit = { exists = barony.holder }
+        barony.holder = { save_scope_as = holder }
+    }
+    else_if = {
+        limit = { exists = county.holder }
+        county.holder = { save_scope_as = holder }
+    }
+}
+
+# Empty baronies can belong to a different market from their county capital.
+dau_market_register_effect = {
+    dau_market_bind_effect = yes
+    scope:dau_market_anchor ?= {
+        if = {
+            limit = {
+                NOT = {
+                    scope:dau_land_payer = {
+                        is_target_in_variable_list = { name = dau_market_anchors target = scope:dau_market_anchor }
+                    }
+                }
+            }
+            dau_market_clear_flows_effect = yes
+            clear_variable_map = dau_market_category_stock
+            clear_variable_map = dau_market_founding_gaps
+            dau_market_initialize_flows_effect = yes
+            scope:dau_market = { dau_market_food_snapshot_effect = yes }
+            # Copy the observed food deficits before recipes append requests.
+            clear_variable_list = dau_econ_market_food_goods
+            every_in_list = {
+                variable = dau_market_requested_goods
+                save_scope_as = dau_econ_market_food_good
+                prev = {
+                    add_to_variable_list = { name = dau_econ_market_food_goods target = scope:dau_econ_market_food_good }
+                }
+            }
+            set_variable = { name = dau_market_actual_link value = scope:dau_market }
+            scope:dau_land_payer = {
+                add_to_variable_list = { name = dau_market_anchors target = scope:dau_market_anchor }
+            }
+        }
+    }
+}
+
+# Temporary market ledgers are attached to their representative titles and
+# rebuilt once each check. No forecast is carried over as actual supply.
+dau_market_prepare_effect = {
+    remove_variable = dau_market_wait
+    remove_variable = dau_market_holding_wait
+    remove_variable = dau_market_release
+    remove_variable = dau_market_input_committed
+    remove_variable = dau_market_commission_started
+    if = {
+        limit = { var:dau_land_group_1 = 1 NOT = { has_variable = dau_market_disabled } }
+        set_variable = dau_market_batch
+        every_directly_owned_province = {
+            limit = { exists = barony.trade_market.trade_market_owner }
+            dau_market_register_effect = yes
+        }
+        every_held_title = {
+            limit = { tier = tier_county }
+            every_county_province = {
+                limit = { has_holding = no exists = barony.trade_market.trade_market_owner }
+                dau_market_register_effect = yes
+            }
+        }
+        every_directly_owned_province = {
+            limit = { NOT = { has_variable = dau_market_new_holding } }
+            if = {
+                limit = { OR = { has_ongoing_holding_construction = yes has_ongoing_trade_post_construction = yes } }
+                dau_market_bind_effect = yes
+                if = {
+                    limit = { exists = scope:dau_market_anchor }
+                    if = {
+                        limit = { exists = var:dau_market_project }
+                        dau_market_record_project_effect = yes
+                    }
+                    else = { scope:dau_market_anchor = { set_variable = dau_market_unknown_pipeline } }
+                }
+            }
+            else = { remove_variable = dau_market_project }
+        }
+        every_held_title = {
+            limit = { tier = tier_county }
+            every_county_province = {
+                limit = {
+                    OR = {
+                        has_variable = dau_market_new_holding
+                        has_holding = no
+                    }
+                }
+                if = {
+                    limit = { has_ongoing_holding_construction = yes }
+                    dau_market_bind_effect = yes
+                    if = {
+                        limit = { exists = scope:dau_market_anchor }
+                        scope:dau_market_anchor = { set_variable = dau_market_growth_reserved }
+                        if = {
+                            limit = {
+                                has_variable = dau_market_new_holding
+                                exists = var:dau_market_project
+                            }
+                            dau_market_record_founding_effect = yes
+                        }
+                    }
+                }
+                else_if = {
+                    limit = { has_variable = dau_market_new_holding }
+                    remove_variable = dau_market_new_holding
+                    remove_variable = dau_market_project
+                }
+            }
+        }
+    }
+}
+
+dau_market_finish_effect = {
+    every_in_list = {
+        variable = dau_market_anchors
+        dau_market_clear_flows_effect = yes
+        clear_variable_map = dau_market_category_stock
+        clear_variable_map = dau_market_founding_gaps
+        clear_variable_list = dau_econ_market_food_goods
+        remove_variable = dau_market_actual_link
+    }
+    clear_variable_list = dau_market_anchors
+    remove_variable = dau_market_batch
+}
+
+dau_market_clear_candidate_effect = {
+    remove_variable = dau_market_blocked
+    remove_variable = dau_market_unquantified
+    remove_variable = dau_market_candidate_input
+    remove_variable = dau_market_relief_rank
+    remove_variable = dau_market_amount
+    remove_variable = dau_market_available
+    remove_variable = dau_market_manual_only
+    remove_variable = dau_econ_market_relief
+    remove_variable = dau_econ_market_essential
+    remove_variable = dau_econ_market_founding_relief
+    remove_variable = dau_econ_priority
+    remove_variable = dau_econ_score
+}
+
+dau_market_evaluate_effect = {
+    dau_market_clear_candidate_effect = yes
+    dau_market_bind_effect = yes
+    if = {
+        limit = { exists = scope:dau_market_anchor }
+        scope:dau_native_building = { save_scope_as = dau_market_building }
+        if = {
+            limit = { scope:dau_land_payer ?= { has_variable = dau_econ_scan } }
+            set_variable = dau_econ_market_scoring
+        }
+        dau_market_building_profile_effect = yes
+        if = {
+            limit = { has_variable = dau_econ_market_scoring }
+            remove_variable = dau_econ_market_scoring
+            dau_econ_market_finish_relief_effect = yes
+        }
+        if = {
+            limit = { has_variable = dau_market_manual_only }
+            set_variable = dau_market_blocked
+        }
+        if = {
+            limit = {
+                OR = {
+                    has_variable = dau_market_unquantified
+                    AND = {
+                        has_variable = dau_market_candidate_input
+                        scope:dau_market_anchor = {
+                            OR = {
+                                has_variable = dau_market_unknown_pipeline
+                                has_variable = dau_market_settling
+                            }
+                        }
+                    }
+                }
+            }
+            set_variable = dau_market_blocked
+        }
+        if = {
+            limit = { has_variable = dau_market_blocked NOT = { has_variable = dau_market_manual_only } }
+            scope:dau_land_payer = { set_variable = dau_market_wait }
+        }
+        else_if = {
+            limit = { has_variable = dau_land_cat_priority NOT = { has_variable = dau_market_blocked } }
+            if = {
+                limit = { has_variable = dau_market_relief_rank }
+                change_variable = { name = dau_land_cat_priority add = var:dau_market_relief_rank }
+            }
+            else_if = {
+                limit = {
+                    has_variable = dau_market_candidate_input
+                    province_size_level >= 3
+                }
+                change_variable = { name = dau_land_cat_priority add = 1 }
+            }
+        }
+    }
+}
+
+dau_market_record_project_effect = {
+    dau_market_bind_holder_effect = yes
+    var:dau_market_project = { save_scope_as = dau_market_building }
+    set_variable = dau_market_recording
+    dau_market_building_profile_effect = yes
+    if = {
+        limit = { has_variable = dau_market_unquantified }
+        scope:dau_market_anchor = { set_variable = dau_market_unknown_pipeline }
+    }
+    remove_variable = dau_market_recording
+    dau_market_clear_candidate_effect = yes
+}
+
+# A planned holding is still empty. Evaluate its primary building's size-one
+# demand and existing market commitments using the normal recipe ledger.
+dau_market_evaluate_founding_effect = {
+    dau_market_clear_candidate_effect = yes
+    if = {
+        limit = { scope:dau_land_payer ?= { has_variable = dau_market_batch var:dau_land_zone_owner = 1 } }
+        dau_market_bind_effect = yes
+        if = {
+            limit = { exists = scope:dau_market_anchor }
+            if = {
+                limit = { exists = scope:dau_economy_building }
+                scope:dau_economy_building = { save_scope_as = dau_market_building }
+                set_variable = dau_market_checking_founding
+                dau_market_founding_profile_effect = yes
+                remove_variable = dau_market_checking_founding
+            }
+            else = { set_variable = dau_market_unquantified }
+            if = {
+                limit = { has_variable = dau_market_unquantified }
+                set_variable = dau_market_blocked
+            }
+        }
+    }
+}
+
+# Root = accepted new holding province. Only known demand goes into the
+# ledger. Completion and cancellation clear the shared project marker.
+dau_market_record_founding_effect = {
+    dau_market_bind_holder_effect = yes
+    var:dau_market_project = { save_scope_as = dau_market_building }
+    set_variable = dau_market_recording
+    dau_market_founding_profile_effect = yes
+    if = {
+        limit = { has_variable = dau_market_unquantified }
+        scope:dau_market_anchor = { set_variable = dau_market_unknown_pipeline }
+    }
+    remove_variable = dau_market_recording
+    dau_market_clear_candidate_effect = yes
+}
+
+# Root = province where the native queue just accepted a project.
+dau_market_commit_effect = {
+    dau_market_bind_effect = yes
+    if = {
+        limit = { exists = scope:dau_market_anchor }
+        set_variable = { name = dau_market_project value = scope:dau_land_chosen_type }
+        if = {
+            limit = { has_variable = dau_market_candidate_input }
+            scope:dau_land_payer = { set_variable = dau_market_input_committed }
+        }
+        if = {
+            limit = { has_variable = dau_market_relief_rank }
+            scope:dau_land_payer = { set_variable = dau_market_release }
+        }
+        dau_market_record_project_effect = yes
+    }
+}
+
+dau_market_commit_holding_effect = {
+    if = {
+        limit = { scope:dau_land_payer = { has_variable = dau_market_batch var:dau_land_zone_owner = 1 } }
+        dau_market_bind_effect = yes
+        if = {
+            limit = { exists = scope:dau_market_anchor }
+            if = {
+                limit = { has_ongoing_holding_construction = yes }
+                set_variable = dau_market_new_holding
+                scope:dau_market_anchor = { set_variable = dau_market_growth_reserved }
+                if = {
+                    limit = { exists = scope:dau_economy_building }
+                    set_variable = { name = dau_market_project value = scope:dau_economy_building }
+                    if = {
+                        limit = { has_variable = dau_market_candidate_input }
+                        scope:dau_land_payer = { set_variable = dau_market_input_committed }
+                    }
+                    dau_market_record_founding_effect = yes
+                }
+            }
+            else = { scope:dau_market_anchor = { set_variable = { name = dau_market_settling value = yes days = 32 } } }
+        }
+    }
+}
+
+# Root = representative market title. $VARIABLE$ is an internal ledger key.
+dau_market_add_flow_effect = {
+    if = {
+        limit = { NOT = { has_variable = $VARIABLE$ } }
+        set_variable = { name = $VARIABLE$ value = 0 }
+    }
+    change_variable = { name = $VARIABLE$ add = $AMOUNT$ }
+}
+
+# Exact demands also debit their shared category (in the category helper).
+# The exact check subtracts flexible commitments conservatively because the
+# engine decides which substitute fulfils a category need.
+dau_market_exact_input_effect = {
+    set_variable = { name = dau_market_amount value = $AMOUNT$ }
+    if = {
+        limit = { var:dau_market_amount > 0 }
+        if = {
+            limit = { has_variable = dau_market_recording }
+            scope:dau_market_anchor = {
+                dau_market_add_flow_effect = { VARIABLE = dau_market_need_$ITEM$ AMOUNT = prev.var:dau_market_amount }
+            }
+        }
+        else = {
+            set_variable = dau_market_candidate_input
+            $TYPE$ = { save_scope_as = dau_market_commodity }
+            set_variable = {
+                name = dau_market_available
+                value = {
+                    value = "scope:dau_market.trade_good_surplus(scope:dau_market_commodity)"
+                    if = {
+                        limit = { scope:dau_market_anchor = { has_variable = dau_market_need_$ITEM$ } }
+                        subtract = scope:dau_market_anchor.var:dau_market_need_$ITEM$
+                    }
+                    if = {
+                        limit = { scope:dau_market_anchor = { has_variable = dau_market_wild_$GROUP$ } }
+                        subtract = scope:dau_market_anchor.var:dau_market_wild_$GROUP$
+                    }
+                }
+            }
+            if = {
+                limit = { var:dau_market_available < var:dau_market_amount }
+                set_variable = dau_market_blocked
+                dau_market_request_founding_supply_effect = yes
+                if = {
+                    limit = { NOT = { has_variable = dau_market_manual_only } }
+                    scope:dau_market_anchor = {
+                        add_to_variable_list = { name = dau_market_requested_goods target = scope:dau_market_commodity }
+                    }
+                }
+            }
+        }
+    }
+}
+
+# Category balances record allocated demand. Spare goods remain on each
+# commodity's balance. Cache observed stock for this check, before project
+# commitments are applied. Supply already promised to native demand is excluded.
+dau_market_read_category_stock_effect = {
+    if = {
+        limit = {
+            NAND = {
+                has_variable_map = dau_market_category_stock
+                is_key_in_variable_map = { name = dau_market_category_stock target = scope:dau_market_commodity }
+            }
+        }
+        set_variable = { name = dau_market_spare_stock value = 0 }
+        scope:dau_market_commodity = {
+            every_trade_good_in_category = {
+                save_scope_as = dau_market_category_good
+                scope:dau_market_anchor = {
+                    change_variable = {
+                        name = dau_market_spare_stock
+                        add = "scope:dau_market.trade_good_surplus(scope:dau_market_category_good)"
+                    }
+                }
+            }
+        }
+        change_variable = {
+            name = dau_market_spare_stock
+            subtract = "scope:dau_market.trade_category_unfulfilled_need(scope:dau_market_commodity)"
+        }
+        add_to_variable_map = {
+            name = dau_market_category_stock
+            key = scope:dau_market_commodity
+            value = var:dau_market_spare_stock
+        }
+        remove_variable = dau_market_spare_stock
+        clear_saved_scope = dau_market_category_good
+    }
+}
+
+dau_market_category_input_effect = {
+    set_variable = { name = dau_market_amount value = $AMOUNT$ }
+    if = {
+        limit = { var:dau_market_amount > 0 }
+        if = {
+            limit = { has_variable = dau_market_recording }
+            scope:dau_market_anchor = {
+                dau_market_add_flow_effect = { VARIABLE = dau_market_need_$ITEM$ AMOUNT = prev.var:dau_market_amount }
+            }
+            set_variable = { name = dau_market_amount value = $WILD$ }
+            if = {
+                limit = { var:dau_market_amount > 0 }
+                scope:dau_market_anchor = {
+                    dau_market_add_flow_effect = { VARIABLE = dau_market_wild_$ITEM$ AMOUNT = prev.var:dau_market_amount }
+                }
+            }
+        }
+        else = {
+            set_variable = dau_market_candidate_input
+            $TYPE$ = { save_scope_as = dau_market_commodity }
+            scope:dau_market_anchor = {
+                dau_market_read_category_stock_effect = yes
+                save_scope_value_as = {
+                    name = dau_market_observed_stock
+                    value = "variable_map(dau_market_category_stock|scope:dau_market_commodity)"
+                }
+            }
+            set_variable = {
+                name = dau_market_available
+                value = {
+                    value = scope:dau_market_observed_stock
+                    if = {
+                        limit = { scope:dau_market_anchor = { has_variable = dau_market_need_$ITEM$ } }
+                        subtract = scope:dau_market_anchor.var:dau_market_need_$ITEM$
+                    }
+                }
+            }
+            if = {
+                limit = { var:dau_market_available < var:dau_market_amount }
+                set_variable = dau_market_blocked
+                dau_market_request_founding_supply_effect = yes
+                if = {
+                    limit = { NOT = { has_variable = dau_market_manual_only } }
+                    scope:dau_market_anchor = {
+                        add_to_variable_list = { name = dau_market_requested_categories target = scope:dau_market_commodity }
+                    }
+                }
+            }
+        }
+    }
+}
+
+# Multiple prospective holdings are alternatives, not simultaneous projects.
+# Keep the largest missing amount for each good or category until this check ends.
+dau_market_request_founding_supply_effect = {
+    if = {
+        limit = { has_variable = dau_market_checking_founding }
+        scope:dau_market_anchor = {
+            set_variable = {
+                name = dau_market_founding_gap
+                value = {
+                    value = prev.var:dau_market_amount
+                    subtract = prev.var:dau_market_available
+                    if = {
+                        limit = {
+                            has_variable_map = dau_market_founding_gaps
+                            is_key_in_variable_map = { name = dau_market_founding_gaps target = scope:dau_market_commodity }
+                        }
+                        min = "variable_map(dau_market_founding_gaps|scope:dau_market_commodity)"
+                    }
+                }
+            }
+            if = {
+                limit = {
+                    has_variable_map = dau_market_founding_gaps
+                    is_key_in_variable_map = { name = dau_market_founding_gaps target = scope:dau_market_commodity }
+                }
+                remove_from_variable_map = { name = dau_market_founding_gaps key = scope:dau_market_commodity }
+            }
+            add_to_variable_map = {
+                name = dau_market_founding_gaps
+                key = scope:dau_market_commodity
+                value = var:dau_market_founding_gap
+            }
+            remove_variable = dau_market_founding_gap
+        }
+    }
+}
+
+dau_market_output_effect = {
+    if = {
+        limit = { NOT = { has_variable = dau_market_recording } }
+        $TYPE$ = { save_scope_as = dau_market_commodity }
+        set_variable = {
+            name = dau_market_observed
+            value = "scope:dau_market.trade_good_unfulfilled_need(scope:dau_market_commodity)"
+        }
+    }
+    dau_market_output_flow_effect = { ITEM = $ITEM$ FOOD = no AMOUNT = $AMOUNT$ }
+    if = {
+        limit = { has_variable = dau_econ_market_scoring has_variable = dau_econ_market_unmet }
+        if = {
+            limit = { var:dau_market_amount > 0 var:dau_econ_market_unmet > 0 }
+            set_variable = {
+                name = dau_econ_market_exact_credit
+                value = { value = var:dau_market_amount max = var:dau_econ_market_unmet }
+            }
+            if = {
+                limit = { exists = scope:dau_market_commodity.trade_good_need_category }
+                scope:dau_market_commodity.trade_good_need_category = { save_scope_as = dau_econ_market_group }
+                dau_econ_market_tally_exact_effect = { AMOUNT = var:dau_econ_market_exact_credit }
+                if = {
+                    limit = {
+                        scope:dau_market_anchor = {
+                            is_target_in_variable_list = { name = dau_econ_market_food_goods target = scope:dau_market_commodity }
+                        }
+                    }
+                    dau_econ_market_tally_food_exact_effect = { AMOUNT = var:dau_econ_market_exact_credit }
+                }
+            }
+            else = {
+                dau_econ_market_add_relief_effect = { VARIABLE = dau_econ_market_relief AMOUNT = var:dau_econ_market_exact_credit }
+                if = {
+                    limit = {
+                        scope:dau_market_anchor = {
+                            is_target_in_variable_list = { name = dau_econ_market_food_goods target = scope:dau_market_commodity }
+                        }
+                    }
+                    dau_econ_market_add_relief_effect = { VARIABLE = dau_econ_market_essential AMOUNT = var:dau_econ_market_exact_credit }
+                }
+            }
+            remove_variable = dau_econ_market_exact_credit
+        }
+        remove_variable = dau_econ_market_unmet
+    }
+}
+
+dau_market_category_output_effect = {
+    if = {
+        limit = { NOT = { has_variable = dau_market_recording } }
+        $TYPE$ = { save_scope_as = dau_market_commodity }
+        set_variable = {
+            name = dau_market_observed
+            value = "scope:dau_market.trade_category_unfulfilled_need(scope:dau_market_commodity)"
+        }
+    }
+    dau_market_output_flow_effect = { ITEM = $ITEM$ FOOD = $FOOD$ AMOUNT = $AMOUNT$ }
+    if = {
+        limit = { has_variable = dau_econ_market_scoring has_variable = dau_econ_market_unmet }
+        scope:dau_market_commodity = { save_scope_as = dau_econ_market_group }
+        dau_econ_market_tally_net_effect = { AMOUNT = var:dau_market_amount }
+        if = {
+            limit = {
+                NOT = {
+                    AND = {
+                        has_variable_map = dau_econ_market_need
+                        is_key_in_variable_map = { name = dau_econ_market_need target = scope:dau_econ_market_group }
+                    }
+                }
+            }
+            add_to_variable_map = {
+                name = dau_econ_market_need
+                key = scope:dau_econ_market_group
+                value = var:dau_econ_market_unmet
+            }
+        }
+        if = {
+            limit = { always = $FOOD$ }
+            add_to_variable_list = { name = dau_econ_market_food_groups target = scope:dau_econ_market_group }
+        }
+        remove_variable = dau_econ_market_unmet
+    }
+}
+
+dau_market_output_flow_effect = {
+    set_variable = { name = dau_market_amount value = $AMOUNT$ }
+    if = {
+        limit = { var:dau_market_amount != 0 }
+        if = {
+            limit = { has_variable = dau_market_recording }
+            scope:dau_market_anchor = {
+                dau_market_add_flow_effect = { VARIABLE = dau_market_output_$ITEM$ AMOUNT = prev.var:dau_market_amount }
+            }
+        }
+        else = {
+            if = {
+                limit = {
+                    has_variable = dau_econ_market_scoring
+                    var:dau_market_amount > 0
+                    scope:dau_market_anchor = {
+                        has_variable_map = dau_market_founding_gaps
+                        is_key_in_variable_map = { name = dau_market_founding_gaps target = scope:dau_market_commodity }
+                    }
+                }
+                scope:dau_market_anchor = {
+                    save_scope_value_as = {
+                        name = dau_market_observed_gap
+                        value = "variable_map(dau_market_founding_gaps|scope:dau_market_commodity)"
+                    }
+                }
+                set_variable = {
+                    name = dau_market_observed
+                    value = { value = var:dau_market_observed min = scope:dau_market_observed_gap }
+                }
+            }
+            set_variable = {
+                name = dau_market_available
+                value = {
+                    value = var:dau_market_observed
+                    if = {
+                        limit = { scope:dau_market_anchor = { has_variable = dau_market_output_$ITEM$ } }
+                        subtract = scope:dau_market_anchor.var:dau_market_output_$ITEM$
+                    }
+                }
+            }
+            if = {
+                limit = { has_variable = dau_econ_market_scoring }
+                # An unfinished loss cannot manufacture credit for a new
+                # project, and a forecast cannot become usable input stock.
+                set_variable = {
+                    name = dau_econ_market_unmet
+                    value = { value = var:dau_market_observed max = var:dau_market_available min = 0 }
+                }
+            }
+            if = {
+                limit = { var:dau_market_amount > 0 var:dau_market_available > 0 }
+                if = {
+                    limit = {
+                        has_variable = dau_econ_market_scoring
+                        scope:dau_market_anchor = {
+                            has_variable_map = dau_market_founding_gaps
+                            is_key_in_variable_map = { name = dau_market_founding_gaps target = scope:dau_market_commodity }
+                        }
+                    }
+                    set_variable = dau_econ_market_founding_relief
+                }
+                if = {
+                    limit = { always = $FOOD$ }
+                    set_variable = { name = dau_market_relief_rank value = 8 }
+                }
+                else_if = {
+                    limit = { NOT = { has_variable = dau_market_relief_rank } }
+                    set_variable = { name = dau_market_relief_rank value = 4 }
+                }
+            }
+            else_if = {
+                limit = {
+                    var:dau_market_amount < 0
+                    var:dau_market_available > 0
+                }
+                set_variable = dau_market_blocked
+            }
+        }
+    }
+    remove_variable = dau_market_observed
+}
+
+dau_econ_market_tally_exact_effect = {
+    set_variable = { name = dau_econ_market_tally value = $AMOUNT$ }
+    if = {
+        limit = {
+            has_variable_map = dau_econ_market_exact
+            is_key_in_variable_map = { name = dau_econ_market_exact target = scope:dau_econ_market_group }
+        }
+        change_variable = { name = dau_econ_market_tally add = "variable_map(dau_econ_market_exact|scope:dau_econ_market_group)" }
+        remove_from_variable_map = { name = dau_econ_market_exact key = scope:dau_econ_market_group }
+    }
+    add_to_variable_map = { name = dau_econ_market_exact key = scope:dau_econ_market_group value = var:dau_econ_market_tally }
+    remove_variable = dau_econ_market_tally
+}
+
+dau_econ_market_tally_food_exact_effect = {
+    set_variable = { name = dau_econ_market_tally value = $AMOUNT$ }
+    if = {
+        limit = {
+            has_variable_map = dau_econ_market_food_exact
+            is_key_in_variable_map = { name = dau_econ_market_food_exact target = scope:dau_econ_market_group }
+        }
+        change_variable = { name = dau_econ_market_tally add = "variable_map(dau_econ_market_food_exact|scope:dau_econ_market_group)" }
+        remove_from_variable_map = { name = dau_econ_market_food_exact key = scope:dau_econ_market_group }
+    }
+    add_to_variable_map = { name = dau_econ_market_food_exact key = scope:dau_econ_market_group value = var:dau_econ_market_tally }
+    remove_variable = dau_econ_market_tally
+}
+
+dau_econ_market_tally_net_effect = {
+    set_variable = { name = dau_econ_market_tally value = $AMOUNT$ }
+    if = {
+        limit = {
+            has_variable_map = dau_econ_market_net
+            is_key_in_variable_map = { name = dau_econ_market_net target = scope:dau_econ_market_group }
+        }
+        change_variable = { name = dau_econ_market_tally add = "variable_map(dau_econ_market_net|scope:dau_econ_market_group)" }
+        remove_from_variable_map = { name = dau_econ_market_net key = scope:dau_econ_market_group }
+    }
+    add_to_variable_map = { name = dau_econ_market_net key = scope:dau_econ_market_group value = var:dau_econ_market_tally }
+    remove_variable = dau_econ_market_tally
+}
+
+dau_econ_market_add_relief_effect = {
+    if = {
+        limit = { $AMOUNT$ > 0 }
+        dau_market_add_flow_effect = { VARIABLE = $VARIABLE$ AMOUNT = $AMOUNT$ }
+    }
+}
+
+# Compare the overlapping exact and flexible needs, then credit the larger
+# estimate only. Signed net output is the ceiling for a whole need category.
+dau_econ_market_finish_relief_effect = {
+    every_key_in_variable_map = {
+        variable = dau_econ_market_net
+        save_scope_as = dau_econ_market_group
+        prev = {
+            set_variable = {
+                name = dau_econ_market_group_net
+                value = "variable_map(dau_econ_market_net|scope:dau_econ_market_group)"
+            }
+            if = {
+                limit = { var:dau_econ_market_group_net > 0 }
+                set_variable = {
+                    name = dau_econ_market_group_credit
+                    value = {
+                        value = "variable_map(dau_econ_market_need|scope:dau_econ_market_group)"
+                        if = {
+                            limit = {
+                                has_variable_map = dau_econ_market_exact
+                                is_key_in_variable_map = { name = dau_econ_market_exact target = scope:dau_econ_market_group }
+                            }
+                            min = "variable_map(dau_econ_market_exact|scope:dau_econ_market_group)"
+                        }
+                        max = var:dau_econ_market_group_net
+                    }
+                }
+                dau_econ_market_add_relief_effect = { VARIABLE = dau_econ_market_relief AMOUNT = var:dau_econ_market_group_credit }
+                if = {
+                    limit = { is_target_in_variable_list = { name = dau_econ_market_food_groups target = scope:dau_econ_market_group } }
+                    dau_econ_market_add_relief_effect = { VARIABLE = dau_econ_market_essential AMOUNT = var:dau_econ_market_group_credit }
+                }
+                else_if = {
+                    limit = {
+                        has_variable_map = dau_econ_market_food_exact
+                        is_key_in_variable_map = { name = dau_econ_market_food_exact target = scope:dau_econ_market_group }
+                    }
+                    set_variable = {
+                        name = dau_econ_market_group_food_credit
+                        value = {
+                            value = "variable_map(dau_econ_market_food_exact|scope:dau_econ_market_group)"
+                            max = var:dau_econ_market_group_credit
+                        }
+                    }
+                    dau_econ_market_add_relief_effect = { VARIABLE = dau_econ_market_essential AMOUNT = var:dau_econ_market_group_food_credit }
+                    remove_variable = dau_econ_market_group_food_credit
+                }
+                remove_variable = dau_econ_market_group_credit
+            }
+            remove_variable = dau_econ_market_group_net
+        }
+    }
+    clear_variable_map = dau_econ_market_exact
+    clear_variable_map = dau_econ_market_food_exact
+    clear_variable_map = dau_econ_market_net
+    clear_variable_map = dau_econ_market_need
+    clear_variable_list = dau_econ_market_food_groups
+}
+
+# Growth changes future food demand even if the project itself needs no goods.
+# Reserve one growth project per market while the next capacity change is pending.
+dau_market_growth_effect = {
+    set_variable = { name = dau_market_amount value = $AMOUNT$ }
+    if = {
+        limit = { var:dau_market_amount > 0 }
+        if = {
+            limit = { has_variable = dau_market_recording }
+            scope:dau_market_anchor = { set_variable = dau_market_growth_reserved }
+        }
+        else = {
+            set_variable = dau_market_candidate_input
+            if = {
+                limit = {
+                    OR = {
+                        county = {
+                            OR = {
+                                county_control_baseline < 50
+                                base_popular_opinion < 0
+                            }
+                        }
+                        scope:dau_market_anchor = {
+                            OR = {
+                                has_variable = dau_market_food_shortage
+                                has_variable = dau_market_growth_reserved
+                            }
+                        }
+                    }
+                }
+                set_variable = dau_market_blocked
+            }
+        }
+    }
+}

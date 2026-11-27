@@ -1,0 +1,62 @@
+﻿dau_upgrade_status_text = {
+	type = character
+	text = {
+		trigger = {
+			NOT = { has_variable = dau_up_enabled }
+		}
+		localization_key = dau_upgrade_status_off
+	}
+	text = {
+		trigger = {
+			var:dau_up_group_1 = 0
+			var:dau_up_group_2 = 0
+			var:dau_up_group_3 = 0
+		}
+		localization_key = dau_upgrade_status_no_scope
+	}
+	text = {
+		trigger = {
+			var:dau_up_last_count > 0
+		}
+		localization_key = dau_upgrade_status_done
+	}
+	text = {
+		trigger = {
+			var:dau_up_status = 2
+		}
+		localization_key = dau_upgrade_status_none
+	}
+	text = {
+		localization_key = dau_upgrade_status_ready
+	}
+}
+
+dau_upgrade_interval_text = {
+	type = character
+	text = {
+		trigger = { var:dau_up_interval = 1 }
+		localization_key = dau_upgrade_interval_month
+	}
+	text = {
+		trigger = { var:dau_up_interval = 3 }
+		localization_key = dau_upgrade_interval_3days
+	}
+	text = {
+		localization_key = dau_upgrade_interval_week
+	}
+}
+
+dau_upgrade_batch_text = {
+	type = character
+	text = {
+		trigger = { var:dau_up_batch = 5 }
+		localization_key = dau_upgrade_batch_5
+	}
+	text = {
+		trigger = { var:dau_up_batch = 10 }
+		localization_key = dau_upgrade_batch_10
+	}
+	text = {
+		localization_key = dau_upgrade_batch_20
+	}
+}

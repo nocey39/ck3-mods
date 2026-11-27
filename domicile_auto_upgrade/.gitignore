@@ -1,0 +1,27 @@
+# ===== 不进仓库的文件 =====
+
+# 打包产物（发布 zip 放 outputs/，不放在仓库里）
+*.zip
+*.7z
+*.rar
+
+# CK3 运行产物（正常不会出现在模组目录，保险起见排除）
+*.log
+crash_reports/
+saves/
+oos/
+
+# 临时 / 备份文件
+*.tmp
+*.bak
+*.orig
+*~
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Python 缓存（tools/ 里有辅助脚本）
+__pycache__/
+*.pyc

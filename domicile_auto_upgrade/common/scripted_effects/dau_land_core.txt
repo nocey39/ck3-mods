@@ -1,0 +1,1089 @@
+﻿dau_land_initialize_effect = {
+    dau_land_zone_initialize_effect = yes
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_replace
+            }
+        }
+        set_variable = {
+            name = dau_land_replace
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_last_replaced
+            }
+        }
+        set_variable = {
+            name = dau_land_last_replaced
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_cost_percent
+            }
+        }
+        set_variable = {
+            name = dau_land_cost_percent
+            value = 100
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_time_percent
+            }
+        }
+        set_variable = {
+            name = dau_land_time_percent
+            value = 100
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_gold_reserve
+            }
+        }
+        set_variable = {
+            name = dau_land_gold_reserve
+            value = 500
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_treasury_reserve
+            }
+        }
+        set_variable = {
+            name = dau_land_treasury_reserve
+            value = 500
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_prestige_reserve
+            }
+        }
+        set_variable = {
+            name = dau_land_prestige_reserve
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_scopes_v2
+            }
+        }
+        set_variable = {
+            name = dau_land_group_1
+            value = 1
+        }
+        set_variable = {
+            name = dau_land_group_2
+            value = 0
+        }
+        set_variable = {
+            name = dau_land_group_3
+            value = 0
+        }
+        if = {
+            limit = {
+                has_variable = dau_land_scope
+            }
+            if = {
+                limit = {
+                    var:dau_land_scope >= 2
+                }
+                set_variable = {
+                    name = dau_land_group_2
+                    value = 1
+                }
+            }
+            if = {
+                limit = {
+                    var:dau_land_scope = 3
+                }
+                set_variable = {
+                    name = dau_land_group_3
+                    value = 1
+                }
+            }
+        }
+        remove_variable = dau_land_scope
+        set_variable = dau_land_scopes_v2
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_category_economy
+            }
+        }
+        set_variable = {
+            name = dau_land_category_economy
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_category_military
+            }
+        }
+        set_variable = {
+            name = dau_land_category_military
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_category_defense
+            }
+        }
+        set_variable = {
+            name = dau_land_category_defense
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_auto_holdings
+            }
+        }
+        set_variable = {
+            name = dau_land_auto_holdings
+            value = {
+                value = 0
+                if = {
+                    limit = {
+                        has_variable = dau_land_new_holding
+                        var:dau_land_new_holding >= 1
+                        var:dau_land_new_holding <= 3
+                    }
+                    add = 1
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_feudalize
+            }
+        }
+        set_variable = {
+            name = dau_land_feudalize
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_batch
+            }
+        }
+        set_variable = {
+            name = dau_land_batch
+            value = 5
+        }
+        set_variable = dau_land_batches_v3
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_batches_v3
+            }
+        }
+        if = {
+            limit = {
+                var:dau_land_batch = 1
+            }
+            set_variable = {
+                name = dau_land_batch
+                value = 5
+            }
+        }
+        else_if = {
+            limit = {
+                var:dau_land_batch = 3
+            }
+            set_variable = {
+                name = dau_land_batch
+                value = 10
+            }
+        }
+        else_if = {
+            limit = {
+                var:dau_land_batch = 5
+            }
+            set_variable = {
+                name = dau_land_batch
+                value = 20
+            }
+        }
+        set_variable = dau_land_batches_v3
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_interval
+            }
+        }
+        set_variable = {
+            name = dau_land_interval
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_elapsed
+            }
+        }
+        set_variable = {
+            name = dau_land_elapsed
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_status
+            }
+        }
+        set_variable = {
+            name = dau_land_status
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_last_count
+            }
+        }
+        set_variable = {
+            name = dau_land_last_count
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_last_built
+            }
+        }
+        set_variable = {
+            name = dau_land_last_built
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_last_created
+            }
+        }
+        set_variable = {
+            name = dau_land_last_created
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_last_feudalized
+            }
+        }
+        set_variable = {
+            name = dau_land_last_feudalized
+            value = 0
+        }
+    }
+    dau_preset_apply_land_effect = yes
+    dau_land_plan_initialize_effect = yes
+    dau_land_normalize_interval_effect = yes
+    if = {
+        limit = { NOT = { has_variable = dau_land_speed_v1 } }
+        set_variable = dau_land_speed_v1
+        if = {
+            limit = { var:dau_land_batch = 5 }
+            set_variable = { name = dau_land_batch value = 20 }
+        }
+        if = {
+            limit = { var:dau_land_interval = 1 }
+            set_variable = { name = dau_land_interval value = 3 }
+        }
+    }
+    dau_land_start_monthly_effect = yes
+}
+dau_land_context_effect = {
+    save_scope_as = dau_land_province
+    if = {
+        limit = { exists = barony.holder }
+        barony.holder = {
+            save_scope_as = holder
+        }
+    }
+    county = {
+        save_scope_as = county
+    }
+}
+dau_land_clear_province_effect = {
+    remove_variable = dau_land_rank
+    remove_variable = dau_land_c_score
+    remove_variable = dau_land_c_category
+    remove_variable = dau_land_c_gold
+    remove_variable = dau_land_c_treasury
+    remove_variable = dau_land_c_prestige
+    remove_variable = dau_land_c_piety
+    remove_variable = dau_land_c_influence
+    remove_variable = dau_land_feudalization_route
+    remove_variable = dau_land_feudalization_type
+    remove_variable = dau_land_rep_old
+    remove_variable = dau_land_rep_old_level
+    remove_variable = dau_plan_e
+    remove_variable = dau_plan_m
+    remove_variable = dau_plan_e_priority
+    remove_variable = dau_plan_m_priority
+    remove_variable = dau_plan_gap_e
+    remove_variable = dau_plan_gap_m
+    remove_variable = dau_land_cat_priority
+    remove_variable = dau_land_quote_priority
+    dau_market_clear_candidate_effect = yes
+}
+dau_land_clear_player_effect = {
+    remove_variable = dau_land_candidate
+    remove_variable = dau_land_target
+    remove_variable = dau_land_best_rank
+    remove_variable = dau_land_best_score
+    remove_variable = dau_econ_best
+    remove_variable = dau_econ_best_priority
+    remove_variable = dau_land_best_cat_priority
+    remove_variable = dau_land_best_q_priority
+    remove_variable = dau_land_best_category
+    remove_variable = dau_land_scan_empty
+    remove_variable = dau_land_scan_feudalization
+    remove_variable = dau_land_any_eligible
+    remove_variable = dau_land_pay_gold
+    remove_variable = dau_land_pay_treasury
+    remove_variable = dau_land_pay_prestige
+    remove_variable = dau_land_pay_piety
+    remove_variable = dau_land_pay_influence
+    remove_variable = dau_land_feudalize_route
+    remove_variable = dau_land_feudalize_type
+    remove_variable = dau_land_rep_candidate
+    remove_variable = dau_land_rep_old_key
+    remove_variable = dau_land_rep_best_level
+    remove_variable = dau_land_scan_replace
+    remove_variable = dau_land_type
+    remove_variable = dau_land_q_valid
+    remove_variable = dau_land_q_gold
+    remove_variable = dau_land_q_treasury
+    remove_variable = dau_land_q_flex_gold
+    remove_variable = dau_land_q_prestige
+    remove_variable = dau_land_q_piety
+    remove_variable = dau_land_q_influence
+    remove_variable = dau_land_q_category
+    remove_variable = dau_land_q_priority
+    remove_variable = dau_land_quote_gold
+    remove_variable = dau_land_quote_treasury
+    remove_variable = dau_land_quote_flex_gold
+    remove_variable = dau_land_quote_prestige
+    remove_variable = dau_land_quote_piety
+    remove_variable = dau_land_quote_influence
+    remove_variable = dau_land_quote_category
+    remove_variable = dau_land_quote_new
+    remove_variable = dau_land_charge_guard
+}
+dau_land_scan_province_effect = {
+    if = {
+        limit = { scope:dau_land_payer = { var:dau_land_auto_holdings = 1 } }
+        scope:dau_land_payer = { set_variable = dau_land_new_force_scope }
+        dau_land_scan_new_holding_province_effect = yes
+        scope:dau_land_payer = { remove_variable = dau_land_new_force_scope }
+    }
+    if = {
+        limit = {
+            dau_land_in_scope_trigger = yes
+            dau_land_available_trigger = yes
+        }
+        dau_land_context_effect = yes
+        dau_land_plan_context_effect = yes
+        set_variable = {
+            name = dau_land_rank
+            value = 2
+        }
+        if = {
+            limit = {
+                barony.holder = {
+                    this = scope:dau_land_payer
+                }
+            }
+            set_variable = {
+                name = dau_land_rank
+                value = 0
+            }
+        }
+        else_if = {
+            limit = {
+                county.holder = {
+                    this = scope:dau_land_payer
+                }
+            }
+            set_variable = {
+                name = dau_land_rank
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                scope:dau_land_payer = {
+                    var:dau_land_feudalize = 1
+                }
+            }
+            dau_land_feudalization_context_effect = yes
+        }
+        if = {
+            limit = {
+                scope:dau_land_payer = {
+                    has_variable = dau_land_scan_feudalization
+                }
+            }
+            dau_land_consider_feudalization_effect = yes
+        }
+        else_if = {
+            limit = {
+                NOT = {
+                    AND = {
+                        scope:dau_land_payer = {
+                            var:dau_land_feudalize = 1
+                        }
+                        dau_land_eligible_feudalization_trigger = yes
+                    }
+                }
+            }
+            dau_land_native_scan_effect = yes
+            dau_land_registered_adapter_scan_effect = yes
+        }
+    }
+}
+dau_land_scan_scope_effect = {
+    if = {
+        limit = {
+            var:dau_land_zone_owner = 1
+        }
+        every_directly_owned_province = {
+            dau_land_scan_province_effect = yes
+        }
+    }
+    else_if = {
+        limit = {
+            var:dau_land_zone_owner = 2
+        }
+        every_held_title = {
+            limit = {
+                tier = tier_county
+            }
+            every_county_province = {
+                dau_land_scan_province_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = {
+            var:dau_land_zone_owner = 3
+        }
+        every_in_list = {
+            variable = dau_land_zone_provinces
+            dau_land_scan_province_effect = yes
+        }
+    }
+    else = {
+        if = {
+            limit = {
+                var:dau_land_group_1 = 1
+            }
+            every_directly_owned_province = {
+                dau_land_scan_province_effect = yes
+            }
+        }
+        if = {
+            limit = {
+                var:dau_land_group_2 = 1
+            }
+            every_held_title = {
+                limit = {
+                    tier = tier_county
+                }
+                every_county_province = {
+                    limit = {
+                        NOT = {
+                            barony.holder = {
+                                this = scope:dau_land_payer
+                            }
+                        }
+                    }
+                    dau_land_scan_province_effect = yes
+                }
+            }
+        }
+        if = {
+            limit = {
+                var:dau_land_group_3 = 1
+            }
+            every_sub_realm_barony = {
+                title_province = {
+                    if = {
+                        limit = {
+                            NOR = {
+                                barony.holder = {
+                                    this = scope:dau_land_payer
+                                }
+                                county.holder = {
+                                    this = scope:dau_land_payer
+                                }
+                            }
+                        }
+                        dau_land_scan_province_effect = yes
+                    }
+                }
+            }
+        }
+    }
+}
+dau_land_pay_effect = {
+    if = {
+        limit = {
+            var:dau_land_pay_gold > 0
+        }
+        remove_short_term_gold = var:dau_land_pay_gold
+    }
+    if = {
+        limit = {
+            var:dau_land_pay_treasury > 0
+        }
+        remove_treasury = var:dau_land_pay_treasury
+    }
+    if = {
+        limit = {
+            var:dau_land_pay_prestige > 0
+        }
+        add_prestige = {
+            value = 0
+            subtract = var:dau_land_pay_prestige
+        }
+    }
+    if = {
+        limit = {
+            var:dau_land_pay_piety > 0
+        }
+        add_piety = {
+            value = 0
+            subtract = var:dau_land_pay_piety
+        }
+    }
+    if = {
+        limit = {
+            var:dau_land_pay_influence > 0
+        }
+        change_influence = {
+            value = 0
+            subtract = var:dau_land_pay_influence
+        }
+    }
+}
+dau_land_execute_effect = {
+    switch = {
+        trigger = var:dau_land_candidate
+        flag:dau_land_new_castle = { dau_land_create_castle_effect = yes }
+        flag:dau_land_new_city = { dau_land_create_city_effect = yes }
+        flag:dau_land_new_temple = { dau_land_create_temple_effect = yes }
+        flag:dau_land_new_citadel = { dau_land_create_citadel_effect = yes }
+        flag:dau_land_feudalize = { dau_land_feudalize_effect = yes }
+        flag:dau_land_native_upgrade = { dau_land_native_execute_effect = yes }
+        fallback = { dau_land_registered_adapter_execute_effect = yes }
+    }
+}
+dau_land_one_upgrade_effect = {
+    remove_variable = dau_land_zone_any_eligible
+    remove_variable = dau_land_zone_pause
+    dau_land_clear_player_effect = yes
+    if = {
+        limit = {
+            var:dau_land_group_1 = 1
+        }
+        set_variable = {
+            name = dau_land_zone_owner
+            value = 1
+        }
+        dau_land_zone_find_project_effect = yes
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_candidate
+            }
+            var:dau_land_group_2 = 1
+        }
+        set_variable = {
+            name = dau_land_zone_owner
+            value = 2
+        }
+        dau_land_zone_find_project_effect = yes
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_land_candidate
+            }
+            var:dau_land_group_3 = 1
+        }
+        set_variable = {
+            name = dau_land_zone_owner
+            value = 3
+        }
+        dau_land_zone_find_vassal_effect = yes
+    }
+    if = {
+        limit = {
+            has_variable = dau_land_candidate
+        }
+        dau_land_execute_effect = yes
+    }
+    else = {
+        set_variable = {
+            name = dau_land_status
+            value = 1
+        }
+        if = {
+            limit = {
+                has_variable = dau_land_zone_any_eligible
+            }
+            set_variable = {
+                name = dau_land_status
+                value = 2
+            }
+        }
+        if = {
+            limit = {
+                var:dau_land_last_count = 0
+                NOT = {
+                    has_variable = dau_land_zone_pause
+                }
+                NOT = {
+                    has_variable = dau_land_zone_deferred_owned
+                }
+            }
+            set_variable = {
+                name = dau_land_zone_idle
+                value = 1
+                days = 3
+            }
+        }
+        set_variable = dau_land_stop
+    }
+    dau_land_clear_player_effect = yes
+}
+dau_land_check_effect = {
+    if = { limit = { var:dau_land_plan_mode = 0 } }
+    if = { limit = { var:dau_land_plan_mode = 1 } }
+    if = { limit = { var:dau_land_plan_mode = 2 } }
+    if = { limit = { var:dau_land_plan_mode = 3 } }
+    if = { limit = { var:dau_land_plan_mode = 4 } }
+    if = { limit = { var:dau_land_plan_mode = 5 } }
+    if = { limit = { var:dau_land_category_economy > 0 } }
+    if = { limit = { var:dau_land_category_military > 0 } }
+    if = { limit = { var:dau_land_category_defense > 0 } }
+    if = { limit = { dau_land_category_count = 0 } }
+    if = { limit = { has_variable = dau_market_batch } }
+    else = { }
+    if = { limit = { has_variable = dau_market_blocked } }
+    if = { limit = { has_variable = dau_market_wait } }
+    if = { limit = { has_variable = dau_market_strict } }
+    remove_variable = dau_diag_empty
+    remove_variable = dau_diag_cand
+    remove_variable = dau_diag_elig_castle
+    remove_variable = dau_diag_elig_city
+    remove_variable = dau_diag_elig_temple
+    if = {
+        limit = {
+            is_ai = no
+            is_alive = yes
+            is_landed = yes
+            has_variable = dau_land_enabled
+        }
+        dau_initialize_effect = yes
+        dau_land_initialize_effect = yes
+        save_scope_as = dau_land_payer
+        remove_variable = dau_land_zone_idle
+        remove_variable = dau_econ_no_return
+        dau_economy_observe_effect = yes
+        dau_land_zone_prepare_effect = yes
+        dau_market_prepare_effect = yes
+        set_variable = {
+            name = dau_land_last_count
+            value = 0
+        }
+        set_variable = {
+            name = dau_land_last_feudalized
+            value = 0
+        }
+        set_variable = {
+            name = dau_land_last_built
+            value = 0
+        }
+        set_variable = {
+            name = dau_land_last_created
+            value = 0
+        }
+        set_variable = {
+            name = dau_land_last_replaced
+            value = 0
+        }
+        remove_variable = dau_land_stop
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_stop
+                }
+                var:dau_land_last_count < var:dau_land_batch
+            }
+            dau_land_one_upgrade_effect = yes
+        }
+        if = {
+            limit = { var:dau_land_last_count > 0 }
+        }
+        else = { }
+        remove_variable = dau_land_stop
+        dau_land_zone_clear_round_effect = yes
+        dau_market_try_commissions_effect = yes
+        dau_market_finish_effect = yes
+    }
+}
+dau_land_inherit_settings_effect = {
+    remove_variable = dau_market_disabled
+    if = {
+        limit = { scope:previous_player_character = { has_variable = dau_market_disabled } }
+        set_variable = dau_market_disabled
+    }
+    remove_variable = dau_market_commission_enabled
+    if = {
+        limit = { scope:previous_player_character = { has_variable = dau_market_commission_enabled } }
+        set_variable = dau_market_commission_enabled
+    }
+    scope:previous_player_character = {
+        dau_land_initialize_effect = yes
+    }
+    set_variable = {
+        name = dau_land_cost_percent
+        value = scope:previous_player_character.var:dau_land_cost_percent
+    }
+    set_variable = {
+        name = dau_land_time_percent
+        value = scope:previous_player_character.var:dau_land_time_percent
+    }
+    set_variable = {
+        name = dau_land_gold_reserve
+        value = scope:previous_player_character.var:dau_land_gold_reserve
+    }
+    set_variable = {
+        name = dau_land_treasury_reserve
+        value = scope:previous_player_character.var:dau_land_treasury_reserve
+    }
+    set_variable = {
+        name = dau_land_prestige_reserve
+        value = scope:previous_player_character.var:dau_land_prestige_reserve
+    }
+    set_variable = {
+        name = dau_land_group_1
+        value = scope:previous_player_character.var:dau_land_group_1
+    }
+    set_variable = {
+        name = dau_land_group_2
+        value = scope:previous_player_character.var:dau_land_group_2
+    }
+    set_variable = {
+        name = dau_land_group_3
+        value = scope:previous_player_character.var:dau_land_group_3
+    }
+    set_variable = {
+        name = dau_land_category_economy
+        value = scope:previous_player_character.var:dau_land_category_economy
+    }
+    set_variable = {
+        name = dau_land_category_military
+        value = scope:previous_player_character.var:dau_land_category_military
+    }
+    set_variable = {
+        name = dau_land_category_defense
+        value = scope:previous_player_character.var:dau_land_category_defense
+    }
+    set_variable = {
+        name = dau_land_auto_holdings
+        value = scope:previous_player_character.var:dau_land_auto_holdings
+    }
+    set_variable = {
+        name = dau_land_feudalize
+        value = scope:previous_player_character.var:dau_land_feudalize
+    }
+    set_variable = {
+        name = dau_land_batch
+        value = scope:previous_player_character.var:dau_land_batch
+    }
+    set_variable = {
+        name = dau_land_interval
+        value = scope:previous_player_character.var:dau_land_interval
+    }
+    set_variable = dau_land_scopes_v2
+    set_variable = dau_land_batches_v3
+    remove_variable = dau_land_scope
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dau_land_enabled
+            }
+        }
+        set_variable = dau_land_enabled
+    }
+    else = {
+        remove_variable = dau_land_enabled
+    }
+    set_variable = {
+        name = dau_land_elapsed
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_status
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_last_count
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_last_built
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_last_created
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_last_feudalized
+        value = 0
+    }
+    remove_variable = dau_land_panel_open
+    dau_land_restart_monthly_effect = yes
+    set_variable = {
+        name = dau_land_replace
+        value = scope:previous_player_character.var:dau_land_replace
+    }
+    set_variable = {
+        name = dau_land_last_replaced
+        value = 0
+    }
+    set_variable = {
+        name = dau_land_plan_mode
+        value = scope:previous_player_character.var:dau_land_plan_mode
+    }
+    set_variable = {
+        name = dau_land_plan_defense
+        value = scope:previous_player_character.var:dau_land_plan_defense
+    }
+    set_variable = dau_land_plan_v2
+    dau_land_plan_apply_effect = yes
+    remove_variable = dau_land_zone_active
+    remove_variable = dau_land_zone_focus
+    remove_variable = dau_land_zone_idle
+    dau_land_zone_clear_round_effect = yes
+}
+
+dau_land_normalize_interval_effect = {
+        if = { limit = { OR = { var:dau_land_interval = 2 var:dau_land_interval = 4 } }
+            set_variable = { name = dau_land_interval value = 1 }
+            set_variable = { name = dau_land_elapsed value = 0 }
+            dau_land_restart_monthly_effect = yes
+        }
+    }

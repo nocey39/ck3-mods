@@ -1,0 +1,14 @@
+﻿# Generated from enabled mods that provide dau-adapter.json.
+dau_land_registered_quote_effect = {
+}
+dau_land_registered_adapter_scan_effect = {
+}
+dau_land_registered_adapter_execute_effect = {
+    switch = { trigger = var:dau_land_candidate
+        fallback = { set_variable = { name = dau_land_status value = 5 } set_variable = dau_land_stop }
+    }
+}
+dau_domicile_registered_adapter_scan_effect = {
+}
+dau_domicile_registered_adapter_execute_effect = {
+}

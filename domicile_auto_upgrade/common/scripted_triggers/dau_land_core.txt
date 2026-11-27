@@ -1,0 +1,225 @@
+﻿dau_land_in_scope_trigger = {
+    has_holding = yes
+    exists = barony.holder
+    exists = county.holder
+    dau_land_zone_owner_trigger = yes
+    OR = {
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_group_1 = 1
+            }
+            barony.holder = {
+                this = scope:dau_land_payer
+            }
+        }
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_group_2 = 1
+            }
+            county.holder = {
+                this = scope:dau_land_payer
+            }
+            NOT = {
+                barony.holder = {
+                    this = scope:dau_land_payer
+                }
+            }
+        }
+        AND = {
+            scope:dau_land_payer = {
+                var:dau_land_group_3 = 1
+            }
+            barony.holder = {
+                is_vassal_or_below_of = scope:dau_land_payer
+            }
+            NOR = {
+                barony.holder = {
+                    this = scope:dau_land_payer
+                }
+                county.holder = {
+                    this = scope:dau_land_payer
+                }
+            }
+        }
+    }
+}
+dau_land_uses_treasury_trigger = {
+    has_treasury = yes
+    government_allows = replace_gold_cost_by_treasury
+}
+dau_land_available_trigger = {
+    has_ongoing_holding_construction = no
+    has_ongoing_trade_post_construction = no
+    is_occupied = no
+    NOT = {
+        has_variable = dau_land_upgraded_today
+    }
+}
+dau_land_affordable_trigger = {
+    var:dau_land_c_gold >= 0
+    OR = {
+        var:dau_land_c_gold = 0
+        scope:dau_land_payer = {
+            gold >= {
+                add = scope:dau_land_province.var:dau_land_c_gold
+                add = dau_shared_gold_reserve
+            }
+        }
+    }
+    var:dau_land_c_treasury >= 0
+    OR = {
+        var:dau_land_c_treasury = 0
+        scope:dau_land_payer = {
+            treasury >= {
+                add = scope:dau_land_province.var:dau_land_c_treasury
+                add = dau_shared_treasury_reserve
+            }
+        }
+    }
+    var:dau_land_c_prestige >= 0
+    OR = {
+        var:dau_land_c_prestige = 0
+        scope:dau_land_payer = {
+            prestige >= {
+                add = scope:dau_land_province.var:dau_land_c_prestige
+                add = dau_shared_prestige_reserve
+            }
+        }
+    }
+    var:dau_land_c_piety >= 0
+    OR = {
+        var:dau_land_c_piety = 0
+        scope:dau_land_payer = {
+            piety >= {
+                add = scope:dau_land_province.var:dau_land_c_piety
+                add = dau_shared_piety_reserve
+            }
+        }
+    }
+    var:dau_land_c_influence >= 0
+    OR = {
+        var:dau_land_c_influence = 0
+        scope:dau_land_payer = {
+            influence >= {
+                add = scope:dau_land_province.var:dau_land_c_influence
+                add = dau_shared_influence_reserve
+            }
+        }
+    }
+}
+# The province-level check may allow a fallback slot in the wrong district.
+# Membership and the building chain are checked against the actual district.
+dau_land_native_base_slot_trigger = {
+    has_free_building_slot = yes
+    can_have_building = $BUILDING$
+    NOT = { has_building_or_higher = $BUILDING$ }
+}
+
+dau_land_native_base_fits_trigger = {
+    OR = {
+        holding_district ?= { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+        resource_district ?= { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+        any_built_regular_district = { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+        duchy_capital_district ?= { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+        special_district ?= { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+        great_district ?= { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+        entrepot_district ?= { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+        trade_post_district ?= { dau_land_native_base_slot_trigger = { BUILDING = $BUILDING$ } }
+    }
+}
+
+# Province construction eligibility includes district replacement. Automation
+# can start a primary building only in a vacant slot of its native kind.
+dau_land_native_empty_district_slot_trigger = {
+    OR = {
+        AND = {
+            $DISTRICT$ = { district_slot_type = regular }
+            has_free_district_slot = yes
+        }
+        AND = {
+            $DISTRICT$ = { district_slot_type = resource }
+            NOT = { exists = resource_district }
+        }
+        AND = {
+            $DISTRICT$ = { district_slot_type = duchy_capital }
+            NOT = { exists = duchy_capital_district }
+        }
+        AND = {
+            $DISTRICT$ = { district_slot_type = special }
+            has_special_district_slot = yes
+            has_special_district = no
+        }
+        AND = {
+            $DISTRICT$ = { district_slot_type = great_district }
+            has_great_district_slot = yes
+            has_great_district = no
+        }
+        AND = {
+            $DISTRICT$ = { district_slot_type = entrepot }
+            has_entrepot_district_slot = yes
+            NOT = { exists = entrepot_district }
+        }
+        AND = {
+            $DISTRICT$ = { district_slot_type = trade_post }
+            NOT = { exists = trade_post_district }
+        }
+    }
+}
+
+dau_land_native_type_mode_trigger = {
+    OR = {
+        has_previous_building_level = yes
+        NOT = { building_type_has_flag = duchy_building }
+    }
+    trigger_if = {
+        limit = { scope:dau_land_payer = { has_variable = dau_market_scan } }
+        OR = {
+            has_previous_building_level = yes
+            scope:dau_land_payer = { dau_land_category_count > 0 }
+        }
+    }
+    trigger_else_if = {
+        limit = { scope:dau_land_payer = { has_variable = dau_land_scan_empty } }
+        NOT = { has_previous_building_level = yes }
+    }
+    trigger_else = {
+        has_previous_building_level = yes
+    }
+}
+dau_land_native_quote_nonnegative_trigger = {
+    var:dau_land_q_gold >= 0
+    var:dau_land_q_treasury >= 0
+    var:dau_land_q_flex_gold >= 0
+    var:dau_land_q_prestige >= 0
+    var:dau_land_q_piety >= 0
+    var:dau_land_q_influence >= 0
+}
+
+dau_market_new_holding_allowed_trigger = {
+    trigger_if = {
+        limit = {
+            scope:dau_land_payer = { has_variable = dau_market_batch var:dau_land_zone_owner = 1 }
+            exists = barony.trade_market.trade_market_owner
+        }
+        barony.trade_market.trade_market_owner = {
+            NOT = { has_variable = dau_market_growth_reserved }
+        }
+    }
+}
+dau_land_native_quote_category_trigger = {
+    OR = {
+        var:dau_land_q_category = 0
+        AND = {
+            var:dau_land_q_category = 1
+            var:dau_land_category_economy > 0
+        }
+        AND = {
+            var:dau_land_q_category = 2
+            var:dau_land_category_military > 0
+        }
+        AND = {
+            var:dau_land_q_category = 3
+            var:dau_land_category_defense > 0
+        }
+    }
+}

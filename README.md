@@ -1,11 +1,8 @@
 # CK3 模组合集（私有仓库）
 
-一个人维护的 CK3 1.21.0.3 模组套件。本仓库根目录就是 CK3 本地模组文件夹：
+一个人维护的 CK3 1.21.0.3 模组套件（14 个模组）。本仓库根目录就是 CK3 本地模组文件夹：
 
 `C:\Users\14232\Documents\Paradox Interactive\Crusader Kings III\mod\`
-
-> 自动建设助手（domicile_auto_upgrade）有独立仓库 `domicile-auto-upgrade`，
-> 不在本仓库跟踪范围内。
 
 ## 模组清单（当前基线）
 
@@ -19,6 +16,7 @@
 | culture_faith_reforged | 2.1.1 | 3692433159 |
 | dau_hm_compat | 0.2.0 | 3826928848 |
 | dejure_auto | 0.12.2 | 3825776871 |
+| domicile_auto_upgrade | 0.14.4 | 3811920217 |
 | family_development_assistant | 0.3.2 | — |
 | region_conquest | 0.3.1 | 3813240200 |
 | temple_citadel_change_local | 2.1.1 | 3700123247 |
@@ -80,4 +78,4 @@ powershell -ExecutionPolicy Bypass -File tools\make-mod-files.ps1
 
 - 不要删除 `.git` 目录（历史都在里面）
 - 同一时间只在一台设备上改；开工前 `git pull`，收工后 `git push`
-- 自动建设助手的改动请在它自己的仓库里提交，不要混进本仓库
+- 发布 zip 和根目录 `.mod` 指针不要手动加进仓库（`.gitignore` 已排除）

@@ -1,0 +1,143 @@
+﻿dau_land_panel_gui = {
+	scope = character
+	is_valid = { is_ai = no }
+	effect = { remove_variable = dau_land_panel_open }
+}
+
+dau_land_toggle_gui = {
+	scope = character
+	is_valid = {
+		is_ai = no
+		is_landed = yes
+	}
+	is_shown = { var:dau_up_enabled = 1 }
+	effect = {
+		if = {
+			limit = { var:dau_up_enabled = 1 }
+			set_variable = { name = dau_up_enabled value = 0 }
+			remove_variable = dau_up_pending
+		}
+		else = {
+			set_variable = { name = dau_up_enabled value = 1 }
+			dau_upgrade_restart_effect = yes
+		}
+	}
+}
+
+dau_land_check_gui = {
+	scope = character
+	is_valid = {
+		is_ai = no
+		is_alive = yes
+		is_landed = yes
+		var:dau_up_enabled = 1
+	}
+	effect = { dau_upgrade_manual_check_effect = yes }
+}
+
+dau_land_group_1_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_group_1 = 1 }
+	effect = {
+		if = { limit = { var:dau_up_group_1 = 1 } set_variable = { name = dau_up_group_1 value = 0 } }
+		else = { set_variable = { name = dau_up_group_1 value = 1 } }
+	}
+}
+
+dau_land_group_2_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_group_2 = 1 }
+	effect = {
+		if = { limit = { var:dau_up_group_2 = 1 } set_variable = { name = dau_up_group_2 value = 0 } }
+		else = { set_variable = { name = dau_up_group_2 value = 1 } }
+	}
+}
+
+dau_land_group_3_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_group_3 = 1 }
+	effect = {
+		if = { limit = { var:dau_up_group_3 = 1 } set_variable = { name = dau_up_group_3 value = 0 } }
+		else = { set_variable = { name = dau_up_group_3 value = 1 } }
+	}
+}
+
+dau_land_cost_sub_gui = {
+	scope = character
+	is_valid = {
+		is_ai = no
+		is_landed = yes
+		var:dau_up_cost_percent > 0
+	}
+	effect = {
+		change_variable = { name = dau_up_cost_percent add = -10 }
+		if = { limit = { var:dau_up_cost_percent < 0 } set_variable = { name = dau_up_cost_percent value = 0 } }
+	}
+}
+
+dau_land_cost_add_gui = {
+	scope = character
+	is_valid = {
+		is_ai = no
+		is_landed = yes
+		var:dau_up_cost_percent < 100
+	}
+	effect = {
+		change_variable = { name = dau_up_cost_percent add = 10 }
+		if = { limit = { var:dau_up_cost_percent > 100 } set_variable = { name = dau_up_cost_percent value = 100 } }
+	}
+}
+
+dau_land_batch_5_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_batch = 5 }
+	effect = { set_variable = { name = dau_up_batch value = 5 } }
+}
+
+dau_land_batch_10_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_batch = 10 }
+	effect = { set_variable = { name = dau_up_batch value = 10 } }
+}
+
+dau_land_batch_20_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_batch = 20 }
+	effect = { set_variable = { name = dau_up_batch value = 20 } }
+}
+
+dau_land_interval_3_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_interval = 3 }
+	effect = {
+		set_variable = { name = dau_up_interval value = 3 }
+		dau_upgrade_restart_effect = yes
+	}
+}
+
+dau_land_interval_7_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_interval = 7 }
+	effect = {
+		set_variable = { name = dau_up_interval value = 7 }
+		dau_upgrade_restart_effect = yes
+	}
+}
+
+dau_land_interval_1_gui = {
+	scope = character
+	is_valid = { is_ai = no is_landed = yes }
+	is_shown = { var:dau_up_interval = 1 }
+	effect = {
+		set_variable = { name = dau_up_interval value = 1 }
+		dau_upgrade_restart_effect = yes
+	}
+}

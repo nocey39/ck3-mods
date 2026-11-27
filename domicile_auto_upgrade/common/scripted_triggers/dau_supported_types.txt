@@ -1,0 +1,3 @@
+﻿dau_supported_domicile_trigger = {
+    has_domicile = yes
+}

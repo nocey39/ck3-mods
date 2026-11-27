@@ -1,0 +1,12 @@
+﻿dau_status_text = {
+    type = character
+    text = { trigger = { has_domicile = no } localization_key = dau_status_none }
+    text = { trigger = { domicile = { NOT = { has_variable = dau_enabled } } } localization_key = dau_status_off }
+    text = { trigger = { domicile = { has_ongoing_domicile_construction = yes } } localization_key = dau_status_building }
+    text = { trigger = { has_variable = dau_choice_pending } localization_key = dau_status_choice }
+    text = { trigger = { domicile = { var:dau_status = 5 } } localization_key = dau_status_unsupported }
+    text = { trigger = { domicile = { var:dau_status = 3 } } localization_key = dau_status_failed }
+    text = { trigger = { domicile = { var:dau_status = 2 } } localization_key = dau_status_budget }
+    text = { trigger = { domicile = { var:dau_status = 1 } } localization_key = dau_status_no_candidate }
+    text = { localization_key = dau_status_ready }
+}

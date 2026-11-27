@@ -1,0 +1,1486 @@
+﻿dau_preset_new_player_effect = {
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dau_preset_player_initialized
+            }
+        }
+        set_variable = dau_preset_player_initialized
+        set_variable = dau_preset_residence_pending
+        if = {
+            limit = {
+                has_domicile = no
+            }
+            set_variable = dau_preset_residence_deferred
+        }
+        set_variable = dau_preset_land_pending
+        dau_initialize_effect = yes
+        dau_land_initialize_effect = yes
+    }
+}
+dau_preset_prepare_residence_effect = {
+    if = {
+        limit = {
+            is_ai = no
+            is_alive = yes
+            NOT = {
+                has_variable = dau_preset_residence_imported
+            }
+            NOT = {
+                has_variable = dau_preset_residence_preserved
+            }
+            exists = scope:previous_player_character
+            scope:previous_player_character = {
+                is_alive = no
+                has_variable = dau_preset_residence_pending
+            }
+        }
+        set_variable = dau_preset_residence_pending
+        set_variable = dau_preset_residence_deferred
+    }
+}
+dau_preset_apply_residence_effect = {
+    if = {
+        limit = {
+            has_variable = dau_preset_residence_pending
+            has_domicile = yes
+        }
+        if = {
+            limit = {
+                has_variable = dau_preset_residence_deferred
+                scope:dau_settings_store = {
+                    has_variable = dau_saved_settings
+                }
+            }
+            set_variable = dau_preset_residence_preserved
+        }
+        else = {
+            domicile = {
+                remove_variable = dau_enabled
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_enabled_1
+                    }
+                    set_variable = dau_enabled
+                }
+                set_variable = {
+                    name = dau_cost_percent
+                    value = 100
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_0
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 0
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_10
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 10
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_20
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 20
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_30
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 30
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_40
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 40
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_50
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 50
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_60
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 60
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_70
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 70
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_80
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 80
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_cost_90
+                    }
+                    set_variable = {
+                        name = dau_cost_percent
+                        value = 90
+                    }
+                }
+                set_variable = {
+                    name = dau_gold_reserve
+                    value = 500
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_0
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 0
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_100
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 100
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_300
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 300
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_1000
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 1000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_1500
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 1500
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_2000
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 2000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_5000
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 5000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_10000
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 10000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_50000
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 50000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_100000
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 100000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_gold_1000000
+                    }
+                    set_variable = {
+                        name = dau_gold_reserve
+                        value = 1000000
+                    }
+                }
+                set_variable = {
+                    name = dau_treasury_reserve
+                    value = 500
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_0
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 0
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_100
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 100
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_300
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 300
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_1000
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 1000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_1500
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 1500
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_2000
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 2000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_5000
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 5000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_10000
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 10000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_50000
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 50000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_100000
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 100000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_treasury_1000000
+                    }
+                    set_variable = {
+                        name = dau_treasury_reserve
+                        value = 1000000
+                    }
+                }
+                set_variable = {
+                    name = dau_prestige_reserve
+                    value = 0
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_100
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 100
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_300
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 300
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_500
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 500
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_1000
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 1000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_1500
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 1500
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_2000
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 2000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_5000
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 5000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_10000
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 10000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_50000
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 50000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_100000
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 100000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_prestige_1000000
+                    }
+                    set_variable = {
+                        name = dau_prestige_reserve
+                        value = 1000000
+                    }
+                }
+                set_variable = {
+                    name = dau_herd_reserve
+                    value = 5000
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_herd_0
+                    }
+                    set_variable = {
+                        name = dau_herd_reserve
+                        value = 0
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_herd_1000
+                    }
+                    set_variable = {
+                        name = dau_herd_reserve
+                        value = 1000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_herd_10000
+                    }
+                    set_variable = {
+                        name = dau_herd_reserve
+                        value = 10000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_herd_20000
+                    }
+                    set_variable = {
+                        name = dau_herd_reserve
+                        value = 20000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_herd_50000
+                    }
+                    set_variable = {
+                        name = dau_herd_reserve
+                        value = 50000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_herd_100000
+                    }
+                    set_variable = {
+                        name = dau_herd_reserve
+                        value = 100000
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_herd_1000000
+                    }
+                    set_variable = {
+                        name = dau_herd_reserve
+                        value = 1000000
+                    }
+                }
+                set_variable = {
+                    name = dau_interval
+                    value = 1
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_interval_2
+                    }
+                    set_variable = {
+                        name = dau_interval
+                        value = 2
+                    }
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_interval_4
+                    }
+                    set_variable = {
+                        name = dau_interval
+                        value = 4
+                    }
+                }
+                set_variable = {
+                    name = dau_priority
+                    value = 1
+                }
+                if = {
+                    limit = {
+                        has_game_rule = dau_preset_residence_priority_0
+                    }
+                    set_variable = {
+                        name = dau_priority
+                        value = 0
+                    }
+                }
+                set_variable = {
+                    name = dau_elapsed
+                    value = 0
+                }
+                set_variable = {
+                    name = dau_status
+                    value = 0
+                }
+            }
+            set_variable = dau_preset_residence_imported
+        }
+        remove_variable = dau_preset_residence_pending
+        remove_variable = dau_preset_residence_deferred
+    }
+}
+dau_preset_apply_land_effect = {
+    if = {
+        remove_variable = dau_land_zone_idle
+        remove_variable = dau_land_zone_active
+        remove_variable = dau_land_zone_focus
+        dau_land_zone_clear_round_effect = yes
+        limit = {
+            has_variable = dau_preset_land_pending
+        }
+        remove_variable = dau_land_enabled
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_enabled_1
+            }
+            set_variable = dau_land_enabled
+        }
+        set_variable = {
+            name = dau_land_cost_percent
+            value = 100
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_0
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_10
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 10
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_20
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 20
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_30
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 30
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_40
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 40
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_50
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 50
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_60
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 60
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_70
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 70
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_80
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 80
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_cost_90
+            }
+            set_variable = {
+                name = dau_land_cost_percent
+                value = 90
+            }
+        }
+        set_variable = {
+            name = dau_land_gold_reserve
+            value = 500
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_0
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_100
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 100
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_300
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 300
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_1000
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 1000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_1500
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 1500
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_2000
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 2000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_5000
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 5000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_10000
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 10000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_50000
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 50000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_100000
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 100000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_gold_1000000
+            }
+            set_variable = {
+                name = dau_land_gold_reserve
+                value = 1000000
+            }
+        }
+        set_variable = {
+            name = dau_land_treasury_reserve
+            value = 500
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_0
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_100
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 100
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_300
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 300
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_1000
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 1000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_1500
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 1500
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_2000
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 2000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_5000
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 5000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_10000
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 10000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_50000
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 50000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_100000
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 100000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_treasury_1000000
+            }
+            set_variable = {
+                name = dau_land_treasury_reserve
+                value = 1000000
+            }
+        }
+        set_variable = {
+            name = dau_land_prestige_reserve
+            value = 0
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_100
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 100
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_300
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 300
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_500
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 500
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_1000
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 1000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_1500
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 1500
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_2000
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 2000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_5000
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 5000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_10000
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 10000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_50000
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 50000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_100000
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 100000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_prestige_1000000
+            }
+            set_variable = {
+                name = dau_land_prestige_reserve
+                value = 1000000
+            }
+        }
+        set_variable = {
+            name = dau_land_group_1
+            value = 1
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_group_1_0
+            }
+            set_variable = {
+                name = dau_land_group_1
+                value = 0
+            }
+        }
+        set_variable = {
+            name = dau_land_group_2
+            value = 0
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_group_2_1
+            }
+            set_variable = {
+                name = dau_land_group_2
+                value = 1
+            }
+        }
+        set_variable = {
+            name = dau_land_group_3
+            value = 0
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_group_3_1
+            }
+            set_variable = {
+                name = dau_land_group_3
+                value = 1
+            }
+        }
+        set_variable = {
+            name = dau_land_category_economy
+            value = 0
+        }
+        set_variable = {
+            name = dau_land_category_military
+            value = 0
+        }
+        set_variable = {
+            name = dau_land_category_defense
+            value = 0
+        }
+        if = {
+            limit = { has_game_rule = dau_preset_land_new_holding_0 }
+            set_variable = { name = dau_land_auto_holdings value = 0 }
+        }
+        else_if = {
+            limit = { has_game_rule = dau_preset_land_new_holding_1 }
+            set_variable = { name = dau_land_auto_holdings value = 1 }
+        }
+        set_variable = {
+            name = dau_land_feudalize
+            value = 0
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_feudalize_1
+            }
+            set_variable = {
+                name = dau_land_feudalize
+                value = 1
+            }
+        }
+        set_variable = {
+            name = dau_land_replace
+            value = 0
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_replace_1
+            }
+            set_variable = {
+                name = dau_land_replace
+                value = 1
+            }
+        }
+        set_variable = {
+            name = dau_land_batch
+            value = 20
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_batch_10
+            }
+            set_variable = {
+                name = dau_land_batch
+                value = 10
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_batch_20
+            }
+            set_variable = {
+                name = dau_land_batch
+                value = 20
+            }
+        }
+        set_variable = {
+            name = dau_land_interval
+            value = 3
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_interval_2
+            }
+            set_variable = {
+                name = dau_land_interval
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_interval_4
+            }
+            set_variable = {
+                name = dau_land_interval
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_interval_7
+            }
+            set_variable = {
+                name = dau_land_interval
+                value = 7
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_interval_3
+            }
+            set_variable = {
+                name = dau_land_interval
+                value = 3
+            }
+        }
+        set_variable = dau_land_scopes_v2
+        set_variable = dau_land_batches_v3
+        remove_variable = dau_land_scope
+        set_variable = {
+            name = dau_land_elapsed
+            value = 0
+        }
+        set_variable = dau_preset_land_imported
+        remove_variable = dau_preset_land_pending
+        dau_land_plan_from_categories_effect = yes
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_0
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_1
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_2
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 2
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_3
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 3
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_4
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 4
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_5
+            }
+            set_variable = {
+                name = dau_land_plan_mode
+                value = 5
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_defense_0
+            }
+            set_variable = {
+                name = dau_land_plan_defense
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dau_preset_land_plan_defense_1
+            }
+            set_variable = {
+                name = dau_land_plan_defense
+                value = 1
+            }
+        }
+        dau_land_plan_apply_effect = yes
+    }
+}
+dau_preset_restore_residence_effect = {
+    if = {
+        limit = {
+            is_ai = no
+            is_alive = yes
+            has_domicile = yes
+            OR = {
+                has_game_rule = dau_preset_residence_enabled_0
+                has_game_rule = dau_preset_residence_enabled_1
+            }
+            OR = {
+                has_game_rule = dau_preset_residence_cost_0
+                has_game_rule = dau_preset_residence_cost_10
+                has_game_rule = dau_preset_residence_cost_20
+                has_game_rule = dau_preset_residence_cost_30
+                has_game_rule = dau_preset_residence_cost_40
+                has_game_rule = dau_preset_residence_cost_50
+                has_game_rule = dau_preset_residence_cost_60
+                has_game_rule = dau_preset_residence_cost_70
+                has_game_rule = dau_preset_residence_cost_80
+                has_game_rule = dau_preset_residence_cost_90
+                has_game_rule = dau_preset_residence_cost_100
+            }
+            OR = {
+                has_game_rule = dau_preset_residence_gold_0
+                has_game_rule = dau_preset_residence_gold_100
+                has_game_rule = dau_preset_residence_gold_300
+                has_game_rule = dau_preset_residence_gold_500
+                has_game_rule = dau_preset_residence_gold_1000
+                has_game_rule = dau_preset_residence_gold_1500
+                has_game_rule = dau_preset_residence_gold_2000
+                has_game_rule = dau_preset_residence_gold_5000
+                has_game_rule = dau_preset_residence_gold_10000
+                has_game_rule = dau_preset_residence_gold_50000
+                has_game_rule = dau_preset_residence_gold_100000
+                has_game_rule = dau_preset_residence_gold_1000000
+            }
+            OR = {
+                has_game_rule = dau_preset_residence_treasury_0
+                has_game_rule = dau_preset_residence_treasury_100
+                has_game_rule = dau_preset_residence_treasury_300
+                has_game_rule = dau_preset_residence_treasury_500
+                has_game_rule = dau_preset_residence_treasury_1000
+                has_game_rule = dau_preset_residence_treasury_1500
+                has_game_rule = dau_preset_residence_treasury_2000
+                has_game_rule = dau_preset_residence_treasury_5000
+                has_game_rule = dau_preset_residence_treasury_10000
+                has_game_rule = dau_preset_residence_treasury_50000
+                has_game_rule = dau_preset_residence_treasury_100000
+                has_game_rule = dau_preset_residence_treasury_1000000
+            }
+            OR = {
+                has_game_rule = dau_preset_residence_prestige_0
+                has_game_rule = dau_preset_residence_prestige_100
+                has_game_rule = dau_preset_residence_prestige_300
+                has_game_rule = dau_preset_residence_prestige_500
+                has_game_rule = dau_preset_residence_prestige_1000
+                has_game_rule = dau_preset_residence_prestige_1500
+                has_game_rule = dau_preset_residence_prestige_2000
+                has_game_rule = dau_preset_residence_prestige_5000
+                has_game_rule = dau_preset_residence_prestige_10000
+                has_game_rule = dau_preset_residence_prestige_50000
+                has_game_rule = dau_preset_residence_prestige_100000
+                has_game_rule = dau_preset_residence_prestige_1000000
+            }
+            OR = {
+                has_game_rule = dau_preset_residence_herd_0
+                has_game_rule = dau_preset_residence_herd_1000
+                has_game_rule = dau_preset_residence_herd_5000
+                has_game_rule = dau_preset_residence_herd_10000
+                has_game_rule = dau_preset_residence_herd_20000
+                has_game_rule = dau_preset_residence_herd_50000
+                has_game_rule = dau_preset_residence_herd_100000
+                has_game_rule = dau_preset_residence_herd_1000000
+            }
+            OR = {
+                has_game_rule = dau_preset_residence_interval_1
+                has_game_rule = dau_preset_residence_interval_2
+                has_game_rule = dau_preset_residence_interval_4
+            }
+            OR = {
+                has_game_rule = dau_preset_residence_priority_1
+                has_game_rule = dau_preset_residence_priority_0
+            }
+        }
+        set_variable = dau_preset_residence_imported
+        remove_variable = dau_preset_residence_preserved
+        remove_variable = dau_preset_residence_deferred
+        set_variable = dau_preset_residence_pending
+        remove_variable = dau_monthly_pending
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_monthly_generation
+                }
+            }
+            set_variable = {
+                name = dau_monthly_generation
+                value = 0
+            }
+        }
+        change_variable = {
+            name = dau_monthly_generation
+            add = 1
+        }
+        dau_initialize_effect = yes
+        if = {
+            limit = {
+                domicile = {
+                    has_ongoing_domicile_construction = yes
+                }
+            }
+            domicile = {
+                set_variable = {
+                    name = dau_status
+                    value = 4
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_variable = dau_choice_pending
+            }
+            domicile = {
+                set_variable = {
+                    name = dau_status
+                    value = 6
+                }
+            }
+        }
+    }
+}
+dau_preset_restore_land_effect = {
+    if = {
+        limit = {
+            is_ai = no
+            is_alive = yes
+            is_landed = yes
+            OR = {
+                has_game_rule = dau_preset_land_enabled_0
+                has_game_rule = dau_preset_land_enabled_1
+            }
+            OR = {
+                has_game_rule = dau_preset_land_cost_0
+                has_game_rule = dau_preset_land_cost_10
+                has_game_rule = dau_preset_land_cost_20
+                has_game_rule = dau_preset_land_cost_30
+                has_game_rule = dau_preset_land_cost_40
+                has_game_rule = dau_preset_land_cost_50
+                has_game_rule = dau_preset_land_cost_60
+                has_game_rule = dau_preset_land_cost_70
+                has_game_rule = dau_preset_land_cost_80
+                has_game_rule = dau_preset_land_cost_90
+                has_game_rule = dau_preset_land_cost_100
+            }
+            OR = {
+                has_game_rule = dau_preset_land_gold_0
+                has_game_rule = dau_preset_land_gold_100
+                has_game_rule = dau_preset_land_gold_300
+                has_game_rule = dau_preset_land_gold_500
+                has_game_rule = dau_preset_land_gold_1000
+                has_game_rule = dau_preset_land_gold_1500
+                has_game_rule = dau_preset_land_gold_2000
+                has_game_rule = dau_preset_land_gold_5000
+                has_game_rule = dau_preset_land_gold_10000
+                has_game_rule = dau_preset_land_gold_50000
+                has_game_rule = dau_preset_land_gold_100000
+                has_game_rule = dau_preset_land_gold_1000000
+            }
+            OR = {
+                has_game_rule = dau_preset_land_treasury_0
+                has_game_rule = dau_preset_land_treasury_100
+                has_game_rule = dau_preset_land_treasury_300
+                has_game_rule = dau_preset_land_treasury_500
+                has_game_rule = dau_preset_land_treasury_1000
+                has_game_rule = dau_preset_land_treasury_1500
+                has_game_rule = dau_preset_land_treasury_2000
+                has_game_rule = dau_preset_land_treasury_5000
+                has_game_rule = dau_preset_land_treasury_10000
+                has_game_rule = dau_preset_land_treasury_50000
+                has_game_rule = dau_preset_land_treasury_100000
+                has_game_rule = dau_preset_land_treasury_1000000
+            }
+            OR = {
+                has_game_rule = dau_preset_land_prestige_0
+                has_game_rule = dau_preset_land_prestige_100
+                has_game_rule = dau_preset_land_prestige_300
+                has_game_rule = dau_preset_land_prestige_500
+                has_game_rule = dau_preset_land_prestige_1000
+                has_game_rule = dau_preset_land_prestige_1500
+                has_game_rule = dau_preset_land_prestige_2000
+                has_game_rule = dau_preset_land_prestige_5000
+                has_game_rule = dau_preset_land_prestige_10000
+                has_game_rule = dau_preset_land_prestige_50000
+                has_game_rule = dau_preset_land_prestige_100000
+                has_game_rule = dau_preset_land_prestige_1000000
+            }
+            OR = {
+                has_game_rule = dau_preset_land_group_1_1
+                has_game_rule = dau_preset_land_group_1_0
+            }
+            OR = {
+                has_game_rule = dau_preset_land_group_2_0
+                has_game_rule = dau_preset_land_group_2_1
+            }
+            OR = {
+                has_game_rule = dau_preset_land_group_3_0
+                has_game_rule = dau_preset_land_group_3_1
+            }
+            OR = {
+                has_game_rule = dau_preset_land_feudalize_0
+                has_game_rule = dau_preset_land_feudalize_1
+            }
+            OR = {
+                has_game_rule = dau_preset_land_batch_5
+                has_game_rule = dau_preset_land_batch_10
+                has_game_rule = dau_preset_land_batch_20
+            }
+            OR = {
+                has_game_rule = dau_preset_land_interval_1
+                has_game_rule = dau_preset_land_interval_2
+                has_game_rule = dau_preset_land_interval_4
+                has_game_rule = dau_preset_land_interval_7
+                has_game_rule = dau_preset_land_interval_3
+            }
+        }
+        set_variable = dau_preset_land_pending
+        remove_variable = dau_land_monthly_pending
+        if = {
+            limit = {
+                NOT = {
+                    has_variable = dau_land_monthly_generation
+                }
+            }
+            set_variable = {
+                name = dau_land_monthly_generation
+                value = 0
+            }
+        }
+        change_variable = {
+            name = dau_land_monthly_generation
+            add = 1
+        }
+        dau_land_initialize_effect = yes
+        set_variable = {
+            name = dau_land_status
+            value = 0
+        }
+    }
+}

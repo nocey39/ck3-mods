@@ -1,0 +1,42 @@
+﻿# Engine-reported cash flow for the ruler. Keep the two funds separate.
+dau_economy_observe_effect = {
+    if = {
+        limit = { NOT = { has_variable = dau_econ_observation_wait } }
+
+        if = {
+            limit = { NOT = { has_variable = dau_econ_gold_baseline } }
+            set_variable = { name = dau_econ_gold_baseline value = monthly_character_balance }
+        }
+        set_variable = { name = dau_econ_gold_observed value = monthly_character_balance }
+        set_variable = {
+            name = dau_econ_gold_observed_change
+            value = {
+                value = var:dau_econ_gold_observed
+                subtract = var:dau_econ_gold_baseline
+            }
+        }
+
+        if = {
+            limit = { has_treasury = yes }
+            if = {
+                limit = { NOT = { has_variable = dau_econ_treasury_baseline } }
+                set_variable = { name = dau_econ_treasury_baseline value = monthly_character_treasury_balance }
+            }
+            set_variable = { name = dau_econ_treasury_observed value = monthly_character_treasury_balance }
+            set_variable = {
+                name = dau_econ_treasury_observed_change
+                value = {
+                    value = var:dau_econ_treasury_observed
+                    subtract = var:dau_econ_treasury_baseline
+                }
+            }
+        }
+        else = {
+            remove_variable = dau_econ_treasury_baseline
+            remove_variable = dau_econ_treasury_observed
+            remove_variable = dau_econ_treasury_observed_change
+        }
+
+        set_variable = { name = dau_econ_observation_wait value = yes days = 30 }
+    }
+}

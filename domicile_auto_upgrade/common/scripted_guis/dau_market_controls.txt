@@ -1,0 +1,32 @@
+﻿dau_market_planning_gui = {
+    scope = character
+    is_shown = { NOT = { has_variable = dau_market_disabled } }
+    is_valid = { is_ai = no is_landed = yes }
+    effect = {
+        if = {
+            limit = { has_variable = dau_market_disabled }
+            remove_variable = dau_market_disabled
+        }
+        else = { set_variable = dau_market_disabled }
+        remove_variable = dau_land_zone_idle
+        remove_variable = dau_market_wait
+        remove_variable = dau_market_holding_wait
+        remove_variable = dau_market_release
+        remove_variable = dau_market_input_committed
+    }
+}
+
+dau_market_commission_gui = {
+    scope = character
+    is_shown = { has_variable = dau_market_commission_enabled }
+    is_valid = { is_ai = no is_landed = yes }
+    effect = {
+        if = {
+            limit = { has_variable = dau_market_commission_enabled }
+            remove_variable = dau_market_commission_enabled
+        }
+        else = { set_variable = dau_market_commission_enabled }
+        remove_variable = dau_land_zone_idle
+        remove_variable = dau_market_commission_started
+    }
+}

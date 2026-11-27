@@ -1,0 +1,197 @@
+﻿# All effects below execute in the current player character scope.
+# Domicile variables are a runtime cache; persistent settings use its title.
+dau_initialize_effect = {
+    dau_preset_prepare_residence_effect = yes
+    if = {
+        limit = { has_domicile = yes }
+        dau_find_settings_store_effect = yes
+        if = {
+            limit = { scope:dau_settings_store = { has_variable = dau_saved_settings }
+                NOT = { domicile = { has_variable = dau_settings_loaded } } }
+            domicile = {
+                set_variable = { name = dau_cost_percent value = scope:dau_settings_store.var:dau_saved_cost_percent }
+if = { limit = { scope:dau_settings_store = { has_variable = dau_saved_time_percent } } set_variable = { name = dau_time_percent value = scope:dau_settings_store.var:dau_saved_time_percent } }
+set_variable = { name = dau_gold_reserve value = scope:dau_settings_store.var:dau_saved_gold_reserve }
+set_variable = { name = dau_treasury_reserve value = scope:dau_settings_store.var:dau_saved_treasury_reserve }
+set_variable = { name = dau_prestige_reserve value = scope:dau_settings_store.var:dau_saved_prestige_reserve }
+set_variable = { name = dau_herd_reserve value = scope:dau_settings_store.var:dau_saved_herd_reserve }
+set_variable = { name = dau_interval value = scope:dau_settings_store.var:dau_saved_interval }
+set_variable = { name = dau_priority value = scope:dau_settings_store.var:dau_saved_priority }
+set_variable = { name = dau_elapsed value = scope:dau_settings_store.var:dau_saved_elapsed }
+                if = { limit = { scope:dau_settings_store = { var:dau_saved_enabled = 1 } } set_variable = dau_enabled }
+                else = { remove_variable = dau_enabled }
+                if = {
+                    limit = { scope:dau_settings_store = { has_variable = dau_saved_manual_choice var:dau_saved_manual_choice = 1 } }
+                    set_variable = dau_manual_choice
+                }
+                else = { remove_variable = dau_manual_choice }
+            }
+        }
+        domicile = {
+        if = { limit = { NOT = { has_variable = dau_cost_percent } } set_variable = { name = dau_cost_percent value = 100 } }
+        if = { limit = { NOT = { has_variable = dau_time_percent } } set_variable = { name = dau_time_percent value = 100 } }
+        if = { limit = { NOT = { has_variable = dau_gold_reserve } } set_variable = { name = dau_gold_reserve value = 500 } }
+        if = { limit = { NOT = { has_variable = dau_treasury_reserve } } set_variable = { name = dau_treasury_reserve value = 500 } }
+        if = { limit = { NOT = { has_variable = dau_prestige_reserve } } set_variable = { name = dau_prestige_reserve value = 0 } }
+        if = { limit = { NOT = { has_variable = dau_herd_reserve } } set_variable = { name = dau_herd_reserve value = 5000 } }
+        if = { limit = { NOT = { has_variable = dau_interval } } set_variable = { name = dau_interval value = 1 } }
+        if = { limit = { NOT = { has_variable = dau_priority } } set_variable = { name = dau_priority value = 1 } }
+        if = { limit = { NOT = { has_variable = dau_elapsed } } set_variable = { name = dau_elapsed value = 0 } }
+        if = { limit = { NOT = { has_variable = dau_status } } set_variable = { name = dau_status value = 0 } }
+        set_variable = dau_settings_loaded
+        }
+        dau_preset_apply_residence_effect = yes
+        if = {
+            limit = { domicile = { NOT = { has_variable = dau_manual_choice } } }
+            remove_variable = dau_choice_pending
+            remove_variable = dau_choice_selected
+            remove_variable = dau_choice_navigating
+            domicile = {
+                if = { limit = { var:dau_status = 6 } set_variable = { name = dau_status value = 0 } }
+            }
+        }
+        dau_save_settings_effect = yes
+        dau_start_monthly_effect = yes
+    }
+}
+
+dau_check_effect = {
+    if = {
+        limit = { is_ai = no is_alive = yes has_domicile = yes }
+        dau_initialize_effect = yes
+        if = { limit = { domicile = { has_variable = dau_enabled } }
+        if = {
+            limit = { domicile = { has_ongoing_domicile_construction = yes } }
+            domicile = { set_variable = { name = dau_status value = 4 } }
+        }
+        else_if = {
+            limit = { dau_supported_domicile_trigger = no }
+            domicile = { set_variable = { name = dau_status value = 5 } }
+        }
+        else_if = {
+            limit = { has_variable = dau_choice_pending }
+            domicile = { set_variable = { name = dau_status value = 6 } }
+        }
+        else = {
+            save_scope_as = owner
+            domicile = { save_scope_as = domicile }
+            if = {
+                limit = { domicile = { has_variable = dau_manual_choice } }
+                dau_try_choice_effect = yes
+            }
+            if = {
+                limit = { NOT = { has_variable = dau_choice_pending } }
+            remove_variable = dau_candidate
+            set_variable = { name = dau_any_eligible value = 0 }
+            set_variable = { name = dau_best_main value = 0 }
+            set_variable = { name = dau_best_score value = 0 }
+            remove_variable = dau_native_domicile_selected
+            dau_scan_routes_effect = yes
+            if = {
+                limit = { domicile = { NOT = { has_variable = dau_manual_choice } } }
+                dau_scan_automatic_choices_effect = yes
+            }
+            dau_native_domicile_scan_effect = yes
+            if = {
+                limit = { has_variable = dau_candidate }
+                domicile = { set_variable = { name = dau_status value = 3 } }
+                if = {
+                    limit = { has_variable = dau_native_domicile_selected }
+                    dau_native_domicile_execute_effect = yes
+                }
+                else = { dau_construct_selected_effect = yes }
+            }
+            else_if = {
+                limit = { var:dau_any_eligible = 1 }
+                domicile = { set_variable = { name = dau_status value = 2 } }
+            }
+            else = {
+                domicile = { set_variable = { name = dau_status value = 1 } }
+            }
+            remove_variable = dau_native_domicile_selected
+            dau_clear_temporary_effect = yes
+            }
+        }
+        }
+    }
+}
+
+dau_toggle_manual_choice_effect = {
+    dau_initialize_effect = yes
+    if = {
+        limit = { domicile = { has_variable = dau_manual_choice } }
+        domicile = { remove_variable = dau_manual_choice }
+        dau_save_settings_effect = yes
+        dau_check_effect = yes
+    }
+    else = {
+        domicile = { set_variable = dau_manual_choice }
+        dau_save_settings_effect = yes
+    }
+}
+
+# Start through the engine, then debit only after verifying a construction exists.
+# Prices are the live scripted base prices, without engine-only cost modifiers.
+dau_pay_selected_effect = {
+    if = { limit = { var:dau_pay_gold > 0 } remove_short_term_gold = var:dau_pay_gold }
+    if = { limit = { var:dau_pay_treasury > 0 } remove_treasury = var:dau_pay_treasury }
+    if = { limit = { var:dau_pay_prestige > 0 } add_prestige = { value = 0 subtract = var:dau_pay_prestige } }
+    if = { limit = { var:dau_pay_influence > 0 } change_influence = { value = 0 subtract = var:dau_pay_influence } }
+    if = { limit = { var:dau_pay_piety > 0 } add_piety = { value = 0 subtract = var:dau_pay_piety } }
+    if = { limit = { var:dau_pay_herd > 0 } domicile = { change_herd = { value = 0 subtract = prev.var:dau_pay_herd } } }
+}
+
+dau_clear_temporary_effect = {
+    remove_variable = dau_candidate
+    remove_variable = dau_any_eligible
+    remove_variable = dau_best_main
+    remove_variable = dau_best_score
+    remove_variable = dau_c_score
+    remove_variable = dau_c_gold
+    remove_variable = dau_c_treasury
+    remove_variable = dau_c_prestige
+    remove_variable = dau_c_herd
+    remove_variable = dau_c_influence
+    remove_variable = dau_c_piety
+    remove_variable = dau_pay_gold
+    remove_variable = dau_pay_treasury
+    remove_variable = dau_pay_prestige
+    remove_variable = dau_pay_herd
+    remove_variable = dau_pay_influence
+    remove_variable = dau_pay_piety
+}
+
+# Prefer the title owning this exact domicile; a character is a safe fallback.
+dau_find_settings_store_effect = {
+    save_scope_as = dau_settings_owner
+    save_scope_as = dau_settings_store
+    every_held_title = {
+        limit = { exists = title_domicile title_domicile = { this = scope:dau_settings_owner.domicile } }
+        save_scope_as = dau_settings_store
+    }
+}
+dau_save_settings_effect = {
+    if = { limit = { has_domicile = yes }
+        dau_find_settings_store_effect = yes
+        scope:dau_settings_store = {
+            set_variable = { name = dau_saved_cost_percent value = scope:dau_settings_owner.domicile.var:dau_cost_percent }
+set_variable = { name = dau_saved_time_percent value = scope:dau_settings_owner.domicile.var:dau_time_percent }
+set_variable = { name = dau_saved_gold_reserve value = scope:dau_settings_owner.domicile.var:dau_gold_reserve }
+set_variable = { name = dau_saved_treasury_reserve value = scope:dau_settings_owner.domicile.var:dau_treasury_reserve }
+set_variable = { name = dau_saved_prestige_reserve value = scope:dau_settings_owner.domicile.var:dau_prestige_reserve }
+set_variable = { name = dau_saved_herd_reserve value = scope:dau_settings_owner.domicile.var:dau_herd_reserve }
+set_variable = { name = dau_saved_interval value = scope:dau_settings_owner.domicile.var:dau_interval }
+set_variable = { name = dau_saved_priority value = scope:dau_settings_owner.domicile.var:dau_priority }
+set_variable = { name = dau_saved_elapsed value = scope:dau_settings_owner.domicile.var:dau_elapsed }
+            set_variable = { name = dau_saved_enabled value = 0 }
+            if = { limit = { scope:dau_settings_owner.domicile = { has_variable = dau_enabled } }
+                set_variable = { name = dau_saved_enabled value = 1 }
+            }
+            set_variable = { name = dau_saved_manual_choice value = 0 }
+            if = { limit = { scope:dau_settings_owner.domicile = { has_variable = dau_manual_choice } }
+                set_variable = { name = dau_saved_manual_choice value = 1 }
+            }
+            set_variable = dau_saved_settings
+        }
+    }
+}

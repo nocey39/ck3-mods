@@ -1,0 +1,12 @@
+﻿dau_prepare_domicile_time_effect = {
+
+}
+dau_cleanup_domicile_time_effect = {
+
+}
+dau_prepare_holding_time_effect = {
+
+}
+dau_cleanup_holding_time_effect = {
+
+}

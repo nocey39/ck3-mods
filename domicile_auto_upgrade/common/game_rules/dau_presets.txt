@@ -1,0 +1,603 @@
+﻿dau_preset_residence_enabled = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_enabled_0
+    dau_preset_residence_enabled_0 = {
+
+    }
+    dau_preset_residence_enabled_1 = {
+
+    }
+}
+dau_preset_residence_cost = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_cost_100
+    dau_preset_residence_cost_0 = {
+
+    }
+    dau_preset_residence_cost_10 = {
+
+    }
+    dau_preset_residence_cost_20 = {
+
+    }
+    dau_preset_residence_cost_30 = {
+
+    }
+    dau_preset_residence_cost_40 = {
+
+    }
+    dau_preset_residence_cost_50 = {
+
+    }
+    dau_preset_residence_cost_60 = {
+
+    }
+    dau_preset_residence_cost_70 = {
+
+    }
+    dau_preset_residence_cost_80 = {
+
+    }
+    dau_preset_residence_cost_90 = {
+
+    }
+    dau_preset_residence_cost_100 = {
+
+    }
+}
+dau_preset_residence_gold = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_gold_500
+    dau_preset_residence_gold_0 = {
+
+    }
+    dau_preset_residence_gold_100 = {
+
+    }
+    dau_preset_residence_gold_300 = {
+
+    }
+    dau_preset_residence_gold_500 = {
+
+    }
+    dau_preset_residence_gold_1000 = {
+
+    }
+    dau_preset_residence_gold_1500 = {
+
+    }
+    dau_preset_residence_gold_2000 = {
+
+    }
+    dau_preset_residence_gold_5000 = {
+
+    }
+    dau_preset_residence_gold_10000 = {
+
+    }
+    dau_preset_residence_gold_50000 = {
+
+    }
+    dau_preset_residence_gold_100000 = {
+
+    }
+    dau_preset_residence_gold_1000000 = {
+
+    }
+}
+dau_preset_residence_treasury = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_treasury_500
+    dau_preset_residence_treasury_0 = {
+
+    }
+    dau_preset_residence_treasury_100 = {
+
+    }
+    dau_preset_residence_treasury_300 = {
+
+    }
+    dau_preset_residence_treasury_500 = {
+
+    }
+    dau_preset_residence_treasury_1000 = {
+
+    }
+    dau_preset_residence_treasury_1500 = {
+
+    }
+    dau_preset_residence_treasury_2000 = {
+
+    }
+    dau_preset_residence_treasury_5000 = {
+
+    }
+    dau_preset_residence_treasury_10000 = {
+
+    }
+    dau_preset_residence_treasury_50000 = {
+
+    }
+    dau_preset_residence_treasury_100000 = {
+
+    }
+    dau_preset_residence_treasury_1000000 = {
+
+    }
+}
+dau_preset_residence_prestige = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_prestige_0
+    dau_preset_residence_prestige_0 = {
+
+    }
+    dau_preset_residence_prestige_100 = {
+
+    }
+    dau_preset_residence_prestige_300 = {
+
+    }
+    dau_preset_residence_prestige_500 = {
+
+    }
+    dau_preset_residence_prestige_1000 = {
+
+    }
+    dau_preset_residence_prestige_1500 = {
+
+    }
+    dau_preset_residence_prestige_2000 = {
+
+    }
+    dau_preset_residence_prestige_5000 = {
+
+    }
+    dau_preset_residence_prestige_10000 = {
+
+    }
+    dau_preset_residence_prestige_50000 = {
+
+    }
+    dau_preset_residence_prestige_100000 = {
+
+    }
+    dau_preset_residence_prestige_1000000 = {
+
+    }
+}
+dau_preset_residence_herd = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_herd_5000
+    dau_preset_residence_herd_0 = {
+
+    }
+    dau_preset_residence_herd_1000 = {
+
+    }
+    dau_preset_residence_herd_5000 = {
+
+    }
+    dau_preset_residence_herd_10000 = {
+
+    }
+    dau_preset_residence_herd_20000 = {
+
+    }
+    dau_preset_residence_herd_50000 = {
+
+    }
+    dau_preset_residence_herd_100000 = {
+
+    }
+    dau_preset_residence_herd_1000000 = {
+
+    }
+}
+dau_preset_residence_interval = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_interval_1
+    dau_preset_residence_interval_1 = {
+
+    }
+    dau_preset_residence_interval_2 = {
+
+    }
+    dau_preset_residence_interval_4 = {
+
+    }
+}
+dau_preset_residence_priority = {
+    categories = {
+        dau_preset_residence
+    }
+    default = dau_preset_residence_priority_1
+    dau_preset_residence_priority_1 = {
+
+    }
+    dau_preset_residence_priority_0 = {
+
+    }
+}
+dau_preset_land_enabled = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_enabled_0
+    dau_preset_land_enabled_0 = {
+
+    }
+    dau_preset_land_enabled_1 = {
+
+    }
+}
+dau_preset_land_cost = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_cost_100
+    dau_preset_land_cost_0 = {
+
+    }
+    dau_preset_land_cost_10 = {
+
+    }
+    dau_preset_land_cost_20 = {
+
+    }
+    dau_preset_land_cost_30 = {
+
+    }
+    dau_preset_land_cost_40 = {
+
+    }
+    dau_preset_land_cost_50 = {
+
+    }
+    dau_preset_land_cost_60 = {
+
+    }
+    dau_preset_land_cost_70 = {
+
+    }
+    dau_preset_land_cost_80 = {
+
+    }
+    dau_preset_land_cost_90 = {
+
+    }
+    dau_preset_land_cost_100 = {
+
+    }
+}
+dau_preset_land_gold = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_gold_500
+    dau_preset_land_gold_0 = {
+
+    }
+    dau_preset_land_gold_100 = {
+
+    }
+    dau_preset_land_gold_300 = {
+
+    }
+    dau_preset_land_gold_500 = {
+
+    }
+    dau_preset_land_gold_1000 = {
+
+    }
+    dau_preset_land_gold_1500 = {
+
+    }
+    dau_preset_land_gold_2000 = {
+
+    }
+    dau_preset_land_gold_5000 = {
+
+    }
+    dau_preset_land_gold_10000 = {
+
+    }
+    dau_preset_land_gold_50000 = {
+
+    }
+    dau_preset_land_gold_100000 = {
+
+    }
+    dau_preset_land_gold_1000000 = {
+
+    }
+}
+dau_preset_land_treasury = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_treasury_500
+    dau_preset_land_treasury_0 = {
+
+    }
+    dau_preset_land_treasury_100 = {
+
+    }
+    dau_preset_land_treasury_300 = {
+
+    }
+    dau_preset_land_treasury_500 = {
+
+    }
+    dau_preset_land_treasury_1000 = {
+
+    }
+    dau_preset_land_treasury_1500 = {
+
+    }
+    dau_preset_land_treasury_2000 = {
+
+    }
+    dau_preset_land_treasury_5000 = {
+
+    }
+    dau_preset_land_treasury_10000 = {
+
+    }
+    dau_preset_land_treasury_50000 = {
+
+    }
+    dau_preset_land_treasury_100000 = {
+
+    }
+    dau_preset_land_treasury_1000000 = {
+
+    }
+}
+dau_preset_land_prestige = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_prestige_0
+    dau_preset_land_prestige_0 = {
+
+    }
+    dau_preset_land_prestige_100 = {
+
+    }
+    dau_preset_land_prestige_300 = {
+
+    }
+    dau_preset_land_prestige_500 = {
+
+    }
+    dau_preset_land_prestige_1000 = {
+
+    }
+    dau_preset_land_prestige_1500 = {
+
+    }
+    dau_preset_land_prestige_2000 = {
+
+    }
+    dau_preset_land_prestige_5000 = {
+
+    }
+    dau_preset_land_prestige_10000 = {
+
+    }
+    dau_preset_land_prestige_50000 = {
+
+    }
+    dau_preset_land_prestige_100000 = {
+
+    }
+    dau_preset_land_prestige_1000000 = {
+
+    }
+}
+dau_preset_land_group_1 = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_group_1_1
+    dau_preset_land_group_1_1 = {
+
+    }
+    dau_preset_land_group_1_0 = {
+
+    }
+}
+dau_preset_land_group_2 = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_group_2_0
+    dau_preset_land_group_2_0 = {
+
+    }
+    dau_preset_land_group_2_1 = {
+
+    }
+}
+dau_preset_land_group_3 = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_group_3_0
+    dau_preset_land_group_3_0 = {
+
+    }
+    dau_preset_land_group_3_1 = {
+
+    }
+}
+dau_preset_land_new_holding = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_new_holding_0
+    dau_preset_land_new_holding_0 = {
+
+    }
+    dau_preset_land_new_holding_1 = {
+
+    }
+}
+dau_preset_land_feudalize = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_feudalize_0
+    dau_preset_land_feudalize_0 = {
+
+    }
+    dau_preset_land_feudalize_1 = {
+
+    }
+}
+dau_preset_land_replace = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_replace_0
+    dau_preset_land_replace_0 = {
+
+    }
+    dau_preset_land_replace_1 = {
+
+    }
+}
+dau_preset_land_batch = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_batch_20
+    dau_preset_land_batch_5 = {
+
+    }
+    dau_preset_land_batch_10 = {
+
+    }
+    dau_preset_land_batch_20 = {
+
+    }
+}
+dau_preset_land_interval = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_interval_3
+    dau_preset_land_interval_1 = {
+
+    }
+    dau_preset_land_interval_2 = {
+
+    }
+    dau_preset_land_interval_4 = {
+
+    }
+    dau_preset_land_interval_7 = {
+
+    }
+    dau_preset_land_interval_3 = {
+
+    }
+}
+dau_preset_land_plan = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_plan_3
+    dau_preset_land_plan_0 = {
+
+    }
+    dau_preset_land_plan_1 = {
+
+    }
+    dau_preset_land_plan_2 = {
+
+    }
+    dau_preset_land_plan_3 = {
+
+    }
+    dau_preset_land_plan_4 = {
+
+    }
+    dau_preset_land_plan_5 = {
+
+    }
+}
+dau_preset_land_plan_defense = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_plan_defense_0
+    dau_preset_land_plan_defense_0 = {
+
+    }
+    dau_preset_land_plan_defense_1 = {
+
+    }
+}
+dau_preset_land_region_enabled = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_region_enabled_0
+    dau_preset_land_region_enabled_0 = {
+
+    }
+    dau_preset_land_region_enabled_1 = {
+
+    }
+}
+dau_preset_land_region_duchy = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_region_duchy_1
+    dau_preset_land_region_duchy_0 = {
+
+    }
+    dau_preset_land_region_duchy_1 = {
+
+    }
+}
+dau_preset_land_region_kingdom = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_region_kingdom_0
+    dau_preset_land_region_kingdom_0 = {
+
+    }
+    dau_preset_land_region_kingdom_1 = {
+
+    }
+}
+dau_preset_land_region_empire = {
+    categories = {
+        dau_preset_land
+    }
+    default = dau_preset_land_region_empire_0
+    dau_preset_land_region_empire_0 = {
+
+    }
+    dau_preset_land_region_empire_1 = {
+
+    }
+}

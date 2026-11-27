@@ -1,0 +1,6 @@
+﻿dau_upgrade_available_trigger = {
+    has_ongoing_holding_construction = no
+    has_ongoing_trade_post_construction = no
+    is_occupied = no
+    NOT = { has_variable = dau_up_done_today }
+}
