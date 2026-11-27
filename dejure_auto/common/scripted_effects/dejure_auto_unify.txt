@@ -1,0 +1,94 @@
+﻿dejure_auto_unify_pass_effect = {
+    set_variable = { name = dejure_auto_unify_force_faith_done value = 0 }
+    set_variable = { name = dejure_auto_unify_force_culture_done value = 0 }
+    set_variable = { name = dejure_auto_unify_government_done value = 0 }
+    if = {
+        limit = { var:dejure_auto_unify_force_faith = 1 }
+        dejure_auto_unify_faith_pass_effect = yes
+    }
+    if = {
+        limit = { var:dejure_auto_unify_force_culture = 1 }
+        dejure_auto_unify_culture_pass_effect = yes
+    }
+    if = {
+        limit = { var:dejure_auto_unify_government = 1 }
+        dejure_auto_unify_government_pass_effect = yes
+    }
+}
+
+dejure_auto_unify_government_pass_effect = {
+    every_vassal_or_below = {
+        limit = {
+            is_alive = yes
+            is_ai = yes
+            is_landed = yes
+            highest_held_title_tier > tier_barony
+            NOT = { government_has_flag = government_is_theocracy }
+            government_type != scope:dejure_auto_owner.government_type
+            dejure_auto_force_protected_trigger = no
+            dejure_auto_force_player_branch_trigger = no
+        }
+        change_government = scope:dejure_auto_owner.government_type
+        if = {
+            limit = { government_type = scope:dejure_auto_owner.government_type }
+            scope:dejure_auto_owner = {
+                change_variable = { name = dejure_auto_unify_government_done add = 1 }
+            }
+        }
+    }
+}
+
+dejure_auto_unify_faith_pass_effect = {
+    every_vassal_or_below = {
+        limit = {
+            is_alive = yes
+            is_ai = yes
+            is_landed = yes
+            highest_held_title_tier > tier_barony
+            NOR = {
+                government_has_flag = government_is_theocracy
+                faith.religious_head ?= this
+                rite.head_of_rite ?= this
+                vassal_contract_has_flag = religiously_protected
+                has_trait = devoted
+                has_trait = order_member
+                var:cannot_be_converted_by_value ?= liege
+                var:cannot_be_converted_by_value ?= scope:dejure_auto_owner
+            }
+            dejure_auto_force_protected_trigger = no
+            dejure_auto_force_player_branch_trigger = no
+        }
+        # A previous conversion in this pass can already have converted a relative.
+        if = {
+            limit = { rite != scope:dejure_auto_owner.rite }
+            set_character_rite = scope:dejure_auto_owner.rite
+            if = {
+                limit = { rite = scope:dejure_auto_owner.rite }
+                scope:dejure_auto_owner = {
+                    change_variable = { name = dejure_auto_unify_force_faith_done add = 1 }
+                }
+            }
+        }
+    }
+}
+
+dejure_auto_unify_culture_pass_effect = {
+    every_vassal_or_below = {
+        limit = {
+            is_alive = yes
+            is_ai = yes
+            is_landed = yes
+            highest_held_title_tier > tier_barony
+            culture != scope:dejure_auto_owner.culture
+            dejure_auto_force_protected_trigger = no
+            dejure_auto_force_player_branch_trigger = no
+        }
+        set_culture = scope:dejure_auto_owner.culture
+        if = {
+            limit = { culture = scope:dejure_auto_owner.culture }
+            scope:dejure_auto_owner = {
+                change_variable = { name = dejure_auto_unify_force_culture_done add = 1 }
+            }
+        }
+    }
+}

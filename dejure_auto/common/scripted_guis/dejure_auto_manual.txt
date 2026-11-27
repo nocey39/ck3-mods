@@ -1,0 +1,850 @@
+﻿dejure_auto_manual_open_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+            }
+            dejure_auto_initialize_effect = yes
+            dejure_auto_retention_refresh_effect = yes
+            set_variable = dejure_auto_manual_open
+            set_variable = dejure_auto_activity_probe_enabled
+            remove_variable = dejure_auto_map_probe_open
+            remove_variable = dejure_auto_panel_open
+        }
+        dejure_auto_manual_flow_clear_effect = yes
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        has_variable = dejure_auto_manual_ticket
+                    }
+                }
+                set_variable = {
+                    name = dejure_auto_manual_ticket
+                    value = 0
+                }
+            }
+            set_variable = {
+                name = dejure_auto_manual_mode
+                value = 0
+            }
+        }
+        remove_variable = dejure_auto_activity_probe_enabled
+        remove_variable = dejure_auto_select_probe_open
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+            }
+            set_variable = dejure_auto_direct_open
+        }
+        remove_variable = dejure_auto_color_probe_open
+        dejure_auto_direct_realm_refresh_effect = yes
+    }
+}
+dejure_auto_manual_back_gui = {
+    scope = character
+    effect = {
+        remove_variable = dejure_auto_manual_open
+        remove_variable = dejure_auto_activity_probe_enabled
+        set_variable = dejure_auto_panel_open
+        dejure_auto_manual_flow_clear_effect = yes
+    }
+}
+dejure_auto_manual_add_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            province_owner = root
+            exists = county
+            county = {
+                tier = tier_county
+                holder = root
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        NOT = {
+            is_target_in_variable_list = {
+                name = dejure_auto_manual_counties
+                target = scope:dejure_auto_manual_input.county
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    province_owner = root
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        holder = root
+                        dejure_auto_map_county_trigger = yes
+                    }
+                }
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_manual_counties
+                        target = scope:dejure_auto_manual_input.county
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_manual_counties
+                target = scope:dejure_auto_manual_input.county
+            }
+            dejure_auto_manual_prune_effect = yes
+        }
+    }
+}
+dejure_auto_manual_remove_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            province_owner = root
+            exists = county
+            county = {
+                tier = tier_county
+                holder = root
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        is_target_in_variable_list = {
+            name = dejure_auto_manual_counties
+            target = scope:dejure_auto_manual_input.county
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    province_owner = root
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        holder = root
+                        dejure_auto_map_county_trigger = yes
+                    }
+                }
+                is_target_in_variable_list = {
+                    name = dejure_auto_manual_counties
+                    target = scope:dejure_auto_manual_input.county
+                }
+            }
+            remove_list_variable = {
+                name = dejure_auto_manual_counties
+                target = scope:dejure_auto_manual_input.county
+            }
+            dejure_auto_manual_prune_effect = yes
+        }
+    }
+}
+dejure_auto_manual_marked_gui = {
+    scope = character
+    is_shown = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            province_owner = root
+            exists = county
+            county = {
+                tier = tier_county
+                holder = root
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        is_target_in_variable_list = {
+            name = dejure_auto_manual_counties
+            target = scope:dejure_auto_manual_input.county
+        }
+    }
+}
+dejure_auto_manual_base_gui = {
+    scope = character
+    is_shown = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            province_owner = root
+            exists = county
+            county = {
+                tier = tier_county
+                holder = root
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        save_temporary_scope_as = dejure_auto_owner
+        scope:dejure_auto_manual_input.county = {
+            dejure_auto_base_retained_trigger = yes
+        }
+    }
+}
+dejure_auto_manual_arm_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        NOT = {
+            has_variable = dejure_auto_manual_armed
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                NOT = {
+                    has_variable = dejure_auto_manual_armed
+                }
+            }
+            remove_variable = dejure_auto_manual_ready
+            if = {
+                limit = {
+                    NOT = {
+                        has_variable = dejure_auto_manual_ticket
+                    }
+                }
+                set_variable = {
+                    name = dejure_auto_manual_ticket
+                    value = 0
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        OR = {
+                            var:dejure_auto_manual_mode = 0
+                            var:dejure_auto_manual_mode = 1
+                        }
+                    }
+                }
+                set_variable = {
+                    name = dejure_auto_manual_mode
+                    value = 0
+                }
+            }
+            change_variable = {
+                name = dejure_auto_manual_ticket
+                add = 1
+            }
+            set_variable = dejure_auto_manual_armed
+        }
+    }
+}
+dejure_auto_manual_pause_gui = {
+    scope = character
+    effect = {
+        remove_variable = dejure_auto_manual_armed
+        remove_variable = dejure_auto_manual_ready
+    }
+}
+dejure_auto_manual_apply_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            province_owner = root
+            exists = county
+            county = {
+                tier = tier_county
+                holder = root
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        exists = scope:dejure_auto_manual_reply_ticket
+        var:dejure_auto_manual_ticket = scope:dejure_auto_manual_reply_ticket
+        has_variable = dejure_auto_manual_armed
+        NOT = {
+            has_variable = dejure_auto_manual_ready
+        }
+        OR = {
+            var:dejure_auto_manual_mode = 0
+            var:dejure_auto_manual_mode = 1
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    province_owner = root
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        holder = root
+                        dejure_auto_map_county_trigger = yes
+                    }
+                }
+                exists = scope:dejure_auto_manual_reply_ticket
+                var:dejure_auto_manual_ticket = scope:dejure_auto_manual_reply_ticket
+                has_variable = dejure_auto_manual_armed
+                NOT = {
+                    has_variable = dejure_auto_manual_ready
+                }
+                OR = {
+                    var:dejure_auto_manual_mode = 0
+                    var:dejure_auto_manual_mode = 1
+                }
+            }
+            remove_variable = dejure_auto_manual_armed
+            set_variable = {
+                name = dejure_auto_manual_last_county
+                value = scope:dejure_auto_manual_input.county
+            }
+            if = {
+                limit = {
+                    var:dejure_auto_manual_mode = 0
+                }
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 2
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_counties
+                                target = scope:dejure_auto_manual_input.county
+                            }
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 1
+                    }
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_counties
+                        target = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 0
+                    }
+                }
+            }
+            else = {
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 3
+                }
+                if = {
+                    limit = {
+                        is_target_in_variable_list = {
+                            name = dejure_auto_manual_counties
+                            target = scope:dejure_auto_manual_input.county
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 0
+                    }
+                    remove_list_variable = {
+                        name = dejure_auto_manual_counties
+                        target = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 1
+                    }
+                }
+            }
+            dejure_auto_manual_prune_effect = yes
+            set_variable = dejure_auto_manual_ready
+        }
+    }
+}
+dejure_auto_manual_mode_0_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        NOT = {
+            has_variable = dejure_auto_manual_ready
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                NOT = {
+                    has_variable = dejure_auto_manual_ready
+                }
+            }
+            if = {
+                limit = {
+                    has_variable = dejure_auto_direct_open
+                    NOT = {
+                        var:dejure_auto_manual_mode = 0
+                    }
+                }
+                dejure_auto_direct_advance_effect = yes
+            }
+            set_variable = {
+                name = dejure_auto_manual_mode
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_variable = dejure_auto_direct_open
+            }
+            dejure_auto_direct_target_refresh_effect = yes
+        }
+    }
+}
+dejure_auto_manual_mode_1_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        NOT = {
+            has_variable = dejure_auto_manual_ready
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                NOT = {
+                    has_variable = dejure_auto_manual_ready
+                }
+            }
+            if = {
+                limit = {
+                    has_variable = dejure_auto_direct_open
+                    NOT = {
+                        var:dejure_auto_manual_mode = 1
+                    }
+                }
+                dejure_auto_direct_advance_effect = yes
+            }
+            set_variable = {
+                name = dejure_auto_manual_mode
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_variable = dejure_auto_direct_open
+            }
+            dejure_auto_direct_target_refresh_effect = yes
+        }
+    }
+}
+dejure_auto_manual_undo_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        NOT = {
+            has_variable = dejure_auto_manual_ready
+        }
+        exists = var:dejure_auto_manual_undo_county
+        var:dejure_auto_manual_undo_county = {
+            tier >= tier_county
+            tier <= tier_empire
+            holder = root
+            dejure_auto_map_title_trigger = yes
+        }
+        OR = {
+            AND = {
+                var:dejure_auto_manual_undo_add = 1
+                OR = {
+                    AND = {
+                        var:dejure_auto_manual_undo_county = {
+                            tier = tier_county
+                        }
+                        is_target_in_variable_list = {
+                            name = dejure_auto_manual_counties
+                            target = var:dejure_auto_manual_undo_county
+                        }
+                    }
+                    AND = {
+                        var:dejure_auto_manual_undo_county = {
+                            tier >= tier_duchy
+                            tier <= tier_empire
+                        }
+                        is_target_in_variable_list = {
+                            name = dejure_auto_manual_titles
+                            target = var:dejure_auto_manual_undo_county
+                        }
+                    }
+                }
+            }
+            AND = {
+                var:dejure_auto_manual_undo_add = 0
+                NOT = {
+                    OR = {
+                        AND = {
+                            var:dejure_auto_manual_undo_county = {
+                                tier = tier_county
+                            }
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_counties
+                                target = var:dejure_auto_manual_undo_county
+                            }
+                        }
+                        AND = {
+                            var:dejure_auto_manual_undo_county = {
+                                tier >= tier_duchy
+                                tier <= tier_empire
+                            }
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_titles
+                                target = var:dejure_auto_manual_undo_county
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                NOT = {
+                    has_variable = dejure_auto_manual_ready
+                }
+                exists = var:dejure_auto_manual_undo_county
+                var:dejure_auto_manual_undo_county = {
+                    tier >= tier_county
+                    tier <= tier_empire
+                    holder = root
+                    dejure_auto_map_title_trigger = yes
+                }
+                OR = {
+                    AND = {
+                        var:dejure_auto_manual_undo_add = 1
+                        OR = {
+                            AND = {
+                                var:dejure_auto_manual_undo_county = {
+                                    tier = tier_county
+                                }
+                                is_target_in_variable_list = {
+                                    name = dejure_auto_manual_counties
+                                    target = var:dejure_auto_manual_undo_county
+                                }
+                            }
+                            AND = {
+                                var:dejure_auto_manual_undo_county = {
+                                    tier >= tier_duchy
+                                    tier <= tier_empire
+                                }
+                                is_target_in_variable_list = {
+                                    name = dejure_auto_manual_titles
+                                    target = var:dejure_auto_manual_undo_county
+                                }
+                            }
+                        }
+                    }
+                    AND = {
+                        var:dejure_auto_manual_undo_add = 0
+                        NOT = {
+                            OR = {
+                                AND = {
+                                    var:dejure_auto_manual_undo_county = {
+                                        tier = tier_county
+                                    }
+                                    is_target_in_variable_list = {
+                                        name = dejure_auto_manual_counties
+                                        target = var:dejure_auto_manual_undo_county
+                                    }
+                                }
+                                AND = {
+                                    var:dejure_auto_manual_undo_county = {
+                                        tier >= tier_duchy
+                                        tier <= tier_empire
+                                    }
+                                    is_target_in_variable_list = {
+                                        name = dejure_auto_manual_titles
+                                        target = var:dejure_auto_manual_undo_county
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            set_variable = {
+                name = dejure_auto_manual_last_title
+                value = var:dejure_auto_manual_undo_county
+            }
+            if = {
+                limit = {
+                    var:dejure_auto_manual_undo_county = {
+                        tier = tier_county
+                    }
+                }
+                set_variable = {
+                    name = dejure_auto_manual_last_county
+                    value = var:dejure_auto_manual_undo_county
+                }
+                if = {
+                    limit = {
+                        var:dejure_auto_manual_undo_add = 1
+                    }
+                    remove_list_variable = {
+                        name = dejure_auto_manual_counties
+                        target = var:dejure_auto_manual_undo_county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 4
+                    }
+                }
+                else = {
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_counties
+                        target = var:dejure_auto_manual_undo_county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 5
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = {
+                        var:dejure_auto_manual_undo_add = 1
+                    }
+                    remove_list_variable = {
+                        name = dejure_auto_manual_titles
+                        target = var:dejure_auto_manual_undo_county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 4
+                    }
+                }
+                else = {
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_titles
+                        target = var:dejure_auto_manual_undo_county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 5
+                    }
+                }
+            }
+            remove_variable = dejure_auto_manual_undo_county
+            remove_variable = dejure_auto_manual_undo_add
+            dejure_auto_manual_prune_effect = yes
+            if = {
+                limit = {
+                    has_variable = dejure_auto_direct_open
+                }
+                dejure_auto_direct_advance_effect = yes
+                dejure_auto_direct_target_refresh_effect = yes
+            }
+        }
+    }
+}
+dejure_auto_manual_confirm_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            province_owner = root
+            exists = county
+            county = {
+                tier = tier_county
+                holder = root
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        exists = scope:dejure_auto_manual_reply_ticket
+        var:dejure_auto_manual_ticket = scope:dejure_auto_manual_reply_ticket
+        NOT = {
+            has_variable = dejure_auto_manual_ready
+        }
+        OR = {
+            var:dejure_auto_manual_mode = 0
+            var:dejure_auto_manual_mode = 1
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    province_owner = root
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        holder = root
+                        dejure_auto_map_county_trigger = yes
+                    }
+                }
+                exists = scope:dejure_auto_manual_reply_ticket
+                var:dejure_auto_manual_ticket = scope:dejure_auto_manual_reply_ticket
+                NOT = {
+                    has_variable = dejure_auto_manual_ready
+                }
+                OR = {
+                    var:dejure_auto_manual_mode = 0
+                    var:dejure_auto_manual_mode = 1
+                }
+            }
+            remove_variable = dejure_auto_manual_armed
+            set_variable = {
+                name = dejure_auto_manual_last_county
+                value = scope:dejure_auto_manual_input.county
+            }
+            if = {
+                limit = {
+                    var:dejure_auto_manual_mode = 0
+                }
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 2
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_counties
+                                target = scope:dejure_auto_manual_input.county
+                            }
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 1
+                    }
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_counties
+                        target = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 0
+                    }
+                }
+            }
+            else = {
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 3
+                }
+                if = {
+                    limit = {
+                        is_target_in_variable_list = {
+                            name = dejure_auto_manual_counties
+                            target = scope:dejure_auto_manual_input.county
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 0
+                    }
+                    remove_list_variable = {
+                        name = dejure_auto_manual_counties
+                        target = scope:dejure_auto_manual_input.county
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 1
+                    }
+                }
+            }
+            dejure_auto_manual_prune_effect = yes
+            set_variable = dejure_auto_manual_ready
+        }
+    }
+}

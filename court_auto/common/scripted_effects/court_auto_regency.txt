@@ -1,0 +1,63 @@
+﻿# Use the normal send path. Explicit shared cooldown guards both the runner
+# and the native interaction; on_accept stamps it only after a successful swing.
+court_auto_regency_check_effect = {
+    if = {
+        limit = { court_auto_regency_active_trigger = yes NOT = { has_character_flag = court_auto_swing_cooldown } }
+        save_scope_as = court_auto_regency_actor
+        set_variable = court_auto_regency_running
+        if = {
+            limit = {
+                NOT = { has_character_flag = court_auto_swing_cooldown }
+                exists = diarch
+                has_active_diarchy = yes
+                diarchy_swing > 0
+                is_character_interaction_valid = {
+                    interaction = swing_scales_currency_interaction
+                    recipient = diarch
+                }
+            }
+            run_interaction = {
+                interaction = swing_scales_currency_interaction
+                actor = scope:court_auto_regency_actor
+                recipient = diarch
+                send_threshold = accept
+            }
+        }
+        if = {
+            limit = {
+                NOT = { has_character_flag = court_auto_swing_cooldown }
+                exists = liege
+                is_diarch_of_target = liege
+                liege = { has_active_diarchy = yes diarchy_swing < 100 }
+                is_character_interaction_valid = {
+                    interaction = swing_scales_currency_interaction
+                    recipient = liege
+                }
+            }
+            run_interaction = {
+                interaction = swing_scales_currency_interaction
+                actor = scope:court_auto_regency_actor
+                recipient = liege
+                send_threshold = accept
+            }
+        }
+        remove_variable = court_auto_regency_running
+    }
+}
+court_auto_regency_schedule_effect = {
+    if = {
+        limit = {
+            court_auto_regency_active_trigger = yes
+            NOT = { has_variable = court_auto_regency_daily_pending }
+        }
+        set_variable = court_auto_regency_daily_pending
+        trigger_event = { on_action = court_auto_regency_daily_check days = 1 }
+    }
+}
+court_auto_regency_inherit_effect = {
+    remove_variable = court_auto_regency_enabled
+    if = {
+        limit = { scope:previous_player_character = { has_variable = court_auto_regency_enabled } }
+        set_variable = court_auto_regency_enabled
+    }
+}

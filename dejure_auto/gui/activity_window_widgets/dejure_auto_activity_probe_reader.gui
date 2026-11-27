@@ -1,0 +1,111 @@
+﻿widget = { name = "dejure_auto_activity_probe_reader" size = { 100% 100% }
+    alwaystransparent = yes visible = "[GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet]"
+    state = { name = "dejure_auto_manual_arm" trigger_when = "[And(And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(TravelPlanner.GetTravelPlan.IsValid), Not(TravelPlanner.IsLinked))), And(ActivityPlanner.IsPlanningStage('location'), Not(GetPlayer.MakeScope.Var('dejure_auto_manual_armed').IsSet)))]"
+        on_start = "[GetScriptedGui('dejure_auto_manual_arm_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
+    state = { name = "dejure_auto_manual_capture" trigger_when = "[And(And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(TravelPlanner.GetTravelPlan.IsValid), Not(TravelPlanner.IsLinked))), And(ActivityPlanner.IsPlanningStage('options'), GetScriptedGui('dejure_auto_manual_apply_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)))]"
+        on_start = "[GetScriptedGui('dejure_auto_manual_apply_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)]"
+    }
+    state = { name = "dejure_auto_manual_next" trigger_when = "[And(And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(TravelPlanner.GetTravelPlan.IsValid), Not(TravelPlanner.IsLinked))), And(ActivityPlanner.IsPlanningStage('options'), GetPlayer.MakeScope.Var('dejure_auto_manual_ready').IsSet))]"
+        on_start = "[ActivityPlanner.StartLocationPicking]"
+    }
+
+    widget = { parentanchor = top|right position = { -30 160 } size = { 420 300 }
+        using = Window_Background using = Window_Decoration alwaystransparent = no filter_mouse = all
+        text_single = { name = "dejure_auto_manual_heading" position = { 40 20 } size = { 340 28 }
+            autoresize = no align = left|vcenter fontsize = 20
+            elide = right text = "dejure_auto_manual_title"
+        }
+        button_standard = { name = "dejure_auto_manual_mode_0" position = { 40 58 } size = { 166 30 } text = "dejure_auto_manual_paint_add"
+            enabled = "[And(And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(TravelPlanner.GetTravelPlan.IsValid), Not(TravelPlanner.IsLinked))), And(ActivityPlanner.IsPlanningStage('location'), Not(GetPlayer.MakeScope.Var('dejure_auto_manual_ready').IsSet)))]"
+
+            down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_mode').GetValue, '(CFixedPoint)0')]"
+            onclick = "[GetScriptedGui('dejure_auto_manual_mode_0_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        button_standard = { name = "dejure_auto_manual_mode_1" position = { 214 58 } size = { 166 30 } text = "dejure_auto_manual_paint_remove"
+            enabled = "[And(And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(TravelPlanner.GetTravelPlan.IsValid), Not(TravelPlanner.IsLinked))), And(ActivityPlanner.IsPlanningStage('location'), Not(GetPlayer.MakeScope.Var('dejure_auto_manual_ready').IsSet)))]"
+
+            down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_mode').GetValue, '(CFixedPoint)1')]"
+            onclick = "[GetScriptedGui('dejure_auto_manual_mode_1_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        text_single = { name = "dejure_auto_manual_hint" position = { 40 100 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_paint_hint"
+        }
+        text_single = { name = "dejure_auto_manual_current" position = { 40 128 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_selected"
+            visible = "[ActivityPlanner.IsPlanningStage('options')]" }
+        text_single = { name = "dejure_auto_manual_last" position = { 40 128 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_last"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet)]" }
+        text_single = { name = "dejure_auto_manual_empty" position = { 40 128 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_pick_hint"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), Not(GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet))]" }
+        text_single = { name = "dejure_auto_manual_both_status" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_both_status"
+            visible = "[And(ActivityPlanner.IsPlanningStage('options'), And(GetScriptedGui('dejure_auto_manual_base_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End), GetScriptedGui('dejure_auto_manual_marked_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)))]" }
+        text_single = { name = "dejure_auto_manual_base_status" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_base_status"
+            visible = "[And(ActivityPlanner.IsPlanningStage('options'), And(GetScriptedGui('dejure_auto_manual_base_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End), Not(GetScriptedGui('dejure_auto_manual_marked_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End))))]" }
+        text_single = { name = "dejure_auto_manual_marked_status" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_marked_status"
+            visible = "[And(ActivityPlanner.IsPlanningStage('options'), And(Not(GetScriptedGui('dejure_auto_manual_base_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)), GetScriptedGui('dejure_auto_manual_marked_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)))]" }
+        text_single = { name = "dejure_auto_manual_unmarked_status" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_unmarked_status"
+            visible = "[And(ActivityPlanner.IsPlanningStage('options'), And(Not(GetScriptedGui('dejure_auto_manual_base_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)), Not(GetScriptedGui('dejure_auto_manual_marked_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End))))]" }
+        text_single = { name = "dejure_auto_manual_result_0" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_result_0"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), And(GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_last_result').GetValue, '(CFixedPoint)0')))]" }
+        text_single = { name = "dejure_auto_manual_result_1" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_result_1"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), And(GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_last_result').GetValue, '(CFixedPoint)1')))]" }
+        text_single = { name = "dejure_auto_manual_result_2" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_result_2"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), And(GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_last_result').GetValue, '(CFixedPoint)2')))]" }
+        text_single = { name = "dejure_auto_manual_result_3" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_result_3"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), And(GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_last_result').GetValue, '(CFixedPoint)3')))]" }
+        text_single = { name = "dejure_auto_manual_result_4" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_result_4"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), And(GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_last_result').GetValue, '(CFixedPoint)4')))]" }
+        text_single = { name = "dejure_auto_manual_result_5" position = { 40 152 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_result_5"
+            visible = "[And(Not(ActivityPlanner.IsPlanningStage('options')), And(GetPlayer.MakeScope.Var('dejure_auto_manual_last_county').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_manual_last_result').GetValue, '(CFixedPoint)5')))]" }
+        button_standard = { name = "dejure_auto_manual_confirm" position = { 40 182 } size = { 166 30 } text = "dejure_auto_manual_confirm"
+            enabled = "[And(And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(TravelPlanner.GetTravelPlan.IsValid), Not(TravelPlanner.IsLinked))), And(ActivityPlanner.IsPlanningStage('options'), GetScriptedGui('dejure_auto_manual_confirm_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)))]"
+            visible = "[ActivityPlanner.IsPlanningStage('options')]"
+
+            onclick = "[GetScriptedGui('dejure_auto_manual_confirm_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_manual_input', ActivityPlanner.GetSingleLocationPhase.GetLocation.MakeScope).AddScope('dejure_auto_manual_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_manual_ticket').GetValue)).End)]" }
+        button_standard = { name = "dejure_auto_manual_skip" position = { 214 182 } size = { 166 30 } text = "dejure_auto_manual_skip"
+            enabled = "[And(And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(TravelPlanner.GetTravelPlan.IsValid), Not(TravelPlanner.IsLinked))), ActivityPlanner.IsPlanningStage('options'))]"
+            visible = "[ActivityPlanner.IsPlanningStage('options')]"
+
+            onclick = "[GetScriptedGui('dejure_auto_manual_pause_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" onclick = "[ActivityPlanner.StartLocationPicking]" }
+        text_single = { name = "dejure_auto_manual_count" position = { 40 216 } size = { 340 22 }
+            autoresize = no align = left|vcenter fontsize = 16
+            elide = right text = "dejure_auto_manual_count"
+        }
+        button_standard = { name = "dejure_auto_manual_undo" position = { 40 250 } size = { 166 30 } text = "dejure_auto_manual_undo"
+            enabled = "[And(ActivityPlanner.IsPlanningStage('location'), GetScriptedGui('dejure_auto_manual_undo_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+
+
+            onclick = "[GetScriptedGui('dejure_auto_manual_undo_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        button_standard = { name = "dejure_auto_manual_done" position = { 214 250 } size = { 166 30 } text = "dejure_auto_manual_done"
+
+
+
+            onclick = "[ActivityPlanner.Close]" onclick = "[GetScriptedGui('dejure_auto_manual_back_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+
+    }
+}

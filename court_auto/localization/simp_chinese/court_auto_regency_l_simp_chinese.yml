@@ -1,0 +1,9 @@
+﻿l_simp_chinese:
+ court_auto_regency_heading:0 "权力天平自动化"
+ court_auto_regency_label:0 "自动执行摆动天平"
+ court_auto_regency_note:0 "[GetPlayer.Custom('court_auto_regency_cooldown_text')] · 不消耗资源"
+ court_auto_regency_free_option:0 "助手自动摆动（免费）"
+ court_auto_regency_help:0 "需同时开启自动化总开关。开启时立即尝试，随后每天检查原版“摆动天平”互动是否可用；冷却期间等待，冷却结束后自动执行。自动和手动成功摆动后，均记录两年共享冷却；冷却期间两种操作都被禁用，开关切换及读档不会清除冷却。保留原版互动冷却，摆动幅度、资格限制及好感影响沿用原版。不消耗资源。支持摄政、首辅制等权力分享：作为君主向自己收权，作为共治者向自己争取权力。到达有利边界后等待。点击“立即检查”不会跳过冷却。设置随玩家角色死亡继承，关闭后保留当前天平。"
+ court_auto_regency_cooldown_blocked:0 "距离上次摆动天平尚未满两年（手动与自动共用冷却）"
+ court_auto_regency_cooldown_waiting:0 "摆动天平：两年共享冷却中"
+ court_auto_regency_cooldown_ready:0 "摆动天平：等待原版资格检查"

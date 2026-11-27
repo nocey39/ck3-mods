@@ -1,0 +1,41 @@
+﻿dejure_auto_preset_apply_gui = {
+    scope = character
+    is_shown = {
+        always = yes
+    }
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        OR = {
+            has_game_rule = dejure_auto_preset_enabled_0
+            has_game_rule = dejure_auto_preset_enabled_1
+        }
+        OR = {
+            has_game_rule = dejure_auto_preset_mode_0
+            has_game_rule = dejure_auto_preset_mode_1
+        }
+        OR = {
+            has_game_rule = dejure_auto_preset_tier_county_1
+            has_game_rule = dejure_auto_preset_tier_county_0
+        }
+        OR = {
+            has_game_rule = dejure_auto_preset_tier_duchy_1
+            has_game_rule = dejure_auto_preset_tier_duchy_0
+        }
+        OR = {
+            has_game_rule = dejure_auto_preset_tier_kingdom_1
+            has_game_rule = dejure_auto_preset_tier_kingdom_0
+        }
+        OR = {
+            has_game_rule = dejure_auto_preset_tier_empire_1
+            has_game_rule = dejure_auto_preset_tier_empire_0
+        }
+        OR = {
+            has_game_rule = dejure_auto_preset_distribute_domain_0
+            has_game_rule = dejure_auto_preset_distribute_domain_1
+        }
+    }
+    effect = {
+        dejure_auto_preset_apply_effect = yes
+    }
+}

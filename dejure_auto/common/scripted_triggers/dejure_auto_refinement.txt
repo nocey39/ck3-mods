@@ -1,0 +1,36 @@
+﻿dejure_auto_map_county_trigger = { tier = tier_county any_county_province = { always = yes } }
+dejure_auto_map_title_trigger = {
+    OR = { dejure_auto_map_county_trigger = yes
+        AND = { tier > tier_county any_de_jure_county = { dejure_auto_map_county_trigger = yes } }
+    }
+}
+dejure_auto_last_county_trigger = {
+    holder = { highest_held_title_tier > tier_county
+        NOT = { any_held_title = { dejure_auto_map_county_trigger = yes count >= 2 } }
+    }
+}
+# Scope is frozen by the selected source branch. Existing primary titles stay.
+dejure_auto_high_source_trigger = {
+    tier >= tier_duchy tier <= tier_empire dejure_auto_map_title_trigger = yes exists = holder
+    holder = { is_alive = yes is_ai = yes is_landed = yes
+        is_vassal_or_below_of = scope:dejure_auto_owner
+        dejure_auto_force_player_branch_trigger = no }
+}
+dejure_auto_high_misplaced_trigger = {
+    scope:dejure_auto_law_lord = {
+        NOT = { this = scope:dejure_auto_owner }
+        NOT = { this = scope:dejure_auto_high_title.holder }
+        NOT = { is_liege_or_above_of = scope:dejure_auto_high_title.holder }
+    }
+}
+dejure_auto_high_transfer_trigger = {
+    dejure_auto_high_source_trigger = yes dejure_auto_high_misplaced_trigger = yes
+    NOT = { this = holder.primary_title } is_leased_out = no
+    holder = { dejure_auto_force_protected_trigger = no }
+    scope:dejure_auto_law_lord = { is_alive = yes is_ai = yes is_landed = yes
+        is_vassal_or_below_of = scope:dejure_auto_owner
+        dejure_auto_force_player_branch_trigger = no
+        highest_held_title_tier > scope:dejure_auto_high_title.tier
+        any_held_title = { dejure_auto_map_county_trigger = yes }
+    }
+}

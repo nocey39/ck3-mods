@@ -1,0 +1,95 @@
+﻿fa_can_configure_trigger = {
+    is_ai = no
+    is_alive = yes
+}
+
+# Saves made before the master switch keep the automation they had enabled.
+fa_master_active_trigger = {
+    trigger_if = {
+        limit = { has_variable = fa_master_enabled }
+        var:fa_master_enabled = 1
+    }
+    trigger_else = {
+        OR = {
+            has_variable = fa_guardians_enabled
+            has_variable = fa_perk_follow
+            has_variable = fa_perk_convert
+            AND = { has_variable = fa_mode var:fa_mode > 0 }
+        }
+    }
+}
+
+fa_guardian_active_trigger = {
+    fa_can_configure_trigger = yes
+    fa_master_active_trigger = yes
+    has_variable = fa_guardians_enabled
+}
+
+fa_managed_child_trigger = {
+    is_alive = yes
+    is_adult = no
+    age >= 6
+    is_courtier_of = scope:fa_owner
+    host = scope:fa_owner
+    OR = {
+        is_child_of = scope:fa_owner
+        is_player_heir_of = scope:fa_owner
+    }
+    trigger_if = {
+        limit = { is_player_heir_of = scope:fa_owner }
+        scope:fa_owner = { has_variable = fa_include_heir }
+    }
+}
+
+fa_can_receive_guardian_trigger = {
+    fa_managed_child_trigger = yes
+    has_education_focus_trigger = yes
+    is_available = yes
+    is_at_home = yes
+    is_travelling = no
+    is_physically_able = yes
+    is_hostage = no
+    num_of_relation_guardian = 0
+    NOR = {
+        has_character_flag = under_offer_as_ward_flag
+        exists = var:ward_travelling_to_guardian
+        exists = var:ward_waiting_for_guardian
+        exists = var:hostage_travelling_to_warden
+    }
+}
+
+fa_can_be_guardian_trigger = {
+    is_physically_able_adult = yes
+    is_available = yes
+    is_at_home = yes
+    is_travelling = no
+    num_of_relation_ward < 2
+    NOR = {
+        has_character_flag = under_offer_as_guardian_flag
+        exists = var:guardian_travelling_to_ward
+        AND = {
+            exists = var:guardian_waiting_for_ward
+            num_of_relation_ward >= 1
+        }
+    }
+}
+
+fa_focus_affinity_trigger = {
+    OR = {
+        AND = { has_focus = education_diplomacy has_diplomacy_education_affinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_martial has_martial_education_affinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_stewardship has_stewardship_education_affinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_intrigue has_intrigue_education_affinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_learning has_learning_education_affinity_childhood_trait_trigger = yes }
+    }
+}
+
+fa_focus_disaffinity_trigger = {
+    OR = {
+        AND = { has_focus = education_diplomacy has_diplomacy_education_disaffinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_martial has_martial_education_disaffinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_stewardship has_stewardship_education_disaffinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_intrigue has_intrigue_education_disaffinity_childhood_trait_trigger = yes }
+        AND = { has_focus = education_learning has_learning_education_disaffinity_childhood_trait_trigger = yes }
+    }
+}

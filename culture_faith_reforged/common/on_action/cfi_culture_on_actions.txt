@@ -1,0 +1,27 @@
+﻿# Append our own on_action; never replace the vanilla effect block.
+on_culture_created = {
+    on_actions = { cfi_on_culture_created }
+}
+
+# Root: new culture; scope:founder: creating character.
+cfi_on_culture_created = {
+    effect = {
+        if = {
+            limit = {
+                exists = scope:founder
+                scope:founder = { is_ai = yes }
+                has_cultural_tradition = tradition_cfi_integrated
+            }
+            remove_culture_tradition = tradition_cfi_integrated
+        }
+        else_if = {
+            limit = {
+                exists = scope:founder
+                scope:founder = { is_ai = no }
+                NOT = { has_cultural_tradition = tradition_cfi_integrated }
+                any_parent_culture = { has_cultural_tradition = tradition_cfi_integrated }
+            }
+            add_culture_tradition = tradition_cfi_integrated
+        }
+    }
+}

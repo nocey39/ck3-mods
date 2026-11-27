@@ -1,0 +1,374 @@
+﻿court_auto_review_initialize_effect = {
+    if = { limit = { NOT = { has_variable = court_auto_review_interval } } set_variable = { name = court_auto_review_interval value = 1 } }
+    if = { limit = { NOT = { has_variable = court_auto_review_elapsed } } set_variable = { name = court_auto_review_elapsed value = 0 } }
+    if = { limit = { NOT = { has_variable = court_auto_council_replace } } set_variable = { name = court_auto_council_replace value = 0 } }
+    if = { limit = { NOT = { has_variable = court_auto_court_replace } } set_variable = { name = court_auto_court_replace value = 0 } }
+}
+court_auto_review_inherit_effect = {
+    set_variable = { name = court_auto_review_interval value = 1 }
+    set_variable = { name = court_auto_review_elapsed value = 0 }
+    set_variable = { name = court_auto_council_replace value = 0 }
+    set_variable = { name = court_auto_court_replace value = 0 }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_review_interval } }
+        set_variable = { name = court_auto_review_interval value = scope:previous_player_character.var:court_auto_review_interval } }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_council_replace } }
+        set_variable = { name = court_auto_council_replace value = scope:previous_player_character.var:court_auto_council_replace } }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_court_replace } }
+        set_variable = { name = court_auto_court_replace value = scope:previous_player_character.var:court_auto_court_replace } }
+}
+# One monthly timer remains. Only actual timer ticks advance the review gate.
+court_auto_monthly_check_effect = {
+    change_variable = { name = court_auto_review_elapsed add = 1 }
+    court_auto_due_check_effect = yes
+}
+court_auto_due_check_effect = {
+    if = { limit = { OR = { var:court_auto_review_interval = 1 var:court_auto_review_elapsed >= var:court_auto_review_interval } } court_auto_check_effect = yes }
+    else = { court_auto_tasks_only_check_effect = yes }
+}
+court_auto_tasks_only_check_effect = {
+    if = { limit = { court_auto_automation_active_trigger = yes NOT = { has_variable = court_auto_check_running } }
+        set_variable = court_auto_check_running
+        save_scope_as = court_auto_owner
+        set_variable = { name = court_auto_last_tasks value = 0 }
+        court_auto_tasks_check_effect = yes
+        court_auto_regency_check_effect = yes
+        set_variable = court_auto_checked
+        remove_variable = court_auto_check_running
+    }
+}
+
+# Candidates already on this council are excluded: no chain of seat swaps.
+court_auto_replace_council_effect = {
+    if = { limit = { exists = cp:councillor_chancellor  }
+        cp:councillor_chancellor = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_diplomacy_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_chancellor }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_diplomacy_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_chancellor }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_diplomacy_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:councillor_chancellor = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_chancellor
+                        court_auto_diplomacy_selection_value > scope:court_auto_review_incumbent.court_auto_diplomacy_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = councillor_chancellor target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:councillor_chancellor ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:councillor_steward  }
+        cp:councillor_steward = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_stewardship_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_steward }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_stewardship_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_steward }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_stewardship_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:councillor_steward = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_steward
+                        court_auto_stewardship_selection_value > scope:court_auto_review_incumbent.court_auto_stewardship_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = councillor_steward target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:councillor_steward ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:councillor_marshal  }
+        cp:councillor_marshal = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_martial_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_marshal }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_martial_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_marshal }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_martial_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:councillor_marshal = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_marshal
+                        court_auto_martial_selection_value > scope:court_auto_review_incumbent.court_auto_martial_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = councillor_marshal target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:councillor_marshal ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:councillor_spymaster  }
+        cp:councillor_spymaster = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_intrigue_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_spymaster }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_intrigue_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_spymaster }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_intrigue_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:councillor_spymaster = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_spymaster
+                        court_auto_intrigue_selection_value > scope:court_auto_review_incumbent.court_auto_intrigue_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = councillor_spymaster target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:councillor_spymaster ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:councillor_court_chaplain can_appoint_own_court_chaplain_trigger = yes }
+        cp:councillor_court_chaplain = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_learning_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_court_chaplain }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_learning_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_court_chaplain }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_learning_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:councillor_court_chaplain = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = councillor_court_chaplain
+                        court_auto_learning_selection_value > scope:court_auto_review_incumbent.court_auto_learning_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = councillor_court_chaplain target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:councillor_court_chaplain ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:minister_personnel tgp_has_access_to_ministry_trigger = yes }
+        cp:minister_personnel = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_diplomacy_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_personnel }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_diplomacy_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_personnel }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_diplomacy_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:minister_personnel = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = minister_personnel
+                        court_auto_diplomacy_selection_value > scope:court_auto_review_incumbent.court_auto_diplomacy_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = minister_personnel target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:minister_personnel ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:minister_justice tgp_has_access_to_ministry_trigger = yes }
+        cp:minister_justice = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_learning_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_justice }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_learning_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_justice }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_learning_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:minister_justice = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = minister_justice
+                        court_auto_learning_selection_value > scope:court_auto_review_incumbent.court_auto_learning_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = minister_justice target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:minister_justice ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:minister_works tgp_has_access_to_ministry_trigger = yes }
+        cp:minister_works = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_stewardship_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_works }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_stewardship_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_works }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_stewardship_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:minister_works = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = minister_works
+                        court_auto_stewardship_selection_value > scope:court_auto_review_incumbent.court_auto_stewardship_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = minister_works target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:minister_works ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+    if = { limit = { exists = cp:minister_grand_marshal tgp_has_access_to_ministry_trigger = yes }
+        cp:minister_grand_marshal = { save_scope_as = court_auto_review_incumbent }
+        if = { limit = { scope:court_auto_review_incumbent = {
+                    exists = council_task council_task = { can_fire_position = yes }
+                    can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner }
+                } }
+            remove_variable = court_auto_review_candidate
+            set_variable = { name = court_auto_review_score value = scope:court_auto_review_incumbent.court_auto_martial_selection_value }
+            every_courtier = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_grand_marshal }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_martial_selection_value }
+            }
+            every_vassal = { limit = { court_auto_council_candidate_trigger = yes valid_for_council_position = minister_grand_marshal }
+                court_auto_consider_replacement_effect = { SCORE = court_auto_martial_selection_value }
+            }
+            if = { limit = { has_variable = court_auto_review_candidate
+                    cp:minister_grand_marshal = scope:court_auto_review_incumbent
+                    scope:court_auto_review_incumbent = { can_be_fired_from_council_trigger = { COURT_OWNER = scope:court_auto_owner } }
+                    var:court_auto_review_candidate = {
+                        court_auto_council_candidate_trigger = yes valid_for_council_position = minister_grand_marshal
+                        court_auto_martial_selection_value > scope:court_auto_review_incumbent.court_auto_martial_selection_value
+                    }
+                }
+                # Native assignment replaces in-place (removed, not fired). Never
+                # force-fire protected members or create a vacancy before assigning.
+                assign_councillor_type = { type = minister_grand_marshal target = var:court_auto_review_candidate remove_existing_councillor = yes fire_on_actions = yes }
+                if = { limit = { cp:minister_grand_marshal ?= var:court_auto_review_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+        }
+    }
+
+    remove_variable = court_auto_review_candidate
+    remove_variable = court_auto_review_score
+}
+court_auto_consider_replacement_effect = {
+    if = { limit = { $SCORE$ > scope:court_auto_owner.var:court_auto_review_score }
+        scope:court_auto_owner = {
+            set_variable = { name = court_auto_review_candidate value = prev }
+            set_variable = { name = court_auto_review_score value = prev.$SCORE$ }
+        }
+    }
+}
+
+court_auto_replace_court_type_effect = {
+    remove_variable = court_auto_review_stop
+    set_variable = { name = court_auto_review_attempts value = 0 }
+    while = {
+        limit = {
+            employs_court_position = $POSITION$
+            NOT = { has_variable = court_auto_review_stop }
+            var:court_auto_review_attempts < 100
+            court_auto_review_$POSITION$_affordable_trigger = yes
+        }
+        change_variable = { name = court_auto_review_attempts add = 1 }
+        remove_variable = court_auto_review_candidate
+        remove_variable = court_auto_review_holder
+        ordered_court_position_holder = {
+            type = $POSITION$
+            order_by = { value = aptitude_score:$POSITION$ multiply = -1 }
+            max = 1 check_range_bounds = no
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_review_holder value = prev }
+                set_variable = { name = court_auto_review_score value = prev.aptitude_score:$POSITION$ }
+            }
+        }
+        if = { limit = { has_variable = court_auto_review_holder }
+            ordered_court_position_candidate = {
+                court_position_type = $POSITION$
+                order_by = aptitude_score:$POSITION$
+                max = 1 check_range_bounds = no
+                limit = {
+                    NOT = { has_court_position = $POSITION$ }
+                    would_be_valid_for_court_position = { court_position = $POSITION$ employer = scope:court_auto_owner }
+                    aptitude_score:$POSITION$ > scope:court_auto_owner.var:court_auto_review_score
+                }
+                scope:court_auto_owner = { set_variable = { name = court_auto_review_candidate value = prev } }
+            }
+        }
+        if = { limit = {
+                has_variable = court_auto_review_candidate
+                any_court_position_holder = { type = $POSITION$ this = scope:court_auto_owner.var:court_auto_review_holder }
+                var:court_auto_review_candidate = {
+                    NOT = { has_court_position = $POSITION$ }
+                    would_be_valid_for_court_position = { court_position = $POSITION$ employer = scope:court_auto_owner }
+                    aptitude_score:$POSITION$ > scope:court_auto_owner.var:court_auto_review_score
+                }
+                court_auto_review_$POSITION$_affordable_trigger = yes
+            }
+            replace_court_position = { recipient = var:court_auto_review_candidate holder = var:court_auto_review_holder court_position = $POSITION$ }
+            if = { limit = { any_court_position_holder = { type = $POSITION$ this = scope:court_auto_owner.var:court_auto_review_candidate } }
+                change_variable = { name = court_auto_last_court add = 1 }
+            }
+            else = { set_variable = court_auto_review_stop }
+        }
+        else = { set_variable = court_auto_review_stop }
+    }
+    remove_variable = court_auto_review_candidate
+    remove_variable = court_auto_review_holder
+    remove_variable = court_auto_review_score
+    remove_variable = court_auto_review_stop
+    remove_variable = court_auto_review_attempts
+}

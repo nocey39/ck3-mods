@@ -1,0 +1,2768 @@
+﻿ama_count_archer_cavalry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = archer_cavalry } add = 1 }
+}
+ama_count_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = archers } add = 1 }
+}
+ama_count_camel_cavalry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = camel_cavalry } add = 1 }
+}
+ama_count_elephant_cavalry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = elephant_cavalry } add = 1 }
+}
+ama_count_gunpowder_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = gunpowder } add = 1 }
+}
+ama_count_heavy_cavalry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = heavy_cavalry } add = 1 }
+}
+ama_count_heavy_infantry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = heavy_infantry } add = 1 }
+}
+ama_count_light_cavalry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = light_cavalry } add = 1 }
+}
+ama_count_pikemen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = pikemen } add = 1 }
+}
+ama_count_siege_weapon_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = siege_weapon } add = 1 }
+}
+ama_count_skirmishers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_unit_type = skirmishers } add = 1 }
+}
+ama_count_type_abudrar_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = abudrar } add = 1 }
+}
+ama_base_abudrar_gold_value = abudrar_recruitment_cost
+ama_base_abudrar_prestige_value = 0
+ama_base_abudrar_piety_value = 0
+ama_quality_abudrar_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_1 }
+        value = var:ama_rt_q_1
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_1 var:ama_rt_stack_1 > 0 } divide = var:ama_rt_stack_1 }
+    }
+}
+ama_value_abudrar_value = { value = ama_quality_abudrar_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_abudrar_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_skirmishers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_skirmishers } add = 1 }
+}
+ama_base_accolade_maa_skirmishers_gold_value = accolade_skirmisher_recruitment_cost
+ama_base_accolade_maa_skirmishers_prestige_value = 0
+ama_base_accolade_maa_skirmishers_piety_value = 0
+ama_quality_accolade_maa_skirmishers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_2 }
+        value = var:ama_rt_q_2
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_2 var:ama_rt_stack_2 > 0 } divide = var:ama_rt_stack_2 }
+    }
+}
+ama_value_accolade_maa_skirmishers_value = { value = ama_quality_accolade_maa_skirmishers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_skirmishers_value multiply = 60 } min = 0.01 } }
+ama_count_type_akritai_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = akritai } add = 1 }
+}
+ama_base_akritai_gold_value = akritai_recruitment_cost
+ama_base_akritai_prestige_value = 0
+ama_base_akritai_piety_value = 0
+ama_quality_akritai_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_3 }
+        value = var:ama_rt_q_3
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_3 var:ama_rt_stack_3 > 0 } divide = var:ama_rt_stack_3 }
+    }
+}
+ama_value_akritai_value = { value = ama_quality_akritai_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_akritai_value multiply = 60 } min = 0.01 } }
+ama_count_type_goedendag_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = goedendag } add = 1 }
+}
+ama_base_goedendag_gold_value = goedendag_recruitment_cost
+ama_base_goedendag_prestige_value = 0
+ama_base_goedendag_piety_value = 0
+ama_quality_goedendag_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_4 }
+        value = var:ama_rt_q_4
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_4 var:ama_rt_stack_4 > 0 } divide = var:ama_rt_stack_4 }
+    }
+}
+ama_value_goedendag_value = { value = ama_quality_goedendag_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_goedendag_value multiply = 60 } min = 0.01 } }
+ama_count_type_guanch_vaulter_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = guanch_vaulter } add = 1 }
+}
+ama_base_guanch_vaulter_gold_value = guanch_vaulter_recruitment_cost
+ama_base_guanch_vaulter_prestige_value = 0
+ama_base_guanch_vaulter_piety_value = 0
+ama_quality_guanch_vaulter_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_5 }
+        value = var:ama_rt_q_5
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_5 var:ama_rt_stack_5 > 0 } divide = var:ama_rt_stack_5 }
+    }
+}
+ama_value_guanch_vaulter_value = { value = ama_quality_guanch_vaulter_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_guanch_vaulter_value multiply = 60 } min = 0.01 } }
+ama_count_type_guinea_warrior_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = guinea_warrior } add = 1 }
+}
+ama_base_guinea_warrior_gold_value = guinea_warrior_recruitment_cost
+ama_base_guinea_warrior_prestige_value = 0
+ama_base_guinea_warrior_piety_value = 0
+ama_quality_guinea_warrior_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_6 }
+        value = var:ama_rt_q_6
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_6 var:ama_rt_stack_6 > 0 } divide = var:ama_rt_stack_6 }
+    }
+}
+ama_value_guinea_warrior_value = { value = ama_quality_guinea_warrior_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_guinea_warrior_value multiply = 60 } min = 0.01 } }
+ama_count_type_horn_warrior_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = horn_warrior } add = 1 }
+}
+ama_base_horn_warrior_gold_value = horn_warrior_recruitment_cost
+ama_base_horn_warrior_prestige_value = 0
+ama_base_horn_warrior_piety_value = 0
+ama_quality_horn_warrior_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_7 }
+        value = var:ama_rt_q_7
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_7 var:ama_rt_stack_7 > 0 } divide = var:ama_rt_stack_7 }
+    }
+}
+ama_value_horn_warrior_value = { value = ama_quality_horn_warrior_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_horn_warrior_value multiply = 60 } min = 0.01 } }
+ama_count_type_light_footmen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = light_footmen } add = 1 }
+}
+ama_base_light_footmen_gold_value = skirmisher_recruitment_cost
+ama_base_light_footmen_prestige_value = 0
+ama_base_light_footmen_piety_value = 0
+ama_quality_light_footmen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_8 }
+        value = var:ama_rt_q_8
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_8 var:ama_rt_stack_8 > 0 } divide = var:ama_rt_stack_8 }
+    }
+}
+ama_value_light_footmen_value = { value = ama_quality_light_footmen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_light_footmen_value multiply = 60 } min = 0.01 } }
+ama_count_type_pesilat_warriors_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = pesilat_warriors } add = 1 }
+}
+ama_base_pesilat_warriors_gold_value = pesilat_warriors_recruitment_cost
+ama_base_pesilat_warriors_prestige_value = 0
+ama_base_pesilat_warriors_piety_value = 0
+ama_quality_pesilat_warriors_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_9 }
+        value = var:ama_rt_q_9
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_9 var:ama_rt_stack_9 > 0 } divide = var:ama_rt_stack_9 }
+    }
+}
+ama_value_pesilat_warriors_value = { value = ama_quality_pesilat_warriors_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_pesilat_warriors_value multiply = 60 } min = 0.01 } }
+ama_count_type_shomer_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = shomer } add = 1 }
+}
+ama_base_shomer_gold_value = shomer_recruitment_cost
+ama_base_shomer_prestige_value = 0
+ama_base_shomer_piety_value = 0
+ama_quality_shomer_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_10 }
+        value = var:ama_rt_q_10
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_10 var:ama_rt_stack_10 > 0 } divide = var:ama_rt_stack_10 }
+    }
+}
+ama_value_shomer_value = { value = ama_quality_shomer_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_shomer_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_archers } add = 1 }
+}
+ama_base_accolade_maa_archers_gold_value = accolade_bowmen_recruitment_cost
+ama_base_accolade_maa_archers_prestige_value = 0
+ama_base_accolade_maa_archers_piety_value = 0
+ama_quality_accolade_maa_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_11 }
+        value = var:ama_rt_q_11
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_11 var:ama_rt_stack_11 > 0 } divide = var:ama_rt_stack_11 }
+    }
+}
+ama_value_accolade_maa_archers_value = { value = ama_quality_accolade_maa_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_crossbowers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_crossbowers } add = 1 }
+}
+ama_base_accolade_maa_crossbowers_gold_value = accolade_crossbowmen_recruitment_cost
+ama_base_accolade_maa_crossbowers_prestige_value = 0
+ama_base_accolade_maa_crossbowers_piety_value = 0
+ama_quality_accolade_maa_crossbowers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_12 }
+        value = var:ama_rt_q_12
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_12 var:ama_rt_stack_12 > 0 } divide = var:ama_rt_stack_12 }
+    }
+}
+ama_value_accolade_maa_crossbowers_value = { value = ama_quality_accolade_maa_crossbowers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_crossbowers_value multiply = 60 } min = 0.01 } }
+ama_count_type_archers_of_the_nile_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = archers_of_the_nile } add = 1 }
+}
+ama_base_archers_of_the_nile_gold_value = archers_of_the_nile_recruitment_cost
+ama_base_archers_of_the_nile_prestige_value = 0
+ama_base_archers_of_the_nile_piety_value = 0
+ama_quality_archers_of_the_nile_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_13 }
+        value = var:ama_rt_q_13
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_13 var:ama_rt_stack_13 > 0 } divide = var:ama_rt_stack_13 }
+    }
+}
+ama_value_archers_of_the_nile_value = { value = ama_quality_archers_of_the_nile_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_archers_of_the_nile_value multiply = 60 } min = 0.01 } }
+ama_count_type_ballistrai_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = ballistrai } add = 1 }
+}
+ama_base_ballistrai_gold_value = ballistrai_recruitment_cost
+ama_base_ballistrai_prestige_value = 0
+ama_base_ballistrai_piety_value = 0
+ama_quality_ballistrai_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_14 }
+        value = var:ama_rt_q_14
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_14 var:ama_rt_stack_14 > 0 } divide = var:ama_rt_stack_14 }
+    }
+}
+ama_value_ballistrai_value = { value = ama_quality_ballistrai_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_ballistrai_value multiply = 60 } min = 0.01 } }
+ama_count_type_bowmen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = bowmen } add = 1 }
+}
+ama_base_bowmen_gold_value = bowmen_recruitment_cost
+ama_base_bowmen_prestige_value = 0
+ama_base_bowmen_piety_value = 0
+ama_quality_bowmen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_15 }
+        value = var:ama_rt_q_15
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_15 var:ama_rt_stack_15 > 0 } divide = var:ama_rt_stack_15 }
+    }
+}
+ama_value_bowmen_value = { value = ama_quality_bowmen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_bowmen_value multiply = 60 } min = 0.01 } }
+ama_count_type_bush_hunter_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = bush_hunter } add = 1 }
+}
+ama_base_bush_hunter_gold_value = bush_hunter_recruitment_cost
+ama_base_bush_hunter_prestige_value = 0
+ama_base_bush_hunter_piety_value = 0
+ama_quality_bush_hunter_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_16 }
+        value = var:ama_rt_q_16
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_16 var:ama_rt_stack_16 > 0 } divide = var:ama_rt_stack_16 }
+    }
+}
+ama_value_bush_hunter_value = { value = ama_quality_bush_hunter_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_bush_hunter_value multiply = 60 } min = 0.01 } }
+ama_count_type_crossbowmen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = crossbowmen } add = 1 }
+}
+ama_base_crossbowmen_gold_value = crossbowmen_recruitment_cost
+ama_base_crossbowmen_prestige_value = 0
+ama_base_crossbowmen_piety_value = 0
+ama_quality_crossbowmen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_17 }
+        value = var:ama_rt_q_17
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_17 var:ama_rt_stack_17 > 0 } divide = var:ama_rt_stack_17 }
+    }
+}
+ama_value_crossbowmen_value = { value = ama_quality_crossbowmen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_crossbowmen_value multiply = 60 } min = 0.01 } }
+ama_count_type_gakgung_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = gakgung_archers } add = 1 }
+}
+ama_base_gakgung_archers_gold_value = gakgung_archers_recruitment_cost
+ama_base_gakgung_archers_prestige_value = 0
+ama_base_gakgung_archers_piety_value = 0
+ama_quality_gakgung_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_18 }
+        value = var:ama_rt_q_18
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_18 var:ama_rt_stack_18 > 0 } divide = var:ama_rt_stack_18 }
+    }
+}
+ama_value_gakgung_archers_value = { value = ama_quality_gakgung_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_gakgung_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_longbowmen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = longbowmen } add = 1 }
+}
+ama_base_longbowmen_gold_value = longbowmen_recruitment_cost
+ama_base_longbowmen_prestige_value = 0
+ama_base_longbowmen_piety_value = 0
+ama_quality_longbowmen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_19 }
+        value = var:ama_rt_q_19
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_19 var:ama_rt_stack_19 > 0 } divide = var:ama_rt_stack_19 }
+    }
+}
+ama_value_longbowmen_value = { value = ama_quality_longbowmen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_longbowmen_value multiply = 60 } min = 0.01 } }
+ama_count_type_maturkan_warriors_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = maturkan_warriors } add = 1 }
+}
+ama_base_maturkan_warriors_gold_value = maturkan_warriors_recruitment_cost
+ama_base_maturkan_warriors_prestige_value = 0
+ama_base_maturkan_warriors_piety_value = 0
+ama_quality_maturkan_warriors_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_20 }
+        value = var:ama_rt_q_20
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_20 var:ama_rt_stack_20 > 0 } divide = var:ama_rt_stack_20 }
+    }
+}
+ama_value_maturkan_warriors_value = { value = ama_quality_maturkan_warriors_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_maturkan_warriors_value multiply = 60 } min = 0.01 } }
+ama_count_type_metsanvartija_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = metsanvartija } add = 1 }
+}
+ama_base_metsanvartija_gold_value = metsanvartija_recruitment_cost
+ama_base_metsanvartija_prestige_value = 0
+ama_base_metsanvartija_piety_value = 0
+ama_quality_metsanvartija_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_21 }
+        value = var:ama_rt_q_21
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_21 var:ama_rt_stack_21 > 0 } divide = var:ama_rt_stack_21 }
+    }
+}
+ama_value_metsanvartija_value = { value = ama_quality_metsanvartija_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_metsanvartija_value multiply = 60 } min = 0.01 } }
+ama_count_type_paiks_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = paiks } add = 1 }
+}
+ama_base_paiks_gold_value = paiks_recruitment_cost
+ama_base_paiks_prestige_value = 0
+ama_base_paiks_piety_value = 0
+ama_quality_paiks_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_22 }
+        value = var:ama_rt_q_22
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_22 var:ama_rt_stack_22 > 0 } divide = var:ama_rt_stack_22 }
+    }
+}
+ama_value_paiks_value = { value = ama_quality_paiks_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_paiks_value multiply = 60 } min = 0.01 } }
+ama_count_type_rocket_carts_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = rocket_carts } add = 1 }
+}
+ama_base_rocket_carts_gold_value = rocket_carts_recruitment_cost
+ama_base_rocket_carts_prestige_value = 0
+ama_base_rocket_carts_piety_value = 0
+ama_quality_rocket_carts_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_23 }
+        value = var:ama_rt_q_23
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_23 var:ama_rt_stack_23 > 0 } divide = var:ama_rt_stack_23 }
+    }
+}
+ama_value_rocket_carts_value = { value = ama_quality_rocket_carts_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_rocket_carts_value multiply = 60 } min = 0.01 } }
+ama_count_type_shenbigong_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = shenbigong } add = 1 }
+}
+ama_base_shenbigong_gold_value = shenbigong_recruitment_cost
+ama_base_shenbigong_prestige_value = 0
+ama_base_shenbigong_piety_value = 0
+ama_quality_shenbigong_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_24 }
+        value = var:ama_rt_q_24
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_24 var:ama_rt_stack_24 > 0 } divide = var:ama_rt_stack_24 }
+    }
+}
+ama_value_shenbigong_value = { value = ama_quality_shenbigong_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_shenbigong_value multiply = 60 } min = 0.01 } }
+ama_count_type_vigmen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = vigmen } add = 1 }
+}
+ama_base_vigmen_gold_value = vigmen_recruitment_cost
+ama_base_vigmen_prestige_value = 0
+ama_base_vigmen_piety_value = 0
+ama_quality_vigmen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_25 }
+        value = var:ama_rt_q_25
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_25 var:ama_rt_stack_25 > 0 } divide = var:ama_rt_stack_25 }
+    }
+}
+ama_value_vigmen_value = { value = ama_quality_vigmen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_vigmen_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_pikes_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_pikes } add = 1 }
+}
+ama_base_accolade_maa_pikes_gold_value = accolade_pikemen_recruitment_cost
+ama_base_accolade_maa_pikes_prestige_value = 0
+ama_base_accolade_maa_pikes_piety_value = 0
+ama_quality_accolade_maa_pikes_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_26 }
+        value = var:ama_rt_q_26
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_26 var:ama_rt_stack_26 > 0 } divide = var:ama_rt_stack_26 }
+    }
+}
+ama_value_accolade_maa_pikes_value = { value = ama_quality_accolade_maa_pikes_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_pikes_value multiply = 60 } min = 0.01 } }
+ama_count_type_bondi_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = bondi } add = 1 }
+}
+ama_base_bondi_gold_value = bondi_recruitment_cost
+ama_base_bondi_prestige_value = 0
+ama_base_bondi_piety_value = 0
+ama_quality_bondi_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_27 }
+        value = var:ama_rt_q_27
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_27 var:ama_rt_stack_27 > 0 } divide = var:ama_rt_stack_27 }
+    }
+}
+ama_value_bondi_value = { value = ama_quality_bondi_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_bondi_value multiply = 60 } min = 0.01 } }
+ama_count_type_landsknecht_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = landsknecht } add = 1 }
+}
+ama_base_landsknecht_gold_value = landsknecht_recruitment_cost
+ama_base_landsknecht_prestige_value = 0
+ama_base_landsknecht_piety_value = 0
+ama_quality_landsknecht_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_28 }
+        value = var:ama_rt_q_28
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_28 var:ama_rt_stack_28 > 0 } divide = var:ama_rt_stack_28 }
+    }
+}
+ama_value_landsknecht_value = { value = ama_quality_landsknecht_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_landsknecht_value multiply = 60 } min = 0.01 } }
+ama_count_type_picchieri_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = picchieri } add = 1 }
+}
+ama_base_picchieri_gold_value = picchieri_recruitment_cost
+ama_base_picchieri_prestige_value = 0
+ama_base_picchieri_piety_value = 0
+ama_quality_picchieri_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_29 }
+        value = var:ama_rt_q_29
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_29 var:ama_rt_stack_29 > 0 } divide = var:ama_rt_stack_29 }
+    }
+}
+ama_value_picchieri_value = { value = ama_quality_picchieri_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_picchieri_value multiply = 60 } min = 0.01 } }
+ama_count_type_pikemen_unit_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = pikemen_unit } add = 1 }
+}
+ama_base_pikemen_unit_gold_value = pikemen_recruitment_cost
+ama_base_pikemen_unit_prestige_value = 0
+ama_base_pikemen_unit_piety_value = 0
+ama_quality_pikemen_unit_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_30 }
+        value = var:ama_rt_q_30
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_30 var:ama_rt_stack_30 > 0 } divide = var:ama_rt_stack_30 }
+    }
+}
+ama_value_pikemen_unit_value = { value = ama_quality_pikemen_unit_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_pikemen_unit_value multiply = 60 } min = 0.01 } }
+ama_count_type_schiltron_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = schiltron } add = 1 }
+}
+ama_base_schiltron_gold_value = schiltron_recruitment_cost
+ama_base_schiltron_prestige_value = 0
+ama_base_schiltron_piety_value = 0
+ama_quality_schiltron_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_31 }
+        value = var:ama_rt_q_31
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_31 var:ama_rt_stack_31 > 0 } divide = var:ama_rt_stack_31 }
+    }
+}
+ama_value_schiltron_value = { value = ama_quality_schiltron_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_schiltron_value multiply = 60 } min = 0.01 } }
+ama_count_type_skoutatoi_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = skoutatoi } add = 1 }
+}
+ama_base_skoutatoi_gold_value = skoutatoi_recruitment_cost
+ama_base_skoutatoi_prestige_value = 0
+ama_base_skoutatoi_piety_value = 0
+ama_quality_skoutatoi_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_32 }
+        value = var:ama_rt_q_32
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_32 var:ama_rt_stack_32 > 0 } divide = var:ama_rt_stack_32 }
+    }
+}
+ama_value_skoutatoi_value = { value = ama_quality_skoutatoi_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_skoutatoi_value multiply = 60 } min = 0.01 } }
+ama_count_type_warrior_monks_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = warrior_monks } add = 1 }
+}
+ama_base_warrior_monks_gold_value = 0
+ama_base_warrior_monks_prestige_value = 0
+ama_base_warrior_monks_piety_value = warrior_monks_piety_recruitment_cost
+ama_quality_warrior_monks_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_33 }
+        value = var:ama_rt_q_33
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_33 var:ama_rt_stack_33 > 0 } divide = var:ama_rt_stack_33 }
+    }
+}
+ama_value_warrior_monks_value = { value = ama_quality_warrior_monks_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_warrior_monks_value multiply = 60 } min = 0.01 } }
+ama_count_type_zupin_warrior_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = zupin_warrior } add = 1 }
+}
+ama_base_zupin_warrior_gold_value = bondi_recruitment_cost
+ama_base_zupin_warrior_prestige_value = 0
+ama_base_zupin_warrior_piety_value = 0
+ama_quality_zupin_warrior_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_34 }
+        value = var:ama_rt_q_34
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_34 var:ama_rt_stack_34 > 0 } divide = var:ama_rt_stack_34 }
+    }
+}
+ama_value_zupin_warrior_value = { value = ama_quality_zupin_warrior_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_zupin_warrior_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_vanguards_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_vanguards } add = 1 }
+}
+ama_base_accolade_maa_vanguards_gold_value = accolade_heavy_infantry_recruitment_cost
+ama_base_accolade_maa_vanguards_prestige_value = 0
+ama_base_accolade_maa_vanguards_piety_value = 0
+ama_quality_accolade_maa_vanguards_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_35 }
+        value = var:ama_rt_q_35
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_35 var:ama_rt_stack_35 > 0 } divide = var:ama_rt_stack_35 }
+    }
+}
+ama_value_accolade_maa_vanguards_value = { value = ama_quality_accolade_maa_vanguards_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_vanguards_value multiply = 60 } min = 0.01 } }
+ama_count_type_armored_footmen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = armored_footmen } add = 1 }
+}
+ama_base_armored_footmen_gold_value = heavy_infantry_recruitment_cost
+ama_base_armored_footmen_prestige_value = 0
+ama_base_armored_footmen_piety_value = 0
+ama_quality_armored_footmen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_36 }
+        value = var:ama_rt_q_36
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_36 var:ama_rt_stack_36 > 0 } divide = var:ama_rt_stack_36 }
+    }
+}
+ama_value_armored_footmen_value = { value = ama_quality_armored_footmen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_armored_footmen_value multiply = 60 } min = 0.01 } }
+ama_count_type_ayyar_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = ayyar } add = 1 }
+}
+ama_base_ayyar_gold_value = ayyar_recruitment_cost
+ama_base_ayyar_prestige_value = 0
+ama_base_ayyar_piety_value = 0
+ama_quality_ayyar_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_37 }
+        value = var:ama_rt_q_37
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_37 var:ama_rt_stack_37 > 0 } divide = var:ama_rt_stack_37 }
+    }
+}
+ama_value_ayyar_value = { value = ama_quality_ayyar_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_ayyar_value multiply = 60 } min = 0.01 } }
+ama_count_type_burenjia_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = burenjia } add = 1 }
+}
+ama_base_burenjia_gold_value = burenjia_recruitment_cost
+ama_base_burenjia_prestige_value = 0
+ama_base_burenjia_piety_value = 0
+ama_quality_burenjia_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_38 }
+        value = var:ama_rt_q_38
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_38 var:ama_rt_stack_38 > 0 } divide = var:ama_rt_stack_38 }
+    }
+}
+ama_value_burenjia_value = { value = ama_quality_burenjia_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_burenjia_value multiply = 60 } min = 0.01 } }
+ama_count_type_druzhina_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = druzhina } add = 1 }
+}
+ama_base_druzhina_gold_value = druzhina_recruitment_cost
+ama_base_druzhina_prestige_value = 0
+ama_base_druzhina_piety_value = 0
+ama_quality_druzhina_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_39 }
+        value = var:ama_rt_q_39
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_39 var:ama_rt_stack_39 > 0 } divide = var:ama_rt_stack_39 }
+    }
+}
+ama_value_druzhina_value = { value = ama_quality_druzhina_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_druzhina_value multiply = 60 } min = 0.01 } }
+ama_count_type_garudas_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = garudas } add = 1 }
+}
+ama_base_garudas_gold_value = garudas_recruitment_cost
+ama_base_garudas_prestige_value = 0
+ama_base_garudas_piety_value = 0
+ama_quality_garudas_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_40 }
+        value = var:ama_rt_q_40
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_40 var:ama_rt_stack_40 > 0 } divide = var:ama_rt_stack_40 }
+    }
+}
+ama_value_garudas_value = { value = ama_quality_garudas_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_garudas_value multiply = 60 } min = 0.01 } }
+ama_count_type_handpicked_faithful_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = handpicked_faithful } add = 1 }
+}
+ama_base_handpicked_faithful_gold_value = handpicked_faithful_recruitment_cost
+ama_base_handpicked_faithful_prestige_value = 0
+ama_base_handpicked_faithful_piety_value = 0
+ama_quality_handpicked_faithful_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_41 }
+        value = var:ama_rt_q_41
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_41 var:ama_rt_stack_41 > 0 } divide = var:ama_rt_stack_41 }
+    }
+}
+ama_value_handpicked_faithful_value = { value = ama_quality_handpicked_faithful_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_handpicked_faithful_value multiply = 60 } min = 0.01 } }
+ama_count_type_house_guard_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = house_guard } add = 1 }
+}
+ama_base_house_guard_gold_value = 50
+ama_base_house_guard_prestige_value = 0
+ama_base_house_guard_piety_value = 0
+ama_quality_house_guard_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_42 }
+        value = var:ama_rt_q_42
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_42 var:ama_rt_stack_42 > 0 } divide = var:ama_rt_stack_42 }
+    }
+}
+ama_value_house_guard_value = { value = ama_quality_house_guard_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_house_guard_value multiply = 60 } min = 0.01 } }
+ama_count_type_huscarl_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = huscarl } add = 1 }
+}
+ama_base_huscarl_gold_value = huscarls_recruitment_cost
+ama_base_huscarl_prestige_value = 0
+ama_base_huscarl_piety_value = 0
+ama_quality_huscarl_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_43 }
+        value = var:ama_rt_q_43
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_43 var:ama_rt_stack_43 > 0 } divide = var:ama_rt_stack_43 }
+    }
+}
+ama_value_huscarl_value = { value = ama_quality_huscarl_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_huscarl_value multiply = 60 } min = 0.01 } }
+ama_count_type_khandayat_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = khandayat } add = 1 }
+}
+ama_base_khandayat_gold_value = khandayat_recruitment_cost
+ama_base_khandayat_prestige_value = 0
+ama_base_khandayat_piety_value = 0
+ama_quality_khandayat_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_44 }
+        value = var:ama_rt_q_44
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_44 var:ama_rt_stack_44 > 0 } divide = var:ama_rt_stack_44 }
+    }
+}
+ama_value_khandayat_value = { value = ama_quality_khandayat_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_khandayat_value multiply = 60 } min = 0.01 } }
+ama_count_type_mountaineer_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = mountaineer } add = 1 }
+}
+ama_base_mountaineer_gold_value = mountaineer_recruitment_cost
+ama_base_mountaineer_prestige_value = 0
+ama_base_mountaineer_piety_value = 0
+ama_quality_mountaineer_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_45 }
+        value = var:ama_rt_q_45
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_45 var:ama_rt_stack_45 > 0 } divide = var:ama_rt_stack_45 }
+    }
+}
+ama_value_mountaineer_value = { value = ama_quality_mountaineer_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_mountaineer_value multiply = 60 } min = 0.01 } }
+ama_count_type_mubarizun_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = mubarizun } add = 1 }
+}
+ama_base_mubarizun_gold_value = mubarizun_recruitment_cost
+ama_base_mubarizun_prestige_value = 0
+ama_base_mubarizun_piety_value = 0
+ama_quality_mubarizun_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_46 }
+        value = var:ama_rt_q_46
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_46 var:ama_rt_stack_46 > 0 } divide = var:ama_rt_stack_46 }
+    }
+}
+ama_value_mubarizun_value = { value = ama_quality_mubarizun_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_mubarizun_value multiply = 60 } min = 0.01 } }
+ama_count_type_palace_guards_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = palace_guards } add = 1 }
+}
+ama_base_palace_guards_gold_value = palace_guards_recruitment_cost
+ama_base_palace_guards_prestige_value = 0
+ama_base_palace_guards_piety_value = 0
+ama_quality_palace_guards_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_47 }
+        value = var:ama_rt_q_47
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_47 var:ama_rt_stack_47 > 0 } divide = var:ama_rt_stack_47 }
+    }
+}
+ama_value_palace_guards_value = { value = ama_quality_palace_guards_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_palace_guards_value multiply = 60 } min = 0.01 } }
+ama_count_type_praetorian_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = praetorian } add = 1 }
+}
+ama_base_praetorian_gold_value = praetorian_recruitment_cost
+ama_base_praetorian_prestige_value = 0
+ama_base_praetorian_piety_value = 0
+ama_quality_praetorian_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_48 }
+        value = var:ama_rt_q_48
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_48 var:ama_rt_stack_48 > 0 } divide = var:ama_rt_stack_48 }
+    }
+}
+ama_value_praetorian_value = { value = ama_quality_praetorian_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_praetorian_value multiply = 60 } min = 0.01 } }
+ama_count_type_samurai_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = samurai } add = 1 }
+}
+ama_base_samurai_gold_value = samurai_recruitment_cost
+ama_base_samurai_prestige_value = 0
+ama_base_samurai_piety_value = 0
+ama_quality_samurai_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_49 }
+        value = var:ama_rt_q_49
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_49 var:ama_rt_stack_49 > 0 } divide = var:ama_rt_stack_49 }
+    }
+}
+ama_value_samurai_value = { value = ama_quality_samurai_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_samurai_value multiply = 60 } min = 0.01 } }
+ama_count_type_sarawit_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = sarawit } add = 1 }
+}
+ama_base_sarawit_gold_value = sarawit_recruitment_cost
+ama_base_sarawit_prestige_value = 0
+ama_base_sarawit_piety_value = 0
+ama_quality_sarawit_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_50 }
+        value = var:ama_rt_q_50
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_50 var:ama_rt_stack_50 > 0 } divide = var:ama_rt_stack_50 }
+    }
+}
+ama_value_sarawit_value = { value = ama_quality_sarawit_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_sarawit_value multiply = 60 } min = 0.01 } }
+ama_count_type_varangian_guards_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = varangian_guards } add = 1 }
+}
+ama_base_varangian_guards_gold_value = varangian_guards_recruitment_cost
+ama_base_varangian_guards_prestige_value = 0
+ama_base_varangian_guards_piety_value = 0
+ama_quality_varangian_guards_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_51 }
+        value = var:ama_rt_q_51
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_51 var:ama_rt_stack_51 > 0 } divide = var:ama_rt_stack_51 }
+    }
+}
+ama_value_varangian_guards_value = { value = ama_quality_varangian_guards_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_varangian_guards_value multiply = 60 } min = 0.01 } }
+ama_count_type_varangian_veterans_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = varangian_veterans } add = 1 }
+}
+ama_base_varangian_veterans_gold_value = varangian_veterans_recruitment_cost
+ama_base_varangian_veterans_prestige_value = 0
+ama_base_varangian_veterans_piety_value = 0
+ama_quality_varangian_veterans_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_52 }
+        value = var:ama_rt_q_52
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_52 var:ama_rt_stack_52 > 0 } divide = var:ama_rt_stack_52 }
+    }
+}
+ama_value_varangian_veterans_value = { value = ama_quality_varangian_veterans_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_varangian_veterans_value multiply = 60 } min = 0.01 } }
+ama_count_type_zbrojnosh_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = zbrojnosh } add = 1 }
+}
+ama_base_zbrojnosh_gold_value = zbrojnosh_recruitment_cost
+ama_base_zbrojnosh_prestige_value = 0
+ama_base_zbrojnosh_piety_value = 0
+ama_quality_zbrojnosh_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_53 }
+        value = var:ama_rt_q_53
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_53 var:ama_rt_stack_53 > 0 } divide = var:ama_rt_stack_53 }
+    }
+}
+ama_value_zbrojnosh_value = { value = ama_quality_zbrojnosh_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_zbrojnosh_value multiply = 60 } min = 0.01 } }
+ama_count_type_zhanmadao_infantry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = zhanmadao_infantry } add = 1 }
+}
+ama_base_zhanmadao_infantry_gold_value = zhanmadao_infantry_recruitment_cost
+ama_base_zhanmadao_infantry_prestige_value = 0
+ama_base_zhanmadao_infantry_piety_value = 0
+ama_quality_zhanmadao_infantry_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_54 }
+        value = var:ama_rt_q_54
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_54 var:ama_rt_stack_54 > 0 } divide = var:ama_rt_stack_54 }
+    }
+}
+ama_value_zhanmadao_infantry_value = { value = ama_quality_zhanmadao_infantry_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_zhanmadao_infantry_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_outriders_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_outriders } add = 1 }
+}
+ama_base_accolade_maa_outriders_gold_value = accolade_light_cavalry_recruitment_cost
+ama_base_accolade_maa_outriders_prestige_value = 0
+ama_base_accolade_maa_outriders_piety_value = 0
+ama_quality_accolade_maa_outriders_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_55 }
+        value = var:ama_rt_q_55
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_55 var:ama_rt_stack_55 > 0 } divide = var:ama_rt_stack_55 }
+    }
+}
+ama_value_accolade_maa_outriders_value = { value = ama_quality_accolade_maa_outriders_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_outriders_value multiply = 60 } min = 0.01 } }
+ama_count_type_ayrudzi_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = ayrudzi } add = 1 }
+}
+ama_base_ayrudzi_gold_value = ayrudzi_recruitment_cost
+ama_base_ayrudzi_prestige_value = 0
+ama_base_ayrudzi_piety_value = 0
+ama_quality_ayrudzi_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_56 }
+        value = var:ama_rt_q_56
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_56 var:ama_rt_stack_56 > 0 } divide = var:ama_rt_stack_56 }
+    }
+}
+ama_value_ayrudzi_value = { value = ama_quality_ayrudzi_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_ayrudzi_value multiply = 60 } min = 0.01 } }
+ama_count_type_caballero_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = caballero } add = 1 }
+}
+ama_base_caballero_gold_value = caballero_recruitment_cost
+ama_base_caballero_prestige_value = 0
+ama_base_caballero_piety_value = 0
+ama_quality_caballero_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_57 }
+        value = var:ama_rt_q_57
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_57 var:ama_rt_stack_57 > 0 } divide = var:ama_rt_stack_57 }
+    }
+}
+ama_value_caballero_value = { value = ama_quality_caballero_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_caballero_value multiply = 60 } min = 0.01 } }
+ama_count_type_chasseur_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = chasseur } add = 1 }
+}
+ama_base_chasseur_gold_value = chasseur_recruitment_cost
+ama_base_chasseur_prestige_value = 0
+ama_base_chasseur_piety_value = 0
+ama_quality_chasseur_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_58 }
+        value = var:ama_rt_q_58
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_58 var:ama_rt_stack_58 > 0 } divide = var:ama_rt_stack_58 }
+    }
+}
+ama_value_chasseur_value = { value = ama_quality_chasseur_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_chasseur_value multiply = 60 } min = 0.01 } }
+ama_count_type_hobelar_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = hobelar } add = 1 }
+}
+ama_base_hobelar_gold_value = hobelar_recruitment_cost
+ama_base_hobelar_prestige_value = 0
+ama_base_hobelar_piety_value = 0
+ama_quality_hobelar_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_59 }
+        value = var:ama_rt_q_59
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_59 var:ama_rt_stack_59 > 0 } divide = var:ama_rt_stack_59 }
+    }
+}
+ama_value_hobelar_value = { value = ama_quality_hobelar_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_hobelar_value multiply = 60 } min = 0.01 } }
+ama_count_type_hussar_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = hussar } add = 1 }
+}
+ama_base_hussar_gold_value = hussar_recruitment_cost
+ama_base_hussar_prestige_value = 0
+ama_base_hussar_piety_value = 0
+ama_quality_hussar_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_60 }
+        value = var:ama_rt_q_60
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_60 var:ama_rt_stack_60 > 0 } divide = var:ama_rt_stack_60 }
+    }
+}
+ama_value_hussar_value = { value = ama_quality_hussar_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_hussar_value multiply = 60 } min = 0.01 } }
+ama_count_type_light_horsemen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = light_horsemen } add = 1 }
+}
+ama_base_light_horsemen_gold_value = light_cavalry_recruitment_cost
+ama_base_light_horsemen_prestige_value = 0
+ama_base_light_horsemen_piety_value = 0
+ama_quality_light_horsemen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_61 }
+        value = var:ama_rt_q_61
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_61 var:ama_rt_stack_61 > 0 } divide = var:ama_rt_stack_61 }
+    }
+}
+ama_value_light_horsemen_value = { value = ama_quality_light_horsemen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_light_horsemen_value multiply = 60 } min = 0.01 } }
+ama_count_type_mulaththamun_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = mulaththamun } add = 1 }
+}
+ama_base_mulaththamun_gold_value = mulaththamun_recruitment_cost
+ama_base_mulaththamun_prestige_value = 0
+ama_base_mulaththamun_piety_value = 0
+ama_quality_mulaththamun_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_62 }
+        value = var:ama_rt_q_62
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_62 var:ama_rt_stack_62 > 0 } divide = var:ama_rt_stack_62 }
+    }
+}
+ama_value_mulaththamun_value = { value = ama_quality_mulaththamun_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_mulaththamun_value multiply = 60 } min = 0.01 } }
+ama_count_type_sahel_horsemen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = sahel_horsemen } add = 1 }
+}
+ama_base_sahel_horsemen_gold_value = sahel_rider_recruitment_cost
+ama_base_sahel_horsemen_prestige_value = 0
+ama_base_sahel_horsemen_piety_value = 0
+ama_quality_sahel_horsemen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_63 }
+        value = var:ama_rt_q_63
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_63 var:ama_rt_stack_63 > 0 } divide = var:ama_rt_stack_63 }
+    }
+}
+ama_value_sahel_horsemen_value = { value = ama_quality_sahel_horsemen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_sahel_horsemen_value multiply = 60 } min = 0.01 } }
+ama_count_type_steppe_raiders_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = steppe_raiders } add = 1 }
+}
+ama_base_steppe_raiders_gold_value = steppe_raiders_recruitment_cost
+ama_base_steppe_raiders_prestige_value = 0
+ama_base_steppe_raiders_piety_value = 0
+ama_quality_steppe_raiders_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_64 }
+        value = var:ama_rt_q_64
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_64 var:ama_rt_stack_64 > 0 } divide = var:ama_rt_stack_64 }
+    }
+}
+ama_value_steppe_raiders_value = { value = ama_quality_steppe_raiders_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_steppe_raiders_value multiply = 60 } min = 0.01 } }
+ama_count_type_tawashi_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = tawashi } add = 1 }
+}
+ama_base_tawashi_gold_value = tawashi_recruitment_cost
+ama_base_tawashi_prestige_value = 0
+ama_base_tawashi_piety_value = 0
+ama_quality_tawashi_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_65 }
+        value = var:ama_rt_q_65
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_65 var:ama_rt_stack_65 > 0 } divide = var:ama_rt_stack_65 }
+    }
+}
+ama_value_tawashi_value = { value = ama_quality_tawashi_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_tawashi_value multiply = 60 } min = 0.01 } }
+ama_count_type_teulu_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = teulu } add = 1 }
+}
+ama_base_teulu_gold_value = teulu_recruitment_cost
+ama_base_teulu_prestige_value = 0
+ama_base_teulu_piety_value = 0
+ama_quality_teulu_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_66 }
+        value = var:ama_rt_q_66
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_66 var:ama_rt_stack_66 > 0 } divide = var:ama_rt_stack_66 }
+    }
+}
+ama_value_teulu_value = { value = ama_quality_teulu_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_teulu_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_lancers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_lancers } add = 1 }
+}
+ama_count_type_condottieri_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = condottieri } add = 1 }
+}
+ama_base_accolade_maa_lancers_gold_value = accolade_heavy_cavalry_recruitment_cost
+ama_base_condottieri_gold_value = condottieri_recruitment_cost
+ama_base_accolade_maa_lancers_prestige_value = 0
+ama_base_condottieri_prestige_value = 0
+ama_base_accolade_maa_lancers_piety_value = 0
+ama_base_condottieri_piety_value = 0
+ama_quality_accolade_maa_lancers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_67 }
+        value = var:ama_rt_q_67
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_67 var:ama_rt_stack_67 > 0 } divide = var:ama_rt_stack_67 }
+    }
+}
+ama_quality_condottieri_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_110 }
+        value = var:ama_rt_q_110
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_110 var:ama_rt_stack_110 > 0 } divide = var:ama_rt_stack_110 }
+    }
+}
+ama_value_accolade_maa_lancers_value = { value = ama_quality_accolade_maa_lancers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_lancers_value multiply = 60 } min = 0.01 } }
+ama_value_condottieri_value = { value = ama_quality_condottieri_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_condottieri_value multiply = 60 } min = 0.01 } }
+ama_count_type_armored_horsemen_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = armored_horsemen } add = 1 }
+}
+ama_base_armored_horsemen_gold_value = heavy_cavalry_recruitment_cost
+ama_base_armored_horsemen_prestige_value = 0
+ama_base_armored_horsemen_piety_value = 0
+ama_quality_armored_horsemen_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_68 }
+        value = var:ama_rt_q_68
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_68 var:ama_rt_stack_68 > 0 } divide = var:ama_rt_stack_68 }
+    }
+}
+ama_value_armored_horsemen_value = { value = ama_quality_armored_horsemen_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_armored_horsemen_value multiply = 60 } min = 0.01 } }
+ama_count_type_black_armor_cavalry_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = black_armor_cavalry } add = 1 }
+}
+ama_base_black_armor_cavalry_gold_value = tiefutu_recruitment_cost
+ama_base_black_armor_cavalry_prestige_value = 0
+ama_base_black_armor_cavalry_piety_value = 0
+ama_quality_black_armor_cavalry_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_69 }
+        value = var:ama_rt_q_69
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_69 var:ama_rt_stack_69 > 0 } divide = var:ama_rt_stack_69 }
+    }
+}
+ama_value_black_armor_cavalry_value = { value = ama_quality_black_armor_cavalry_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_black_armor_cavalry_value multiply = 60 } min = 0.01 } }
+ama_count_type_cataphract_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = cataphract } add = 1 }
+}
+ama_base_cataphract_gold_value = cataphract_recruitment_cost
+ama_base_cataphract_prestige_value = 0
+ama_base_cataphract_piety_value = 0
+ama_quality_cataphract_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_70 }
+        value = var:ama_rt_q_70
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_70 var:ama_rt_stack_70 > 0 } divide = var:ama_rt_stack_70 }
+    }
+}
+ama_value_cataphract_value = { value = ama_quality_cataphract_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_cataphract_value multiply = 60 } min = 0.01 } }
+ama_count_type_cataphract_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = cataphract_archers } add = 1 }
+}
+ama_base_cataphract_archers_gold_value = cataphract_archers_recruitment_cost
+ama_base_cataphract_archers_prestige_value = 0
+ama_base_cataphract_archers_piety_value = 0
+ama_quality_cataphract_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_71 }
+        value = var:ama_rt_q_71
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_71 var:ama_rt_stack_71 > 0 } divide = var:ama_rt_stack_71 }
+    }
+}
+ama_value_cataphract_archers_value = { value = ama_quality_cataphract_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_cataphract_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_conrois_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = conrois } add = 1 }
+}
+ama_base_conrois_gold_value = conrois_recruitment_cost
+ama_base_conrois_prestige_value = 0
+ama_base_conrois_piety_value = 0
+ama_quality_conrois_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_72 }
+        value = var:ama_rt_q_72
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_72 var:ama_rt_stack_72 > 0 } divide = var:ama_rt_stack_72 }
+    }
+}
+ama_value_conrois_value = { value = ama_quality_conrois_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_conrois_value multiply = 60 } min = 0.01 } }
+ama_count_type_gendarme_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = gendarme } add = 1 }
+}
+ama_base_gendarme_gold_value = gendarme_recruitment_cost
+ama_base_gendarme_prestige_value = 0
+ama_base_gendarme_piety_value = 0
+ama_quality_gendarme_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_73 }
+        value = var:ama_rt_q_73
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_73 var:ama_rt_stack_73 > 0 } divide = var:ama_rt_stack_73 }
+    }
+}
+ama_value_gendarme_value = { value = ama_quality_gendarme_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_gendarme_value multiply = 60 } min = 0.01 } }
+ama_count_type_monaspa_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = monaspa } add = 1 }
+}
+ama_base_monaspa_gold_value = monaspa_recruitment_cost
+ama_base_monaspa_prestige_value = 0
+ama_base_monaspa_piety_value = 0
+ama_quality_monaspa_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_74 }
+        value = var:ama_rt_q_74
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_74 var:ama_rt_stack_74 > 0 } divide = var:ama_rt_stack_74 }
+    }
+}
+ama_value_monaspa_value = { value = ama_quality_monaspa_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_monaspa_value multiply = 60 } min = 0.01 } }
+ama_count_type_nomad_lancers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = nomad_lancers } add = 1 }
+}
+ama_base_nomad_lancers_gold_value = nomad_lancers_recruitment_cost
+ama_base_nomad_lancers_prestige_value = 0
+ama_base_nomad_lancers_piety_value = 0
+ama_quality_nomad_lancers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_75 }
+        value = var:ama_rt_q_75
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_75 var:ama_rt_stack_75 > 0 } divide = var:ama_rt_stack_75 }
+    }
+}
+ama_value_nomad_lancers_value = { value = ama_quality_nomad_lancers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_nomad_lancers_value multiply = 60 } min = 0.01 } }
+ama_count_type_tarkhan_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = tarkhan } add = 1 }
+}
+ama_base_tarkhan_gold_value = cataphract_recruitment_cost
+ama_base_tarkhan_prestige_value = 0
+ama_base_tarkhan_piety_value = 0
+ama_quality_tarkhan_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_76 }
+        value = var:ama_rt_q_76
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_76 var:ama_rt_stack_76 > 0 } divide = var:ama_rt_stack_76 }
+    }
+}
+ama_value_tarkhan_value = { value = ama_quality_tarkhan_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_tarkhan_value multiply = 60 } min = 0.01 } }
+ama_count_type_tiefutu_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = tiefutu } add = 1 }
+}
+ama_base_tiefutu_gold_value = black_armor_cavalry_recruitment_cost
+ama_base_tiefutu_prestige_value = 0
+ama_base_tiefutu_piety_value = 0
+ama_quality_tiefutu_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_77 }
+        value = var:ama_rt_q_77
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_77 var:ama_rt_stack_77 > 0 } divide = var:ama_rt_stack_77 }
+    }
+}
+ama_value_tiefutu_value = { value = ama_quality_tiefutu_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_tiefutu_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_horse_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_horse_archers } add = 1 }
+}
+ama_base_accolade_maa_horse_archers_gold_value = accolade_horse_archers_recruitment_cost
+ama_base_accolade_maa_horse_archers_prestige_value = 0
+ama_base_accolade_maa_horse_archers_piety_value = 0
+ama_quality_accolade_maa_horse_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_78 }
+        value = var:ama_rt_q_78
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_78 var:ama_rt_stack_78 > 0 } divide = var:ama_rt_stack_78 }
+    }
+}
+ama_value_accolade_maa_horse_archers_value = { value = ama_quality_accolade_maa_horse_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_horse_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_asawira_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = asawira } add = 1 }
+}
+ama_base_asawira_gold_value = asawira_recruitment_cost
+ama_base_asawira_prestige_value = 0
+ama_base_asawira_piety_value = 0
+ama_quality_asawira_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_79 }
+        value = var:ama_rt_q_79
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_79 var:ama_rt_stack_79 > 0 } divide = var:ama_rt_stack_79 }
+    }
+}
+ama_value_asawira_value = { value = ama_quality_asawira_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_asawira_value multiply = 60 } min = 0.01 } }
+ama_count_type_emishi_horse_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = emishi_horse_archers } add = 1 }
+}
+ama_base_emishi_horse_archers_gold_value = light_cavalry_recruitment_cost
+ama_base_emishi_horse_archers_prestige_value = 0
+ama_base_emishi_horse_archers_piety_value = 0
+ama_quality_emishi_horse_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_80 }
+        value = var:ama_rt_q_80
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_80 var:ama_rt_stack_80 > 0 } divide = var:ama_rt_stack_80 }
+    }
+}
+ama_value_emishi_horse_archers_value = { value = ama_quality_emishi_horse_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_emishi_horse_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_heavy_horse_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = heavy_horse_archers } add = 1 }
+}
+ama_base_heavy_horse_archers_gold_value = heavy_horse_archers_recruitment_cost
+ama_base_heavy_horse_archers_prestige_value = 0
+ama_base_heavy_horse_archers_piety_value = 0
+ama_quality_heavy_horse_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_81 }
+        value = var:ama_rt_q_81
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_81 var:ama_rt_stack_81 > 0 } divide = var:ama_rt_stack_81 }
+    }
+}
+ama_value_heavy_horse_archers_value = { value = ama_quality_heavy_horse_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_heavy_horse_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_horse_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = horse_archers } add = 1 }
+}
+ama_base_horse_archers_gold_value = horse_archers_recruitment_cost
+ama_base_horse_archers_prestige_value = 0
+ama_base_horse_archers_piety_value = 0
+ama_quality_horse_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_82 }
+        value = var:ama_rt_q_82
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_82 var:ama_rt_stack_82 > 0 } divide = var:ama_rt_stack_82 }
+    }
+}
+ama_value_horse_archers_value = { value = ama_quality_horse_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_horse_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_japanese_horse_archers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = japanese_horse_archers } add = 1 }
+}
+ama_base_japanese_horse_archers_gold_value = horse_archers_recruitment_cost
+ama_base_japanese_horse_archers_prestige_value = 0
+ama_base_japanese_horse_archers_piety_value = 0
+ama_quality_japanese_horse_archers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_83 }
+        value = var:ama_rt_q_83
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_83 var:ama_rt_stack_83 > 0 } divide = var:ama_rt_stack_83 }
+    }
+}
+ama_value_japanese_horse_archers_value = { value = ama_quality_japanese_horse_archers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_japanese_horse_archers_value multiply = 60 } min = 0.01 } }
+ama_count_type_kheshig_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = kheshig } add = 1 }
+}
+ama_base_kheshig_gold_value = kheshig_recruitment_cost
+ama_base_kheshig_prestige_value = 0
+ama_base_kheshig_piety_value = 0
+ama_quality_kheshig_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_84 }
+        value = var:ama_rt_q_84
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_84 var:ama_rt_stack_84 > 0 } divide = var:ama_rt_stack_84 }
+    }
+}
+ama_value_kheshig_value = { value = ama_quality_kheshig_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_kheshig_value multiply = 60 } min = 0.01 } }
+ama_count_type_mangudai_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = mangudai } add = 1 }
+}
+ama_base_mangudai_gold_value = mangudai_recruitment_cost
+ama_base_mangudai_prestige_value = 0
+ama_base_mangudai_piety_value = 0
+ama_quality_mangudai_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_85 }
+        value = var:ama_rt_q_85
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_85 var:ama_rt_stack_85 > 0 } divide = var:ama_rt_stack_85 }
+    }
+}
+ama_value_mangudai_value = { value = ama_quality_mangudai_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_mangudai_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_cameliers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_cameliers } add = 1 }
+}
+ama_base_accolade_maa_cameliers_gold_value = accolade_camel_rider_recruitment_cost
+ama_base_accolade_maa_cameliers_prestige_value = 0
+ama_base_accolade_maa_cameliers_piety_value = 0
+ama_quality_accolade_maa_cameliers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_86 }
+        value = var:ama_rt_q_86
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_86 var:ama_rt_stack_86 > 0 } divide = var:ama_rt_stack_86 }
+    }
+}
+ama_value_accolade_maa_cameliers_value = { value = ama_quality_accolade_maa_cameliers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_cameliers_value multiply = 60 } min = 0.01 } }
+ama_count_type_camel_rider_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = camel_rider } add = 1 }
+}
+ama_base_camel_rider_gold_value = camel_rider_recruitment_cost
+ama_base_camel_rider_prestige_value = 0
+ama_base_camel_rider_piety_value = 0
+ama_quality_camel_rider_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_87 }
+        value = var:ama_rt_q_87
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_87 var:ama_rt_stack_87 > 0 } divide = var:ama_rt_stack_87 }
+    }
+}
+ama_value_camel_rider_value = { value = ama_quality_camel_rider_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_camel_rider_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_elephantiers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_elephantiers } add = 1 }
+}
+ama_base_accolade_maa_elephantiers_gold_value = accolade_war_elephant_recruitment_cost
+ama_base_accolade_maa_elephantiers_prestige_value = 0
+ama_base_accolade_maa_elephantiers_piety_value = 0
+ama_quality_accolade_maa_elephantiers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_88 }
+        value = var:ama_rt_q_88
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_88 var:ama_rt_stack_88 > 0 } divide = var:ama_rt_stack_88 }
+    }
+}
+ama_value_accolade_maa_elephantiers_value = { value = ama_quality_accolade_maa_elephantiers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_elephantiers_value multiply = 60 } min = 0.01 } }
+ama_count_type_ballista_elephant_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = ballista_elephant } add = 1 }
+}
+ama_base_ballista_elephant_gold_value = ballista_elephant_recruitment_cost
+ama_base_ballista_elephant_prestige_value = 0
+ama_base_ballista_elephant_piety_value = 0
+ama_quality_ballista_elephant_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_89 }
+        value = var:ama_rt_q_89
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_89 var:ama_rt_stack_89 > 0 } divide = var:ama_rt_stack_89 }
+    }
+}
+ama_value_ballista_elephant_value = { value = ama_quality_ballista_elephant_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_ballista_elephant_value multiply = 60 } min = 0.01 } }
+ama_count_type_war_elephant_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = war_elephant } add = 1 }
+}
+ama_base_war_elephant_gold_value = war_elephant_recruitment_cost
+ama_base_war_elephant_prestige_value = 0
+ama_base_war_elephant_piety_value = 0
+ama_quality_war_elephant_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_90 }
+        value = var:ama_rt_q_90
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_90 var:ama_rt_stack_90 > 0 } divide = var:ama_rt_stack_90 }
+    }
+}
+ama_value_war_elephant_value = { value = ama_quality_war_elephant_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_war_elephant_value multiply = 60 } min = 0.01 } }
+ama_count_type_ballista_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = ballista } add = 1 }
+}
+ama_base_ballista_gold_value = ballista_recruitment_cost
+ama_base_ballista_prestige_value = 0
+ama_base_ballista_piety_value = 0
+ama_quality_ballista_value = { value = 0 if = { limit = { has_variable = ama_rt_q_91 } value = var:ama_rt_q_91 } }
+ama_value_ballista_value = { value = ama_quality_ballista_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_ballista_value multiply = 60 } min = 0.01 } }
+ama_count_type_bombard_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = bombard } add = 1 }
+}
+ama_base_bombard_gold_value = bombard_recruitment_cost
+ama_base_bombard_prestige_value = 0
+ama_base_bombard_piety_value = 0
+ama_quality_bombard_value = { value = 0 if = { limit = { has_variable = ama_rt_q_92 } value = var:ama_rt_q_92 } }
+ama_value_bombard_value = { value = ama_quality_bombard_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_bombard_value multiply = 60 } min = 0.01 } }
+ama_count_type_cannon_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = cannon } add = 1 }
+}
+ama_base_cannon_gold_value = cannon_recruitment_cost
+ama_base_cannon_prestige_value = 0
+ama_base_cannon_piety_value = 0
+ama_quality_cannon_value = { value = 0 if = { limit = { has_variable = ama_rt_q_93 } value = var:ama_rt_q_93 } }
+ama_value_cannon_value = { value = ama_quality_cannon_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_cannon_value multiply = 60 } min = 0.01 } }
+ama_count_type_cloud_ladder_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = cloud_ladder } add = 1 }
+}
+ama_base_cloud_ladder_gold_value = cloud_ladder_recruitment_cost
+ama_base_cloud_ladder_prestige_value = 0
+ama_base_cloud_ladder_piety_value = 0
+ama_quality_cloud_ladder_value = { value = 0 if = { limit = { has_variable = ama_rt_q_94 } value = var:ama_rt_q_94 } }
+ama_value_cloud_ladder_value = { value = ama_quality_cloud_ladder_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_cloud_ladder_value multiply = 60 } min = 0.01 } }
+ama_count_type_mangonel_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = mangonel } add = 1 }
+}
+ama_base_mangonel_gold_value = mangonel_recruitment_cost
+ama_base_mangonel_prestige_value = 0
+ama_base_mangonel_piety_value = 0
+ama_quality_mangonel_value = { value = 0 if = { limit = { has_variable = ama_rt_q_95 } value = var:ama_rt_q_95 } }
+ama_value_mangonel_value = { value = ama_quality_mangonel_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_mangonel_value multiply = 60 } min = 0.01 } }
+ama_count_type_onager_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = onager } add = 1 }
+}
+ama_base_onager_gold_value = onager_recruitment_cost
+ama_base_onager_prestige_value = 0
+ama_base_onager_piety_value = 0
+ama_quality_onager_value = { value = 0 if = { limit = { has_variable = ama_rt_q_96 } value = var:ama_rt_q_96 } }
+ama_value_onager_value = { value = ama_quality_onager_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_onager_value multiply = 60 } min = 0.01 } }
+ama_count_type_siege_tower_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = siege_tower } add = 1 }
+}
+ama_base_siege_tower_gold_value = siege_tower_recruitment_cost
+ama_base_siege_tower_prestige_value = 0
+ama_base_siege_tower_piety_value = 0
+ama_quality_siege_tower_value = { value = 0 if = { limit = { has_variable = ama_rt_q_97 } value = var:ama_rt_q_97 } }
+ama_value_siege_tower_value = { value = ama_quality_siege_tower_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_siege_tower_value multiply = 60 } min = 0.01 } }
+ama_count_type_torch_bearers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = torch_bearers } add = 1 }
+}
+ama_base_torch_bearers_gold_value = torch_bearers_recruitment_cost
+ama_base_torch_bearers_prestige_value = 0
+ama_base_torch_bearers_piety_value = 0
+ama_quality_torch_bearers_value = { value = 0 if = { limit = { has_variable = ama_rt_q_98 } value = var:ama_rt_q_98 } }
+ama_value_torch_bearers_value = { value = ama_quality_torch_bearers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_torch_bearers_value multiply = 60 } min = 0.01 } }
+ama_count_type_trebuchet_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = trebuchet } add = 1 }
+}
+ama_base_trebuchet_gold_value = trebuchet_recruitment_cost
+ama_base_trebuchet_prestige_value = 0
+ama_base_trebuchet_piety_value = 0
+ama_quality_trebuchet_value = { value = 0 if = { limit = { has_variable = ama_rt_q_99 } value = var:ama_rt_q_99 } }
+ama_value_trebuchet_value = { value = ama_quality_trebuchet_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_trebuchet_value multiply = 60 } min = 0.01 } }
+ama_count_type_accolade_maa_handgunners_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = accolade_maa_handgunners } add = 1 }
+}
+ama_base_accolade_maa_handgunners_gold_value = handgunner_recruitment_cost
+ama_base_accolade_maa_handgunners_prestige_value = 0
+ama_base_accolade_maa_handgunners_piety_value = 0
+ama_quality_accolade_maa_handgunners_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_100 }
+        value = var:ama_rt_q_100
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_100 var:ama_rt_stack_100 > 0 } divide = var:ama_rt_stack_100 }
+    }
+}
+ama_value_accolade_maa_handgunners_value = { value = ama_quality_accolade_maa_handgunners_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_accolade_maa_handgunners_value multiply = 60 } min = 0.01 } }
+ama_count_type_fire_lancers_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = fire_lancers } add = 1 }
+}
+ama_base_fire_lancers_gold_value = crossbowmen_recruitment_cost
+ama_base_fire_lancers_prestige_value = 0
+ama_base_fire_lancers_piety_value = 0
+ama_quality_fire_lancers_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_101 }
+        value = var:ama_rt_q_101
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_101 var:ama_rt_stack_101 > 0 } divide = var:ama_rt_stack_101 }
+    }
+}
+ama_value_fire_lancers_value = { value = ama_quality_fire_lancers_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_fire_lancers_value multiply = 60 } min = 0.01 } }
+ama_count_type_handgunners_value = { value = 0
+    every_maa_regiment = { limit = { ama_regular_trigger = yes is_maa_type = handgunners } add = 1 }
+}
+ama_base_handgunners_gold_value = handgunner_recruitment_cost
+ama_base_handgunners_prestige_value = 0
+ama_base_handgunners_piety_value = 0
+ama_quality_handgunners_value = {
+    value = 0
+    if = { limit = { has_variable = ama_rt_q_102 }
+        value = var:ama_rt_q_102
+        if = { limit = { var:ama_strategy = 1 has_variable = ama_rt_stack_102 var:ama_rt_stack_102 > 0 } divide = var:ama_rt_stack_102 }
+    }
+}
+ama_value_handgunners_value = { value = ama_quality_handgunners_value divide = { value = ama_pick_cost_value add = { value = ama_pick_upkeep_handgunners_value multiply = 60 } min = 0.01 } }
+ama_needed_gold_value = { value = var:ama_pay_gold add = var:ama_reserve_gold }
+ama_needed_treasury_value = { value = var:ama_pay_treasury add = var:ama_reserve_treasury }
+ama_needed_prestige_value = { value = var:ama_pay_prestige add = var:ama_reserve_prestige }
+ama_needed_piety_value = { value = var:ama_pay_piety add = var:ama_reserve_piety }
+ama_needed_barter_goods_value = { value = var:ama_pay_barter_goods add = var:ama_reserve_barter_goods }
+ama_upkeep_limit_value = { value = var:ama_upkeep_percent divide = 100 }
+ama_upkeep_budget_gold_value = { value = monthly_character_income multiply = ama_upkeep_limit_value }
+ama_upkeep_budget_treasury_value = { value = monthly_character_treasury_income multiply = ama_upkeep_limit_value }
+ama_monthly_remaining_value = { value = 20 subtract = var:ama_month_done min = 0 }
+ama_deficit_archer_cavalry_value = { value = var:ama_plan_archer_cavalry subtract = var:ama_plan_count_archer_cavalry }
+ama_deficit_archers_value = { value = var:ama_plan_archers subtract = var:ama_plan_count_archers }
+ama_deficit_camel_cavalry_value = { value = var:ama_plan_camel_cavalry subtract = var:ama_plan_count_camel_cavalry }
+ama_deficit_elephant_cavalry_value = { value = var:ama_plan_elephant_cavalry subtract = var:ama_plan_count_elephant_cavalry }
+ama_deficit_gunpowder_value = { value = var:ama_plan_gunpowder subtract = var:ama_plan_count_gunpowder }
+ama_deficit_heavy_cavalry_value = { value = var:ama_plan_heavy_cavalry subtract = var:ama_plan_count_heavy_cavalry }
+ama_deficit_heavy_infantry_value = { value = var:ama_plan_heavy_infantry subtract = var:ama_plan_count_heavy_infantry }
+ama_deficit_light_cavalry_value = { value = var:ama_plan_light_cavalry subtract = var:ama_plan_count_light_cavalry }
+ama_deficit_pikemen_value = { value = var:ama_plan_pikemen subtract = var:ama_plan_count_pikemen }
+ama_deficit_siege_weapon_value = { value = var:ama_plan_siege_weapon subtract = var:ama_plan_count_siege_weapon }
+ama_deficit_skirmishers_value = { value = var:ama_plan_skirmishers subtract = var:ama_plan_count_skirmishers }
+ama_title_count_archer_cavalry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = archer_cavalry }
+        add = 1
+    }
+}
+ama_title_count_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = archers }
+        add = 1
+    }
+}
+ama_title_count_camel_cavalry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = camel_cavalry }
+        add = 1
+    }
+}
+ama_title_count_elephant_cavalry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = elephant_cavalry }
+        add = 1
+    }
+}
+ama_title_count_gunpowder_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = gunpowder }
+        add = 1
+    }
+}
+ama_title_count_heavy_cavalry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = heavy_cavalry }
+        add = 1
+    }
+}
+ama_title_count_heavy_infantry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = heavy_infantry }
+        add = 1
+    }
+}
+ama_title_count_light_cavalry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = light_cavalry }
+        add = 1
+    }
+}
+ama_title_count_pikemen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = pikemen }
+        add = 1
+    }
+}
+ama_title_count_siege_weapon_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = siege_weapon }
+        add = 1
+    }
+}
+ama_title_count_skirmishers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_unit_type = skirmishers }
+        add = 1
+    }
+}
+ama_title_count_type_abudrar_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = abudrar }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_skirmishers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_skirmishers }
+        add = 1
+    }
+}
+ama_title_count_type_akritai_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = akritai }
+        add = 1
+    }
+}
+ama_title_count_type_goedendag_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = goedendag }
+        add = 1
+    }
+}
+ama_title_count_type_guanch_vaulter_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = guanch_vaulter }
+        add = 1
+    }
+}
+ama_title_count_type_guinea_warrior_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = guinea_warrior }
+        add = 1
+    }
+}
+ama_title_count_type_horn_warrior_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = horn_warrior }
+        add = 1
+    }
+}
+ama_title_count_type_light_footmen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = light_footmen }
+        add = 1
+    }
+}
+ama_title_count_type_pesilat_warriors_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = pesilat_warriors }
+        add = 1
+    }
+}
+ama_title_count_type_shomer_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = shomer }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_archers }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_crossbowers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_crossbowers }
+        add = 1
+    }
+}
+ama_title_count_type_archers_of_the_nile_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = archers_of_the_nile }
+        add = 1
+    }
+}
+ama_title_count_type_ballistrai_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = ballistrai }
+        add = 1
+    }
+}
+ama_title_count_type_bowmen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = bowmen }
+        add = 1
+    }
+}
+ama_title_count_type_bush_hunter_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = bush_hunter }
+        add = 1
+    }
+}
+ama_title_count_type_crossbowmen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = crossbowmen }
+        add = 1
+    }
+}
+ama_title_count_type_gakgung_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = gakgung_archers }
+        add = 1
+    }
+}
+ama_title_count_type_longbowmen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = longbowmen }
+        add = 1
+    }
+}
+ama_title_count_type_maturkan_warriors_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = maturkan_warriors }
+        add = 1
+    }
+}
+ama_title_count_type_metsanvartija_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = metsanvartija }
+        add = 1
+    }
+}
+ama_title_count_type_paiks_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = paiks }
+        add = 1
+    }
+}
+ama_title_count_type_rocket_carts_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = rocket_carts }
+        add = 1
+    }
+}
+ama_title_count_type_shenbigong_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = shenbigong }
+        add = 1
+    }
+}
+ama_title_count_type_vigmen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = vigmen }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_pikes_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_pikes }
+        add = 1
+    }
+}
+ama_title_count_type_bondi_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = bondi }
+        add = 1
+    }
+}
+ama_title_count_type_landsknecht_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = landsknecht }
+        add = 1
+    }
+}
+ama_title_count_type_picchieri_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = picchieri }
+        add = 1
+    }
+}
+ama_title_count_type_pikemen_unit_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = pikemen_unit }
+        add = 1
+    }
+}
+ama_title_count_type_schiltron_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = schiltron }
+        add = 1
+    }
+}
+ama_title_count_type_skoutatoi_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = skoutatoi }
+        add = 1
+    }
+}
+ama_title_count_type_warrior_monks_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = warrior_monks }
+        add = 1
+    }
+}
+ama_title_count_type_zupin_warrior_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = zupin_warrior }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_vanguards_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_vanguards }
+        add = 1
+    }
+}
+ama_title_count_type_armored_footmen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = armored_footmen }
+        add = 1
+    }
+}
+ama_title_count_type_ayyar_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = ayyar }
+        add = 1
+    }
+}
+ama_title_count_type_burenjia_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = burenjia }
+        add = 1
+    }
+}
+ama_title_count_type_druzhina_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = druzhina }
+        add = 1
+    }
+}
+ama_title_count_type_garudas_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = garudas }
+        add = 1
+    }
+}
+ama_title_count_type_handpicked_faithful_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = handpicked_faithful }
+        add = 1
+    }
+}
+ama_title_count_type_house_guard_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = house_guard }
+        add = 1
+    }
+}
+ama_title_count_type_huscarl_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = huscarl }
+        add = 1
+    }
+}
+ama_title_count_type_khandayat_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = khandayat }
+        add = 1
+    }
+}
+ama_title_count_type_mountaineer_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = mountaineer }
+        add = 1
+    }
+}
+ama_title_count_type_mubarizun_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = mubarizun }
+        add = 1
+    }
+}
+ama_title_count_type_palace_guards_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = palace_guards }
+        add = 1
+    }
+}
+ama_title_count_type_praetorian_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = praetorian }
+        add = 1
+    }
+}
+ama_title_count_type_samurai_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = samurai }
+        add = 1
+    }
+}
+ama_title_count_type_sarawit_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = sarawit }
+        add = 1
+    }
+}
+ama_title_count_type_varangian_guards_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = varangian_guards }
+        add = 1
+    }
+}
+ama_title_count_type_varangian_veterans_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = varangian_veterans }
+        add = 1
+    }
+}
+ama_title_count_type_zbrojnosh_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = zbrojnosh }
+        add = 1
+    }
+}
+ama_title_count_type_zhanmadao_infantry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = zhanmadao_infantry }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_outriders_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_outriders }
+        add = 1
+    }
+}
+ama_title_count_type_ayrudzi_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = ayrudzi }
+        add = 1
+    }
+}
+ama_title_count_type_caballero_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = caballero }
+        add = 1
+    }
+}
+ama_title_count_type_chasseur_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = chasseur }
+        add = 1
+    }
+}
+ama_title_count_type_hobelar_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = hobelar }
+        add = 1
+    }
+}
+ama_title_count_type_hussar_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = hussar }
+        add = 1
+    }
+}
+ama_title_count_type_light_horsemen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = light_horsemen }
+        add = 1
+    }
+}
+ama_title_count_type_mulaththamun_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = mulaththamun }
+        add = 1
+    }
+}
+ama_title_count_type_sahel_horsemen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = sahel_horsemen }
+        add = 1
+    }
+}
+ama_title_count_type_steppe_raiders_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = steppe_raiders }
+        add = 1
+    }
+}
+ama_title_count_type_tawashi_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = tawashi }
+        add = 1
+    }
+}
+ama_title_count_type_teulu_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = teulu }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_lancers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_lancers }
+        add = 1
+    }
+}
+ama_title_count_type_condottieri_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = condottieri }
+        add = 1
+    }
+}
+ama_title_count_type_armored_horsemen_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = armored_horsemen }
+        add = 1
+    }
+}
+ama_title_count_type_black_armor_cavalry_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = black_armor_cavalry }
+        add = 1
+    }
+}
+ama_title_count_type_cataphract_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = cataphract }
+        add = 1
+    }
+}
+ama_title_count_type_cataphract_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = cataphract_archers }
+        add = 1
+    }
+}
+ama_title_count_type_conrois_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = conrois }
+        add = 1
+    }
+}
+ama_title_count_type_gendarme_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = gendarme }
+        add = 1
+    }
+}
+ama_title_count_type_monaspa_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = monaspa }
+        add = 1
+    }
+}
+ama_title_count_type_nomad_lancers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = nomad_lancers }
+        add = 1
+    }
+}
+ama_title_count_type_tarkhan_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = tarkhan }
+        add = 1
+    }
+}
+ama_title_count_type_tiefutu_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = tiefutu }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_horse_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_horse_archers }
+        add = 1
+    }
+}
+ama_title_count_type_asawira_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = asawira }
+        add = 1
+    }
+}
+ama_title_count_type_emishi_horse_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = emishi_horse_archers }
+        add = 1
+    }
+}
+ama_title_count_type_heavy_horse_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = heavy_horse_archers }
+        add = 1
+    }
+}
+ama_title_count_type_horse_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = horse_archers }
+        add = 1
+    }
+}
+ama_title_count_type_japanese_horse_archers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = japanese_horse_archers }
+        add = 1
+    }
+}
+ama_title_count_type_kheshig_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = kheshig }
+        add = 1
+    }
+}
+ama_title_count_type_mangudai_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = mangudai }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_cameliers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_cameliers }
+        add = 1
+    }
+}
+ama_title_count_type_camel_rider_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = camel_rider }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_elephantiers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_elephantiers }
+        add = 1
+    }
+}
+ama_title_count_type_ballista_elephant_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = ballista_elephant }
+        add = 1
+    }
+}
+ama_title_count_type_war_elephant_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = war_elephant }
+        add = 1
+    }
+}
+ama_title_count_type_ballista_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = ballista }
+        add = 1
+    }
+}
+ama_title_count_type_bombard_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = bombard }
+        add = 1
+    }
+}
+ama_title_count_type_cannon_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = cannon }
+        add = 1
+    }
+}
+ama_title_count_type_cloud_ladder_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = cloud_ladder }
+        add = 1
+    }
+}
+ama_title_count_type_mangonel_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = mangonel }
+        add = 1
+    }
+}
+ama_title_count_type_onager_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = onager }
+        add = 1
+    }
+}
+ama_title_count_type_siege_tower_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = siege_tower }
+        add = 1
+    }
+}
+ama_title_count_type_torch_bearers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = torch_bearers }
+        add = 1
+    }
+}
+ama_title_count_type_trebuchet_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = trebuchet }
+        add = 1
+    }
+}
+ama_title_count_type_accolade_maa_handgunners_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = accolade_maa_handgunners }
+        add = 1
+    }
+}
+ama_title_count_type_fire_lancers_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = fire_lancers }
+        add = 1
+    }
+}
+ama_title_count_type_handgunners_value = {
+    value = 0
+    every_owned_title_maa_regiment = {
+        limit = { ama_title_regular_trigger = yes is_maa_type = handgunners }
+        add = 1
+    }
+}
+ama_rule_base_value = { value = -1
+    if = { limit = { tier = tier_barony } value = 1 }
+    if = { limit = { tier = tier_county } value = 2 }
+    if = { limit = { tier = tier_duchy } value = 3 }
+    if = { limit = { tier = tier_kingdom } value = 4 }
+    if = { limit = { tier = tier_empire } value = 5 }
+    if = { limit = { tier = tier_hegemony } value = 6 }
+}
+ama_rule_owned_count_value = { value = 0 every_owned_title_maa_regiment = { add = 1 } }
+ama_rule_laws_value = { value = 0
+    if = { limit = { has_realm_law = celestial_army_liege_law_1 } add = 1 }
+    if = { limit = { has_realm_law = celestial_army_liege_law_3 } add = 2 }
+    if = { limit = { has_realm_law = celestial_army_vassal_law_1 } add = 1 }
+    if = { limit = { has_realm_law = celestial_army_vassal_law_2 } add = 2 }
+    if = { limit = { has_realm_law = celestial_army_vassal_law_3 } add = 4 }
+}
+ama_rule_contracts_value = { value = 0
+    if = { limit = { vassal_contract_has_flag = admin_theme_civilian } add = -2 }
+    if = { limit = { vassal_contract_has_flag = admin_theme_military } add = 2 }
+    if = { limit = { vassal_contract_has_flag = celestial_province_protectorate } add = 1 }
+    if = { limit = { has_subject_contract_group = celestial_vassal }
+        if = { limit = { vassal_contract_obligation_level:celestial_salary_rank = 1 } add = -1 }
+    }
+    if = { limit = { has_subject_contract_group = celestial_vassal }
+        if = { limit = { vassal_contract_obligation_level:celestial_salary_rank = 2 } add = -1 }
+    }
+}
+ama_rule_timed_value = { value = 0
+    if = { limit = { has_character_modifier = tgp_e_minister_grand_marshal_modifier } add = 1 }
+}
+ama_rule_cycle_value = { value = 0
+    if = { limit = { exists = top_participant_group:dynastic_cycle }
+        if = { limit = {
+                situation:dynastic_cycle = { situation_current_phase = situation_dynastic_cycle_phase_stability_expansion }
+                top_participant_group:dynastic_cycle = { participant_group_type = hegemon_ruler }
+            } add = 2 }
+    }
+    if = { limit = { exists = top_participant_group:dynastic_cycle }
+        if = { limit = {
+                situation:dynastic_cycle = { situation_current_phase = situation_dynastic_cycle_phase_instability_conquest }
+                top_participant_group:dynastic_cycle = { participant_group_type = hegemon_ruler }
+            } add = 2 }
+    }
+    if = { limit = { exists = top_participant_group:dynastic_cycle }
+        if = { limit = {
+                situation:dynastic_cycle = { situation_current_phase = situation_dynastic_cycle_phase_instability_conquest }
+                top_participant_group:dynastic_cycle = { participant_group_type = pro_hegemon_movement }
+            } add = 1 }
+    }
+    if = { limit = { exists = top_participant_group:dynastic_cycle }
+        if = { limit = {
+                situation:dynastic_cycle = { situation_current_phase = situation_dynastic_cycle_phase_instability_conquest }
+                top_participant_group:dynastic_cycle = { participant_group_type = expansion_movement }
+            } add = 2 }
+    }
+    if = { limit = { exists = top_participant_group:dynastic_cycle }
+        if = { limit = {
+                situation:dynastic_cycle = { situation_current_phase = situation_dynastic_cycle_phase_instability_conquest }
+                top_participant_group:dynastic_cycle = { participant_group_type = advancement_movement }
+            } add = 2 }
+    }
+    if = { limit = { exists = top_participant_group:dynastic_cycle }
+        if = { limit = {
+                situation:dynastic_cycle = { situation_current_phase = situation_dynastic_cycle_phase_instability_conquest }
+                top_participant_group:dynastic_cycle = { participant_group_type = conservative_movement }
+            } add = 2 }
+    }
+}
+# House political strength is not aspiration upgrade level. Do not use it as one.
+ama_rule_pending_house_value = { value = 0
+    if = { limit = { exists = house }
+        if = { limit = { house = {
+                    is_powerful_family = yes
+                    exists = house_aspiration
+                    house_aspiration = house_aspiration:army_quartermasters
+                } } value = 1 }
+    }
+}
+# Presence is detectable, but enabled/ruined/lease semantics are not yet verified.
+# Count it as pending, never silently add +1 or assume zero contribution.
+ama_rule_pending_building_value = { value = 0
+    every_held_title = { limit = { holder = root tier = tier_barony exists = title_province }
+        if = { limit = { title_province = { has_building = celestial_great_barracks_01 } } add = 1 }
+    }
+}
+ama_size_next_level_value = { value = maa_size add = 1 }
+# Title scope. Unknown rank/source remains -1, never zero capacity.
+ama_tc_cap_value = { value = -1
+    if = { limit = { exists = holder ama_rule_base_value >= 0
+            holder = { ama_rule_pending_house_value = 0 ama_rule_pending_building_value = 0 }
+        }
+        value = { value = ama_rule_base_value
+            add = holder.ama_rule_laws_value add = holder.ama_rule_contracts_value
+            add = holder.ama_rule_timed_value add = holder.ama_rule_cycle_value
+            min = 0 floor = yes
+        }
+    }
+}
+ama_pick_cost_value = { value = 0 add = var:ama_pay_gold add = var:ama_pay_treasury add = var:ama_pay_prestige add = var:ama_pay_piety add = var:ama_pay_barter_goods }
+ama_pick_upkeep_abudrar_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = abudrar_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_skirmishers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = skirmisher_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_akritai_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = akritai_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_goedendag_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = goedendag_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_guanch_vaulter_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = guanch_vaulter_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_guinea_warrior_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = guinea_warrior_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_horn_warrior_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = horn_warrior_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_light_footmen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = skirmisher_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_pesilat_warriors_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = pesilat_warriors_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_shomer_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = shomer_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = bowmen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_crossbowers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = crossbowmen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_archers_of_the_nile_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = archers_of_the_nile_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_ballistrai_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = ballistrai_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_bowmen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = bowmen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_bush_hunter_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = bush_hunter_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_crossbowmen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = crossbowmen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_gakgung_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = gakgung_archers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_longbowmen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = longbowmen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_maturkan_warriors_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = maturkan_warriors_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_metsanvartija_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = metsanvartija_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_paiks_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = paiks_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_rocket_carts_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = rocket_carts_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_shenbigong_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = shenbigong_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_vigmen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = vigmen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_pikes_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = pikemen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_bondi_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = bondi_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_landsknecht_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = landsknecht_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_picchieri_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = picchieri_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_pikemen_unit_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = pikemen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_schiltron_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = schiltron_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_skoutatoi_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = skoutatoi_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_warrior_monks_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = 0 add = 0 add = 0 add = warrior_monks_piety_low_maint_cost add = 0 } }
+ama_pick_upkeep_zupin_warrior_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = bondi_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_vanguards_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = heavy_infantry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_armored_footmen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = heavy_infantry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_ayyar_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = ayyar_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_burenjia_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = burenjia_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_druzhina_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = druzhina_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_garudas_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = garudas_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_handpicked_faithful_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = handpicked_faithful_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_house_guard_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = 0 add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_huscarl_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = huscarls_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_khandayat_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = khandayat_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_mountaineer_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = mountaineer_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_mubarizun_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = mubarizun_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_palace_guards_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = palace_guards_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_praetorian_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = praetorian_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_samurai_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = samurai_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_sarawit_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = sarawit_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_varangian_guards_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = varangian_guards_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_varangian_veterans_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = varangian_veterans_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_zbrojnosh_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = zbrojnosh_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_zhanmadao_infantry_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = zhanmadao_infantry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_outriders_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = light_cavalry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_ayrudzi_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = ayrudzi_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_caballero_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = caballero_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_chasseur_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = chasseur_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_hobelar_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = hobelar_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_hussar_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = hussar_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_light_horsemen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = light_cavalry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_mulaththamun_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = mulaththamun_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_sahel_horsemen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = sahel_rider_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_steppe_raiders_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = steppe_raiders_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_tawashi_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = tawashi_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_teulu_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = teulu_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_lancers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = heavy_cavalry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_condottieri_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = condottieri_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_armored_horsemen_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = heavy_cavalry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_black_armor_cavalry_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = tiefutu_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_cataphract_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = cataphract_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_cataphract_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = cataphract_archers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_conrois_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = conrois_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_gendarme_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = gendarme_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_monaspa_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = monaspa_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_nomad_lancers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = nomad_lancers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_tarkhan_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = cataphract_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_tiefutu_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = black_armor_cavalry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_horse_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = horse_archers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_asawira_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = asawira_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_emishi_horse_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = light_cavalry_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_heavy_horse_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = heavy_horse_archers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_horse_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = horse_archers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_japanese_horse_archers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = horse_archers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_kheshig_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = kheshig_veterans_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_mangudai_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = mangudai_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_cameliers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = camel_rider_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_camel_rider_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = camel_rider_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_elephantiers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = war_elephant_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_ballista_elephant_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = ballista_elephant_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_war_elephant_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = war_elephant_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_ballista_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = ballista_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_bombard_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = bombard_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_cannon_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = cannon_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_cloud_ladder_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = cloud_ladder_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_mangonel_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = mangonel_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_onager_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = onager_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_siege_tower_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = siege_tower_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_torch_bearers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = torch_bearers_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_trebuchet_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = trebuchet_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_accolade_maa_handgunners_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = handgunner_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_fire_lancers_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = crossbowmen_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_pick_upkeep_handgunners_value = { value = 0 if = { limit = { government_allows = use_maa_maintenance } add = handgunner_low_maint_cost add = 0 add = 0 add = 0 add = 0 } }
+ama_repl_quality_threshold_value = { value = var:ama_repl_meta_quality multiply = 1.2 }
+ama_repl_value_threshold_value = { value = var:ama_repl_meta_efficiency multiply = 1.2 }
+ama_repl_personal_ceiling_value = { value = maa_regiments_max_count }
+ama_repl_title_ceiling_value = { value = ama_tc_cap_value }
+ama_repl_new_quality_value = { value = 0
+    if = { limit = { var:ama_pick_best_type = 1 } value = ama_quality_abudrar_value }
+    if = { limit = { var:ama_pick_best_type = 2 } value = ama_quality_accolade_maa_skirmishers_value }
+    if = { limit = { var:ama_pick_best_type = 3 } value = ama_quality_akritai_value }
+    if = { limit = { var:ama_pick_best_type = 4 } value = ama_quality_goedendag_value }
+    if = { limit = { var:ama_pick_best_type = 5 } value = ama_quality_guanch_vaulter_value }
+    if = { limit = { var:ama_pick_best_type = 6 } value = ama_quality_guinea_warrior_value }
+    if = { limit = { var:ama_pick_best_type = 7 } value = ama_quality_horn_warrior_value }
+    if = { limit = { var:ama_pick_best_type = 8 } value = ama_quality_light_footmen_value }
+    if = { limit = { var:ama_pick_best_type = 9 } value = ama_quality_pesilat_warriors_value }
+    if = { limit = { var:ama_pick_best_type = 10 } value = ama_quality_shomer_value }
+    if = { limit = { var:ama_pick_best_type = 11 } value = ama_quality_accolade_maa_archers_value }
+    if = { limit = { var:ama_pick_best_type = 12 } value = ama_quality_accolade_maa_crossbowers_value }
+    if = { limit = { var:ama_pick_best_type = 13 } value = ama_quality_archers_of_the_nile_value }
+    if = { limit = { var:ama_pick_best_type = 14 } value = ama_quality_ballistrai_value }
+    if = { limit = { var:ama_pick_best_type = 15 } value = ama_quality_bowmen_value }
+    if = { limit = { var:ama_pick_best_type = 16 } value = ama_quality_bush_hunter_value }
+    if = { limit = { var:ama_pick_best_type = 17 } value = ama_quality_crossbowmen_value }
+    if = { limit = { var:ama_pick_best_type = 18 } value = ama_quality_gakgung_archers_value }
+    if = { limit = { var:ama_pick_best_type = 19 } value = ama_quality_longbowmen_value }
+    if = { limit = { var:ama_pick_best_type = 20 } value = ama_quality_maturkan_warriors_value }
+    if = { limit = { var:ama_pick_best_type = 21 } value = ama_quality_metsanvartija_value }
+    if = { limit = { var:ama_pick_best_type = 22 } value = ama_quality_paiks_value }
+    if = { limit = { var:ama_pick_best_type = 23 } value = ama_quality_rocket_carts_value }
+    if = { limit = { var:ama_pick_best_type = 24 } value = ama_quality_shenbigong_value }
+    if = { limit = { var:ama_pick_best_type = 25 } value = ama_quality_vigmen_value }
+    if = { limit = { var:ama_pick_best_type = 26 } value = ama_quality_accolade_maa_pikes_value }
+    if = { limit = { var:ama_pick_best_type = 27 } value = ama_quality_bondi_value }
+    if = { limit = { var:ama_pick_best_type = 28 } value = ama_quality_landsknecht_value }
+    if = { limit = { var:ama_pick_best_type = 29 } value = ama_quality_picchieri_value }
+    if = { limit = { var:ama_pick_best_type = 30 } value = ama_quality_pikemen_unit_value }
+    if = { limit = { var:ama_pick_best_type = 31 } value = ama_quality_schiltron_value }
+    if = { limit = { var:ama_pick_best_type = 32 } value = ama_quality_skoutatoi_value }
+    if = { limit = { var:ama_pick_best_type = 33 } value = ama_quality_warrior_monks_value }
+    if = { limit = { var:ama_pick_best_type = 34 } value = ama_quality_zupin_warrior_value }
+    if = { limit = { var:ama_pick_best_type = 35 } value = ama_quality_accolade_maa_vanguards_value }
+    if = { limit = { var:ama_pick_best_type = 36 } value = ama_quality_armored_footmen_value }
+    if = { limit = { var:ama_pick_best_type = 37 } value = ama_quality_ayyar_value }
+    if = { limit = { var:ama_pick_best_type = 38 } value = ama_quality_burenjia_value }
+    if = { limit = { var:ama_pick_best_type = 39 } value = ama_quality_druzhina_value }
+    if = { limit = { var:ama_pick_best_type = 40 } value = ama_quality_garudas_value }
+    if = { limit = { var:ama_pick_best_type = 41 } value = ama_quality_handpicked_faithful_value }
+    if = { limit = { var:ama_pick_best_type = 42 } value = ama_quality_house_guard_value }
+    if = { limit = { var:ama_pick_best_type = 43 } value = ama_quality_huscarl_value }
+    if = { limit = { var:ama_pick_best_type = 44 } value = ama_quality_khandayat_value }
+    if = { limit = { var:ama_pick_best_type = 45 } value = ama_quality_mountaineer_value }
+    if = { limit = { var:ama_pick_best_type = 46 } value = ama_quality_mubarizun_value }
+    if = { limit = { var:ama_pick_best_type = 47 } value = ama_quality_palace_guards_value }
+    if = { limit = { var:ama_pick_best_type = 48 } value = ama_quality_praetorian_value }
+    if = { limit = { var:ama_pick_best_type = 49 } value = ama_quality_samurai_value }
+    if = { limit = { var:ama_pick_best_type = 50 } value = ama_quality_sarawit_value }
+    if = { limit = { var:ama_pick_best_type = 51 } value = ama_quality_varangian_guards_value }
+    if = { limit = { var:ama_pick_best_type = 52 } value = ama_quality_varangian_veterans_value }
+    if = { limit = { var:ama_pick_best_type = 53 } value = ama_quality_zbrojnosh_value }
+    if = { limit = { var:ama_pick_best_type = 54 } value = ama_quality_zhanmadao_infantry_value }
+    if = { limit = { var:ama_pick_best_type = 55 } value = ama_quality_accolade_maa_outriders_value }
+    if = { limit = { var:ama_pick_best_type = 56 } value = ama_quality_ayrudzi_value }
+    if = { limit = { var:ama_pick_best_type = 57 } value = ama_quality_caballero_value }
+    if = { limit = { var:ama_pick_best_type = 58 } value = ama_quality_chasseur_value }
+    if = { limit = { var:ama_pick_best_type = 59 } value = ama_quality_hobelar_value }
+    if = { limit = { var:ama_pick_best_type = 60 } value = ama_quality_hussar_value }
+    if = { limit = { var:ama_pick_best_type = 61 } value = ama_quality_light_horsemen_value }
+    if = { limit = { var:ama_pick_best_type = 62 } value = ama_quality_mulaththamun_value }
+    if = { limit = { var:ama_pick_best_type = 63 } value = ama_quality_sahel_horsemen_value }
+    if = { limit = { var:ama_pick_best_type = 64 } value = ama_quality_steppe_raiders_value }
+    if = { limit = { var:ama_pick_best_type = 65 } value = ama_quality_tawashi_value }
+    if = { limit = { var:ama_pick_best_type = 66 } value = ama_quality_teulu_value }
+    if = { limit = { var:ama_pick_best_type = 67 } value = ama_quality_accolade_maa_lancers_value }
+if = { limit = { var:ama_pick_best_type = 110 } value = ama_quality_condottieri_value }
+    if = { limit = { var:ama_pick_best_type = 68 } value = ama_quality_armored_horsemen_value }
+    if = { limit = { var:ama_pick_best_type = 69 } value = ama_quality_black_armor_cavalry_value }
+    if = { limit = { var:ama_pick_best_type = 70 } value = ama_quality_cataphract_value }
+    if = { limit = { var:ama_pick_best_type = 71 } value = ama_quality_cataphract_archers_value }
+    if = { limit = { var:ama_pick_best_type = 72 } value = ama_quality_conrois_value }
+    if = { limit = { var:ama_pick_best_type = 73 } value = ama_quality_gendarme_value }
+    if = { limit = { var:ama_pick_best_type = 74 } value = ama_quality_monaspa_value }
+    if = { limit = { var:ama_pick_best_type = 75 } value = ama_quality_nomad_lancers_value }
+    if = { limit = { var:ama_pick_best_type = 76 } value = ama_quality_tarkhan_value }
+    if = { limit = { var:ama_pick_best_type = 77 } value = ama_quality_tiefutu_value }
+    if = { limit = { var:ama_pick_best_type = 78 } value = ama_quality_accolade_maa_horse_archers_value }
+    if = { limit = { var:ama_pick_best_type = 79 } value = ama_quality_asawira_value }
+    if = { limit = { var:ama_pick_best_type = 80 } value = ama_quality_emishi_horse_archers_value }
+    if = { limit = { var:ama_pick_best_type = 81 } value = ama_quality_heavy_horse_archers_value }
+    if = { limit = { var:ama_pick_best_type = 82 } value = ama_quality_horse_archers_value }
+    if = { limit = { var:ama_pick_best_type = 83 } value = ama_quality_japanese_horse_archers_value }
+    if = { limit = { var:ama_pick_best_type = 84 } value = ama_quality_kheshig_value }
+    if = { limit = { var:ama_pick_best_type = 85 } value = ama_quality_mangudai_value }
+    if = { limit = { var:ama_pick_best_type = 86 } value = ama_quality_accolade_maa_cameliers_value }
+    if = { limit = { var:ama_pick_best_type = 87 } value = ama_quality_camel_rider_value }
+    if = { limit = { var:ama_pick_best_type = 88 } value = ama_quality_accolade_maa_elephantiers_value }
+    if = { limit = { var:ama_pick_best_type = 89 } value = ama_quality_ballista_elephant_value }
+    if = { limit = { var:ama_pick_best_type = 90 } value = ama_quality_war_elephant_value }
+    if = { limit = { var:ama_pick_best_type = 91 } value = ama_quality_ballista_value }
+    if = { limit = { var:ama_pick_best_type = 92 } value = ama_quality_bombard_value }
+    if = { limit = { var:ama_pick_best_type = 93 } value = ama_quality_cannon_value }
+    if = { limit = { var:ama_pick_best_type = 94 } value = ama_quality_cloud_ladder_value }
+    if = { limit = { var:ama_pick_best_type = 95 } value = ama_quality_mangonel_value }
+    if = { limit = { var:ama_pick_best_type = 96 } value = ama_quality_onager_value }
+    if = { limit = { var:ama_pick_best_type = 97 } value = ama_quality_siege_tower_value }
+    if = { limit = { var:ama_pick_best_type = 98 } value = ama_quality_torch_bearers_value }
+    if = { limit = { var:ama_pick_best_type = 99 } value = ama_quality_trebuchet_value }
+    if = { limit = { var:ama_pick_best_type = 100 } value = ama_quality_accolade_maa_handgunners_value }
+    if = { limit = { var:ama_pick_best_type = 101 } value = ama_quality_fire_lancers_value }
+    if = { limit = { var:ama_pick_best_type = 102 } value = ama_quality_handgunners_value }
+}
+ama_repl_new_siege_tier_value = { value = 0
+    if = { limit = { var:ama_pick_best_type = 91 } value = 1 }
+    if = { limit = { var:ama_pick_best_type = 92 } value = 4 }
+    if = { limit = { var:ama_pick_best_type = 93 } value = 4 }
+    if = { limit = { var:ama_pick_best_type = 94 } value = 2 }
+    if = { limit = { var:ama_pick_best_type = 95 } value = 2 }
+    if = { limit = { var:ama_pick_best_type = 96 } value = 1 }
+    if = { limit = { var:ama_pick_best_type = 97 } value = 3 }
+    if = { limit = { var:ama_pick_best_type = 98 } value = 1 }
+    if = { limit = { var:ama_pick_best_type = 99 } value = 3 }
+}
+
+ama_base_abudrar_barter_goods_value = 0
+ama_base_abudrar_treasury_value = 0
+ama_base_accolade_maa_archers_barter_goods_value = 0
+ama_base_accolade_maa_archers_treasury_value = 0
+ama_base_accolade_maa_cameliers_barter_goods_value = 0
+ama_base_accolade_maa_cameliers_treasury_value = 0
+ama_base_accolade_maa_crossbowers_barter_goods_value = 0
+ama_base_accolade_maa_crossbowers_treasury_value = 0
+ama_base_accolade_maa_elephantiers_barter_goods_value = 0
+ama_base_accolade_maa_elephantiers_treasury_value = 0
+ama_base_accolade_maa_handgunners_barter_goods_value = 0
+ama_base_accolade_maa_handgunners_treasury_value = 0
+ama_base_accolade_maa_horse_archers_barter_goods_value = 0
+ama_base_accolade_maa_horse_archers_treasury_value = 0
+ama_base_accolade_maa_lancers_barter_goods_value = 0
+ama_base_accolade_maa_lancers_treasury_value = 0
+ama_base_accolade_maa_outriders_barter_goods_value = 0
+ama_base_accolade_maa_outriders_treasury_value = 0
+ama_base_accolade_maa_pikes_barter_goods_value = 0
+ama_base_accolade_maa_pikes_treasury_value = 0
+ama_base_accolade_maa_skirmishers_barter_goods_value = 0
+ama_base_accolade_maa_skirmishers_treasury_value = 0
+ama_base_accolade_maa_vanguards_barter_goods_value = 0
+ama_base_accolade_maa_vanguards_treasury_value = 0
+ama_base_akritai_barter_goods_value = 0
+ama_base_akritai_treasury_value = 0
+ama_base_archers_of_the_nile_barter_goods_value = 0
+ama_base_archers_of_the_nile_treasury_value = 0
+ama_base_armored_footmen_barter_goods_value = 0
+ama_base_armored_footmen_treasury_value = 0
+ama_base_armored_horsemen_barter_goods_value = 0
+ama_base_armored_horsemen_treasury_value = 0
+ama_base_asawira_barter_goods_value = 0
+ama_base_asawira_treasury_value = 0
+ama_base_ayrudzi_barter_goods_value = 0
+ama_base_ayrudzi_treasury_value = 0
+ama_base_ayyar_barter_goods_value = 0
+ama_base_ayyar_treasury_value = 0
+ama_base_ballista_barter_goods_value = 0
+ama_base_ballista_elephant_barter_goods_value = 0
+ama_base_ballista_elephant_treasury_value = 0
+ama_base_ballista_treasury_value = 0
+ama_base_ballistrai_barter_goods_value = 0
+ama_base_ballistrai_treasury_value = 0
+ama_base_black_armor_cavalry_barter_goods_value = 0
+ama_base_black_armor_cavalry_treasury_value = 0
+ama_base_bombard_barter_goods_value = 0
+ama_base_bombard_treasury_value = 0
+ama_base_bondi_barter_goods_value = 0
+ama_base_bondi_treasury_value = 0
+ama_base_bowmen_barter_goods_value = 0
+ama_base_bowmen_treasury_value = 0
+ama_base_burenjia_barter_goods_value = 0
+ama_base_burenjia_treasury_value = 0
+ama_base_bush_hunter_barter_goods_value = 0
+ama_base_bush_hunter_treasury_value = 0
+ama_base_caballero_barter_goods_value = 0
+ama_base_caballero_treasury_value = 0
+ama_base_camel_rider_barter_goods_value = 0
+ama_base_camel_rider_treasury_value = 0
+ama_base_cannon_barter_goods_value = 0
+ama_base_cannon_treasury_value = 0
+ama_base_cataphract_archers_barter_goods_value = 0
+ama_base_cataphract_archers_treasury_value = 0
+ama_base_cataphract_barter_goods_value = 0
+ama_base_cataphract_treasury_value = 0
+ama_base_chasseur_barter_goods_value = 0
+ama_base_chasseur_treasury_value = 0
+ama_base_cloud_ladder_barter_goods_value = 0
+ama_base_cloud_ladder_treasury_value = 0
+ama_base_condottieri_barter_goods_value = 0
+ama_base_condottieri_treasury_value = 0
+ama_base_conrois_barter_goods_value = 0
+ama_base_conrois_treasury_value = 0
+ama_base_crossbowmen_barter_goods_value = 0
+ama_base_crossbowmen_treasury_value = 0
+ama_base_druzhina_barter_goods_value = 0
+ama_base_druzhina_treasury_value = 0
+ama_base_emishi_horse_archers_barter_goods_value = 0
+ama_base_emishi_horse_archers_treasury_value = 0
+ama_base_fire_lancers_barter_goods_value = 0
+ama_base_fire_lancers_treasury_value = 0
+ama_base_gakgung_archers_barter_goods_value = 0
+ama_base_gakgung_archers_treasury_value = 0
+ama_base_garudas_barter_goods_value = 0
+ama_base_garudas_treasury_value = 0
+ama_base_gendarme_barter_goods_value = 0
+ama_base_gendarme_treasury_value = 0
+ama_base_goedendag_barter_goods_value = 0
+ama_base_goedendag_treasury_value = 0
+ama_base_guanch_vaulter_barter_goods_value = 0
+ama_base_guanch_vaulter_treasury_value = 0
+ama_base_guinea_warrior_barter_goods_value = 0
+ama_base_guinea_warrior_treasury_value = 0
+ama_base_handgunners_barter_goods_value = 0
+ama_base_handgunners_treasury_value = 0
+ama_base_handpicked_faithful_barter_goods_value = 0
+ama_base_handpicked_faithful_treasury_value = 0
+ama_base_heavy_horse_archers_barter_goods_value = 0
+ama_base_heavy_horse_archers_treasury_value = 0
+ama_base_hobelar_barter_goods_value = 0
+ama_base_hobelar_treasury_value = 0
+ama_base_horn_warrior_barter_goods_value = 0
+ama_base_horn_warrior_treasury_value = 0
+ama_base_horse_archers_barter_goods_value = 0
+ama_base_horse_archers_treasury_value = 0
+ama_base_house_guard_barter_goods_value = 0
+ama_base_house_guard_treasury_value = 0
+ama_base_huscarl_barter_goods_value = 0
+ama_base_huscarl_treasury_value = 0
+ama_base_hussar_barter_goods_value = 0
+ama_base_hussar_treasury_value = 0
+ama_base_japanese_horse_archers_barter_goods_value = 0
+ama_base_japanese_horse_archers_treasury_value = 0
+ama_base_khandayat_barter_goods_value = 0
+ama_base_khandayat_treasury_value = 0
+ama_base_kheshig_barter_goods_value = 0
+ama_base_kheshig_treasury_value = 0
+ama_base_landsknecht_barter_goods_value = 0
+ama_base_landsknecht_treasury_value = 0
+ama_base_light_footmen_barter_goods_value = 0
+ama_base_light_footmen_treasury_value = 0
+ama_base_light_horsemen_barter_goods_value = 0
+ama_base_light_horsemen_treasury_value = 0
+ama_base_longbowmen_barter_goods_value = 0
+ama_base_longbowmen_treasury_value = 0
+ama_base_mangonel_barter_goods_value = 0
+ama_base_mangonel_treasury_value = 0
+ama_base_mangudai_barter_goods_value = 0
+ama_base_mangudai_treasury_value = 0
+ama_base_maturkan_warriors_barter_goods_value = 0
+ama_base_maturkan_warriors_treasury_value = 0
+ama_base_metsanvartija_barter_goods_value = 0
+ama_base_metsanvartija_treasury_value = 0
+ama_base_monaspa_barter_goods_value = 0
+ama_base_monaspa_treasury_value = 0
+ama_base_mountaineer_barter_goods_value = 0
+ama_base_mountaineer_treasury_value = 0
+ama_base_mubarizun_barter_goods_value = 0
+ama_base_mubarizun_treasury_value = 0
+ama_base_mulaththamun_barter_goods_value = 0
+ama_base_mulaththamun_treasury_value = 0
+ama_base_nomad_lancers_barter_goods_value = 0
+ama_base_nomad_lancers_treasury_value = 0
+ama_base_onager_barter_goods_value = 0
+ama_base_onager_treasury_value = 0
+ama_base_paiks_barter_goods_value = 0
+ama_base_paiks_treasury_value = 0
+ama_base_palace_guards_barter_goods_value = 0
+ama_base_palace_guards_treasury_value = 0
+ama_base_pesilat_warriors_barter_goods_value = 0
+ama_base_pesilat_warriors_treasury_value = 0
+ama_base_picchieri_barter_goods_value = 0
+ama_base_picchieri_treasury_value = 0
+ama_base_pikemen_unit_barter_goods_value = 0
+ama_base_pikemen_unit_treasury_value = 0
+ama_base_praetorian_barter_goods_value = 0
+ama_base_praetorian_treasury_value = 0
+ama_base_rocket_carts_barter_goods_value = 0
+ama_base_rocket_carts_treasury_value = 0
+ama_base_sahel_horsemen_barter_goods_value = 0
+ama_base_sahel_horsemen_treasury_value = 0
+ama_base_samurai_barter_goods_value = 0
+ama_base_samurai_treasury_value = 0
+ama_base_sarawit_barter_goods_value = 0
+ama_base_sarawit_treasury_value = 0
+ama_base_schiltron_barter_goods_value = 0
+ama_base_schiltron_treasury_value = 0
+ama_base_shenbigong_barter_goods_value = 0
+ama_base_shenbigong_treasury_value = 0
+ama_base_shomer_barter_goods_value = 0
+ama_base_shomer_treasury_value = 0
+ama_base_siege_tower_barter_goods_value = 0
+ama_base_siege_tower_treasury_value = 0
+ama_base_skoutatoi_barter_goods_value = 0
+ama_base_skoutatoi_treasury_value = 0
+ama_base_steppe_raiders_barter_goods_value = 0
+ama_base_steppe_raiders_treasury_value = 0
+ama_base_tarkhan_barter_goods_value = 0
+ama_base_tarkhan_treasury_value = 0
+ama_base_tawashi_barter_goods_value = 0
+ama_base_tawashi_treasury_value = 0
+ama_base_teulu_barter_goods_value = 0
+ama_base_teulu_treasury_value = 0
+ama_base_tiefutu_barter_goods_value = 0
+ama_base_tiefutu_treasury_value = 0
+ama_base_torch_bearers_barter_goods_value = 0
+ama_base_torch_bearers_treasury_value = 0
+ama_base_trebuchet_barter_goods_value = 0
+ama_base_trebuchet_treasury_value = 0
+ama_base_varangian_guards_barter_goods_value = 0
+ama_base_varangian_guards_treasury_value = 0
+ama_base_varangian_veterans_barter_goods_value = 0
+ama_base_varangian_veterans_treasury_value = 0
+ama_base_vigmen_barter_goods_value = 0
+ama_base_vigmen_treasury_value = 0
+ama_base_war_elephant_barter_goods_value = 0
+ama_base_war_elephant_treasury_value = 0
+ama_base_warrior_monks_barter_goods_value = 0
+ama_base_warrior_monks_treasury_value = 0
+ama_base_zbrojnosh_barter_goods_value = 0
+ama_base_zbrojnosh_treasury_value = 0
+ama_base_zhanmadao_infantry_barter_goods_value = 0
+ama_base_zhanmadao_infantry_treasury_value = 0
+ama_base_zupin_warrior_barter_goods_value = 0
+ama_base_zupin_warrior_treasury_value = 0

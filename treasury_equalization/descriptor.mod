@@ -1,0 +1,9 @@
+version="0.6.7"
+name="国库统筹财政"
+tags={
+	"Gameplay"
+	"Utilities"
+}
+picture="thumbnail.png"
+supported_version="1.21.0.3"
+remote_file_id="3839551460"

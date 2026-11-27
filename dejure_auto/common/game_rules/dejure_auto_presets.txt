@@ -1,0 +1,84 @@
+﻿dejure_auto_preset_enabled = {
+    categories = {
+        dejure_auto_presets
+    }
+    default = dejure_auto_preset_enabled_0
+    dejure_auto_preset_enabled_0 = {
+
+    }
+    dejure_auto_preset_enabled_1 = {
+
+    }
+}
+dejure_auto_preset_mode = {
+    categories = {
+        dejure_auto_presets
+    }
+    default = dejure_auto_preset_mode_0
+    dejure_auto_preset_mode_0 = {
+
+    }
+    dejure_auto_preset_mode_1 = {
+
+    }
+}
+dejure_auto_preset_tier_county = {
+    categories = {
+        dejure_auto_presets
+    }
+    default = dejure_auto_preset_tier_county_1
+    dejure_auto_preset_tier_county_1 = {
+
+    }
+    dejure_auto_preset_tier_county_0 = {
+
+    }
+}
+dejure_auto_preset_tier_duchy = {
+    categories = {
+        dejure_auto_presets
+    }
+    default = dejure_auto_preset_tier_duchy_1
+    dejure_auto_preset_tier_duchy_1 = {
+
+    }
+    dejure_auto_preset_tier_duchy_0 = {
+
+    }
+}
+dejure_auto_preset_tier_kingdom = {
+    categories = {
+        dejure_auto_presets
+    }
+    default = dejure_auto_preset_tier_kingdom_1
+    dejure_auto_preset_tier_kingdom_1 = {
+
+    }
+    dejure_auto_preset_tier_kingdom_0 = {
+
+    }
+}
+dejure_auto_preset_tier_empire = {
+    categories = {
+        dejure_auto_presets
+    }
+    default = dejure_auto_preset_tier_empire_1
+    dejure_auto_preset_tier_empire_1 = {
+
+    }
+    dejure_auto_preset_tier_empire_0 = {
+
+    }
+}
+dejure_auto_preset_distribute_domain = {
+    categories = {
+        dejure_auto_presets
+    }
+    default = dejure_auto_preset_distribute_domain_0
+    dejure_auto_preset_distribute_domain_0 = {
+
+    }
+    dejure_auto_preset_distribute_domain_1 = {
+
+    }
+}

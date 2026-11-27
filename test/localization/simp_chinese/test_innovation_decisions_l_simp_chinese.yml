@@ -1,0 +1,7 @@
+﻿l_simp_chinese:
+ test_complete_available_innovations_decision:0 "完成革新与已解锁的时代过渡"
+ test_complete_available_innovations_decision_desc:0 "将你所属文化当前可研究的全部革新进度提升至100%。只有点击时已经达到下一时代的年份门槛，并已完成足够数量的当前时代革新，才会同时将下一时代的过渡进度补满并进入下一时代。时代过渡尚未解锁时，只完成革新，不强制推进时代。若这次完成革新后才解锁时代过渡，可以之后再次使用同一个决议。每次最多推进一个时代，免费、无冷却时间，也无需成为文化领袖。"
+ test_complete_available_innovations_decision_tooltip:0 "完成当前可研究的革新，并补满已经解锁的下一时代过渡"
+ test_complete_available_innovations_decision_confirm:0 "立即完成"
+ test_complete_available_innovations_decision_available:0 "你的文化有可研究但尚未完成的革新，或下一时代的过渡已满足年份及革新数量要求"
+ test_complete_available_innovations_decision_effect:0 "点击时，当前时代及更早时代中所有满足研究条件且尚未完成的革新进度提升至100%。仅在点击前已达到下一时代的年份门槛、且当前时代已发现足够数量的革新时，才同时完成下一时代的过渡；否则不推进时代。每次最多推进一个时代。同文化的所有角色共享成果。"

@@ -1,0 +1,86 @@
+﻿# Shared native capability; neither government names nor an opt-in flag are required.
+teq_uses_native_budget = { has_treasury = yes realm_uses_treasury_laws_trigger = yes }
+# Adapters can override these character-scope defaults alongside their own definitions.
+teq_adapter_excludes_government = { always = no }
+teq_adapter_military_region = { always = no }
+teq_government_valid = { teq_uses_native_budget = yes teq_adapter_excludes_government = no }
+teq_ruler_valid = {
+ is_alive = yes
+ is_landed = yes
+ teq_government_valid = yes
+ # This solver reads native allocation and base-rate getters, which require independence.
+ is_independent_ruler = yes
+}
+teq_fiscal_title_valid = { exists = holder holder = { teq_ruler_valid = yes } holder.primary_title = this }
+teq_public_tax_subject = { teq_government_valid = yes exists = liege top_liege = { teq_ruler_valid = yes } }
+teq_recipient_valid = { is_alive = yes is_landed = yes teq_government_valid = yes exists = liege top_liege = scope:teq_fiscal_title.holder }
+teq_military_region = {
+ OR = {
+  teq_adapter_military_region = yes
+  vassal_contract_has_flag = province_military
+  vassal_contract_has_flag = celestial_grand_marshal_obligation
+ }
+}
+teq_region_title_valid = {
+ exists = holder holder.primary_title = this has_variable = teq_region_owner
+ exists = var:teq_region_owner.holder var:teq_region_owner = { teq_fiscal_title_valid = yes }
+ holder = { teq_government_valid = yes exists = liege top_liege = prev.var:teq_region_owner.holder }
+}
+teq_world_month_due = { trigger_if = { limit = { has_global_variable = teq_world_month } NOT = { global_var:teq_world_month = teq_month_key } } }
+
+# All budget-capable independent rulers, including custom governments. Native China keeps its ministries.
+teq_development_law_needs_setup = {
+ teq_ruler_valid = yes
+ NOT = { tgp_has_access_to_ministry_trigger = yes }
+ OR = {
+  NOT = { has_realm_law_in_group = budget_allocation_ministry_law }
+  has_realm_law = budget_allocation_ministry_0
+  has_realm_law = budget_allocation_ministry_5
+  has_realm_law = budget_allocation_ministry_10
+  has_realm_law = budget_allocation_ministry_15
+  has_realm_law = budget_allocation_ministry_20
+  has_realm_law = budget_allocation_ministry_25
+  has_realm_law = budget_allocation_ministry_30
+  has_realm_law = budget_allocation_ministry_35
+  has_realm_law = budget_allocation_ministry_40
+  has_realm_law = budget_allocation_ministry_45
+  has_realm_law = budget_allocation_ministry_50
+  has_realm_law = budget_allocation_ministry_55
+  has_realm_law = budget_allocation_ministry_60
+  has_realm_law = budget_allocation_ministry_65
+  has_realm_law = budget_allocation_ministry_70
+  has_realm_law = budget_allocation_ministry_75
+  has_realm_law = budget_allocation_ministry_80
+  has_realm_law = budget_allocation_ministry_85
+  has_realm_law = budget_allocation_ministry_90
+  has_realm_law = budget_allocation_ministry_95
+  has_realm_law = budget_allocation_ministry_100
+ }
+}
+
+# Supply a neutral military law where the native budget group is supported.
+teq_military_budget_uses_basis = {
+ government_has_flag = government_uses_military_budget
+ realm_uses_military_treasury_laws_trigger = no
+ teq_ruler_valid = yes
+}
+teq_military_budget_needs_law = {
+ teq_military_budget_uses_basis = yes
+ NOT = { has_realm_law_in_group = budget_allocation_military_law }
+}
+
+# UI and manual commit share one predicate. A stale title variable alone cannot enable the system.
+teq_budget_ui_ready = {
+ teq_ruler_valid = yes
+ primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version = 9 }
+}
+teq_budget_owner_needs_setup = {
+ teq_ruler_valid = yes
+ OR = {
+  NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version = 9 } }
+  NOT = { has_variable = teq_policy_title }
+  AND = { has_variable = teq_policy_title NOT = { primary_title = var:teq_policy_title } }
+  teq_development_law_needs_setup = yes
+  teq_military_budget_needs_law = yes
+ }
+}

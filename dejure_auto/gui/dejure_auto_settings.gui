@@ -1,0 +1,166 @@
+﻿widget = { name = "dejure_auto_overlay" size = { 100% 100% } layer = middle visible = "[Not(IsObserver)]" dejure_auto_settings_panel = {} dejure_auto_report_panel = {} }
+types dejure_auto_types {
+    type dejure_auto_checkbox = button_checkbox_label {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "checkbox" { checked = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+    type dejure_auto_option = button_standard {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "button_standard_current" { visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 } align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+    }
+    type dejure_auto_settings_panel = widget {
+        name = "dejure_auto_settings_panel" parentanchor = center size = { 640 760 } layer = middle filter_mouse = all alwaystransparent = no
+        datacontext = "[GetPlayer]" datacontext = "[GetScriptedGui('dejure_auto_panel_gui')]"
+        visible = "[And(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End), Not(GetPlayer.MakeScope.Var('dejure_auto_report_open').IsSet))]"
+        using = Window_Background using = Window_Decoration
+        text_single = { name = "dejure_auto_title" parentanchor = top|left position = { 100 20 } size = { 440 34 } autoresize = no align = center|vcenter text = "dejure_auto_panel_title" fontsize = 26 default_format = "#high" }
+        button_close = { name = "dejure_auto_close" parentanchor = top|left position = { 558 24 } size = { 32 32 } shortcut = "close_window" tooltip = "CLOSE_TOOLTIP"
+            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        button_standard = { name = "dejure_auto_preset_apply" position = { 60 78 } size = { 520 34 }
+            text = "dejure_auto_preset_apply_label" tooltip = "dejure_auto_preset_apply_help"
+            datacontext = "[GetScriptedGui('dejure_auto_preset_apply_gui')]"
+            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        }
+        widget = { name = "dejure_auto_overview" position = { 48 120 } size = { 544 124 } background = { using = Background_Area alpha = 0.35 }
+            dejure_auto_checkbox = { name = "dejure_auto_toggle" position = { 12 6 } size = { 330 34 } datacontext = "[GetScriptedGui('dejure_auto_toggle_gui')]" tooltip = "dejure_auto_enabled_help" blockoverride "text" { text = "dejure_auto_enabled_label" fontsize = 16 } }
+            button_primary = { name = "dejure_auto_check" position = { 380 6 } size = { 152 36 } text = "dejure_auto_check_now" tooltip = "dejure_auto_check_help"
+                datacontext = "[GetScriptedGui('dejure_auto_check_gui')]"
+                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 } align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+            }
+            text_multi = { name = "dejure_auto_status" position = { 12 52 } size = { 520 66 } max_width = 520 autoresize = no text = "dejure_auto_overview" fontsize = 16 align = left tooltip = "dejure_auto_result_help" }
+        }
+        scrollbox = { name = "dejure_auto_settings_scroll"
+            position = { 60 258 } size = { 520 448 }
+            blockoverride "scrollbox_content" { widget = { size = { 500 1240 }
+                    text_single = { name = "dejure_auto_domain_keep_heading" position = { 0 208 } size = { 500 28 }
+                        autoresize = no text = "dejure_auto_domain_keep_heading" fontsize = 19 tooltip = "dejure_auto_domain_keep_help" }
+                    dejure_auto_option = { name = "dejure_auto_domain_keep_0"
+                        position = { 0 244 } size = { 244 32 }
+                        text = "dejure_auto_domain_keep_0" tooltip = "dejure_auto_domain_keep_help"
+                        datacontext = "[GetScriptedGui('dejure_auto_domain_keep_0_gui')]" }
+                    dejure_auto_option = { name = "dejure_auto_domain_keep_1"
+                        position = { 256 244 } size = { 244 32 }
+                        text = "dejure_auto_domain_keep_1" tooltip = "dejure_auto_domain_keep_help"
+                        datacontext = "[GetScriptedGui('dejure_auto_domain_keep_1_gui')]" }
+
+                    text_single = { name = "dejure_auto_manual_summary" position = { 0 284 } size = { 500 26 }
+                        autoresize = no align = left|vcenter fontsize = 16 text = "dejure_auto_title_keep_settings_label" tooltip = "dejure_auto_title_keep_help" }
+                    button_standard = { name = "dejure_auto_manual_open" position = { 0 316 } size = { 500 40 }
+                        text = "dejure_auto_title_keep_open" tooltip = "dejure_auto_title_keep_help"
+                        enabled = "[And(IsDefaultGUIMode, GetScriptedGui('dejure_auto_manual_open_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                        onclick = "[GetVariableSystem.Clear('dejure_auto_direct_ui_ready')]"
+                        onclick = "[GetVariableSystem.Set('dejure_auto_direct_ui_epoch', IntToString(FixedPointToInt(GetPlayer.MakeScope.Var('dejure_auto_direct_epoch').GetValue)))]"
+                        onclick = "[GetVariableSystem.Set('dejure_auto_direct_ui_owner', UIntToString(GetPlayer.GetID))]"
+                        onclick = "[GetVariableSystem.Set('dejure_auto_direct_ui_await', 'true')]"
+                        onclick = "[GetScriptedGui('dejure_auto_manual_open_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        onclick = "[CloseGameView('decisions_view')]"
+                    }
+                    text_single = { name = "dejure_auto_title_keep_settings_summary" position = { 0 360 } size = { 500 22 }
+                        autoresize = no align = left|vcenter fontsize = 14 text = "dejure_auto_title_keep_summary" tooltip = "dejure_auto_title_keep_help" }
+                    widget = { name = "dejure_auto_preferences" position = { 0 0 } size = { 500 190 }
+                        text_single = { name = "dejure_auto_mode_heading" position = { 0 0 } size = { 500 26 } autoresize = no align = left|vcenter text = "dejure_auto_mode_heading" fontsize = 19 default_format = "#high" }
+                        dejure_auto_option = { name = "dejure_auto_mode_0" position = { 0 34 } size = { 242 36 } text = "dejure_auto_mode_0" tooltip = "dejure_auto_mode_0_help" datacontext = "[GetScriptedGui('dejure_auto_mode_0_gui')]" }
+                        dejure_auto_option = { name = "dejure_auto_mode_1" position = { 258 34 } size = { 242 36 } text = "dejure_auto_mode_1" tooltip = "dejure_auto_mode_1_help" datacontext = "[GetScriptedGui('dejure_auto_mode_1_gui')]" }
+                        text_single = { name = "dejure_auto_tier_heading" position = { 0 76 } size = { 500 26 } autoresize = no align = left|vcenter text = "dejure_auto_tier_heading" fontsize = 18 default_format = "#high" tooltip = "dejure_auto_tier_help" }
+                        dejure_auto_checkbox = { name = "dejure_auto_tier_county" position = { 0 110 } size = { 116 34 } datacontext = "[GetScriptedGui('dejure_auto_tier_county_gui')]" tooltip = "dejure_auto_tier_help" blockoverride "text" { text = "dejure_auto_tier_county" fontsize = 16 } }
+                        dejure_auto_checkbox = { name = "dejure_auto_tier_duchy" position = { 126 110 } size = { 116 34 } datacontext = "[GetScriptedGui('dejure_auto_tier_duchy_gui')]" tooltip = "dejure_auto_tier_help" blockoverride "text" { text = "dejure_auto_tier_duchy" fontsize = 16 } }
+                        dejure_auto_checkbox = { name = "dejure_auto_tier_kingdom" position = { 252 110 } size = { 116 34 } datacontext = "[GetScriptedGui('dejure_auto_tier_kingdom_gui')]" tooltip = "dejure_auto_tier_help" blockoverride "text" { text = "dejure_auto_tier_kingdom" fontsize = 16 } }
+                        dejure_auto_checkbox = { name = "dejure_auto_tier_empire" position = { 378 110 } size = { 116 34 } datacontext = "[GetScriptedGui('dejure_auto_tier_empire_gui')]" tooltip = "dejure_auto_tier_help" blockoverride "text" { text = "dejure_auto_tier_empire" fontsize = 16 } }
+                        dejure_auto_checkbox = { name = "dejure_auto_distribute_domain" position = { 0 154 } size = { 500 34 }
+                            datacontext = "[GetScriptedGui('dejure_auto_distribute_domain_gui')]" tooltip = "dejure_auto_distribute_domain_help"
+                            blockoverride "text" { text = "dejure_auto_distribute_domain" fontsize = 16 } }
+                    }
+                    text_single = { name = "dejure_auto_rules_heading" position = { 0 392 } size = { 340 28 } autoresize = no align = left|vcenter text = "dejure_auto_rules_heading" fontsize = 19 default_format = "#high" tooltip = "dejure_auto_rules" }
+                    button_standard = { name = "dejure_auto_report_button" position = { 360 392 } size = { 140 28 } text = "dejure_auto_report_button"
+                        onclick = "[GetScriptedGui('dejure_auto_report_open_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+
+                    text_single = { position = { 0 430 } size = { 490 28 } autoresize = no text = "dejure_auto_create_heading" fontsize = 19 tooltip = "dejure_auto_create_help" }
+                    dejure_auto_checkbox = { name = "dejure_auto_create_duchy" position = { 0 466 } size = { 155 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_create_duchy_gui')]" tooltip = "dejure_auto_create_help"
+                        blockoverride "text" { text = "dejure_auto_create_duchy" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_create_kingdom" position = { 165 466 } size = { 155 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_create_kingdom_gui')]" tooltip = "dejure_auto_create_help"
+                        blockoverride "text" { text = "dejure_auto_create_kingdom" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_create_empire" position = { 330 466 } size = { 155 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_create_empire_gui')]" tooltip = "dejure_auto_create_help"
+                        blockoverride "text" { text = "dejure_auto_create_empire" fontsize = 16 } }
+                    text_single = { position = { 0 518 } size = { 490 28 } autoresize = no text = "dejure_auto_grant_heading" fontsize = 19 tooltip = "dejure_auto_grant_help" }
+                    dejure_auto_checkbox = { name = "dejure_auto_grant_county" position = { 0 554 } size = { 122 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_grant_county_gui')]" tooltip = "dejure_auto_grant_help"
+                        blockoverride "text" { text = "dejure_auto_grant_county" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_grant_duchy" position = { 124 554 } size = { 122 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_grant_duchy_gui')]" tooltip = "dejure_auto_grant_help"
+                        blockoverride "text" { text = "dejure_auto_grant_duchy" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_grant_kingdom" position = { 248 554 } size = { 122 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_grant_kingdom_gui')]" tooltip = "dejure_auto_grant_help"
+                        blockoverride "text" { text = "dejure_auto_grant_kingdom" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_grant_empire" position = { 372 554 } size = { 122 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_grant_empire_gui')]" tooltip = "dejure_auto_grant_help"
+                        blockoverride "text" { text = "dejure_auto_grant_empire" fontsize = 16 } }
+                    text_single = { position = { 0 606 } size = { 490 28 } autoresize = no text = "dejure_auto_people_heading" fontsize = 19 tooltip = "dejure_auto_people_help" }
+                    dejure_auto_checkbox = { name = "dejure_auto_people_direct" position = { 0 642 } size = { 490 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_people_direct_gui')]" tooltip = "dejure_auto_direct_help"
+                        blockoverride "text" { text = "dejure_auto_people_direct" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_people_house" position = { 0 682 } size = { 240 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_people_house_gui')]" tooltip = "dejure_auto_people_help"
+                        blockoverride "text" { text = "dejure_auto_people_house" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_people_dynasty" position = { 250 682 } size = { 240 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_people_dynasty_gui')]" tooltip = "dejure_auto_people_help"
+                        blockoverride "text" { text = "dejure_auto_people_dynasty" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_people_noble" position = { 0 722 } size = { 240 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_people_noble_gui')]" tooltip = "dejure_auto_people_help"
+                        blockoverride "text" { text = "dejure_auto_people_noble" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_people_lowborn" position = { 250 722 } size = { 240 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_people_lowborn_gui')]" tooltip = "dejure_auto_people_help"
+                        blockoverride "text" { text = "dejure_auto_people_lowborn" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_people_culture" position = { 0 770 } size = { 240 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_people_culture_gui')]" tooltip = "dejure_auto_people_help"
+                        blockoverride "text" { text = "dejure_auto_people_culture" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_people_faith" position = { 250 770 } size = { 240 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_people_faith_gui')]" tooltip = "dejure_auto_people_help"
+                        blockoverride "text" { text = "dejure_auto_people_faith" fontsize = 16 } }
+                    text_single = { position = { 0 828 } size = { 490 28 } autoresize = no text = "dejure_auto_unify_heading" fontsize = 19 tooltip = "dejure_auto_unify_help" }
+                    dejure_auto_checkbox = { name = "dejure_auto_unify_faith" position = { 0 864 } size = { 145 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_unify_faith_gui')]" tooltip = "dejure_auto_unify_help"
+                        blockoverride "text" { text = "dejure_auto_unify_faith" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_unify_culture" position = { 155 864 } size = { 145 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_unify_culture_gui')]" tooltip = "dejure_auto_unify_help"
+                        blockoverride "text" { text = "dejure_auto_unify_culture" fontsize = 16 } }
+                    dejure_auto_checkbox = { name = "dejure_auto_unify_government" position = { 310 864 } size = { 180 34 }
+                        datacontext = "[GetScriptedGui('dejure_auto_unify_government_gui')]" tooltip = "dejure_auto_unify_government_help"
+                        blockoverride "text" { text = "dejure_auto_unify_government" fontsize = 16 } }
+                    text_multi = { position = { 0 906 } size = { 490 44 } max_width = 490 autoresize = no fontsize = 14 text = "dejure_auto_unify_summary" tooltip = "dejure_auto_unify_help" }
+                    text_single = { position = { 0 968 } size = { 490 28 } autoresize = no text = "dejure_auto_title_cost_heading" fontsize = 19 tooltip = "dejure_auto_title_cost_help" }
+                    text_single = { position = { 0 1010 } size = { 265 32 } autoresize = no text = "dejure_auto_title_fee" fontsize = 16 tooltip = "dejure_auto_title_cost_help" }
+                    button_standard = { position = { 278 1010 } size = { 38 32 } text = "−"
+                        datacontext = "[GetScriptedGui('dejure_auto_title_fee_minus_gui')]"
+                        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                    button_standard = { position = { 452 1010 } size = { 38 32 } text = "+"
+                        datacontext = "[GetScriptedGui('dejure_auto_title_fee_plus_gui')]"
+                        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                    text_single = { position = { 322 1010 } size = { 124 32 } autoresize = no align = center|vcenter fontsize = 16
+                        text = "[GetPlayer.MakeScope.Var('dejure_auto_title_fee').GetValue|0]%" }
+                    text_single = { position = { 0 1058 } size = { 265 32 } autoresize = no text = "dejure_auto_title_reserve" fontsize = 16 tooltip = "dejure_auto_title_cost_help" }
+                    button_standard = { position = { 278 1058 } size = { 38 32 } text = "−"
+                        datacontext = "[GetScriptedGui('dejure_auto_title_reserve_minus_gui')]"
+                        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                    button_standard = { position = { 452 1058 } size = { 38 32 } text = "+"
+                        datacontext = "[GetScriptedGui('dejure_auto_title_reserve_plus_gui')]"
+                        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                    text_single = { position = { 322 1058 } size = { 124 32 } autoresize = no align = center|vcenter fontsize = 16
+                        text = "[GetPlayer.MakeScope.Var('dejure_auto_title_reserve').GetValue|0]" }
+                    text_multi = { position = { 0 1114 } size = { 490 110 } max_width = 490 autoresize = no fontsize = 16 text = "dejure_auto_titles_summary" tooltip = "dejure_auto_title_result_help" }
+                } }
+        }
+    }
+}

@@ -1,0 +1,215 @@
+﻿dejure_auto_native_is_shown_trigger = {
+    scope:recipient != scope:puppet_or_actor
+    OR = {
+        AND = {
+            exists = scope:recipient.liege
+            scope:recipient.liege ?= scope:puppet_or_actor
+        }
+        AND = {
+            exists = scope:puppet_or_actor.liege
+            scope:puppet_or_actor.liege ?= scope:recipient
+        }
+        AND = {
+            scope:puppet_or_actor.faith.religious_head ?= scope:recipient
+            scope:recipient = {
+                top_liege = this
+            }
+        }
+    }
+    scope:recipient.highest_held_title_tier > tier_barony
+    scope:actor = {
+        trigger_if = {
+            limit = {
+                government_has_flag = government_is_republic
+            }
+            is_landed = yes
+        }
+    }
+}
+dejure_auto_native_is_valid_showing_failures_only_trigger = {
+    scope:recipient = {
+        is_landed = yes
+        NOT = {
+            has_trait = gallivanter
+        }
+    }
+    NOT = {
+        scope:puppet_or_actor = {
+            is_at_war_with = scope:recipient
+        }
+    }
+    trigger_if = {
+        limit = {
+            exists = scope:secondary_actor
+        }
+        NOT = {
+            scope:secondary_actor = {
+                is_at_war_with = scope:recipient
+            }
+        }
+        scope:recipient.primary_title.tier > scope:secondary_actor.primary_title.tier
+    }
+    trigger_if = {
+        limit = {
+            scope:puppet_or_actor = {
+                is_ai = yes
+            }
+            exists = scope:secondary_actor
+        }
+        trigger_if = {
+            limit = {
+                NOT = {
+                    scope:recipient.primary_title = {
+                        any_in_de_jure_hierarchy = {
+                            holder = scope:secondary_actor
+                        }
+                    }
+                }
+            }
+            scope:recipient.vassal_count < scope:recipient.vassal_limit
+        }
+        scope:secondary_actor = {
+            NOT = {
+                has_character_flag = ai_should_not_transfer
+            }
+        }
+    }
+    trigger_if = {
+        limit = {
+            scope:recipient.highest_held_title_tier <= tier_county
+        }
+        scope:recipient = {
+            highest_held_title_tier > tier_county
+        }
+    }
+    trigger_else = {
+        scope:puppet_or_actor = {
+            custom_description = {
+                text = "basic_valid_vassal_to_tranfer"
+                object = scope:recipient
+                any_vassal = {
+                    NOT = {
+                        highest_held_title_tier = tier_barony
+                    }
+                    scope:recipient.highest_held_title_tier > highest_held_title_tier
+                }
+            }
+        }
+    }
+    NAND = {
+        scope:puppet_or_actor ?= {
+            is_ai = yes
+            government_has_mechanic = administrative
+        }
+        scope:recipient ?= {
+            NOT = {
+                government_has_mechanic = administrative
+            }
+        }
+        scope:secondary_actor ?= {
+            government_has_mechanic = administrative
+        }
+    }
+    custom_tooltip = {
+        text = ritsuryo_to_soryo_invalid_to_transfer
+        NAND = {
+            scope:puppet_or_actor ?= {
+                has_government = japan_administrative_government
+            }
+            scope:recipient ?= {
+                has_government = japan_administrative_government
+            }
+            scope:secondary_actor ?= {
+                has_government = japan_feudal_government
+            }
+        }
+    }
+    custom_tooltip = {
+        text = cannot_transfer_bloc_leader_as_vassal_tt
+        NOT = {
+            scope:secondary_actor ?= {
+                exists = house.house_confederation.leading_house
+                house.house_confederation.leading_house ?= house
+                is_house_head = yes
+            }
+        }
+    }
+}
+dejure_auto_native_can_be_picked_trigger = {
+    scope:recipient != scope:dejure_auto_subject
+    highest_held_title_tier > tier_barony
+    highest_held_title_tier < scope:recipient.highest_held_title_tier
+    trigger_if = {
+        limit = {
+            scope:puppet_or_actor.liege = scope:recipient
+        }
+        custom_tooltip = {
+            text = is_de_jure_liege_of_target
+            NOT = {
+                primary_title = {
+                    any_this_title_or_de_jure_above = {
+                        holder = scope:puppet_or_actor
+                    }
+                }
+            }
+        }
+    }
+    custom_description = {
+        text = cannot_grant_own_diarch_as_vassal
+        subject = scope:puppet_or_actor.diarch
+        NOT = {
+            scope:puppet_or_actor.diarch ?= scope:dejure_auto_subject
+        }
+    }
+    custom_description = {
+        text = "basic_is_at_war_with_vassal"
+        subject = scope:dejure_auto_subject
+        object = scope:puppet_or_actor
+        NOT = {
+            scope:dejure_auto_subject = {
+                is_at_war_with = scope:puppet_or_actor
+            }
+        }
+    }
+    custom_description = {
+        text = "basic_is_at_war_with_sub_vassal"
+        subject = scope:dejure_auto_subject
+        object = scope:puppet_or_actor
+        NOT = {
+            scope:puppet_or_actor = {
+                any_vassal_or_below = {
+                    is_at_war_with = scope:dejure_auto_subject
+                }
+            }
+        }
+    }
+    custom_description = {
+        text = admin_cannot_grant_vassal_noble_family
+        subject = scope:dejure_auto_subject
+        any_held_title = {
+            is_noble_family_title = no
+        }
+    }
+}
+
+dejure_auto_active_trigger = {
+    is_ai = no is_alive = yes is_landed = yes
+    has_variable = dejure_auto_enabled
+}
+# Evaluated in the transferring vassal's scope, rechecked immediately before moving.
+dejure_auto_subject_trigger = {
+    is_alive = yes is_ai = yes is_landed = yes
+    liege = scope:dejure_auto_owner
+    highest_held_title_tier > tier_barony
+    NAND = {
+        has_variable = dejure_auto_keep_for
+        var:dejure_auto_keep_for = scope:dejure_auto_owner
+    }
+    exists = primary_title.de_jure_liege.holder
+    primary_title.de_jure_liege.holder = {
+        is_alive = yes is_ai = yes is_landed = yes
+        liege = scope:dejure_auto_owner
+        NOT = { this = scope:dejure_auto_subject }
+        highest_held_title_tier > scope:dejure_auto_subject.highest_held_title_tier
+    }
+}

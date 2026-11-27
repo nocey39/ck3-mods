@@ -1,0 +1,7 @@
+﻿l_english:
+ test_complete_available_innovations_decision:0 "Complete Innovations and Unlocked Era Transition"
+ test_complete_available_innovations_decision_desc:0 "Complete all innovations your culture can currently research. The next era transition also completes only if its date and current-era innovation count requirements were already met when you clicked this decision. A locked transition will not be forced. If completing innovations unlocks the transition, use this same decision again later. Each click advances at most one era. This decision is free, has no cooldown, and does not require you to be the cultural head."
+ test_complete_available_innovations_decision_tooltip:0 "Complete available innovations and an already unlocked next-era transition"
+ test_complete_available_innovations_decision_confirm:0 "Complete Now"
+ test_complete_available_innovations_decision_available:0 "Your culture has an unfinished researchable innovation, or meets the next era's date and innovation count requirements"
+ test_complete_available_innovations_decision_effect:0 "Complete all researchable innovations in your culture's current era or earlier eras at the time of clicking. Complete the next era transition only if its date and current-era innovation count requirements were met before granting these innovations. Otherwise, the era does not advance. Each click advances at most one era. All characters of your culture share these results."

@@ -1,0 +1,59 @@
+﻿# Additive hooks only. No native hooks are replaced.
+on_game_start_after_lobby = { on_actions = { ama_restore_existing_player } }
+ama_restore_existing_player = {
+    effect = {
+        every_player = { limit = { ama_player_trigger = yes has_variable = ama_configured }
+            ama_size_cancel_effect = yes
+            ama_initialize_effect = yes
+            ama_restart_effect = yes
+        }
+    }
+}
+on_player_character_change = { on_actions = { ama_player_change } }
+ama_player_change = {
+    trigger = { ama_player_trigger = yes }
+    effect = {
+        if = { limit = {
+                exists = scope:previous_player_character scope:previous_player_character = { is_alive = no has_variable = ama_configured }
+            } ama_inherit_effect = yes }
+        else_if = { limit = { has_variable = ama_configured } ama_initialize_effect = yes ama_restart_effect = yes }
+    }
+}
+ama_monthly_check = {
+    effect = { if = { limit = { has_variable = ama_clock_pending exists = scope:ama_clock_ticket scope:ama_clock_ticket = var:ama_generation }
+            remove_variable = ama_clock_pending
+            ama_size_cancel_effect = yes
+            set_variable = { name = ama_month_done value = 0 }
+            if = { limit = { ama_active_trigger = yes } ama_begin_effect = yes }
+            ama_acc_check_effect = yes
+            ama_schedule_effect = yes
+        } }
+}
+ama_confirm_transaction = { effect = { ama_confirm_effect = yes ama_recalculate_plan_effect = yes } }
+quarterly_playable_pulse = { on_actions = { ama_recover } }
+ama_recover = {
+    trigger = { ama_clock_needed_trigger = yes NOT = { has_variable = ama_clock_pending } }
+    effect = { ama_initialize_effect = yes ama_schedule_effect = yes }
+}
+ama_repl_fallback = { effect = { if = { limit = {
+                has_variable = ama_repl_pending scope:ama_repl_fallback_ticket = var:ama_repl_ticket
+            } ama_repl_abort_effect = yes } } }
+
+# Retry when money, raised armies, or capacity change between monthly ticks.
+ama_weekly_review = {
+    effect = {
+        if = {
+            limit = {
+                ama_clock_needed_trigger = yes
+                has_variable = ama_clock_pending
+                exists = scope:ama_clock_ticket
+                scope:ama_clock_ticket = var:ama_generation
+            }
+            if = {
+                limit = { ama_can_check_trigger = yes ama_monthly_remaining_value > 0 }
+                ama_begin_effect = yes
+            }
+            trigger_event = { on_action = ama_weekly_review days = 7 }
+        }
+    }
+}

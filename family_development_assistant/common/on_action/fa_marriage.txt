@@ -1,0 +1,22 @@
+﻿quarterly_playable_pulse = { on_actions = { fa_marriage_recover_schedule } }
+
+fa_marriage_scheduled_check = {
+    trigger = {
+        fa_marriage_active_trigger = yes
+        has_variable = fa_marriage_check_pending
+        scope:fa_marriage_ticket = var:fa_marriage_generation
+    }
+    effect = {
+        remove_variable = fa_marriage_check_pending
+        fa_marriage_check_effect = yes
+        fa_marriage_schedule_effect = yes
+    }
+}
+
+fa_marriage_recover_schedule = {
+    trigger = {
+        fa_marriage_active_trigger = yes
+        NOT = { has_variable = fa_marriage_check_pending }
+    }
+    effect = { fa_marriage_schedule_effect = yes }
+}

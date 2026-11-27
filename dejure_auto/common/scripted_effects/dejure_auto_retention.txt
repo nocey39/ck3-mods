@@ -1,0 +1,216 @@
+dejure_auto_manual_migrate_effect = {
+    # Explicit scope: preset init runs inside every_player, where root is not the character.
+    save_temporary_scope_as = dejure_auto_migrate_owner
+    if = {
+        limit = {
+            var:dejure_auto_domain_keep = 2
+        }
+        if = {
+            limit = {
+                exists = var:dejure_auto_extra_duchy
+            }
+            every_held_title = {
+                limit = {
+                    tier = tier_county
+                    holder = scope:dejure_auto_migrate_owner
+                    dejure_auto_map_county_trigger = yes
+                    any_this_title_or_de_jure_above = {
+                        this = scope:dejure_auto_migrate_owner.var:dejure_auto_extra_duchy
+                    }
+                }
+                save_scope_as = dejure_auto_manual_item
+                scope:dejure_auto_migrate_owner = {
+                    if = {
+                        limit = {
+                            NOT = {
+                                is_target_in_variable_list = {
+                                    name = dejure_auto_manual_counties
+                                    target = scope:dejure_auto_manual_item
+                                }
+                            }
+                        }
+                        add_to_variable_list = {
+                            name = dejure_auto_manual_counties
+                            target = scope:dejure_auto_manual_item
+                        }
+                    }
+                }
+            }
+        }
+        set_variable = {
+            name = dejure_auto_domain_keep
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                OR = {
+                    var:dejure_auto_domain_keep = 0
+                    var:dejure_auto_domain_keep = 1
+                }
+            }
+        }
+        set_variable = {
+            name = dejure_auto_domain_keep
+            value = 1
+        }
+    }
+    remove_variable = dejure_auto_extra_duchy
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_manual_open
+            }
+        }
+        remove_variable = dejure_auto_activity_probe_enabled
+        remove_variable = dejure_auto_map_probe_open
+    }
+    clear_saved_scope = dejure_auto_manual_item
+    dejure_auto_title_retention_initialize_effect = yes
+}
+dejure_auto_manual_prune_effect = {
+    save_temporary_scope_as = dejure_auto_prune_owner
+    if = {
+        limit = {
+            is_landed = yes
+            exists = capital_county
+            capital_county = {
+                holder = scope:dejure_auto_prune_owner
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        clear_variable_list = dejure_auto_manual_valid
+        every_in_list = {
+            variable = dejure_auto_manual_counties
+            limit = {
+                tier = tier_county
+                holder = scope:dejure_auto_prune_owner
+                dejure_auto_map_county_trigger = yes
+            }
+            save_scope_as = dejure_auto_manual_item
+            scope:dejure_auto_prune_owner = {
+                if = {
+                    limit = {
+                        NOT = {
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_valid
+                                target = scope:dejure_auto_manual_item
+                            }
+                        }
+                    }
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_valid
+                        target = scope:dejure_auto_manual_item
+                    }
+                }
+            }
+        }
+        clear_variable_list = dejure_auto_manual_counties
+        every_in_list = {
+            variable = dejure_auto_manual_valid
+            save_scope_as = dejure_auto_manual_item
+            scope:dejure_auto_prune_owner = {
+                add_to_variable_list = {
+                    name = dejure_auto_manual_counties
+                    target = scope:dejure_auto_manual_item
+                }
+            }
+        }
+        clear_variable_list = dejure_auto_manual_valid
+    }
+    set_variable = {
+        name = dejure_auto_manual_count
+        value = 0
+    }
+    every_in_list = {
+        variable = dejure_auto_manual_counties
+        scope:dejure_auto_prune_owner = {
+            change_variable = {
+                name = dejure_auto_manual_count
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_manual_item
+    dejure_auto_manual_titles_prune_effect = yes
+}
+dejure_auto_manual_inherit_effect = {
+    clear_variable_list = dejure_auto_manual_counties
+    set_variable = {
+        name = dejure_auto_manual_count
+        value = 0
+    }
+    scope:previous_player_character = {
+        every_in_list = {
+            variable = dejure_auto_manual_counties
+            save_scope_as = dejure_auto_manual_item
+            root = {
+                if = {
+                    limit = {
+                        NOT = {
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_counties
+                                target = scope:dejure_auto_manual_item
+                            }
+                        }
+                    }
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_counties
+                        target = scope:dejure_auto_manual_item
+                    }
+                    change_variable = {
+                        name = dejure_auto_manual_count
+                        add = 1
+                    }
+                }
+            }
+        }
+    }
+    remove_variable = dejure_auto_manual_open
+    remove_variable = dejure_auto_activity_probe_enabled
+    clear_saved_scope = dejure_auto_manual_item
+    dejure_auto_manual_flow_clear_effect = yes
+    dejure_auto_manual_titles_inherit_effect = yes
+}
+dejure_auto_retention_refresh_effect = {
+    dejure_auto_manual_migrate_effect = yes
+    dejure_auto_manual_prune_effect = yes
+    remove_variable = dejure_auto_core_duchy
+    if = {
+        limit = {
+            exists = capital_county
+            capital_county = {
+                holder = root
+                dejure_auto_map_county_trigger = yes
+            }
+        }
+        capital_county = {
+            every_this_title_or_de_jure_above = {
+                limit = {
+                    tier = tier_duchy
+                    dejure_auto_map_title_trigger = yes
+                }
+                save_scope_as = dejure_auto_manual_core
+                root = {
+                    set_variable = {
+                        name = dejure_auto_core_duchy
+                        value = scope:dejure_auto_manual_core
+                    }
+                }
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_manual_core
+}
+dejure_auto_manual_flow_clear_effect = {
+    remove_variable = dejure_auto_manual_mode
+    remove_variable = dejure_auto_manual_armed
+    remove_variable = dejure_auto_manual_ready
+    remove_variable = dejure_auto_manual_last_county
+    remove_variable = dejure_auto_manual_last_result
+    remove_variable = dejure_auto_manual_undo_county
+    remove_variable = dejure_auto_manual_undo_add
+    dejure_auto_direct_clear_effect = yes
+    remove_variable = dejure_auto_manual_last_title
+}

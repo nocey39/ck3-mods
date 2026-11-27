@@ -1,0 +1,42 @@
+﻿# Runtime numeric values are returned by the native GUI API, never parsed text.
+# Personal unstationed preview is the common comparison basis for all sources.
+ama_rt_cancel_effect = {
+    remove_variable = ama_rt_pending
+    remove_variable = ama_rt_ready
+    clear_variable_list = ama_rt_requests
+    clear_variable_list = ama_rt_requests_0
+    clear_variable_list = ama_rt_requests_1
+    if = { limit = { NOT = { has_variable = ama_rt_ticket } } set_variable = { name = ama_rt_ticket value = 0 } }
+    change_variable = { name = ama_rt_ticket add = 1 }
+}
+ama_step_effect = {
+    if = { limit = { ama_can_check_trigger = yes var:ama_remaining > 0 }
+        if = { limit = { has_variable = ama_rt_ready }
+            ama_step_scored_effect = yes
+        }
+        else = {
+        if = { limit = { NOT = { has_variable = ama_rt_ticket } } set_variable = { name = ama_rt_ticket value = 0 } }
+        if = { limit = { NOT = { has_variable = ama_rt_phase } } set_variable = { name = ama_rt_phase value = 0 } }
+        change_variable = { name = ama_rt_ticket add = 1 }
+        if = { limit = { var:ama_rt_phase = 0 } set_variable = { name = ama_rt_phase value = 1 } }
+        else = { set_variable = { name = ama_rt_phase value = 0 } }
+        set_variable = { name = ama_rt_left value = 103 }
+        set_variable = { name = ama_status value = 16 }
+        set_variable = ama_rt_pending
+        clear_variable_list = ama_rt_requests_0
+        clear_variable_list = ama_rt_requests_1
+        save_scope_value_as = { name = ama_rt_request_ticket value = var:ama_rt_ticket }
+        if = { limit = { var:ama_rt_phase = 0 }
+            add_to_variable_list = { name = ama_rt_requests_0 target = scope:ama_rt_request_ticket }
+        }
+        else = { add_to_variable_list = { name = ama_rt_requests_1 target = scope:ama_rt_request_ticket } }
+        }
+    }
+}
+ama_rt_timeout_effect = {
+    if = { limit = { has_variable = ama_rt_pending scope:ama_rt_ticket = var:ama_rt_ticket scope:ama_rt_timeout_phase = var:ama_rt_phase }
+        ama_rt_cancel_effect = yes
+        set_variable = { name = ama_status value = 17 }
+        set_variable = { name = ama_remaining value = 0 }
+    }
+}

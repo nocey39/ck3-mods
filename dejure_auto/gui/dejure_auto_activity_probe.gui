@@ -1,0 +1,30 @@
+﻿widget = { name = "dejure_auto_activity_probe_guide" size = { 100% 100% } layer = middle
+    alwaystransparent = yes visible = "[And(Not(IsObserver), GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet)]"
+    state = { name = "dejure_auto_manual_closed" trigger_when = "[And(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, And(Not(IsGameViewOpen('activity_planner')), Or(GetPlayer.MakeScope.Var('dejure_auto_manual_armed').IsSet, GetPlayer.MakeScope.Var('dejure_auto_manual_ready').IsSet)))]"
+        on_start = "[GetScriptedGui('dejure_auto_manual_pause_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
+
+    widget = { parentanchor = top|right position = { -30 160 } size = { 420 210 }
+        visible = "[And(Not(IsGameViewOpen('activity_planner')), Not(IsGameViewOpen('activity_list_detail_host_window')))]"
+        using = Window_Background using = Window_Decoration alwaystransparent = no filter_mouse = all
+        text_single = { name = "dejure_auto_manual_heading" position = { 40 20 } size = { 340 28 }
+            autoresize = no align = left|vcenter fontsize = 20
+            elide = right text = "dejure_auto_manual_title"
+        }
+        text_multi = { name = "dejure_auto_manual_resume_help" position = { 40 58 } size = { 340 42 }
+            autoresize = no align = top|left fontsize = 16
+            max_width = 340 text = "dejure_auto_manual_resume_help"
+        }
+        button_standard = { name = "dejure_auto_manual_resume" position = { 40 108 } size = { 340 30 } text = "dejure_auto_manual_launch"
+
+
+
+            onclick = "[GetScriptedGui('dejure_auto_manual_pause_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" onclick = "[OpenGameViewData('activity_list_detail_host_window', GetActivityType('dejure_auto_activity_map_probe'))]" }
+        button_standard = { name = "dejure_auto_manual_done" position = { 40 154 } size = { 340 30 } text = "dejure_auto_manual_done"
+
+
+
+            onclick = "[GetScriptedGui('dejure_auto_manual_back_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+
+    }
+}

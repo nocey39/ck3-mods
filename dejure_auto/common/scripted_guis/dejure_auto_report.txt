@@ -1,0 +1,4 @@
+﻿dejure_auto_report_open_gui = { scope = character is_shown = { always = yes } is_valid = { always = yes }
+    effect = { set_variable = dejure_auto_report_open } }
+dejure_auto_report_close_gui = { scope = character is_shown = { has_variable = dejure_auto_report_open } is_valid = { always = yes }
+    effect = { remove_variable = dejure_auto_report_open } }

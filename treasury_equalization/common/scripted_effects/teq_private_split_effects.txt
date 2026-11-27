@@ -1,0 +1,215 @@
+﻿# Character scope throughout, except the three explicitly named title actions.
+# Sensor verified in CK3 1.20.1.2 for player China and AI Byzantium: V endpoints
+# and local slope update after modifier recalc without budget reenactment.
+teq_private_remove_v_modifiers = { hidden_effect = {
+ remove_character_modifier = teq_private_v_positive
+ remove_character_modifier = teq_private_v_negative
+ remove_character_modifier = teq_private_probe_public
+ remove_character_modifier = teq_private_probe_private
+} }
+teq_private_clear_work = { hidden_effect = {
+ remove_variable = teq_private_work_x remove_variable = teq_private_work_g
+ remove_variable = teq_private_work_plus remove_variable = teq_private_work_minus
+ remove_variable = teq_private_work_span remove_variable = teq_private_work_q
+ remove_variable = teq_private_work_target remove_variable = teq_private_work_old_offset
+ remove_variable = teq_private_work_success remove_variable = teq_private_work_inner
+ remove_variable = teq_private_work_lo remove_variable = teq_private_work_hi
+ remove_variable = teq_private_work_count remove_variable = teq_private_work_x1
+ remove_variable = teq_private_work_g1 remove_variable = teq_private_work_step
+ remove_variable = teq_private_work_second remove_variable = teq_private_work_slope
+} }
+teq_clear_private_split = { hidden_effect = {
+ if = { limit = { OR = {
+  has_variable = teq_private_split_title has_variable = teq_private_offset has_variable = teq_private_work_x
+  has_variable = teq_private_work_old_offset has_variable = teq_private_split_month
+  has_variable = teq_private_split_policy has_variable = teq_private_applied_fraction has_variable = teq_private_calibration_status
+  has_character_modifier = teq_private_v_positive has_character_modifier = teq_private_v_negative
+  has_character_modifier = teq_private_probe_public has_character_modifier = teq_private_probe_private
+  has_character_modifier = teq_private_probe_source
+ } }
+  teq_private_remove_v_modifiers = yes
+  remove_character_modifier = teq_private_probe_source
+  remove_variable = teq_private_split_title remove_variable = teq_private_split_month
+  remove_variable = teq_private_split_policy remove_variable = teq_private_offset
+  remove_variable = teq_private_applied_fraction remove_variable = teq_private_calibration_status
+  teq_private_clear_work = yes
+  scriptedtests_recalculate_character_modifier = yes
+ }
+} }
+# Install a working offset and measure its private fraction. Does not commit it.
+teq_private_sample_offset = { hidden_effect = {
+ teq_private_remove_v_modifiers = yes
+ if = { limit = { var:teq_private_work_x > 0 } add_character_modifier = teq_private_v_positive }
+ else_if = { limit = { var:teq_private_work_x < 0 } add_character_modifier = teq_private_v_negative }
+ scriptedtests_recalculate_character_modifier = yes
+ set_variable = { name = teq_private_work_g value = scriptedtests_gold_income_no_theocracy }
+ set_variable = { name = teq_private_work_q value = 0 }
+ if = { limit = { var:teq_private_work_span > 0.00001 }
+  set_variable = { name = teq_private_work_q value = { value = var:teq_private_work_g subtract = var:teq_private_work_plus divide = var:teq_private_work_span } }
+ }
+} }
+teq_private_sample_endpoints = { hidden_effect = {
+ teq_private_remove_v_modifiers = yes
+ add_character_modifier = teq_private_probe_public
+ scriptedtests_recalculate_character_modifier = yes
+ set_variable = { name = teq_private_work_plus value = scriptedtests_gold_income_no_theocracy }
+ remove_character_modifier = teq_private_probe_public
+ add_character_modifier = teq_private_probe_private
+ scriptedtests_recalculate_character_modifier = yes
+ set_variable = { name = teq_private_work_minus value = scriptedtests_gold_income_no_theocracy }
+ remove_character_modifier = teq_private_probe_private
+ set_variable = { name = teq_private_work_span value = { value = var:teq_private_work_minus subtract = var:teq_private_work_plus } }
+} }
+# Find one interior point, then a second nearby interior point. Bounds and loop
+# counters prevent an unsupported or nonmonotone fiscal model from hanging.
+teq_private_solve_offset = { hidden_effect = {
+ set_variable = { name = teq_private_work_inner value = 0 }
+ if = { limit = { var:teq_private_work_q >= 0.01 var:teq_private_work_q <= 0.99 }
+  set_variable = { name = teq_private_work_inner value = 1 }
+ }
+ else = {
+  set_variable = { name = teq_private_work_lo value = -1000 }
+  set_variable = { name = teq_private_work_hi value = 1000 }
+  set_variable = { name = teq_private_work_count value = 0 }
+  while = { limit = { var:teq_private_work_inner = 0 var:teq_private_work_count < 20 }
+   change_variable = { name = teq_private_work_count add = 1 }
+   set_variable = { name = teq_private_work_x value = { value = var:teq_private_work_lo add = var:teq_private_work_hi divide = 2 } }
+   teq_private_sample_offset = yes
+   if = { limit = { var:teq_private_work_q > 0.99 } set_variable = { name = teq_private_work_lo value = var:teq_private_work_x } }
+   else_if = { limit = { var:teq_private_work_q < 0.01 } set_variable = { name = teq_private_work_hi value = var:teq_private_work_x } }
+   else = { set_variable = { name = teq_private_work_inner value = 1 } }
+  }
+ }
+ if = { limit = { var:teq_private_work_inner = 1 }
+  set_variable = { name = teq_private_work_x1 value = var:teq_private_work_x }
+  set_variable = { name = teq_private_work_g1 value = var:teq_private_work_g }
+  set_variable = { name = teq_private_work_step value = 0.01 }
+  if = { limit = { var:teq_private_work_q < 0.5 } set_variable = { name = teq_private_work_step value = -0.01 } }
+  set_variable = { name = teq_private_work_second value = 0 }
+  set_variable = { name = teq_private_work_count value = 0 }
+  while = { limit = { var:teq_private_work_second = 0 teq_private_work_step_size >= 0.00001 var:teq_private_work_count < 12 }
+   change_variable = { name = teq_private_work_count add = 1 }
+   set_variable = { name = teq_private_work_x value = { value = var:teq_private_work_x1 add = var:teq_private_work_step min = -1000 max = 1000 } }
+   teq_private_sample_offset = yes
+   if = { limit = { var:teq_private_work_q >= 0.01 var:teq_private_work_q <= 0.99 NOT = { var:teq_private_work_x = var:teq_private_work_x1 } }
+    set_variable = { name = teq_private_work_second value = 1 }
+   }
+   else = { set_variable = { name = teq_private_work_step value = { value = var:teq_private_work_step divide = 2 } } }
+  }
+  if = { limit = { var:teq_private_work_second = 1 }
+   set_variable = { name = teq_private_work_slope value = {
+    value = var:teq_private_work_g subtract = var:teq_private_work_g1
+    divide = { value = var:teq_private_work_x subtract = var:teq_private_work_x1 }
+   } }
+   if = { limit = { var:teq_private_work_slope < 0 }
+    set_variable = { name = teq_private_work_x value = {
+     value = var:teq_private_work_target subtract = var:teq_private_work_g1
+     divide = var:teq_private_work_slope add = var:teq_private_work_x1 min = -1000 max = 1000
+    } }
+    teq_private_sample_offset = yes
+    if = { limit = { teq_private_work_error <= 0.0001 } set_variable = { name = teq_private_work_success value = 1 } }
+   }
+  }
+ }
+} }
+teq_private_calibrate = { hidden_effect = {
+ # Neither enacts a budget nor edits gold, treasury stocks, tax rates or N flow.
+ set_variable = { name = teq_private_work_old_offset value = 0 }
+ if = { limit = { has_variable = teq_private_offset has_variable = teq_private_split_title primary_title = var:teq_private_split_title }
+  set_variable = { name = teq_private_work_old_offset value = var:teq_private_offset }
+ }
+ set_variable = { name = teq_private_work_success value = 0 }
+ remove_character_modifier = teq_private_probe_source
+ teq_private_sample_endpoints = yes
+ if = { limit = { var:teq_private_work_span <= 0.00001 }
+  # An included artificial V source also covers excluded-only/zero-income realms.
+  add_character_modifier = teq_private_probe_source
+  teq_private_sample_endpoints = yes
+ }
+ set_variable = { name = teq_private_work_x value = var:teq_private_work_old_offset }
+ teq_private_sample_offset = yes
+ if = { limit = { var:teq_private_work_span > 0.00001 }
+  set_variable = { name = teq_private_work_target value = { value = teq_private_income_fraction multiply = var:teq_private_work_span add = var:teq_private_work_plus } }
+  if = { limit = { teq_private_work_error <= 0.0001 }
+   set_variable = { name = teq_private_work_success value = 1 }
+  }
+  else_if = { limit = { teq_private_income_fraction = 0 }
+   set_variable = { name = teq_private_work_x value = 1000 }
+   teq_private_sample_offset = yes
+   if = { limit = { teq_private_work_error <= 0.0001 } set_variable = { name = teq_private_work_success value = 1 } }
+  }
+  else_if = { limit = { teq_private_income_fraction = 1 }
+   set_variable = { name = teq_private_work_x value = -1000 }
+   teq_private_sample_offset = yes
+   if = { limit = { teq_private_work_error <= 0.0001 } set_variable = { name = teq_private_work_success value = 1 } }
+  }
+  else = { teq_private_solve_offset = yes }
+ }
+ if = { limit = { var:teq_private_work_success = 1 }
+  set_variable = { name = teq_private_offset value = var:teq_private_work_x }
+  set_variable = { name = teq_private_applied_fraction value = { value = var:teq_private_work_q min = 0 max = 1 } }
+  set_variable = { name = teq_private_calibration_status value = 1 }
+ }
+ else = {
+  # Roll back to the preceding real correction. An unverified trial never commits.
+  set_variable = { name = teq_private_work_x value = var:teq_private_work_old_offset }
+  teq_private_sample_offset = yes
+  set_variable = { name = teq_private_offset value = var:teq_private_work_old_offset }
+  if = { limit = { var:teq_private_work_span > 0.00001 }
+   set_variable = { name = teq_private_applied_fraction value = { value = var:teq_private_work_q min = 0 max = 1 } }
+  }
+  set_variable = { name = teq_private_calibration_status value = -1 }
+ }
+ remove_character_modifier = teq_private_probe_source
+ scriptedtests_recalculate_character_modifier = yes
+ set_variable = { name = teq_private_split_title value = primary_title }
+ set_variable = { name = teq_private_split_month value = teq_month_key }
+ set_variable = { name = teq_private_split_policy value = teq_private_income_fraction }
+ teq_private_clear_work = yes
+} }
+teq_ensure_private_split = { hidden_effect = {
+ if = { limit = { teq_ruler_valid = yes }
+  primary_title = { if = { limit = { NOT = { has_variable = teq_private_fraction } } set_variable = { name = teq_private_fraction value = 0.05 } } }
+  # The budget's own lock does not block its internal calibration call.
+  if = { limit = { NOT = { AND = {
+   has_variable = teq_private_split_title primary_title = var:teq_private_split_title
+   has_variable = teq_private_split_month var:teq_private_split_month = teq_month_key
+   has_variable = teq_private_split_policy var:teq_private_split_policy = teq_private_income_fraction
+   has_variable = teq_private_offset
+   OR = {
+    AND = { var:teq_private_offset = 0 NOT = { has_character_modifier = teq_private_v_positive } NOT = { has_character_modifier = teq_private_v_negative } }
+    AND = { var:teq_private_offset > 0 has_character_modifier = teq_private_v_positive NOT = { has_character_modifier = teq_private_v_negative } }
+    AND = { var:teq_private_offset < 0 has_character_modifier = teq_private_v_negative NOT = { has_character_modifier = teq_private_v_positive } }
+   }
+  } } }
+   teq_private_calibrate = yes
+  }
+ }
+ else = { teq_clear_private_split = yes }
+} }
+# Title scope. Player-only, bounded, explicit directions. Applying the normal
+# budget effect lets its caller measure fresh capacity before/after calibration.
+teq_private_split_stepup = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes teq_private_income_fraction < 1 } }
+  set_variable = { name = teq_private_fraction value = { value = holder.teq_private_income_fraction add = 0.05 min = 0 max = 1 } }
+  holder = { teq_ensure_private_split = yes }
+  set_variable = teq_private_rebase_budget
+  teq_apply_budget = yes
+ }
+} }
+teq_private_split_stepdown = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes teq_private_income_fraction > 0 } }
+  set_variable = { name = teq_private_fraction value = { value = holder.teq_private_income_fraction subtract = 0.05 min = 0 max = 1 } }
+  holder = { teq_ensure_private_split = yes }
+  set_variable = teq_private_rebase_budget
+  teq_apply_budget = yes
+ }
+} }
+teq_private_split_restoredefault = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes NOT = { teq_private_income_fraction = 0.05 } } }
+  set_variable = { name = teq_private_fraction value = 0.05 }
+  holder = { teq_ensure_private_split = yes }
+  set_variable = teq_private_rebase_budget
+  teq_apply_budget = yes
+ }
+} }

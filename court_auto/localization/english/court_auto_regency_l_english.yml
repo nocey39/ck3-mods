@@ -1,0 +1,9 @@
+﻿l_english:
+ court_auto_regency_heading:0 "Scales of Power Automation"
+ court_auto_regency_label:0 "Automatically use Swing the Scales"
+ court_auto_regency_note:0 "[GetPlayer.Custom('court_auto_regency_cooldown_text')] · No resource cost"
+ court_auto_regency_free_option:0 "Assistant automatic swing (free)"
+ court_auto_regency_help:0 "Requires the master automation switch. Tries immediately when enabled, then checks daily for the vanilla Swing the Scales interaction to become available. Successful automatic and manual swings both start a shared two-year cooldown, blocking both paths. Toggling and reloading do not clear it. The native interaction cooldown is also retained. Uses native swing amounts, eligibility and opinion effects, with no resource cost. Supports regencies, prime ministerships and other power-sharing arrangements. Gains power for you as ruler or diarch, waiting at the favorable limit. Check Now cannot bypass the cooldown. The setting passes to your next character on death. Disabling preserves the current scales."
+ court_auto_regency_cooldown_blocked:0 "Two years must pass after your last swing (shared by manual and automatic use)"
+ court_auto_regency_cooldown_waiting:0 "Swing the Scales: shared two-year cooldown active"
+ court_auto_regency_cooldown_ready:0 "Swing the Scales: awaiting native eligibility checks"

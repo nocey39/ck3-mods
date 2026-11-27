@@ -1,0 +1,13 @@
+﻿l_english:
+ dejure_auto_map_probe_open_label:0 "Map read probe"
+ dejure_auto_map_probe_open_help:0 "Read-only test: select a map county, read its holding view and return its de jure duchy. Diagnostic variables only; no automation, titles, gold or stationing changes."
+ dejure_auto_map_probe_title:0 "Map selection · Read-only probe"
+ dejure_auto_map_probe_instructions:0 "Keep the game paused. Click a map county, keep its holding panel open and record. Then repeat with a county in another duchy."
+ dejure_auto_map_probe_current:0 "Holding panel: [HoldingView.GetCountyTitle.GetName]"
+ dejure_auto_map_probe_no_view:0 "Click a map county to open its holding panel first"
+ dejure_auto_map_probe_record:0 "Record current selection (no grants)"
+ dejure_auto_map_probe_records:0 "Recorded: [GetPlayer.MakeScope.Var('dejure_auto_map_probe_records').GetValue|0]"
+ dejure_auto_map_probe_county:0 "County received: [GetPlayer.MakeScope.Var('dejure_auto_map_probe_county').Title.GetName]"
+ dejure_auto_map_probe_duchy:0 "De jure duchy: [GetPlayer.MakeScope.Var('dejure_auto_map_probe_duchy').Title.GetName]"
+ dejure_auto_map_probe_no_duchy:0 "This county has no de jure duchy"
+ dejure_auto_map_probe_back:0 "Back to assistant settings"

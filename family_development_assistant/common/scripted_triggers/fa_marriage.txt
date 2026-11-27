@@ -1,0 +1,135 @@
+﻿fa_marriage_active_trigger = {
+    fa_can_configure_trigger = yes
+    fa_master_active_trigger = yes
+    has_variable = fa_marriage_enabled
+    fa_marriage_has_scope_trigger = yes
+}
+
+fa_marriage_has_scope_trigger = {
+    OR = {
+        has_variable = fa_marriage_scope_self
+        has_variable = fa_marriage_scope_children
+        has_variable = fa_marriage_scope_relatives
+    }
+}
+
+fa_marriage_subject_trigger = {
+    is_alive = yes
+    is_adult = yes
+    is_visibly_fertile = yes
+    fertility > 0
+    is_married = no
+    is_betrothed = no
+    is_concubine = no
+    is_available = yes
+    can_marry_trigger = yes
+    exists = dynasty
+    NOT = { has_been_promised_grand_wedding = yes }
+}
+
+fa_marriage_reviewable_trigger = {
+    fa_marriage_subject_trigger = yes
+    fa_marriage_selected_subject_trigger = yes
+    exists = var:fa_marriage_recommendation
+    NOT = { has_variable = fa_marriage_proposal_pending }
+    save_temporary_scope_as = fa_marriage_review_subject
+    var:fa_marriage_recommendation = {
+        is_alive = yes
+        is_adult = yes
+        is_available = yes
+        is_married = no
+        is_betrothed = no
+        is_concubine = no
+        NOR = {
+            has_variable = fa_marriage_proposal_pending
+            has_been_promised_grand_wedding = yes
+        }
+        exists = matchmaker
+        matchmaker = { OR = { is_ai = yes this = scope:fa_marriage_owner } }
+        can_marry_character_trigger = { CHARACTER = scope:fa_marriage_review_subject }
+    }
+}
+
+fa_marriage_selected_subject_trigger = {
+    exists = dynasty
+    exists = scope:fa_marriage_owner.dynasty
+    dynasty = scope:fa_marriage_owner.dynasty
+    trigger_if = {
+        limit = { this = scope:fa_marriage_owner }
+        scope:fa_marriage_owner = { has_variable = fa_marriage_scope_self }
+    }
+    trigger_else_if = {
+        limit = { is_child_of = scope:fa_marriage_owner }
+        matchmaker ?= scope:fa_marriage_owner
+        scope:fa_marriage_owner = { has_variable = fa_marriage_scope_children }
+    }
+    trigger_else = {
+        matchmaker ?= scope:fa_marriage_owner
+        is_courtier_of = scope:fa_marriage_owner
+        is_close_family_of = scope:fa_marriage_owner
+        scope:fa_marriage_owner = { has_variable = fa_marriage_scope_relatives }
+    }
+}
+
+# Only used for proposals sent to a different, AI-controlled matchmaker.
+fa_marriage_can_auto_send_trigger = {
+    matchmaker = { is_ai = yes }
+    OR = {
+        dynasty ?= scope:fa_marriage_subject.dynasty
+        AND = {
+            scope:fa_marriage_subject = { is_male = yes }
+            scope:fa_marriage_owner.rite = {
+                NOT = { rite_has_doctrine = doctrine_gender_female_dominated }
+            }
+        }
+    }
+}
+
+fa_marriage_candidate_trigger = {
+    is_alive = yes
+    is_available = yes
+    is_adult = yes
+    is_visibly_fertile = yes
+    fertility > 0
+    is_married = no
+    is_betrothed = no
+    is_concubine = no
+    sex_opposite_of = scope:fa_marriage_subject
+    num_of_bad_genetic_traits = 0
+    OR = {
+        has_trait = intellect_good
+        has_trait = physique_good
+        has_trait = beauty_good
+        has_trait = pure_blooded
+        has_trait = fecund
+        has_inactive_trait = intellect_good
+        has_inactive_trait = physique_good
+        has_inactive_trait = beauty_good
+        has_inactive_trait = fecund
+    }
+    NOR = {
+        has_variable = fa_marriage_proposal_pending
+        has_been_promised_grand_wedding = yes
+        is_close_or_extended_family_of = scope:fa_marriage_subject
+        is_in_list = fa_marriage_ancestors
+        any_ancestor = { is_in_list = fa_marriage_ancestors }
+        this = scope:fa_marriage_subject
+        scope:fa_marriage_subject.var:fa_marriage_last_candidate ?= this
+    }
+    can_marry_character_trigger = { CHARACTER = scope:fa_marriage_subject }
+    exists = matchmaker
+    save_temporary_scope_as = fa_marriage_candidate_test
+    matchmaker ?= {
+        save_temporary_scope_as = fa_marriage_matchmaker_test
+        OR = { is_ai = yes this = scope:fa_marriage_owner }
+    }
+    scope:fa_marriage_owner = {
+        is_character_interaction_potentially_accepted = {
+            interaction = arrange_marriage_interaction
+            recipient = scope:fa_marriage_matchmaker_test
+            secondary_actor = scope:fa_marriage_subject
+            secondary_recipient = scope:fa_marriage_candidate_test
+            required_response = yes
+        }
+    }
+}

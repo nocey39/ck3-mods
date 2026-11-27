@@ -1,0 +1,538 @@
+﻿dejure_auto_direct_arm_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        has_variable = dejure_auto_direct_open
+        exists = scope:dejure_auto_direct_reply_ticket
+        var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            exists = county
+            county = {
+                tier = tier_county
+                dejure_auto_map_county_trigger = yes
+                exists = holder
+            }
+            OR = {
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier = 1
+                    }
+                    province_owner = root
+                    county = {
+                        holder = root
+                    }
+                }
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier >= 2
+                        var:dejure_auto_direct_tier <= 4
+                    }
+                    county.holder = {
+                        OR = {
+                            this = root
+                            is_vassal_or_below_of = root
+                        }
+                    }
+                }
+            }
+        }
+        NOT = {
+            is_target_in_variable_list = {
+                name = dejure_auto_direct_armed
+                target = scope:dejure_auto_manual_input
+            }
+        }
+        NOT = {
+            has_variable = dejure_auto_pick_active
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                has_variable = dejure_auto_direct_open
+                exists = scope:dejure_auto_direct_reply_ticket
+                var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        dejure_auto_map_county_trigger = yes
+                        exists = holder
+                    }
+                    OR = {
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier = 1
+                            }
+                            province_owner = root
+                            county = {
+                                holder = root
+                            }
+                        }
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier >= 2
+                                var:dejure_auto_direct_tier <= 4
+                            }
+                            county.holder = {
+                                OR = {
+                                    this = root
+                                    is_vassal_or_below_of = root
+                                }
+                            }
+                        }
+                    }
+                }
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_direct_armed
+                        target = scope:dejure_auto_manual_input
+                    }
+                }
+                NOT = {
+                    has_variable = dejure_auto_pick_active
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_direct_armed
+                target = scope:dejure_auto_manual_input
+            }
+            if = {
+                limit = {
+                    var:dejure_auto_direct_current = scope:dejure_auto_manual_input
+                }
+                remove_variable = dejure_auto_direct_current
+                remove_variable = dejure_auto_direct_target
+            }
+        }
+    }
+}
+dejure_auto_direct_observe_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        has_variable = dejure_auto_direct_open
+        exists = scope:dejure_auto_direct_reply_ticket
+        var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            exists = county
+            county = {
+                tier = tier_county
+                dejure_auto_map_county_trigger = yes
+                exists = holder
+            }
+            OR = {
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier = 1
+                    }
+                    province_owner = root
+                    county = {
+                        holder = root
+                    }
+                }
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier >= 2
+                        var:dejure_auto_direct_tier <= 4
+                    }
+                    county.holder = {
+                        OR = {
+                            this = root
+                            is_vassal_or_below_of = root
+                        }
+                    }
+                }
+            }
+        }
+        NOT = {
+            has_variable = dejure_auto_pick_active
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                has_variable = dejure_auto_direct_open
+                exists = scope:dejure_auto_direct_reply_ticket
+                var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        dejure_auto_map_county_trigger = yes
+                        exists = holder
+                    }
+                    OR = {
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier = 1
+                            }
+                            province_owner = root
+                            county = {
+                                holder = root
+                            }
+                        }
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier >= 2
+                                var:dejure_auto_direct_tier <= 4
+                            }
+                            county.holder = {
+                                OR = {
+                                    this = root
+                                    is_vassal_or_below_of = root
+                                }
+                            }
+                        }
+                    }
+                }
+                NOT = {
+                    has_variable = dejure_auto_pick_active
+                }
+            }
+            set_variable = {
+                name = dejure_auto_direct_current
+                value = scope:dejure_auto_manual_input
+            }
+            dejure_auto_direct_target_refresh_effect = yes
+        }
+    }
+}
+dejure_auto_direct_apply_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        has_variable = dejure_auto_direct_open
+        exists = scope:dejure_auto_direct_reply_ticket
+        var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            exists = county
+            county = {
+                tier = tier_county
+                dejure_auto_map_county_trigger = yes
+                exists = holder
+            }
+            OR = {
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier = 1
+                    }
+                    province_owner = root
+                    county = {
+                        holder = root
+                    }
+                }
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier >= 2
+                        var:dejure_auto_direct_tier <= 4
+                    }
+                    county.holder = {
+                        OR = {
+                            this = root
+                            is_vassal_or_below_of = root
+                        }
+                    }
+                }
+            }
+        }
+        is_target_in_variable_list = {
+            name = dejure_auto_direct_armed
+            target = scope:dejure_auto_manual_input
+        }
+        OR = {
+            var:dejure_auto_manual_mode = 0
+            var:dejure_auto_manual_mode = 1
+        }
+        NOT = {
+            has_variable = dejure_auto_pick_active
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                has_variable = dejure_auto_direct_open
+                exists = scope:dejure_auto_direct_reply_ticket
+                var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        dejure_auto_map_county_trigger = yes
+                        exists = holder
+                    }
+                    OR = {
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier = 1
+                            }
+                            province_owner = root
+                            county = {
+                                holder = root
+                            }
+                        }
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier >= 2
+                                var:dejure_auto_direct_tier <= 4
+                            }
+                            county.holder = {
+                                OR = {
+                                    this = root
+                                    is_vassal_or_below_of = root
+                                }
+                            }
+                        }
+                    }
+                }
+                is_target_in_variable_list = {
+                    name = dejure_auto_direct_armed
+                    target = scope:dejure_auto_manual_input
+                }
+                OR = {
+                    var:dejure_auto_manual_mode = 0
+                    var:dejure_auto_manual_mode = 1
+                }
+                NOT = {
+                    has_variable = dejure_auto_pick_active
+                }
+            }
+            remove_list_variable = {
+                name = dejure_auto_direct_armed
+                target = scope:dejure_auto_manual_input
+            }
+            set_variable = {
+                name = dejure_auto_direct_current
+                value = scope:dejure_auto_manual_input
+            }
+            dejure_auto_direct_target_refresh_effect = yes
+            if = {
+                limit = {
+                    NOT = {
+                        AND = {
+                            var:dejure_auto_direct_last_ticket = var:dejure_auto_direct_epoch
+                            OR = {
+                                AND = {
+                                    exists = var:dejure_auto_manual_last_title
+                                    dejure_auto_direct_last_state_matches_trigger = yes
+                                    scope:dejure_auto_manual_input.county = {
+                                        any_this_title_or_de_jure_above = {
+                                            this = root.var:dejure_auto_manual_last_title
+                                            holder = root
+                                            dejure_auto_direct_target_tier_trigger = yes
+                                        }
+                                    }
+                                }
+                                AND = {
+                                    NOT = {
+                                        exists = var:dejure_auto_manual_last_title
+                                    }
+                                    dejure_auto_direct_target_available_trigger = no
+                                    var:dejure_auto_manual_last_county = scope:dejure_auto_manual_input.county
+                                }
+                            }
+                        }
+                    }
+                }
+                dejure_auto_direct_apply_effect = yes
+            }
+        }
+    }
+}
+dejure_auto_direct_confirm_gui = {
+    scope = character
+    is_valid = {
+        is_ai = no
+        is_alive = yes
+        is_landed = yes
+        has_variable = dejure_auto_manual_open
+        has_variable = dejure_auto_direct_open
+        exists = scope:dejure_auto_direct_reply_ticket
+        var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+        exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            exists = county
+            county = {
+                tier = tier_county
+                dejure_auto_map_county_trigger = yes
+                exists = holder
+            }
+            OR = {
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier = 1
+                    }
+                    province_owner = root
+                    county = {
+                        holder = root
+                    }
+                }
+                AND = {
+                    root = {
+                        var:dejure_auto_direct_tier >= 2
+                        var:dejure_auto_direct_tier <= 4
+                    }
+                    county.holder = {
+                        OR = {
+                            this = root
+                            is_vassal_or_below_of = root
+                        }
+                    }
+                }
+            }
+        }
+        exists = var:dejure_auto_direct_current
+        var:dejure_auto_direct_current = scope:dejure_auto_manual_input
+        OR = {
+            var:dejure_auto_manual_mode = 0
+            var:dejure_auto_manual_mode = 1
+        }
+        dejure_auto_direct_target_available_trigger = yes
+        NOT = {
+            AND = {
+                var:dejure_auto_direct_last_ticket = var:dejure_auto_direct_epoch
+                OR = {
+                    AND = {
+                        exists = var:dejure_auto_manual_last_title
+                        dejure_auto_direct_last_state_matches_trigger = yes
+                        scope:dejure_auto_manual_input.county = {
+                            any_this_title_or_de_jure_above = {
+                                this = root.var:dejure_auto_manual_last_title
+                                holder = root
+                                dejure_auto_direct_target_tier_trigger = yes
+                            }
+                        }
+                    }
+                    AND = {
+                        NOT = {
+                            exists = var:dejure_auto_manual_last_title
+                        }
+                        dejure_auto_direct_target_available_trigger = no
+                        var:dejure_auto_manual_last_county = scope:dejure_auto_manual_input.county
+                    }
+                }
+            }
+        }
+        NOT = {
+            has_variable = dejure_auto_pick_active
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                is_landed = yes
+                has_variable = dejure_auto_manual_open
+                has_variable = dejure_auto_direct_open
+                exists = scope:dejure_auto_direct_reply_ticket
+                var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket
+                exists = scope:dejure_auto_manual_input
+                scope:dejure_auto_manual_input = {
+                    exists = county
+                    county = {
+                        tier = tier_county
+                        dejure_auto_map_county_trigger = yes
+                        exists = holder
+                    }
+                    OR = {
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier = 1
+                            }
+                            province_owner = root
+                            county = {
+                                holder = root
+                            }
+                        }
+                        AND = {
+                            root = {
+                                var:dejure_auto_direct_tier >= 2
+                                var:dejure_auto_direct_tier <= 4
+                            }
+                            county.holder = {
+                                OR = {
+                                    this = root
+                                    is_vassal_or_below_of = root
+                                }
+                            }
+                        }
+                    }
+                }
+                exists = var:dejure_auto_direct_current
+                var:dejure_auto_direct_current = scope:dejure_auto_manual_input
+                OR = {
+                    var:dejure_auto_manual_mode = 0
+                    var:dejure_auto_manual_mode = 1
+                }
+                dejure_auto_direct_target_available_trigger = yes
+                NOT = {
+                    AND = {
+                        var:dejure_auto_direct_last_ticket = var:dejure_auto_direct_epoch
+                        OR = {
+                            AND = {
+                                exists = var:dejure_auto_manual_last_title
+                                dejure_auto_direct_last_state_matches_trigger = yes
+                                scope:dejure_auto_manual_input.county = {
+                                    any_this_title_or_de_jure_above = {
+                                        this = root.var:dejure_auto_manual_last_title
+                                        holder = root
+                                        dejure_auto_direct_target_tier_trigger = yes
+                                    }
+                                }
+                            }
+                            AND = {
+                                NOT = {
+                                    exists = var:dejure_auto_manual_last_title
+                                }
+                                dejure_auto_direct_target_available_trigger = no
+                                var:dejure_auto_manual_last_county = scope:dejure_auto_manual_input.county
+                            }
+                        }
+                    }
+                }
+                NOT = {
+                    has_variable = dejure_auto_pick_active
+                }
+            }
+            remove_list_variable = {
+                name = dejure_auto_direct_armed
+                target = scope:dejure_auto_manual_input
+            }
+            dejure_auto_direct_target_refresh_effect = yes
+            if = {
+                limit = {
+                    dejure_auto_direct_target_available_trigger = yes
+                }
+                dejure_auto_direct_apply_effect = yes
+            }
+        }
+    }
+}

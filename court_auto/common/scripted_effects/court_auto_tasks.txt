@@ -1,0 +1,478 @@
+﻿court_auto_tasks_initialize_effect = {
+    if = { limit = { NOT = { has_variable = court_auto_task_conversion_scope } } set_variable = { name = court_auto_task_conversion_scope value = 0 } }
+    if = { limit = { NOT = { has_variable = court_auto_task_culture_scope } } set_variable = { name = court_auto_task_culture_scope value = 0 } }
+    if = { limit = { NOT = { has_variable = court_auto_task_control_scope } } set_variable = { name = court_auto_task_control_scope value = 0 } }
+    if = { limit = { NOT = { has_variable = court_auto_task_modes_v3 } }
+        if = { limit = { var:court_auto_task_conversion_scope = 2 } set_variable = { name = court_auto_task_conversion_scope value = 3 } }
+        if = { limit = { var:court_auto_task_culture_scope = 2 } set_variable = { name = court_auto_task_culture_scope value = 3 } }
+        if = { limit = { var:court_auto_task_control_scope = 2 } set_variable = { name = court_auto_task_control_scope value = 3 } }
+        set_variable = court_auto_task_modes_v3
+    }
+    if = { limit = { NOT = { has_variable = court_auto_last_tasks } } set_variable = { name = court_auto_last_tasks value = 0 } }
+}
+court_auto_tasks_inherit_effect = {
+    set_variable = { name = court_auto_task_conversion_scope value = 0 }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_task_conversion_scope } }
+        set_variable = { name = court_auto_task_conversion_scope value = scope:previous_player_character.var:court_auto_task_conversion_scope } }
+    remove_variable = court_auto_task_conversion_worker
+    remove_variable = court_auto_task_conversion_target
+    remove_variable = court_auto_task_conversion_manual
+    remove_variable = court_auto_task_conversion_anchor
+    remove_variable = court_auto_task_conversion_exhausted
+    set_variable = { name = court_auto_task_culture_scope value = 0 }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_task_culture_scope } }
+        set_variable = { name = court_auto_task_culture_scope value = scope:previous_player_character.var:court_auto_task_culture_scope } }
+    remove_variable = court_auto_task_culture_worker
+    remove_variable = court_auto_task_culture_target
+    remove_variable = court_auto_task_culture_manual
+    remove_variable = court_auto_task_culture_anchor
+    remove_variable = court_auto_task_culture_exhausted
+    set_variable = { name = court_auto_task_control_scope value = 0 }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_task_control_scope } }
+        set_variable = { name = court_auto_task_control_scope value = scope:previous_player_character.var:court_auto_task_control_scope } }
+    remove_variable = court_auto_task_control_worker
+    remove_variable = court_auto_task_control_target
+    remove_variable = court_auto_task_control_manual
+    remove_variable = court_auto_task_control_anchor
+    remove_variable = court_auto_task_control_exhausted
+    set_variable = { name = court_auto_last_tasks value = 0 }
+    set_variable = court_auto_task_modes_v3
+}
+court_auto_tasks_clear_exhausted_effect = {
+    remove_variable = court_auto_task_conversion_exhausted
+    remove_variable = court_auto_task_culture_exhausted
+    remove_variable = court_auto_task_control_exhausted
+}
+court_auto_tasks_check_effect = {
+    save_scope_as = councillor_liege
+    save_scope_value_as = { name = court_auto_task_conversion_no_next value = no }
+    save_scope_value_as = { name = court_auto_task_culture_no_next value = no }
+    save_scope_value_as = { name = court_auto_task_control_no_next value = no }
+    if = { limit = { var:court_auto_task_conversion_scope > 0 } court_auto_task_conversion_check_effect = yes }
+    if = { limit = { var:court_auto_task_culture_scope > 0 } court_auto_task_culture_check_effect = yes }
+    if = { limit = { var:court_auto_task_control_scope > 0 } court_auto_task_control_check_effect = yes }
+}
+
+court_auto_task_conversion_anchor_effect = {
+    if = { limit = { scope:court_auto_owner = { var:court_auto_task_conversion_scope = 2 } }
+        if = { limit = { de_jure_liege = { tier = tier_duchy } }
+            de_jure_liege = { save_scope_as = court_auto_task_conversion_anchor_title } }
+    }
+    if = { limit = { scope:court_auto_owner = { var:court_auto_task_conversion_scope = 3 } }
+        if = { limit = { de_jure_liege = { tier = tier_kingdom } }
+            de_jure_liege = { save_scope_as = court_auto_task_conversion_anchor_title } }
+        else_if = { limit = { de_jure_liege = { de_jure_liege = { tier = tier_kingdom } } }
+            de_jure_liege = { de_jure_liege = { save_scope_as = court_auto_task_conversion_anchor_title } } }
+    }
+    scope:court_auto_owner = {
+        remove_variable = court_auto_task_conversion_anchor
+        if = { limit = { exists = scope:court_auto_task_conversion_anchor_title }
+            set_variable = { name = court_auto_task_conversion_anchor value = scope:court_auto_task_conversion_anchor_title } }
+    }
+}
+# Preserve active progress and other manual assignments. No task definitions
+# or completion hooks are overridden. Observe the native state monthly.
+court_auto_task_conversion_check_effect = {
+    if = {
+        limit = { exists = cp:councillor_court_chaplain }
+        cp:councillor_court_chaplain = { save_scope_as = court_auto_task_worker save_scope_as = councillor }
+        if = {
+            limit = { scope:court_auto_task_worker = { is_performing_council_task = task_conversion NOT = { court_auto_task_conversion_finished_trigger = yes } } }
+            set_variable = { name = court_auto_task_conversion_worker value = scope:court_auto_task_worker }
+            if = { limit = { exists = scope:court_auto_task_worker.councillor_task_target }
+                set_variable = { name = court_auto_task_conversion_target value = scope:court_auto_task_worker.councillor_task_target.county }
+            }
+            if = { limit = { var:court_auto_task_conversion_scope > 1 has_variable = court_auto_task_conversion_target }
+                var:court_auto_task_conversion_target = { court_auto_task_conversion_anchor_effect = yes }
+            }
+            remove_variable = court_auto_task_conversion_exhausted
+            remove_variable = court_auto_task_conversion_manual
+        }
+        else_if = {
+            limit = { scope:court_auto_task_worker = {
+                    exists = council_task
+                    NOR = { is_performing_council_task = task_religious_relations is_performing_council_task = task_conversion }
+                } }
+            set_variable = { name = court_auto_task_conversion_worker value = scope:court_auto_task_worker }
+            set_variable = court_auto_task_conversion_manual
+        }
+        else = {
+            # Repair a prior false manual-pause when the recorded county really
+            # is complete. Other manual tasks were already handled above.
+            if = { limit = { has_variable = court_auto_task_conversion_target
+                    var:court_auto_task_conversion_target = { court_auto_task_conversion_county_completed_trigger = yes }
+                }
+                remove_variable = court_auto_task_conversion_manual
+            }
+            # A new councillor may resume even if the previous one was paused.
+            if = { limit = { NOT = { var:court_auto_task_conversion_worker ?= scope:court_auto_task_worker } }
+                remove_variable = court_auto_task_conversion_worker
+                remove_variable = court_auto_task_conversion_target
+                remove_variable = court_auto_task_conversion_manual
+            }
+            # Record a manual assignment even if its county completed before the
+            # first check; 1.4.1 never starts a task from nothing.
+            if = { limit = { scope:court_auto_task_worker = { is_performing_council_task = task_conversion
+                        exists = councillor_task_target } }
+                set_variable = { name = court_auto_task_conversion_target value = scope:court_auto_task_worker.councillor_task_target.county }
+                if = { limit = { var:court_auto_task_conversion_scope > 1 has_variable = court_auto_task_conversion_target }
+                    var:court_auto_task_conversion_target = { court_auto_task_conversion_anchor_effect = yes } }
+            }
+            if = {
+                limit = { has_variable = court_auto_task_conversion_target NOT = { has_variable = court_auto_task_conversion_manual }
+                    NOT = { scope:court_auto_task_worker = { is_performing_council_task = task_conversion } }
+                }
+                var:court_auto_task_conversion_target = {
+                    save_scope_as = court_auto_task_county
+                    save_scope_as = county
+                    title_province = { save_scope_as = province }
+                }
+                # Returning to the default task while the same target is still
+                # valid is treated conservatively as a manual cancellation.
+                if = { limit = { scope:court_auto_task_worker = { court_auto_task_conversion_eligible_trigger = yes } } set_variable = court_auto_task_conversion_manual }
+            }
+            # Only continue a task the player has actually assigned: an existing
+            # target record or the councillor actively performing it.
+            if = { limit = { NOT = { has_variable = court_auto_task_conversion_manual } NOT = { has_variable = court_auto_task_conversion_exhausted }
+                    OR = { has_variable = court_auto_task_conversion_target
+                        scope:court_auto_task_worker = { is_performing_council_task = task_conversion } } }
+                court_auto_task_conversion_select_effect = yes }
+        }
+    }
+    else = { remove_variable = court_auto_task_conversion_worker
+        remove_variable = court_auto_task_conversion_target
+        remove_variable = court_auto_task_conversion_manual }
+}
+
+court_auto_task_conversion_select_effect = {
+    remove_variable = court_auto_task_candidate
+    every_held_title = {
+        limit = { tier = tier_county exists = title_province court_auto_task_conversion_in_scope_trigger = yes
+            scope:court_auto_owner = { NOT = { has_variable = court_auto_task_candidate } } }
+        court_auto_task_conversion_consider_effect = yes
+    }
+    if = { limit = { OR = { var:court_auto_task_conversion_scope = 2 var:court_auto_task_conversion_scope = 3 } NOT = { has_variable = court_auto_task_candidate } }
+        every_sub_realm_county = {
+            limit = { exists = title_province court_auto_task_conversion_in_scope_trigger = yes
+                NOT = { holder = scope:court_auto_owner } scope:court_auto_owner = { NOT = { has_variable = court_auto_task_candidate } } }
+            court_auto_task_conversion_consider_effect = yes
+        }
+    }
+    if = { limit = { has_variable = court_auto_task_candidate }
+        var:court_auto_task_candidate = {
+            save_scope_as = court_auto_task_county
+            save_scope_as = county
+            title_province = { save_scope_as = province }
+        }
+        scope:court_auto_task_worker = {
+            if = { limit = { court_auto_task_conversion_eligible_trigger = yes }
+                set_council_task = { task_type = task_conversion target = scope:court_auto_task_county.title_province }
+                if = { limit = { is_performing_council_task = task_conversion councillor_task_target = scope:court_auto_task_county.title_province }
+                    scope:court_auto_owner = {
+                        set_variable = { name = court_auto_task_conversion_worker value = scope:court_auto_task_worker }
+                        set_variable = { name = court_auto_task_conversion_target value = scope:court_auto_task_county }
+                        change_variable = { name = court_auto_last_tasks add = 1 }
+                        var:court_auto_task_candidate = { court_auto_task_conversion_anchor_effect = yes }
+                    }
+                }
+            }
+        }
+    }
+    else = {
+        if = { limit = { var:court_auto_task_conversion_scope = 3 } set_variable = court_auto_task_conversion_exhausted }
+        save_scope_value_as = { name = court_auto_task_conversion_no_next value = yes }
+    }
+    remove_variable = court_auto_task_candidate
+}
+
+court_auto_task_conversion_consider_effect = {
+    save_scope_as = court_auto_task_county
+    save_scope_as = county
+    title_province = { save_scope_as = province }
+    if = { limit = { scope:court_auto_task_worker = { court_auto_task_conversion_eligible_trigger = yes } }
+        scope:court_auto_owner = { set_variable = { name = court_auto_task_candidate value = scope:court_auto_task_county } }
+    }
+}
+
+court_auto_task_culture_anchor_effect = {
+    if = { limit = { scope:court_auto_owner = { var:court_auto_task_culture_scope = 2 } }
+        if = { limit = { de_jure_liege = { tier = tier_duchy } }
+            de_jure_liege = { save_scope_as = court_auto_task_culture_anchor_title } }
+    }
+    if = { limit = { scope:court_auto_owner = { var:court_auto_task_culture_scope = 3 } }
+        if = { limit = { de_jure_liege = { tier = tier_kingdom } }
+            de_jure_liege = { save_scope_as = court_auto_task_culture_anchor_title } }
+        else_if = { limit = { de_jure_liege = { de_jure_liege = { tier = tier_kingdom } } }
+            de_jure_liege = { de_jure_liege = { save_scope_as = court_auto_task_culture_anchor_title } } }
+    }
+    scope:court_auto_owner = {
+        remove_variable = court_auto_task_culture_anchor
+        if = { limit = { exists = scope:court_auto_task_culture_anchor_title }
+            set_variable = { name = court_auto_task_culture_anchor value = scope:court_auto_task_culture_anchor_title } }
+    }
+}
+# Preserve active progress and other manual assignments. No task definitions
+# or completion hooks are overridden. Observe the native state monthly.
+court_auto_task_culture_check_effect = {
+    if = {
+        limit = { exists = cp:councillor_steward }
+        cp:councillor_steward = { save_scope_as = court_auto_task_worker save_scope_as = councillor }
+        if = {
+            limit = { scope:court_auto_task_worker = { is_performing_council_task = task_promote_culture NOT = { court_auto_task_culture_finished_trigger = yes } } }
+            set_variable = { name = court_auto_task_culture_worker value = scope:court_auto_task_worker }
+            if = { limit = { exists = scope:court_auto_task_worker.councillor_task_target }
+                set_variable = { name = court_auto_task_culture_target value = scope:court_auto_task_worker.councillor_task_target.county }
+            }
+            if = { limit = { var:court_auto_task_culture_scope > 1 has_variable = court_auto_task_culture_target }
+                var:court_auto_task_culture_target = { court_auto_task_culture_anchor_effect = yes }
+            }
+            remove_variable = court_auto_task_culture_exhausted
+            remove_variable = court_auto_task_culture_manual
+        }
+        else_if = {
+            limit = { scope:court_auto_task_worker = {
+                    exists = council_task
+                    NOR = { is_performing_council_task = task_collect_taxes is_performing_council_task = task_promote_culture }
+                } }
+            set_variable = { name = court_auto_task_culture_worker value = scope:court_auto_task_worker }
+            set_variable = court_auto_task_culture_manual
+        }
+        else = {
+            # Repair a prior false manual-pause when the recorded county really
+            # is complete. Other manual tasks were already handled above.
+            if = { limit = { has_variable = court_auto_task_culture_target
+                    var:court_auto_task_culture_target = { court_auto_task_culture_county_completed_trigger = yes }
+                }
+                remove_variable = court_auto_task_culture_manual
+            }
+            # A new councillor may resume even if the previous one was paused.
+            if = { limit = { NOT = { var:court_auto_task_culture_worker ?= scope:court_auto_task_worker } }
+                remove_variable = court_auto_task_culture_worker
+                remove_variable = court_auto_task_culture_target
+                remove_variable = court_auto_task_culture_manual
+            }
+            # Record a manual assignment even if its county completed before the
+            # first check; 1.4.1 never starts a task from nothing.
+            if = { limit = { scope:court_auto_task_worker = { is_performing_council_task = task_promote_culture
+                        exists = councillor_task_target } }
+                set_variable = { name = court_auto_task_culture_target value = scope:court_auto_task_worker.councillor_task_target.county }
+                if = { limit = { var:court_auto_task_culture_scope > 1 has_variable = court_auto_task_culture_target }
+                    var:court_auto_task_culture_target = { court_auto_task_culture_anchor_effect = yes } }
+            }
+            if = {
+                limit = { has_variable = court_auto_task_culture_target NOT = { has_variable = court_auto_task_culture_manual }
+                    NOT = { scope:court_auto_task_worker = { is_performing_council_task = task_promote_culture } }
+                }
+                var:court_auto_task_culture_target = {
+                    save_scope_as = court_auto_task_county
+                    save_scope_as = county
+                    title_province = { save_scope_as = province }
+                }
+                # Returning to the default task while the same target is still
+                # valid is treated conservatively as a manual cancellation.
+                if = { limit = { scope:court_auto_task_worker = { court_auto_task_culture_eligible_trigger = yes } } set_variable = court_auto_task_culture_manual }
+            }
+            # Only continue a task the player has actually assigned: an existing
+            # target record or the councillor actively performing it.
+            if = { limit = { NOT = { has_variable = court_auto_task_culture_manual } NOT = { has_variable = court_auto_task_culture_exhausted }
+                    OR = { has_variable = court_auto_task_culture_target
+                        scope:court_auto_task_worker = { is_performing_council_task = task_promote_culture } } }
+                court_auto_task_culture_select_effect = yes }
+        }
+    }
+    else = { remove_variable = court_auto_task_culture_worker
+        remove_variable = court_auto_task_culture_target
+        remove_variable = court_auto_task_culture_manual }
+}
+
+court_auto_task_culture_select_effect = {
+    remove_variable = court_auto_task_candidate
+    every_held_title = {
+        limit = { tier = tier_county exists = title_province court_auto_task_culture_in_scope_trigger = yes
+            scope:court_auto_owner = { NOT = { has_variable = court_auto_task_candidate } } }
+        court_auto_task_culture_consider_effect = yes
+    }
+    if = { limit = { OR = { var:court_auto_task_culture_scope = 2 var:court_auto_task_culture_scope = 3 } NOT = { has_variable = court_auto_task_candidate } }
+        every_sub_realm_county = {
+            limit = { exists = title_province court_auto_task_culture_in_scope_trigger = yes
+                NOT = { holder = scope:court_auto_owner } scope:court_auto_owner = { NOT = { has_variable = court_auto_task_candidate } } }
+            court_auto_task_culture_consider_effect = yes
+        }
+    }
+    if = { limit = { has_variable = court_auto_task_candidate }
+        var:court_auto_task_candidate = {
+            save_scope_as = court_auto_task_county
+            save_scope_as = county
+            title_province = { save_scope_as = province }
+        }
+        scope:court_auto_task_worker = {
+            if = { limit = { court_auto_task_culture_eligible_trigger = yes }
+                set_council_task = { task_type = task_promote_culture target = scope:court_auto_task_county.title_province }
+                if = { limit = { is_performing_council_task = task_promote_culture councillor_task_target = scope:court_auto_task_county.title_province }
+                    scope:court_auto_owner = {
+                        set_variable = { name = court_auto_task_culture_worker value = scope:court_auto_task_worker }
+                        set_variable = { name = court_auto_task_culture_target value = scope:court_auto_task_county }
+                        change_variable = { name = court_auto_last_tasks add = 1 }
+                        var:court_auto_task_candidate = { court_auto_task_culture_anchor_effect = yes }
+                    }
+                }
+            }
+        }
+    }
+    else = {
+        if = { limit = { var:court_auto_task_culture_scope = 3 } set_variable = court_auto_task_culture_exhausted }
+        save_scope_value_as = { name = court_auto_task_culture_no_next value = yes }
+    }
+    remove_variable = court_auto_task_candidate
+}
+
+court_auto_task_culture_consider_effect = {
+    save_scope_as = court_auto_task_county
+    save_scope_as = county
+    title_province = { save_scope_as = province }
+    if = { limit = { scope:court_auto_task_worker = { court_auto_task_culture_eligible_trigger = yes } }
+        scope:court_auto_owner = { set_variable = { name = court_auto_task_candidate value = scope:court_auto_task_county } }
+    }
+}
+
+court_auto_task_control_anchor_effect = {
+    if = { limit = { scope:court_auto_owner = { var:court_auto_task_control_scope = 2 } }
+        if = { limit = { de_jure_liege = { tier = tier_duchy } }
+            de_jure_liege = { save_scope_as = court_auto_task_control_anchor_title } }
+    }
+    if = { limit = { scope:court_auto_owner = { var:court_auto_task_control_scope = 3 } }
+        if = { limit = { de_jure_liege = { tier = tier_kingdom } }
+            de_jure_liege = { save_scope_as = court_auto_task_control_anchor_title } }
+        else_if = { limit = { de_jure_liege = { de_jure_liege = { tier = tier_kingdom } } }
+            de_jure_liege = { de_jure_liege = { save_scope_as = court_auto_task_control_anchor_title } } }
+    }
+    scope:court_auto_owner = {
+        remove_variable = court_auto_task_control_anchor
+        if = { limit = { exists = scope:court_auto_task_control_anchor_title }
+            set_variable = { name = court_auto_task_control_anchor value = scope:court_auto_task_control_anchor_title } }
+    }
+}
+# Preserve active progress and other manual assignments. No task definitions
+# or completion hooks are overridden. Observe the native state monthly.
+court_auto_task_control_check_effect = {
+    if = {
+        limit = { exists = cp:councillor_marshal }
+        cp:councillor_marshal = { save_scope_as = court_auto_task_worker save_scope_as = councillor }
+        if = {
+            limit = { scope:court_auto_task_worker = { is_performing_council_task = task_increase_control NOT = { court_auto_task_control_finished_trigger = yes } } }
+            set_variable = { name = court_auto_task_control_worker value = scope:court_auto_task_worker }
+            if = { limit = { exists = scope:court_auto_task_worker.councillor_task_target }
+                set_variable = { name = court_auto_task_control_target value = scope:court_auto_task_worker.councillor_task_target.county }
+            }
+            if = { limit = { var:court_auto_task_control_scope > 1 has_variable = court_auto_task_control_target }
+                var:court_auto_task_control_target = { court_auto_task_control_anchor_effect = yes }
+            }
+            remove_variable = court_auto_task_control_exhausted
+            remove_variable = court_auto_task_control_manual
+        }
+        else_if = {
+            limit = { scope:court_auto_task_worker = {
+                    exists = council_task
+                    NOR = { is_performing_council_task = task_organize_levies is_performing_council_task = task_increase_control }
+                } }
+            set_variable = { name = court_auto_task_control_worker value = scope:court_auto_task_worker }
+            set_variable = court_auto_task_control_manual
+        }
+        else = {
+            # Keep an observed manual cancellation when a fallback could
+            # otherwise replace the task the player chose.
+            if = { limit = { has_variable = court_auto_task_control_target
+                    NOT = { has_variable = court_auto_memory_enabled }
+                    var:court_auto_task_control_target = { court_auto_task_control_county_completed_trigger = yes }
+                }
+                remove_variable = court_auto_task_control_manual
+            }
+            # A new councillor may resume even if the previous one was paused.
+            if = { limit = { NOT = { var:court_auto_task_control_worker ?= scope:court_auto_task_worker } }
+                remove_variable = court_auto_task_control_worker
+                remove_variable = court_auto_task_control_target
+                remove_variable = court_auto_task_control_manual
+            }
+            # Record a manual assignment even if its county completed before the
+            # first check; 1.4.1 never starts a task from nothing.
+            if = { limit = { scope:court_auto_task_worker = { is_performing_council_task = task_increase_control
+                        exists = councillor_task_target } }
+                set_variable = { name = court_auto_task_control_target value = scope:court_auto_task_worker.councillor_task_target.county }
+                if = { limit = { var:court_auto_task_control_scope > 1 has_variable = court_auto_task_control_target }
+                    var:court_auto_task_control_target = { court_auto_task_control_anchor_effect = yes } }
+            }
+            if = {
+                limit = { has_variable = court_auto_task_control_target NOT = { has_variable = court_auto_task_control_manual }
+                    NOT = { scope:court_auto_task_worker = { is_performing_council_task = task_increase_control } }
+                }
+                var:court_auto_task_control_target = {
+                    save_scope_as = court_auto_task_county
+                    save_scope_as = county
+                    title_province = { save_scope_as = province }
+                }
+                # Returning to the default task while the same target is still
+                # valid is treated conservatively as a manual cancellation.
+                if = { limit = { scope:court_auto_task_worker = { court_auto_task_control_eligible_trigger = yes } } set_variable = court_auto_task_control_manual }
+            }
+            # Only continue a task the player has actually assigned: an existing
+            # target record or the councillor actively performing it.
+            if = { limit = { NOT = { has_variable = court_auto_task_control_manual } NOT = { has_variable = court_auto_task_control_exhausted }
+                    OR = { has_variable = court_auto_task_control_target
+                        scope:court_auto_task_worker = { is_performing_council_task = task_increase_control } } }
+                court_auto_task_control_select_effect = yes }
+        }
+    }
+    else = { remove_variable = court_auto_task_control_worker
+        remove_variable = court_auto_task_control_target
+        remove_variable = court_auto_task_control_manual }
+}
+
+court_auto_task_control_select_effect = {
+    remove_variable = court_auto_task_candidate
+    every_held_title = {
+        limit = { tier = tier_county exists = title_province court_auto_task_control_in_scope_trigger = yes
+            scope:court_auto_owner = { NOT = { has_variable = court_auto_task_candidate } } }
+        court_auto_task_control_consider_effect = yes
+    }
+    if = { limit = { OR = { var:court_auto_task_control_scope = 2 var:court_auto_task_control_scope = 3 } NOT = { has_variable = court_auto_task_candidate } }
+        every_sub_realm_county = {
+            limit = { exists = title_province court_auto_task_control_in_scope_trigger = yes
+                NOT = { holder = scope:court_auto_owner } scope:court_auto_owner = { NOT = { has_variable = court_auto_task_candidate } } }
+            court_auto_task_control_consider_effect = yes
+        }
+    }
+    if = { limit = { has_variable = court_auto_task_candidate }
+        var:court_auto_task_candidate = {
+            save_scope_as = court_auto_task_county
+            save_scope_as = county
+            title_province = { save_scope_as = province }
+        }
+        scope:court_auto_task_worker = {
+            if = { limit = { court_auto_task_control_eligible_trigger = yes }
+                set_council_task = { task_type = task_increase_control target = scope:court_auto_task_county.title_province }
+                if = { limit = { is_performing_council_task = task_increase_control councillor_task_target = scope:court_auto_task_county.title_province }
+                    scope:court_auto_owner = {
+                        set_variable = { name = court_auto_task_control_worker value = scope:court_auto_task_worker }
+                        set_variable = { name = court_auto_task_control_target value = scope:court_auto_task_county }
+                        change_variable = { name = court_auto_last_tasks add = 1 }
+                        var:court_auto_task_candidate = { court_auto_task_control_anchor_effect = yes }
+                    }
+                }
+            }
+        }
+    }
+    else = {
+        if = { limit = { var:court_auto_task_control_scope = 3 } set_variable = court_auto_task_control_exhausted }
+        save_scope_value_as = { name = court_auto_task_control_no_next value = yes }
+    }
+    remove_variable = court_auto_task_candidate
+}
+
+court_auto_task_control_consider_effect = {
+    save_scope_as = court_auto_task_county
+    save_scope_as = county
+    title_province = { save_scope_as = province }
+    if = { limit = { scope:court_auto_task_worker = { court_auto_task_control_eligible_trigger = yes } }
+        scope:court_auto_owner = { set_variable = { name = court_auto_task_candidate value = scope:court_auto_task_county } }
+    }
+}

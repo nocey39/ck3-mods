@@ -1,0 +1,99 @@
+﻿fa_perk_buy_effect = {
+    save_scope_value_as = { name = fa_perk_purchase_balance value = $LIFESTYLE$_lifestyle_perk_points }
+    add_$LIFESTYLE$_lifestyle_perk_points = -1
+    if = {
+        limit = { $LIFESTYLE$_lifestyle_perk_points < scope:fa_perk_purchase_balance }
+        add_perk = $PERK$
+        if = {
+            limit = { NOT = { has_perk = $PERK$ } }
+            add_$LIFESTYLE$_lifestyle_perk_points = 1
+        }
+    }
+}
+
+fa_perk_transfer_effect = {
+    if = {
+        limit = { $FROM$_lifestyle_perk_points > 0 }
+        save_scope_value_as = { name = fa_perk_source_balance value = $FROM$_lifestyle_perk_points }
+        add_$FROM$_lifestyle_perk_points = { value = scope:fa_perk_source_balance multiply = -1 }
+        save_scope_value_as = {
+            name = fa_perk_debited
+            value = { value = scope:fa_perk_source_balance subtract = $FROM$_lifestyle_perk_points }
+        }
+        if = {
+            limit = { scope:fa_perk_debited > 0 }
+            save_scope_value_as = { name = fa_perk_target_balance value = $TO$_lifestyle_perk_points }
+            add_$TO$_lifestyle_perk_points = scope:fa_perk_debited
+            # Return any points the destination did not accept.
+            save_scope_value_as = {
+                name = fa_perk_unplaced
+                value = {
+                    value = scope:fa_perk_debited
+                    add = scope:fa_perk_target_balance
+                    subtract = $TO$_lifestyle_perk_points
+                }
+            }
+            if = {
+                limit = { scope:fa_perk_unplaced > 0 }
+                add_$FROM$_lifestyle_perk_points = scope:fa_perk_unplaced
+            }
+        }
+    }
+}
+
+fa_perk_check_effect = {
+    if = {
+        limit = { is_adult = yes }
+        if = {
+            limit = { has_variable = fa_perk_convert }
+            fa_perk_convert_to_current_effect = yes
+        }
+        if = {
+            limit = { has_variable = fa_perk_follow }
+            fa_perk_spend_focus_effect = yes
+            # A purchase can make room in the target pool if the engine limits it.
+            if = {
+                limit = { has_variable = fa_perk_convert }
+                fa_perk_convert_to_current_effect = yes
+            }
+        }
+    }
+}
+
+fa_perk_invalidate_schedule_effect = {
+    remove_variable = fa_perk_pending
+    if = {
+        limit = { NOT = { has_variable = fa_perk_generation } }
+        set_variable = { name = fa_perk_generation value = 0 }
+    }
+    change_variable = { name = fa_perk_generation add = 1 }
+}
+
+fa_perk_schedule_effect = {
+    if = {
+        limit = { fa_perk_active_trigger = yes NOT = { has_variable = fa_perk_pending } }
+        fa_perk_invalidate_schedule_effect = yes
+        set_variable = { name = fa_perk_pending value = yes days = 45 }
+        save_scope_value_as = { name = fa_perk_ticket value = var:fa_perk_generation }
+        trigger_event = { on_action = fa_perk_scheduled_check months = 1 }
+    }
+}
+
+fa_perk_toggle_effect = {
+    if = {
+        limit = { has_variable = $SETTING$ }
+        remove_variable = $SETTING$
+        if = {
+            limit = { fa_perk_active_trigger = no has_variable = fa_perk_pending }
+            fa_perk_invalidate_schedule_effect = yes
+        }
+    }
+    else = {
+        set_variable = $SETTING$
+        if = {
+            limit = { fa_perk_active_trigger = yes }
+            fa_perk_check_effect = yes
+            fa_perk_schedule_effect = yes
+        }
+    }
+}

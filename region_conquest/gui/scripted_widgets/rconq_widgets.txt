@@ -1,0 +1,1 @@
+﻿gui/rconq_settings.gui = rconq_settings_overlay

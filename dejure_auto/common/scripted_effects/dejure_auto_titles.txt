@@ -1,0 +1,1091 @@
+﻿dejure_auto_titles_pass_effect = {
+    dejure_auto_retention_refresh_effect = yes
+    set_variable = {
+        name = dejure_auto_title_used
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_created
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_granted
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_paid
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_waiting
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_failed
+        value = 0
+    }
+    clear_variable_list = dejure_auto_title_created_list
+    clear_variable_list = dejure_auto_title_granted_list
+    clear_variable_list = dejure_auto_title_waiting_list
+    clear_variable_list = dejure_auto_title_failed_list
+    dejure_auto_feedback_protected_candidates_effect = yes
+    if = {
+        limit = {
+            OR = {
+                var:dejure_auto_grant_county = 1
+                var:dejure_auto_grant_duchy = 1
+                var:dejure_auto_grant_kingdom = 1
+                var:dejure_auto_grant_empire = 1
+            }
+        }
+        every_courtier_or_guest = {
+            limit = {
+                is_alive = yes
+                is_ai = yes
+                is_landed = no
+            }
+            add_to_temporary_list = dejure_auto_title_people
+        }
+        every_vassal_or_below = {
+            limit = {
+                is_alive = yes
+                is_ai = yes
+            }
+            if = {
+                limit = {
+                    is_landed = no
+                }
+                add_to_temporary_list = dejure_auto_title_people
+            }
+            every_courtier = {
+                limit = {
+                    is_alive = yes
+                    is_ai = yes
+                    is_landed = no
+                }
+                add_to_temporary_list = dejure_auto_title_people
+            }
+        }
+    }
+    if = {
+        limit = { var:dejure_auto_create_duchy = 1 }
+        ordered_alert_creatable_title = {
+            order_by = tier
+            check_range_bounds = no
+            limit = {
+                tier = tier_duchy
+                dejure_auto_create_source_trigger = yes
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_create_duchy = 1
+                    var:dejure_auto_title_used < 20
+                    var:dejure_auto_title_created < 5
+                }
+            }
+            dejure_auto_create_duchy_effect = yes
+        }
+    }
+    if = {
+        limit = { var:dejure_auto_create_kingdom = 1 }
+        ordered_alert_creatable_title = {
+            order_by = tier
+            check_range_bounds = no
+            limit = {
+                tier = tier_kingdom
+                dejure_auto_create_source_trigger = yes
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_create_kingdom = 1
+                    var:dejure_auto_title_used < 20
+                    var:dejure_auto_title_created < 5
+                }
+            }
+            dejure_auto_create_kingdom_effect = yes
+        }
+    }
+    if = {
+        limit = { var:dejure_auto_create_empire = 1 }
+        ordered_alert_creatable_title = {
+            order_by = tier
+            check_range_bounds = no
+            limit = {
+                tier = tier_empire
+                dejure_auto_create_source_trigger = yes
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_create_empire = 1
+                    var:dejure_auto_title_used < 20
+                    var:dejure_auto_title_created < 5
+                }
+            }
+            dejure_auto_create_empire_effect = yes
+        }
+    }
+    if = {
+        limit = { var:dejure_auto_grant_duchy = 1 }
+        every_held_title = {
+            limit = {
+                tier = tier_duchy
+                dejure_auto_grant_source_trigger = yes
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_grant_duchy = 1
+                    var:dejure_auto_title_used < 20
+                }
+            }
+            dejure_auto_grant_consider_effect = yes
+        }
+    }
+    if = {
+        limit = { var:dejure_auto_grant_kingdom = 1 }
+        every_held_title = {
+            limit = {
+                tier = tier_kingdom
+                dejure_auto_grant_source_trigger = yes
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_grant_kingdom = 1
+                    var:dejure_auto_title_used < 20
+                }
+            }
+            dejure_auto_grant_consider_effect = yes
+        }
+    }
+    if = {
+        limit = { var:dejure_auto_grant_empire = 1 }
+        every_held_title = {
+            limit = {
+                tier = tier_empire
+                dejure_auto_grant_source_trigger = yes
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_grant_empire = 1
+                    var:dejure_auto_title_used < 20
+                }
+            }
+            dejure_auto_grant_consider_effect = yes
+        }
+    }
+    if = {
+        limit = { var:dejure_auto_grant_county = 1 }
+        every_held_title = {
+            limit = {
+                tier = tier_county
+                dejure_auto_grant_source_trigger = yes
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_grant_county = 1
+                    var:dejure_auto_title_used < 20
+                }
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        any_this_title_or_de_jure_above = {
+                            tier > tier_county
+                            tier < scope:dejure_auto_owner.highest_held_title_tier
+                            holder = scope:dejure_auto_owner
+                            dejure_auto_grant_tier_trigger = yes
+                            dejure_auto_domain_retained_trigger = no
+                        }
+                    }
+                }
+                dejure_auto_grant_consider_effect = yes
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_title_target
+    clear_saved_scope = dejure_auto_title_seat
+    clear_saved_scope = dejure_auto_title_person
+    clear_saved_scope = dejure_auto_title_change
+    clear_saved_scope = dejure_auto_title_candidate
+    clear_saved_scope = dejure_auto_title_checked_county
+    remove_variable = dejure_auto_candidate_valid
+    remove_variable = dejure_auto_candidate_bucket
+    remove_variable = dejure_auto_best_bucket
+    remove_variable = dejure_auto_best_rank
+    remove_variable = dejure_auto_best_strength
+}
+dejure_auto_grant_consider_effect = {
+    save_scope_as = dejure_auto_title_target
+    clear_saved_scope = dejure_auto_title_seat
+    clear_saved_scope = dejure_auto_title_person
+    scope:dejure_auto_owner = {
+        set_variable = {
+            name = dejure_auto_best_bucket
+            value = 99
+        }
+        set_variable = {
+            name = dejure_auto_best_rank
+            value = -1
+        }
+        set_variable = {
+            name = dejure_auto_best_strength
+            value = 999999
+        }
+    }
+    if = {
+        limit = {
+            tier = tier_county
+        }
+        save_scope_as = dejure_auto_title_seat
+        if = {
+            limit = {
+                dejure_auto_title_seat_safe_trigger = no
+            }
+            clear_saved_scope = dejure_auto_title_seat
+        }
+    }
+    else = {
+        scope:dejure_auto_owner = {
+            every_held_title = {
+                limit = {
+                    tier = tier_county
+                    holder = scope:dejure_auto_owner
+                    any_this_title_or_de_jure_above = {
+                        this = scope:dejure_auto_title_target
+                    }
+                    NOT = {
+                        exists = scope:dejure_auto_title_seat
+                    }
+                }
+                save_scope_as = dejure_auto_title_seat
+                if = {
+                    limit = {
+                        dejure_auto_title_seat_safe_trigger = no
+                    }
+                    clear_saved_scope = dejure_auto_title_seat
+                }
+            }
+        }
+    }
+    if = {
+        limit = {
+            exists = scope:dejure_auto_title_seat
+        }
+        every_in_list = {
+            list = dejure_auto_title_people
+            save_scope_as = dejure_auto_title_candidate
+            dejure_auto_pick_direct_effect = yes
+            dejure_auto_pick_house_effect = yes
+            dejure_auto_pick_dynasty_effect = yes
+            dejure_auto_pick_noble_effect = yes
+            dejure_auto_pick_lowborn_effect = yes
+        }
+    }
+    else_if = {
+        limit = {
+            tier > tier_county
+        }
+        scope:dejure_auto_owner = {
+            every_vassal_or_below = {
+                limit = {
+                    dejure_auto_local_person_trigger = yes
+                }
+                save_scope_as = dejure_auto_title_candidate
+                scope:dejure_auto_owner = {
+                    set_variable = {
+                        name = dejure_auto_candidate_bucket
+                        value = 0
+                    }
+                }
+                dejure_auto_rank_local_effect = yes
+            }
+        }
+    }
+    if = {
+        limit = {
+            exists = scope:dejure_auto_title_person
+        }
+        dejure_auto_grant_commit_effect = yes
+    }
+    else = {
+        scope:dejure_auto_owner = {
+            change_variable = {
+                name = dejure_auto_title_waiting
+                add = 1
+            }
+            add_to_variable_list = {
+                name = dejure_auto_title_waiting_list
+                target = scope:dejure_auto_title_target
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_title_target
+    clear_saved_scope = dejure_auto_title_seat
+    clear_saved_scope = dejure_auto_title_person
+    clear_saved_scope = dejure_auto_title_candidate
+}
+dejure_auto_validate_candidate_effect = {
+    save_scope_as = dejure_auto_title_candidate
+    save_scope_as = recipient
+    scope:dejure_auto_owner = {
+        save_scope_as = actor
+        save_scope_as = puppet_or_actor
+    }
+    scope:dejure_auto_title_target = {
+        save_scope_as = target
+    }
+}
+dejure_auto_candidate_qualifies_effect = {
+    dejure_auto_validate_candidate_effect = yes
+    # Match the interaction's selected-title context, including a bundled seat.
+    scope:dejure_auto_title_target = { add_to_temporary_list = target_titles }
+    if = {
+        limit = {
+            exists = scope:dejure_auto_title_seat
+            scope:dejure_auto_title_seat != scope:dejure_auto_title_target
+        }
+        scope:dejure_auto_title_seat = { add_to_temporary_list = target_titles }
+    }
+    scope:dejure_auto_owner = {
+        remove_variable = dejure_auto_candidate_valid
+        if = {
+            limit = {
+                OR = {
+                    AND = {
+                        scope:dejure_auto_owner = {
+                            government_has_mechanic = administrative
+                        }
+                        scope:recipient = {
+                            government_has_mechanic = administrative
+                        }
+                        dejure_auto_grant_native_governorship_is_shown_trigger = yes
+                        dejure_auto_grant_native_governorship_is_valid_showing_failures_only_trigger = yes
+                        dejure_auto_grant_native_governorship_can_send_trigger = yes
+                        dejure_auto_grant_native_governorship_can_be_picked_title_trigger = yes
+                        scope:recipient = {
+                            dejure_auto_grant_native_allowed_trigger = yes
+                        }
+                        is_character_interaction_valid = {
+                            recipient = scope:dejure_auto_title_candidate
+                            interaction = grant_governorship_interaction
+                        }
+                    }
+                    AND = {
+                        NOT = {
+                            scope:dejure_auto_owner = {
+                                government_has_mechanic = administrative
+                            }
+                            scope:recipient = {
+                                government_has_mechanic = administrative
+                            }
+                        }
+                        dejure_auto_grant_native_is_shown_trigger = yes
+                        dejure_auto_grant_native_is_valid_showing_failures_only_trigger = yes
+                        is_character_interaction_valid = {
+                            recipient = scope:dejure_auto_title_candidate
+                            interaction = grant_titles_interaction
+                        }
+                        dejure_auto_grant_native_can_be_picked_title_trigger = yes
+                        dejure_auto_grant_native_can_send_trigger = yes
+                        scope:recipient = {
+                            dejure_auto_grant_native_allowed_trigger = yes
+                        }
+                    }
+                }
+            }
+            set_variable = dejure_auto_candidate_valid
+            if = {
+                limit = {
+                    exists = scope:dejure_auto_title_seat
+                }
+                scope:dejure_auto_title_seat = {
+                    save_scope_as = target
+                }
+                if = {
+                    limit = {
+                        OR = {
+                            AND = {
+                                scope:dejure_auto_owner = {
+                                    government_has_mechanic = administrative
+                                }
+                                scope:recipient = {
+                                    government_has_mechanic = administrative
+                                }
+                                OR = {
+                                    dejure_auto_grant_native_governorship_can_be_picked_title_trigger = no
+                                    dejure_auto_grant_native_governorship_can_send_trigger = no
+                                    scope:recipient = {
+                                        dejure_auto_grant_native_allowed_trigger = no
+                                    }
+                                }
+                            }
+                            AND = {
+                                NOT = {
+                                    scope:dejure_auto_owner = {
+                                        government_has_mechanic = administrative
+                                    }
+                                    scope:recipient = {
+                                        government_has_mechanic = administrative
+                                    }
+                                }
+                                OR = {
+                                    dejure_auto_grant_native_can_be_picked_title_trigger = no
+                                    scope:recipient = {
+                                        dejure_auto_grant_native_allowed_trigger = no
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    remove_variable = dejure_auto_candidate_valid
+                }
+                scope:dejure_auto_title_target = {
+                    save_scope_as = target
+                }
+            }
+        }
+    }
+    scope:dejure_auto_title_target = { remove_from_list = target_titles }
+    if = {
+        limit = {
+            exists = scope:dejure_auto_title_seat
+            scope:dejure_auto_title_seat != scope:dejure_auto_title_target
+        }
+        scope:dejure_auto_title_seat = { remove_from_list = target_titles }
+    }
+}
+dejure_auto_rank_person_effect = {
+    dejure_auto_candidate_qualifies_effect = yes
+    if = {
+        limit = {
+            scope:dejure_auto_owner = {
+                has_variable = dejure_auto_candidate_valid
+            }
+            OR = {
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_candidate_bucket < var:dejure_auto_best_bucket
+                }
+                AND = {
+                    scope:dejure_auto_owner = {
+                        var:dejure_auto_candidate_bucket = var:dejure_auto_best_bucket
+                    }
+                    dejure_auto_person_rank_value > scope:dejure_auto_owner.var:dejure_auto_best_rank
+                }
+            }
+        }
+        save_scope_as = dejure_auto_title_person
+        scope:dejure_auto_owner = {
+            set_variable = {
+                name = dejure_auto_best_bucket
+                value = var:dejure_auto_candidate_bucket
+            }
+            set_variable = {
+                name = dejure_auto_best_rank
+                value = scope:dejure_auto_title_person.dejure_auto_person_rank_value
+            }
+        }
+    }
+}
+dejure_auto_rank_local_effect = {
+    dejure_auto_candidate_qualifies_effect = yes
+    if = {
+        limit = {
+            scope:dejure_auto_owner = {
+                has_variable = dejure_auto_candidate_valid
+            }
+            OR = {
+                dejure_auto_local_strength_value < scope:dejure_auto_owner.var:dejure_auto_best_strength
+                AND = {
+                    dejure_auto_local_strength_value = scope:dejure_auto_owner.var:dejure_auto_best_strength
+                    dejure_auto_person_rank_value > scope:dejure_auto_owner.var:dejure_auto_best_rank
+                }
+            }
+        }
+        save_scope_as = dejure_auto_title_person
+        scope:dejure_auto_owner = {
+            set_variable = {
+                name = dejure_auto_best_strength
+                value = scope:dejure_auto_title_person.dejure_auto_local_strength_value
+            }
+            set_variable = {
+                name = dejure_auto_best_rank
+                value = scope:dejure_auto_title_person.dejure_auto_person_rank_value
+            }
+        }
+    }
+}
+dejure_auto_grant_commit_effect = {
+    scope:dejure_auto_title_person = {
+        dejure_auto_candidate_qualifies_effect = yes
+    }
+    if = {
+        limit = {
+            dejure_auto_grant_source_trigger = yes
+            scope:dejure_auto_owner = {
+                has_variable = dejure_auto_candidate_valid
+                var:dejure_auto_title_used = 19
+            }
+            exists = scope:dejure_auto_title_seat
+            NOT = {
+                this = scope:dejure_auto_title_seat
+            }
+            scope:dejure_auto_title_seat = {
+                dejure_auto_title_seat_safe_trigger = yes
+            }
+            scope:dejure_auto_title_person = {
+                dejure_auto_new_person_trigger = yes
+            }
+        }
+        dejure_auto_feedback_record_limit_effect = yes
+    }
+    if = {
+        limit = {
+            dejure_auto_grant_source_trigger = yes
+            scope:dejure_auto_owner = {
+                has_variable = dejure_auto_candidate_valid
+                var:dejure_auto_title_used < 20
+            }
+            OR = {
+                NOT = {
+                    exists = scope:dejure_auto_title_seat
+                }
+                AND = {
+                    OR = {
+                        this = scope:dejure_auto_title_seat
+                        scope:dejure_auto_owner = {
+                            var:dejure_auto_title_used <= 18
+                        }
+                    }
+                    scope:dejure_auto_title_seat = {
+                        dejure_auto_title_seat_safe_trigger = yes
+                    }
+                    scope:dejure_auto_title_person = {
+                        dejure_auto_new_person_trigger = yes
+                    }
+                }
+            }
+        }
+        create_title_and_vassal_change = {
+            type = granted
+            save_scope_as = dejure_auto_title_change
+            add_claim_on_loss = no
+        }
+        if = {
+            limit = {
+                exists = scope:dejure_auto_title_seat
+            }
+            scope:dejure_auto_title_seat = {
+                change_title_holder = {
+                    holder = scope:dejure_auto_title_person
+                    change = scope:dejure_auto_title_change
+                    take_baronies = no
+                }
+                every_county_province = {
+                    limit = {
+                        exists = barony.holder
+                    }
+                    barony.holder = {
+                        if = {
+                            limit = {
+                                highest_held_title_tier = tier_barony
+                                is_ai = yes
+                                primary_title.de_jure_liege = scope:dejure_auto_title_seat
+                                is_vassal_or_below_of = scope:dejure_auto_owner
+                                dejure_auto_force_protected_trigger = no
+                                dejure_auto_force_player_branch_trigger = no
+                            }
+                            change_liege = {
+                                liege = scope:dejure_auto_title_person
+                                change = scope:dejure_auto_title_change
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                OR = {
+                    NOT = {
+                        exists = scope:dejure_auto_title_seat
+                    }
+                    NOT = {
+                        this = scope:dejure_auto_title_seat
+                    }
+                }
+            }
+            change_title_holder = {
+                holder = scope:dejure_auto_title_person
+                change = scope:dejure_auto_title_change
+                take_baronies = no
+            }
+        }
+        scope:dejure_auto_title_person = {
+            if = {
+                limit = {
+                    OR = {
+                        is_landed = no
+                        liege = {
+                            highest_held_title_tier <= scope:dejure_auto_title_target.tier
+                        }
+                    }
+                }
+                change_liege = {
+                    liege = scope:dejure_auto_owner
+                    change = scope:dejure_auto_title_change
+                }
+            }
+        }
+        resolve_title_and_vassal_change = scope:dejure_auto_title_change
+        clear_saved_scope = dejure_auto_title_change
+        if = {
+            limit = {
+                holder = scope:dejure_auto_title_person
+                OR = {
+                    NOT = {
+                        exists = scope:dejure_auto_title_seat
+                    }
+                    scope:dejure_auto_title_seat = {
+                        holder = scope:dejure_auto_title_person
+                    }
+                }
+            }
+            scope:dejure_auto_owner = {
+                change_variable = {
+                    name = dejure_auto_title_granted
+                    add = 1
+                }
+                change_variable = {
+                    name = dejure_auto_title_used
+                    add = 1
+                }
+                add_to_variable_list = {
+                    name = dejure_auto_title_granted_list
+                    target = scope:dejure_auto_title_target
+                }
+                if = {
+                    limit = {
+                        exists = scope:dejure_auto_title_seat
+                        NOT = {
+                            scope:dejure_auto_title_target = scope:dejure_auto_title_seat
+                        }
+                    }
+                    change_variable = {
+                        name = dejure_auto_title_used
+                        add = 1
+                    }
+                    add_to_variable_list = {
+                        name = dejure_auto_title_granted_list
+                        target = scope:dejure_auto_title_seat
+                    }
+                }
+            }
+        }
+        else = {
+            scope:dejure_auto_owner = {
+                change_variable = {
+                    name = dejure_auto_title_failed
+                    add = 1
+                }
+                add_to_variable_list = {
+                    name = dejure_auto_title_failed_list
+                    target = scope:dejure_auto_title_target
+                }
+                set_variable = {
+                    name = dejure_auto_title_used
+                    value = 20
+                }
+            }
+            dejure_auto_feedback_record_unconfirmed_effect = yes
+        }
+    }
+    scope:dejure_auto_owner = {
+        remove_variable = dejure_auto_candidate_valid
+    }
+}
+dejure_auto_create_duchy_effect = {
+    save_scope_as = dejure_auto_title_target
+    if = {
+        limit = {
+            dejure_auto_create_source_trigger = yes
+            scope:dejure_auto_owner = {
+                var:dejure_auto_create_duchy = 1
+                var:dejure_auto_title_used < 20
+                var:dejure_auto_title_created < 5
+                NOT = {
+                    treasury_or_gold >= dejure_auto_create_duchy_cost_value
+                    treasury_or_gold >= {
+                        value = dejure_auto_create_duchy_cost_value
+                        add = var:dejure_auto_title_reserve
+                    }
+                }
+            }
+        }
+        dejure_auto_feedback_record_funds_effect = yes
+    }
+    if = {
+        limit = {
+            dejure_auto_create_source_trigger = yes
+            scope:dejure_auto_owner = {
+                var:dejure_auto_create_duchy = 1
+                var:dejure_auto_title_used < 20
+                var:dejure_auto_title_created < 5
+                treasury_or_gold >= dejure_auto_create_duchy_cost_value
+                treasury_or_gold >= {
+                    value = dejure_auto_create_duchy_cost_value
+                    add = var:dejure_auto_title_reserve
+                }
+            }
+        }
+        scope:dejure_auto_owner = {
+            save_scope_value_as = {
+                name = dejure_auto_creation_charge
+                value = dejure_auto_create_duchy_cost_value
+            }
+            save_scope_value_as = {
+                name = dejure_auto_creation_treasury
+                value = {
+                    value = 0
+                    if = {
+                        limit = { has_treasury = yes government_allows = replace_gold_cost_by_treasury }
+                        value = 1
+                    }
+                }
+            }
+        }
+        create_title_and_vassal_change = {
+            type = created
+            save_scope_as = dejure_auto_title_change
+            add_claim_on_loss = no
+        }
+        change_title_holder = {
+            holder = scope:dejure_auto_owner
+            change = scope:dejure_auto_title_change
+            take_baronies = no
+        }
+        resolve_title_and_vassal_change = scope:dejure_auto_title_change
+        clear_saved_scope = dejure_auto_title_change
+        if = {
+            limit = {
+                holder = scope:dejure_auto_owner
+            }
+            scope:dejure_auto_owner = {
+                if = {
+                    limit = { scope:dejure_auto_creation_treasury = 1 }
+                    remove_treasury = scope:dejure_auto_creation_charge
+                }
+                else = {
+                    add_gold = { value = scope:dejure_auto_creation_charge multiply = -1 }
+                }
+                change_variable = {
+                    name = dejure_auto_title_paid
+                    add = scope:dejure_auto_creation_charge
+                }
+                change_variable = {
+                    name = dejure_auto_title_created
+                    add = 1
+                }
+                change_variable = {
+                    name = dejure_auto_title_used
+                    add = 1
+                }
+                add_to_variable_list = {
+                    name = dejure_auto_title_created_list
+                    target = scope:dejure_auto_title_target
+                }
+            }
+        }
+        else = {
+            dejure_auto_feedback_record_unconfirmed_effect = yes
+        }
+    }
+    clear_saved_scope = dejure_auto_creation_charge
+    clear_saved_scope = dejure_auto_creation_treasury
+    clear_saved_scope = dejure_auto_title_target
+}
+dejure_auto_create_kingdom_effect = {
+    save_scope_as = dejure_auto_title_target
+    if = {
+        limit = {
+            dejure_auto_create_source_trigger = yes
+            scope:dejure_auto_owner = {
+                var:dejure_auto_create_kingdom = 1
+                var:dejure_auto_title_used < 20
+                var:dejure_auto_title_created < 5
+                NOT = {
+                    treasury_or_gold >= dejure_auto_create_kingdom_cost_value
+                    treasury_or_gold >= {
+                        value = dejure_auto_create_kingdom_cost_value
+                        add = var:dejure_auto_title_reserve
+                    }
+                }
+            }
+        }
+        dejure_auto_feedback_record_funds_effect = yes
+    }
+    if = {
+        limit = {
+            dejure_auto_create_source_trigger = yes
+            scope:dejure_auto_owner = {
+                var:dejure_auto_create_kingdom = 1
+                var:dejure_auto_title_used < 20
+                var:dejure_auto_title_created < 5
+                treasury_or_gold >= dejure_auto_create_kingdom_cost_value
+                treasury_or_gold >= {
+                    value = dejure_auto_create_kingdom_cost_value
+                    add = var:dejure_auto_title_reserve
+                }
+            }
+        }
+        scope:dejure_auto_owner = {
+            save_scope_value_as = {
+                name = dejure_auto_creation_charge
+                value = dejure_auto_create_kingdom_cost_value
+            }
+            save_scope_value_as = {
+                name = dejure_auto_creation_treasury
+                value = {
+                    value = 0
+                    if = {
+                        limit = { has_treasury = yes government_allows = replace_gold_cost_by_treasury }
+                        value = 1
+                    }
+                }
+            }
+        }
+        create_title_and_vassal_change = {
+            type = created
+            save_scope_as = dejure_auto_title_change
+            add_claim_on_loss = no
+        }
+        change_title_holder = {
+            holder = scope:dejure_auto_owner
+            change = scope:dejure_auto_title_change
+            take_baronies = no
+        }
+        resolve_title_and_vassal_change = scope:dejure_auto_title_change
+        clear_saved_scope = dejure_auto_title_change
+        if = {
+            limit = {
+                holder = scope:dejure_auto_owner
+            }
+            scope:dejure_auto_owner = {
+                if = {
+                    limit = { scope:dejure_auto_creation_treasury = 1 }
+                    remove_treasury = scope:dejure_auto_creation_charge
+                }
+                else = {
+                    add_gold = { value = scope:dejure_auto_creation_charge multiply = -1 }
+                }
+                change_variable = {
+                    name = dejure_auto_title_paid
+                    add = scope:dejure_auto_creation_charge
+                }
+                change_variable = {
+                    name = dejure_auto_title_created
+                    add = 1
+                }
+                change_variable = {
+                    name = dejure_auto_title_used
+                    add = 1
+                }
+                add_to_variable_list = {
+                    name = dejure_auto_title_created_list
+                    target = scope:dejure_auto_title_target
+                }
+            }
+        }
+        else = {
+            dejure_auto_feedback_record_unconfirmed_effect = yes
+        }
+    }
+    clear_saved_scope = dejure_auto_creation_charge
+    clear_saved_scope = dejure_auto_creation_treasury
+    clear_saved_scope = dejure_auto_title_target
+}
+dejure_auto_create_empire_effect = {
+    save_scope_as = dejure_auto_title_target
+    if = {
+        limit = {
+            dejure_auto_create_source_trigger = yes
+            scope:dejure_auto_owner = {
+                var:dejure_auto_create_empire = 1
+                var:dejure_auto_title_used < 20
+                var:dejure_auto_title_created < 5
+                NOT = {
+                    treasury_or_gold >= dejure_auto_create_empire_cost_value
+                    treasury_or_gold >= {
+                        value = dejure_auto_create_empire_cost_value
+                        add = var:dejure_auto_title_reserve
+                    }
+                }
+            }
+        }
+        dejure_auto_feedback_record_funds_effect = yes
+    }
+    if = {
+        limit = {
+            dejure_auto_create_source_trigger = yes
+            scope:dejure_auto_owner = {
+                var:dejure_auto_create_empire = 1
+                var:dejure_auto_title_used < 20
+                var:dejure_auto_title_created < 5
+                treasury_or_gold >= dejure_auto_create_empire_cost_value
+                treasury_or_gold >= {
+                    value = dejure_auto_create_empire_cost_value
+                    add = var:dejure_auto_title_reserve
+                }
+            }
+        }
+        scope:dejure_auto_owner = {
+            save_scope_value_as = {
+                name = dejure_auto_creation_charge
+                value = dejure_auto_create_empire_cost_value
+            }
+            save_scope_value_as = {
+                name = dejure_auto_creation_treasury
+                value = {
+                    value = 0
+                    if = {
+                        limit = { has_treasury = yes government_allows = replace_gold_cost_by_treasury }
+                        value = 1
+                    }
+                }
+            }
+        }
+        create_title_and_vassal_change = {
+            type = created
+            save_scope_as = dejure_auto_title_change
+            add_claim_on_loss = no
+        }
+        change_title_holder = {
+            holder = scope:dejure_auto_owner
+            change = scope:dejure_auto_title_change
+            take_baronies = no
+        }
+        resolve_title_and_vassal_change = scope:dejure_auto_title_change
+        clear_saved_scope = dejure_auto_title_change
+        if = {
+            limit = {
+                holder = scope:dejure_auto_owner
+            }
+            scope:dejure_auto_owner = {
+                if = {
+                    limit = { scope:dejure_auto_creation_treasury = 1 }
+                    remove_treasury = scope:dejure_auto_creation_charge
+                }
+                else = {
+                    add_gold = { value = scope:dejure_auto_creation_charge multiply = -1 }
+                }
+                change_variable = {
+                    name = dejure_auto_title_paid
+                    add = scope:dejure_auto_creation_charge
+                }
+                change_variable = {
+                    name = dejure_auto_title_created
+                    add = 1
+                }
+                change_variable = {
+                    name = dejure_auto_title_used
+                    add = 1
+                }
+                add_to_variable_list = {
+                    name = dejure_auto_title_created_list
+                    target = scope:dejure_auto_title_target
+                }
+            }
+        }
+        else = {
+            dejure_auto_feedback_record_unconfirmed_effect = yes
+        }
+    }
+    clear_saved_scope = dejure_auto_creation_charge
+    clear_saved_scope = dejure_auto_creation_treasury
+    clear_saved_scope = dejure_auto_title_target
+}
+dejure_auto_pick_direct_effect = {
+    if = {
+        limit = {
+            dejure_auto_new_person_trigger = yes
+            dejure_auto_direct_relative_trigger = yes
+            scope:dejure_auto_owner = {
+                var:dejure_auto_people_direct = 1
+                var:dejure_auto_best_bucket >= 0
+            }
+        }
+        scope:dejure_auto_owner = {
+            set_variable = {
+                name = dejure_auto_candidate_bucket
+                value = 0
+            }
+        }
+        dejure_auto_rank_person_effect = yes
+    }
+}
+dejure_auto_pick_house_effect = {
+    if = {
+        limit = {
+            dejure_auto_new_person_trigger = yes
+            exists = house
+            exists = scope:dejure_auto_owner.house
+            house = scope:dejure_auto_owner.house
+            scope:dejure_auto_owner = {
+                var:dejure_auto_people_house = 1
+                var:dejure_auto_best_bucket >= 1
+            }
+        }
+        scope:dejure_auto_owner = {
+            set_variable = {
+                name = dejure_auto_candidate_bucket
+                value = 1
+            }
+        }
+        dejure_auto_rank_person_effect = yes
+    }
+}
+dejure_auto_pick_dynasty_effect = {
+    if = {
+        limit = {
+            dejure_auto_new_person_trigger = yes
+            exists = dynasty
+            exists = scope:dejure_auto_owner.dynasty
+            dynasty = scope:dejure_auto_owner.dynasty
+            scope:dejure_auto_owner = {
+                var:dejure_auto_people_dynasty = 1
+                var:dejure_auto_best_bucket >= 2
+            }
+        }
+        scope:dejure_auto_owner = {
+            set_variable = {
+                name = dejure_auto_candidate_bucket
+                value = 2
+            }
+        }
+        dejure_auto_rank_person_effect = yes
+    }
+}
+dejure_auto_pick_noble_effect = {
+    if = {
+        limit = {
+            dejure_auto_new_person_trigger = yes
+            exists = house
+            scope:dejure_auto_owner = {
+                var:dejure_auto_people_noble = 1
+                var:dejure_auto_best_bucket >= 3
+            }
+        }
+        scope:dejure_auto_owner = {
+            set_variable = {
+                name = dejure_auto_candidate_bucket
+                value = 3
+            }
+        }
+        dejure_auto_rank_person_effect = yes
+    }
+}
+dejure_auto_pick_lowborn_effect = {
+    if = {
+        limit = {
+            dejure_auto_new_person_trigger = yes
+            NOT = {
+                exists = house
+            }
+            scope:dejure_auto_owner = {
+                var:dejure_auto_people_lowborn = 1
+                var:dejure_auto_best_bucket >= 4
+            }
+        }
+        scope:dejure_auto_owner = {
+            set_variable = {
+                name = dejure_auto_candidate_bucket
+                value = 4
+            }
+        }
+        dejure_auto_rank_person_effect = yes
+    }
+}

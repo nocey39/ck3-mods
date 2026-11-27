@@ -1,0 +1,13 @@
+﻿dejure_auto_retention_owned_value = {
+    value = 0 if = { limit = { holder = scope:dejure_auto_owner } add = 1 }
+}
+dejure_auto_retention_count_value = {
+    value = 0 every_de_jure_county = {
+        limit = { dejure_auto_map_county_trigger = yes holder = scope:dejure_auto_owner }
+        add = 1 }
+}
+dejure_auto_retention_development_value = {
+    value = 0 every_de_jure_county = {
+        limit = { dejure_auto_map_county_trigger = yes holder = scope:dejure_auto_owner }
+        add = development_level }
+}

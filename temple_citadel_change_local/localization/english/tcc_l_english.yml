@@ -1,0 +1,13 @@
+﻿l_english:
+ tcc_reform_realm_decision:0 "Player Realm: Reform"
+ tcc_reform_realm_decision_desc:0 "Convert temple citadels in your domain and all vassal realms to castles, and remove buildings marked as Mandala capitals there. The game removes buildings that are incompatible with castles when it converts a holding.\n\nFree and immediate. This decision does not explicitly change ruler governments."
+ tcc_reform_realm_decision_tooltip:0 "Reform temple citadels and remove Mandala great buildings throughout your realm."
+ tcc_reform_realm_decision_confirm:0 "Reform My Realm"
+ tcc_reform_realm_decision_valid_tt:0 "Your realm contains at least one temple citadel or Mandala great building."
+ tcc_reform_realm_decision_effect_tt:0 "Temple citadels in your domain and all vassal realms become castles, and Mandala great buildings there are removed."
+ tcc_reform_world_decision:0 "Whole Map: Reform"
+ tcc_reform_world_decision_desc:0 "Convert all temple citadels on the map to castles, remove buildings marked as Mandala capitals, change every landed Mandala ruler present before this action to Feudal government, and change every initially landed Wanua ruler to Tribal government. The game removes buildings that are incompatible with castles when it converts a holding.\n\nIncludes players, independent rulers, and all vassal tiers. Free and immediate."
+ tcc_reform_world_decision_tooltip:0 "Reform all temple citadels, remove Mandala great buildings, make Mandala rulers Feudal, and make Wanua rulers Tribal worldwide."
+ tcc_reform_world_decision_confirm:0 "Reform the Whole Map"
+ tcc_reform_world_decision_valid_tt:0 "The map contains at least one temple citadel, Mandala great building, or landed Mandala or Wanua ruler."
+ tcc_reform_world_decision_effect_tt:0 "All temple citadels become castles, all Mandala great buildings are removed, every initially landed Mandala ruler becomes Feudal, and every initially landed Wanua ruler becomes Tribal."

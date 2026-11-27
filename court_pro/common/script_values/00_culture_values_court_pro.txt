@@ -1,0 +1,47 @@
+﻿# Load immediately after vanilla 00_culture_values.txt, before council task values.
+# 1900% is an additive bonus: base + bonus = 20x the base effect.
+# These two names are mod-specific configuration values.
+court_pro_player_aptitude_bonus = 500
+court_pro_player_councillor_bonus_percentage = 1900
+# Called in the court employee/candidate's character scope, not council scope.
+court_position_aptitude_family_business_value = {
+	value = 0
+	if = {
+		limit = {
+			trigger_if = {
+				limit = { exists = employer }
+				employer = { is_ai = no }
+			}
+			trigger_else = {
+				liege_or_court_owner ?= { is_ai = no }
+			}
+		}
+		add = {
+			value = court_pro_player_aptitude_bonus
+			desc = court_pro_player_aptitude_bonus_desc
+		}
+	}
+	# Preserve the current vanilla Family Business bonus, including for AI.
+	if = {
+		limit = {
+			liege.culture ?= { has_cultural_parameter = close_family_better_court_positions }
+			is_close_family_of = liege
+		}
+		add = {
+			value = 20
+			desc = tradition_family_entrepreneurship_name
+		}
+	}
+}
+
+# Called with councillor_liege saved by vanilla council task calculations.
+family_business_councillors_percentage = {
+	value = 10
+	if = {
+		limit = {
+			exists = scope:councillor_liege
+			scope:councillor_liege = { is_ai = no }
+		}
+		value = court_pro_player_councillor_bonus_percentage
+	}
+}

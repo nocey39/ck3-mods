@@ -1,0 +1,13 @@
+﻿l_simp_chinese:
+ dejure_auto_map_probe_open_label:0 "地图读取验证"
+ dejure_auto_map_probe_open_help:0 "只读验证：点选地图伯爵领后，尝试读取地产窗口并回传法理公国。只保存测试读数，不改变自动化、额外公国、头衔、金币或驻扎。"
+ dejure_auto_map_probe_title:0 "地图选地 · 只读验证"
+ dejure_auto_map_probe_instructions:0 "保持游戏暂停。在地图点一个伯爵领，保留左下地产面板，点“记录当前选中地区”。再点另一个公国的伯爵领重复一次。"
+ dejure_auto_map_probe_current:0 "当前地产面板：[HoldingView.GetCountyTitle.GetName]"
+ dejure_auto_map_probe_no_view:0 "请先在地图上点击伯爵领，打开地产面板"
+ dejure_auto_map_probe_record:0 "记录当前选中地区（不作任何分配）"
+ dejure_auto_map_probe_records:0 "已记录：[GetPlayer.MakeScope.Var('dejure_auto_map_probe_records').GetValue|0] 次"
+ dejure_auto_map_probe_county:0 "脚本收到伯爵领：[GetPlayer.MakeScope.Var('dejure_auto_map_probe_county').Title.GetName]"
+ dejure_auto_map_probe_duchy:0 "脚本识别法理公国：[GetPlayer.MakeScope.Var('dejure_auto_map_probe_duchy').Title.GetName]"
+ dejure_auto_map_probe_no_duchy:0 "该伯爵领没有法理公国"
+ dejure_auto_map_probe_back:0 "返回助手设置"

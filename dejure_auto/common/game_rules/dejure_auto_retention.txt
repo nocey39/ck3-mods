@@ -1,0 +1,5 @@
+dejure_auto_preset_domain_keep = { categories = { dejure_auto_presets }
+    default = dejure_auto_preset_domain_keep_1
+    dejure_auto_preset_domain_keep_0 = { }
+    dejure_auto_preset_domain_keep_1 = { }
+}

@@ -1,0 +1,12 @@
+﻿l_english:
+ unlock_all_dynasty_legacies:0 "Unlock All Dynasty Legacies"
+ unlock_all_dynasty_legacies_desc:0 "Unlock the missing legacies of your dynasty and choose any required traits in the events that follow. You may choose later and reopen the decision.\n\nThis keeps your Renown balance. The engine counts reimbursed Renown toward your Level of Splendor."
+ unlock_all_dynasty_legacies_tooltip:0 "Unlock the legacies from your owned DLC. The full catalog has 24 tracks and 120 perks. The decision stays available while a perk or trait choice is missing."
+ unlock_all_dynasty_legacies_confirm:0 "Unlock Everything"
+ adl_unlock_effect_tt:0 "Unlock available legacies and open any pending trait choice. The Renown balance is preserved. Reimbursements increase Splendor progress."
+ adl_choose_trait_desc:0 "Choose the trait for this legacy. A previous choice is kept. You may defer and return to the decision later."
+ adl_choose_later:0 "Choose later"
+ adl_renown_recovery:0 "Clear legacy purchase debt"
+ adl_renown_recovery_desc:0 "If a previous version of this mod left your dynasty with negative Renown, you can raise the balance to zero once. The original balance cannot be retrieved by this decision. The refunded amount counts toward your Level of Splendor."
+ adl_renown_recovery_tooltip:0 "Raise negative Renown to zero once. This increases Splendor progress."
+ adl_renown_recovery_confirm:0 "Clear the negative balance"

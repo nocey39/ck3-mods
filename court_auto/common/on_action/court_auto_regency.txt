@@ -1,0 +1,17 @@
+﻿# One daily chain per player. Native interaction validation includes cooldown.
+on_game_start_after_lobby = { on_actions = { court_auto_regency_resume } }
+court_auto_regency_resume = {
+    effect = {
+        every_player = {
+            limit = { court_auto_regency_active_trigger = yes }
+            court_auto_regency_schedule_effect = yes
+        }
+    }
+}
+court_auto_regency_daily_check = {
+    effect = {
+        remove_variable = court_auto_regency_daily_pending
+        court_auto_regency_check_effect = yes
+        court_auto_regency_schedule_effect = yes
+    }
+}

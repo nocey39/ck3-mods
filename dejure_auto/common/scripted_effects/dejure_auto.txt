@@ -1,0 +1,338 @@
+﻿dejure_auto_initialize_effect = {
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_configured
+            }
+        }
+        set_variable = dejure_auto_configured
+        set_variable = {
+            name = dejure_auto_generation
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_last_moved
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_last_seen
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_last_kept
+            value = 0
+        }
+    }
+    # A script error in an earlier pass can leave the reentrancy guard behind.
+    remove_variable = dejure_auto_running
+    dejure_auto_preferences_initialize_effect = yes
+    dejure_auto_retire_keep_effect = yes
+}
+dejure_auto_check_effect = {
+    if = {
+        limit = {
+            dejure_auto_active_trigger = yes
+            NOT = {
+                has_variable = dejure_auto_running
+            }
+        }
+        dejure_auto_preferences_initialize_effect = yes
+        dejure_auto_retire_keep_effect = yes
+        set_variable = dejure_auto_running
+        save_scope_as = dejure_auto_owner
+        set_variable = {
+            name = dejure_auto_last_moved
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_last_seen
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_last_kept
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_last_taken
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_left_counties
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_left_people
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_unassigned
+            value = 0
+        }
+        set_variable = {
+            name = dejure_auto_conflicts
+            value = 0
+        }
+        dejure_auto_reset_report_effect = yes
+        dejure_auto_titles_pass_effect = yes
+        dejure_auto_unify_pass_effect = yes
+        every_vassal = {
+            limit = {
+                highest_held_title_tier > tier_barony
+                is_landed = yes
+            }
+            add_to_temporary_list = dejure_auto_candidates
+            scope:dejure_auto_owner = {
+                change_variable = {
+                    name = dejure_auto_last_seen
+                    add = 1
+                }
+            }
+            if = {
+                limit = {
+                    has_variable = dejure_auto_keep_for
+                    var:dejure_auto_keep_for = scope:dejure_auto_owner
+                }
+                scope:dejure_auto_owner = {
+                    change_variable = {
+                        name = dejure_auto_last_kept
+                        add = 1
+                    }
+                }
+            }
+        }
+        if = {
+            limit = {
+                var:dejure_auto_mode = 0
+            }
+            every_in_list = {
+                list = dejure_auto_candidates
+                limit = {
+                    highest_held_title_tier = tier_county
+                    scope:dejure_auto_owner = {
+                        var:dejure_auto_last_moved < 50
+                    }
+                    dejure_auto_tier_selected_trigger = yes
+                }
+                dejure_auto_consider_effect = yes
+            }
+            every_in_list = {
+                list = dejure_auto_candidates
+                limit = {
+                    highest_held_title_tier = tier_duchy
+                    scope:dejure_auto_owner = {
+                        var:dejure_auto_last_moved < 50
+                    }
+                    dejure_auto_tier_selected_trigger = yes
+                }
+                dejure_auto_consider_effect = yes
+            }
+            every_in_list = {
+                list = dejure_auto_candidates
+                limit = {
+                    highest_held_title_tier = tier_kingdom
+                    scope:dejure_auto_owner = {
+                        var:dejure_auto_last_moved < 50
+                    }
+                    dejure_auto_tier_selected_trigger = yes
+                }
+                dejure_auto_consider_effect = yes
+            }
+            every_in_list = {
+                list = dejure_auto_candidates
+                limit = {
+                    highest_held_title_tier = tier_empire
+                    scope:dejure_auto_owner = {
+                        var:dejure_auto_last_moved < 50
+                    }
+                    dejure_auto_tier_selected_trigger = yes
+                }
+                dejure_auto_consider_effect = yes
+            }
+            if = {
+                limit = {
+                    var:dejure_auto_distribute_domain = 1
+                }
+                dejure_auto_domain_normal_effect = yes
+            }
+        }
+        else_if = {
+            limit = {
+                var:dejure_auto_mode = 1
+            }
+            dejure_auto_force_check_effect = yes
+        }
+        dejure_auto_feedback_finalize_effect = yes
+        set_variable = dejure_auto_checked
+        remove_variable = dejure_auto_running
+        clear_saved_scope = dejure_auto_owner
+    }
+}
+dejure_auto_consider_effect = {
+    save_scope_as = dejure_auto_subject
+    if = {
+        limit = {
+            dejure_auto_subject_trigger = yes
+        }
+        primary_title.de_jure_liege.holder = {
+            save_scope_as = dejure_auto_recipient
+        }
+        scope:dejure_auto_owner = {
+            save_scope_as = actor
+            save_scope_as = puppet_or_actor
+        }
+        save_scope_as = secondary_actor
+        scope:dejure_auto_recipient = {
+            save_scope_as = recipient
+        }
+        scope:dejure_auto_owner = {
+            if = {
+                limit = {
+                    dejure_auto_native_is_shown_trigger = yes
+                    dejure_auto_native_is_valid_showing_failures_only_trigger = yes
+                    is_character_interaction_valid = {
+                        recipient = scope:dejure_auto_recipient
+                        interaction = grant_vassal_interaction
+                    }
+                    scope:dejure_auto_subject = {
+                        dejure_auto_subject_trigger = yes
+                        dejure_auto_native_can_be_picked_trigger = yes
+                    }
+                }
+                dejure_auto_transfer_effect = yes
+            }
+        }
+        clear_saved_scope = actor
+        clear_saved_scope = puppet_or_actor
+        clear_saved_scope = recipient
+        clear_saved_scope = secondary_actor
+    }
+    clear_saved_scope = dejure_auto_recipient
+    clear_saved_scope = dejure_auto_subject
+}
+dejure_auto_transfer_effect = {
+    create_title_and_vassal_change = {
+        type = granted
+        save_scope_as = dejure_auto_change
+        add_claim_on_loss = no
+    }
+    scope:dejure_auto_subject = {
+        change_liege = {
+            liege = scope:dejure_auto_recipient
+            change = scope:dejure_auto_change
+        }
+    }
+    resolve_title_and_vassal_change = scope:dejure_auto_change
+    clear_saved_scope = dejure_auto_change
+    if = {
+        limit = {
+            scope:dejure_auto_subject = {
+                liege = scope:dejure_auto_recipient
+            }
+        }
+        change_variable = {
+            name = dejure_auto_last_moved
+            add = 1
+        }
+        scope:dejure_auto_recipient = {
+            add_opinion = {
+                target = scope:dejure_auto_owner
+                modifier = granted_vassal
+            }
+        }
+        add_clan_unity_interaction_effect = {
+            CHARACTER = scope:dejure_auto_owner
+            TARGET = scope:dejure_auto_recipient
+            VALUE = miniscule_unity_gain
+            DESC = clan_unity_grant_vassal.desc
+            REVERSE_NON_HOUSE_TARGET = yes
+        }
+    }
+    else = {
+        scope:dejure_auto_subject.primary_title = {
+            dejure_auto_feedback_record_unconfirmed_effect = yes
+        }
+    }
+}
+dejure_auto_schedule_effect = {
+    if = {
+        limit = {
+            dejure_auto_active_trigger = yes
+            NOT = {
+                has_variable = dejure_auto_pending
+            }
+        }
+        change_variable = {
+            name = dejure_auto_generation
+            add = 1
+        }
+        set_variable = dejure_auto_pending
+        save_scope_value_as = {
+            name = dejure_auto_ticket
+            value = var:dejure_auto_generation
+        }
+        trigger_event = {
+            on_action = dejure_auto_monthly_check
+            months = 1
+        }
+    }
+}
+dejure_auto_restart_effect = {
+    dejure_auto_initialize_effect = yes
+    remove_variable = dejure_auto_pending
+    change_variable = {
+        name = dejure_auto_generation
+        add = 1
+    }
+    dejure_auto_schedule_effect = yes
+}
+dejure_auto_inherit_effect = {
+    dejure_auto_initialize_effect = yes
+    remove_variable = dejure_auto_enabled
+    remove_variable = dejure_auto_panel_open
+    remove_variable = dejure_auto_running
+    remove_variable = dejure_auto_checked
+    set_variable = {
+        name = dejure_auto_last_moved
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_last_seen
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_last_kept
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_enabled
+            }
+        }
+        set_variable = dejure_auto_enabled
+    }
+    save_scope_as = dejure_auto_owner
+    clear_saved_scope = dejure_auto_owner
+    dejure_auto_preferences_inherit_effect = yes
+    set_variable = {
+        name = dejure_auto_last_taken
+        value = 0
+    }
+    dejure_auto_restart_effect = yes
+    save_scope_value_as = {
+        name = dejure_auto_succession_ticket
+        value = var:dejure_auto_generation
+    }
+    trigger_event = {
+        on_action = dejure_auto_succession_check
+        days = 1
+    }
+}
+dejure_auto_retire_keep_effect = {
+    every_vassal_or_below = {
+        limit = {
+            has_variable = dejure_auto_keep_for
+        }
+        remove_variable = dejure_auto_keep_for
+    }
+}

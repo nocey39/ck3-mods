@@ -1,0 +1,110 @@
+﻿# The game uses this shared flag for every Mandala capital building tier.
+tcc_district_has_mandala_building_trigger = {
+    any_district_building = {
+        include_inactive = yes
+        has_building_flag = mandala_capital_building
+    }
+}
+
+tcc_district_has_mandala_primary_trigger = {
+    any_district_building = {
+        include_inactive = yes
+        is_primary_building = yes
+        has_building_flag = mandala_capital_building
+    }
+}
+
+tcc_mandala_great_district_trigger = {
+    OR = {
+        # A vanilla ruin may have no readable primary building.
+        district_type = district_type:mandala_capital_01_district
+        tcc_district_has_mandala_primary_trigger = yes
+    }
+}
+
+# Province scope, including inactive districts and the original great district ruin.
+tcc_has_mandala_capital_trigger = {
+    OR = {
+        province_has_district = mandala_capital_01_district
+        great_district ?= {
+            OR = {
+                tcc_mandala_great_district_trigger = yes
+                tcc_district_has_mandala_building_trigger = yes
+            }
+        }
+        any_built_regular_district = {
+            include_inactive = yes
+            tcc_district_has_mandala_building_trigger = yes
+        }
+        holding_district ?= {
+            any_district_building = {
+                include_inactive = yes
+                is_primary_building = no
+                has_building_flag = mandala_capital_building
+            }
+        }
+        special_district ?= { tcc_district_has_mandala_building_trigger = yes }
+        duchy_capital_district ?= { tcc_district_has_mandala_building_trigger = yes }
+        resource_district ?= { tcc_district_has_mandala_building_trigger = yes }
+        entrepot_district ?= { tcc_district_has_mandala_building_trigger = yes }
+        trade_post_district ?= { tcc_district_has_mandala_building_trigger = yes }
+    }
+}
+
+tcc_has_target_province_trigger = {
+    OR = {
+        has_holding_type = temple_citadel_holding
+        tcc_has_mandala_capital_trigger = yes
+    }
+}
+
+# A county's provinces can include a holding outside its de facto realm.
+tcc_realm_province_has_target_trigger = {
+    tcc_has_target_province_trigger = yes
+    trigger_if = {
+        limit = { exists = barony.holder }
+        barony.holder = {
+            OR = {
+                this = scope:tcc_realm_ruler
+                is_vassal_or_below_of = scope:tcc_realm_ruler
+            }
+        }
+    }
+    trigger_else = {
+        county.holder ?= {
+            OR = {
+                this = scope:tcc_realm_ruler
+                is_vassal_or_below_of = scope:tcc_realm_ruler
+            }
+        }
+    }
+}
+
+tcc_realm_has_targets_trigger = {
+    save_temporary_scope_as = tcc_realm_ruler
+    any_sub_realm_county = {
+        any_county_province = { tcc_realm_province_has_target_trigger = yes }
+    }
+}
+
+tcc_reformable_ruler_trigger = {
+    is_alive = yes
+    is_landed = yes
+    OR = {
+        government_has_flag = government_is_mandala
+        government_has_flag = government_is_wanua
+    }
+}
+
+tcc_world_has_targets_trigger = {
+    OR = {
+        any_ruler = { tcc_reformable_ruler_trigger = yes }
+        any_province = { tcc_has_target_province_trigger = yes }
+        any_barony = {
+            holder ?= {
+                highest_held_title_tier = tier_barony
+                tcc_reformable_ruler_trigger = yes
+            }
+        }
+    }
+}

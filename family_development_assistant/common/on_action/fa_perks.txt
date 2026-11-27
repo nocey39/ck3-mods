@@ -1,0 +1,35 @@
+﻿quarterly_playable_pulse = { on_actions = { fa_perk_recover_schedule } }
+
+fa_perk_after_succession = {
+    trigger = {
+        fa_perk_active_trigger = yes
+        scope:fa_perk_ticket = var:fa_perk_generation
+    }
+    effect = {
+        fa_perk_check_effect = yes
+        fa_perk_schedule_effect = yes
+    }
+}
+
+fa_perk_scheduled_check = {
+    trigger = {
+        fa_perk_active_trigger = yes
+        scope:fa_perk_ticket = var:fa_perk_generation
+    }
+    effect = {
+        remove_variable = fa_perk_pending
+        fa_perk_check_effect = yes
+        fa_perk_schedule_effect = yes
+    }
+}
+
+fa_perk_recover_schedule = {
+    trigger = {
+        fa_perk_active_trigger = yes
+        NOT = { has_variable = fa_perk_pending }
+    }
+    effect = {
+        fa_perk_check_effect = yes
+        fa_perk_schedule_effect = yes
+    }
+}

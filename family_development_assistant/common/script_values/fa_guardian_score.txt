@@ -1,0 +1,63 @@
+﻿# Compare success/failure weight ratios, which rank candidates in the same order
+# as success probabilities. This does not roll or alter education points.
+fa_guardian_score = {
+    value = 60
+    add = {
+        value = 0
+        scope:ward = {
+            if = { limit = { has_trait = intellect_good_3 } add = 20 }
+            if = { limit = { has_trait = intellect_good_2 } add = 15 }
+            if = {
+                limit = { OR = { has_trait = intellect_good_1 has_trait = shrewd } }
+                add = 10
+            }
+            if = { limit = { fa_focus_affinity_trigger = yes } add = matching_childhood_trait_modifier_value }
+            if = { limit = { fa_focus_disaffinity_trigger = yes } add = mismatching_childhood_trait_modifier_value }
+            if = {
+                limit = {
+                    has_focus = education_stewardship
+                    OR = {
+                        culture = { has_cultural_parameter = better_stewardship_education }
+                        faith = { has_doctrine_parameter = better_stewardship_education }
+                    }
+                }
+                add = 10
+            }
+        }
+    }
+    add = {
+        value = 0
+        if = { limit = { scope:ward = { has_focus = education_diplomacy } } add = diplomacy }
+        else_if = { limit = { scope:ward = { has_focus = education_martial } } add = martial }
+        else_if = { limit = { scope:ward = { has_focus = education_stewardship } } add = stewardship }
+        else_if = { limit = { scope:ward = { has_focus = education_intrigue } } add = intrigue }
+        else_if = { limit = { scope:ward = { has_focus = education_learning } } add = learning }
+        multiply = educator_skill_modifier_factor
+    }
+    add = { value = learning multiply = educator_learning_skill_modifier_factor }
+    if = { limit = { has_trait = intellect_good_3 } add = 15 }
+    else_if = { limit = { has_trait = intellect_good_2 } add = 10 }
+    else_if = {
+        limit = { OR = { has_trait = intellect_good_1 has_trait = shrewd } }
+        add = 5
+    }
+    if = { limit = { culture = { has_cultural_parameter = better_ward_education } } add = 10 }
+    if = {
+        limit = { house ?= { has_house_aspiration_parameter = service_house_improved_educator_outcome_chance } }
+        add = 5
+    }
+    divide = {
+        value = 40
+        scope:ward = {
+            if = { limit = { OR = { has_trait = intellect_bad_3 has_trait = inbred } } add = 20 }
+            if = { limit = { has_trait = intellect_bad_2 } add = 15 }
+            if = { limit = { OR = { has_trait = intellect_bad_1 has_trait = dull } } add = 10 }
+        }
+        if = { limit = { has_trait = intellect_bad_3 } add = 15 }
+        else_if = { limit = { has_trait = intellect_bad_2 } add = 10 }
+        else_if = {
+            limit = { OR = { has_trait = intellect_bad_1 has_trait = dull } }
+            add = 5
+        }
+    }
+}

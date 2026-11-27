@@ -1,0 +1,276 @@
+﻿# Native budget reenactments immediately reapply TEQ fixed salary rules. Ineligible rulers retain vanilla behavior.
+
+increase_budget_salary_effect = {
+	scope:hegemon = {
+		if = {
+			limit = {
+				scope:petitioner.var:budget_change ?= flag:decrease_ministry
+			}
+			change_realm_law_level = { law_group = budget_allocation_salary_law change = 1 }
+			change_realm_law_level = { law_group = budget_allocation_ministry_law change = -1 }
+		}
+		else = {
+			change_realm_law_level = { law_group = budget_allocation_salary_law change = 1 }
+			change_realm_law_level = { law_group = budget_allocation_military_law change = -1 }
+
+		}
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+increase_budget_ministry_effect = {
+	scope:hegemon = {
+		if = {
+			limit = {
+			scope:petitioner.var:budget_change ?= flag:decrease_salary
+			}
+			change_realm_law_level = { law_group = budget_allocation_ministry_law change = 1 }
+			change_realm_law_level = { law_group = budget_allocation_salary_law change = -1 }
+		}
+		else = {
+			change_realm_law_level = { law_group = budget_allocation_ministry_law change = 1 }
+			change_realm_law_level = { law_group = budget_allocation_military_law change = -1 }
+
+		}
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+increase_budget_military_effect = {
+	scope:hegemon = {
+		if = {
+			limit = {
+			scope:petitioner.var:budget_change ?= flag:decrease_ministry
+			}
+			change_realm_law_level = { law_group = budget_allocation_military_law change = 1 }
+			change_realm_law_level = { law_group = budget_allocation_ministry_law change = -1 }
+		}
+		else = {
+			change_realm_law_level = { law_group = budget_allocation_military_law change = 1 }
+			change_realm_law_level = { law_group = budget_allocation_salary_law change = -1 }
+
+		}
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_setup_effect = {
+	if = {
+		limit = { has_treasury = yes }
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_init = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_salary_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_salary_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_45 }
+			}
+			add_realm_law = budget_allocation_salary_45
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_ministry_25 }
+			}
+			add_realm_law = budget_allocation_ministry_25
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_20 }
+			}
+			add_realm_law = budget_allocation_military_20
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_ministry_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_ministry_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_25 }
+			}
+			add_realm_law = budget_allocation_salary_25
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_ministry_45 }
+			}
+			add_realm_law = budget_allocation_ministry_45
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_20 }
+			}
+			add_realm_law = budget_allocation_military_20
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_military_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_military_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_30 }
+			}
+			add_realm_law = budget_allocation_salary_30
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_ministry_20 }
+			}
+			add_realm_law = budget_allocation_ministry_20
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_40 }
+			}
+			add_realm_law = budget_allocation_military_40
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_hegemon_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_hegemon_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_30 }
+			}
+			add_realm_law = budget_allocation_salary_30
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_ministry_25 }
+			}
+			add_realm_law = budget_allocation_ministry_25
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_25 }
+			}
+			add_realm_law = budget_allocation_military_25
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_balanced_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_balanced_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_35 }
+			}
+			add_realm_law = budget_allocation_salary_35
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_ministry_30 }
+			}
+			add_realm_law = budget_allocation_ministry_30
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_25 }
+			}
+			add_realm_law = budget_allocation_military_25
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_meritocratic_salary_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_meritocratic_salary_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_55 }
+			}
+			add_realm_law = budget_allocation_salary_55
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_35 }
+			}
+			add_realm_law = budget_allocation_military_35
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_meritocratic_military_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_meritocratic_military_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_35 }
+			}
+			add_realm_law = budget_allocation_salary_35
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_55 }
+			}
+			add_realm_law = budget_allocation_military_55
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}
+
+tgp_treasury_enact_meritocratic_balanced_budget_effect = {
+	custom_tooltip = {
+		text = tgp_treasury_enact_meritocratic_balanced_budget_desc
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_salary_45 }
+			}
+			add_realm_law = budget_allocation_salary_45
+		}
+		if = {
+			limit = {
+				NOT = { has_realm_law = budget_allocation_military_45 }
+			}
+			add_realm_law = budget_allocation_military_45
+		}
+
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}

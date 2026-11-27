@@ -1,0 +1,45 @@
+﻿dejure_auto_hierarchy_person_trigger = {
+    is_alive = yes
+    is_landed = yes
+    is_ai = yes
+    highest_held_title_tier > tier_barony
+    is_vassal_or_below_of = scope:dejure_auto_owner
+    dejure_auto_force_protected_trigger = no
+    dejure_auto_force_player_branch_trigger = no
+    primary_title = {
+        dejure_auto_map_title_trigger = yes
+    }
+}
+dejure_auto_hierarchy_target_trigger = {
+    NOT = {
+        liege = scope:dejure_auto_law_lord
+    }
+    scope:dejure_auto_law_lord = {
+        is_alive = yes
+        is_landed = yes
+        OR = {
+            this = scope:dejure_auto_owner
+            AND = {
+                is_ai = yes
+                is_vassal_or_below_of = scope:dejure_auto_owner
+            }
+        }
+        highest_held_title_tier > scope:dejure_auto_hierarchy_person.highest_held_title_tier
+        NOT = {
+            this = scope:dejure_auto_hierarchy_person
+        }
+        NOT = {
+            is_vassal_or_below_of = scope:dejure_auto_hierarchy_person
+        }
+    }
+}
+dejure_auto_hierarchy_subtree_safe_trigger = {
+    NOT = {
+        any_vassal_or_below = {
+            OR = {
+                dejure_auto_force_protected_trigger = yes
+                dejure_auto_force_player_branch_trigger = yes
+            }
+        }
+    }
+}

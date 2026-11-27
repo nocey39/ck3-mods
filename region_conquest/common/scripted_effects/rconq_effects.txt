@@ -1,0 +1,98 @@
+﻿# CB scope, on_declaration. Use the war supplied by the engine.
+rconq_join_regional_defenders_effect = {
+	if = {
+		limit = { exists = scope:war }
+		# Capture territorial realms once, before adding anybody to the war.
+		every_in_list = {
+			list = target_titles
+			every_de_jure_county = {
+				limit = { rconq_county_is_foreign_trigger = yes }
+				holder.top_liege = {
+					if = {
+						limit = { NOT = { is_in_list = rconq_defending_realms } }
+						add_to_temporary_list = rconq_defending_realms
+					}
+				}
+			}
+		}
+		every_in_list = {
+			list = rconq_defending_realms
+			limit = {
+				is_alive = yes
+				NOT = { is_participant_in_war = scope:war }
+			}
+			# Secondary realms join regardless of truces or alliances with the
+			# attacker, as requested. Keep the separate-war safeguard. Do not
+			# rerun declaration checks or penalties for these added defenders.
+			save_temporary_scope_as = rconq_joiner
+			if = {
+				limit = {
+					scope:attacker = {
+						NOT = { is_at_war_with = scope:rconq_joiner }
+					}
+				}
+				scope:war = { add_defender = prev }
+			}
+		}
+	}
+}
+
+# CB scope, on_victory. Submit county transfers directly while walking the
+# selected de jure regions, following native reclamation CBs. Keep one native
+# transaction and a visited list for overlapping targets in legacy wars.
+# The native war link can be absent in the declaration outcome preview.
+rconq_take_selected_counties_effect = {
+	if = {
+		limit = { exists = war }
+		war = { save_scope_as = rconq_current_war }
+	}
+	create_title_and_vassal_change = {
+		type = conquest
+		save_scope_as = rconq_title_change
+		add_claim_on_loss = yes
+	}
+	every_in_list = {
+		list = target_titles
+		every_de_jure_county = {
+			limit = {
+				rconq_county_is_enemy_trigger = yes
+				NOT = { is_in_list = rconq_counties_to_take }
+			}
+			add_to_temporary_list = rconq_counties_to_take
+			change_title_holder = {
+				holder = scope:attacker
+				change = scope:rconq_title_change
+				take_baronies = yes
+			}
+		}
+	}
+	resolve_title_and_vassal_change = scope:rconq_title_change
+}
+
+# Vanilla's normal peace effects only address the primary defender. Apply the
+# same one-way duration to the other defending participants as well.
+rconq_secondary_truces_effect = {
+	hidden_effect = {
+		if = {
+			limit = { exists = war }
+			war = {
+				save_scope_as = rconq_current_war
+				every_war_participant = {
+					limit = {
+						is_alive = yes
+						this != scope:defender
+						is_defender_in_war = scope:rconq_current_war
+					}
+					scope:attacker = {
+						add_truce_one_way = {
+							character = prev
+							days = standard_truce_duration_days
+							war = scope:rconq_current_war
+							result = $RESULT$
+						}
+					}
+				}
+			}
+		}
+	}
+}

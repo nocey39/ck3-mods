@@ -1,0 +1,66 @@
+﻿
+on_game_start_after_lobby = { on_actions = { ama_acc_load } }
+on_player_character_change = { on_actions = { ama_acc_inherit } }
+ama_acc_load = {
+    effect = {
+        every_player = { ama_acc_refresh_on_load_effect = yes }
+    }
+}
+ama_acc_inherit = {
+    trigger = { ama_player_trigger = yes }
+    effect = {
+        ama_acc_clear_request_effect = yes
+        if = {
+            limit = {
+                exists = scope:previous_player_character
+                scope:previous_player_character = { is_alive = no }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_enabled } }
+                set_variable = ama_acc_enabled
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_first_1 } }
+                set_variable = { name = ama_acc_first_1 value = scope:previous_player_character.var:ama_acc_first_1 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_second_1 } }
+                set_variable = { name = ama_acc_second_1 value = scope:previous_player_character.var:ama_acc_second_1 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_first_2 } }
+                set_variable = { name = ama_acc_first_2 value = scope:previous_player_character.var:ama_acc_first_2 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_second_2 } }
+                set_variable = { name = ama_acc_second_2 value = scope:previous_player_character.var:ama_acc_second_2 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_first_3 } }
+                set_variable = { name = ama_acc_first_3 value = scope:previous_player_character.var:ama_acc_first_3 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_second_3 } }
+                set_variable = { name = ama_acc_second_3 value = scope:previous_player_character.var:ama_acc_second_3 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_first_4 } }
+                set_variable = { name = ama_acc_first_4 value = scope:previous_player_character.var:ama_acc_first_4 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_second_4 } }
+                set_variable = { name = ama_acc_second_4 value = scope:previous_player_character.var:ama_acc_second_4 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_first_5 } }
+                set_variable = { name = ama_acc_first_5 value = scope:previous_player_character.var:ama_acc_first_5 }
+            }
+            if = {
+                limit = { scope:previous_player_character = { has_variable = ama_acc_second_5 } }
+                set_variable = { name = ama_acc_second_5 value = scope:previous_player_character.var:ama_acc_second_5 }
+            }
+
+            if = { limit = { has_variable = ama_acc_enabled } ama_initialize_effect = yes ama_schedule_effect = yes }
+        }
+    }
+}

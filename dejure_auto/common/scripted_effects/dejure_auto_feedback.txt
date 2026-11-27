@@ -1,0 +1,131 @@
+﻿dejure_auto_feedback_reset_effect = {
+    remove_variable = dejure_auto_feedback_checked
+    remove_variable = dejure_auto_feedback_bundle_limit
+    set_variable = { name = dejure_auto_feedback_created value = 0 }
+    set_variable = { name = dejure_auto_feedback_granted value = 0 }
+    set_variable = { name = dejure_auto_feedback_organized value = 0 }
+    set_variable = { name = dejure_auto_feedback_moved value = 0 }
+    set_variable = { name = dejure_auto_feedback_counties value = 0 }
+    set_variable = { name = dejure_auto_feedback_high value = 0 }
+    set_variable = { name = dejure_auto_feedback_paid value = 0 }
+    set_variable = { name = dejure_auto_feedback_title_units value = 0 }
+    set_variable = { name = dejure_auto_feedback_creation_cap value = 0 }
+    set_variable = { name = dejure_auto_feedback_title_cap value = 0 }
+    set_variable = { name = dejure_auto_feedback_organizer_cap value = 0 }
+    clear_variable_list = dejure_auto_feedback_protected
+    set_variable = { name = dejure_auto_feedback_n_protected value = 0 }
+    clear_variable_list = dejure_auto_feedback_funds
+    set_variable = { name = dejure_auto_feedback_n_funds value = 0 }
+    clear_variable_list = dejure_auto_feedback_unconfirmed
+    set_variable = { name = dejure_auto_feedback_n_unconfirmed value = 0 }
+    clear_variable_list = dejure_auto_feedback_waiting
+    set_variable = { name = dejure_auto_feedback_n_waiting value = 0 }
+    clear_variable_list = dejure_auto_feedback_limit
+    set_variable = { name = dejure_auto_feedback_n_limit value = 0 }
+}
+dejure_auto_feedback_record_protected_effect = {
+    save_scope_as = dejure_auto_feedback_item
+    scope:dejure_auto_owner = {
+        if = { limit = { var:dejure_auto_feedback_n_protected < 50
+                NOT = { is_target_in_variable_list = { name = dejure_auto_feedback_protected target = scope:dejure_auto_feedback_item } } }
+            add_to_variable_list = { name = dejure_auto_feedback_protected target = scope:dejure_auto_feedback_item }
+            change_variable = { name = dejure_auto_feedback_n_protected add = 1 }
+        }
+    }
+    clear_saved_scope = dejure_auto_feedback_item
+}
+dejure_auto_feedback_record_funds_effect = {
+    save_scope_as = dejure_auto_feedback_item
+    scope:dejure_auto_owner = {
+        if = { limit = { var:dejure_auto_feedback_n_funds < 50
+                NOT = { is_target_in_variable_list = { name = dejure_auto_feedback_funds target = scope:dejure_auto_feedback_item } } }
+            add_to_variable_list = { name = dejure_auto_feedback_funds target = scope:dejure_auto_feedback_item }
+            change_variable = { name = dejure_auto_feedback_n_funds add = 1 }
+        }
+    }
+    clear_saved_scope = dejure_auto_feedback_item
+}
+dejure_auto_feedback_record_unconfirmed_effect = {
+    save_scope_as = dejure_auto_feedback_item
+    scope:dejure_auto_owner = {
+        if = { limit = { var:dejure_auto_feedback_n_unconfirmed < 50
+                NOT = { is_target_in_variable_list = { name = dejure_auto_feedback_unconfirmed target = scope:dejure_auto_feedback_item } } }
+            add_to_variable_list = { name = dejure_auto_feedback_unconfirmed target = scope:dejure_auto_feedback_item }
+            change_variable = { name = dejure_auto_feedback_n_unconfirmed add = 1 }
+        }
+    }
+    clear_saved_scope = dejure_auto_feedback_item
+}
+dejure_auto_feedback_record_waiting_effect = {
+    save_scope_as = dejure_auto_feedback_item
+    scope:dejure_auto_owner = {
+        if = { limit = { var:dejure_auto_feedback_n_waiting < 50
+                NOT = { is_target_in_variable_list = { name = dejure_auto_feedback_waiting target = scope:dejure_auto_feedback_item } } }
+            add_to_variable_list = { name = dejure_auto_feedback_waiting target = scope:dejure_auto_feedback_item }
+            change_variable = { name = dejure_auto_feedback_n_waiting add = 1 }
+        }
+    }
+    clear_saved_scope = dejure_auto_feedback_item
+}
+dejure_auto_feedback_record_limit_effect = {
+    save_scope_as = dejure_auto_feedback_item
+    scope:dejure_auto_owner = {
+        if = { limit = { var:dejure_auto_feedback_n_limit < 50
+                NOT = { is_target_in_variable_list = { name = dejure_auto_feedback_limit target = scope:dejure_auto_feedback_item } } }
+            add_to_variable_list = { name = dejure_auto_feedback_limit target = scope:dejure_auto_feedback_item }
+            change_variable = { name = dejure_auto_feedback_n_limit add = 1 }
+        }
+    }
+    clear_saved_scope = dejure_auto_feedback_item
+}
+
+dejure_auto_feedback_protected_candidates_effect = {
+    if = { limit = { OR = {
+                var:dejure_auto_grant_county = 1 var:dejure_auto_grant_duchy = 1
+                var:dejure_auto_grant_kingdom = 1 var:dejure_auto_grant_empire = 1
+                var:dejure_auto_distribute_domain = 1
+            } }
+        # Small held-title scan only. Do not scan all baronies or world titles.
+        every_held_title = {
+            limit = { holder = scope:dejure_auto_owner tier >= tier_county tier <= tier_empire }
+            save_scope_as = dejure_auto_feedback_candidate
+            if = { limit = { dejure_auto_domain_retained_trigger = yes
+                    OR = {
+                        AND = { dejure_auto_grant_tier_trigger = yes dejure_auto_feedback_grant_source_trigger = yes }
+                        AND = { tier = tier_county dejure_auto_feedback_domain_safe_trigger = yes }
+                    }
+                }
+                dejure_auto_feedback_record_protected_effect = yes
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_feedback_candidate
+    clear_saved_scope = dejure_auto_feedback_checked_county
+}
+dejure_auto_feedback_finalize_effect = {
+    set_variable = { name = dejure_auto_feedback_created value = var:dejure_auto_title_created }
+    set_variable = { name = dejure_auto_feedback_paid value = var:dejure_auto_title_paid }
+    set_variable = { name = dejure_auto_feedback_moved value = var:dejure_auto_last_moved }
+    set_variable = { name = dejure_auto_feedback_counties value = var:dejure_auto_last_taken }
+    set_variable = { name = dejure_auto_feedback_high value = var:dejure_auto_last_high }
+    set_variable = { name = dejure_auto_feedback_organized value = var:dejure_auto_last_moved }
+    change_variable = { name = dejure_auto_feedback_organized add = var:dejure_auto_last_taken }
+    change_variable = { name = dejure_auto_feedback_organized add = var:dejure_auto_last_high }
+    set_variable = { name = dejure_auto_feedback_granted value = 0 }
+    every_in_list = { variable = dejure_auto_title_granted_list
+        root = { change_variable = { name = dejure_auto_feedback_granted add = 1 } }
+    }
+    every_in_list = { variable = dejure_auto_title_waiting_list
+        dejure_auto_feedback_record_waiting_effect = yes
+    }
+    set_variable = { name = dejure_auto_feedback_title_units value = var:dejure_auto_feedback_created }
+    change_variable = { name = dejure_auto_feedback_title_units add = var:dejure_auto_feedback_granted }
+    # title_used=20 can be a failure circuit-breaker. It is not a success count.
+    if = { limit = { var:dejure_auto_feedback_created >= 5 }
+        set_variable = { name = dejure_auto_feedback_creation_cap value = 1 } }
+    if = { limit = { var:dejure_auto_feedback_title_units >= 20 }
+        set_variable = { name = dejure_auto_feedback_title_cap value = 1 } }
+    if = { limit = { var:dejure_auto_feedback_organized >= 50 }
+        set_variable = { name = dejure_auto_feedback_organizer_cap value = 1 } }
+    set_variable = dejure_auto_feedback_checked
+}

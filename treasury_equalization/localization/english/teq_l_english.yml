@@ -1,0 +1,18 @@
+﻿l_english:
+ teq_refund_paused: "Central collection: tax refunds replaced"
+ teq_development_flow: "Needs-based development funding"
+ teq_development_wealth: "Development reserve adjustment"
+ teq_military_wealth: "Military reserve adjustment"
+ teq_allocation_development: "Coordinated development allocation"
+ teq_allocation_military: "Coordinated military allocation"
+ teq_allocation_salary: "Coordinated salary allocation"
+
+ teq_public_collection: "Unified public treasury"
+ teq_public_collection_desc: "Collected public taxes enter the treasury without a private-gold share."
+ teq_public_tax: "Unified public taxation"
+ teq_public_tax_desc: "Native taxable public income is centrally collected and redistributed through budgets."
+
+ teq_central_tax: "Central public taxation"
+ teq_central_tax_desc: "This fiscal system uses unified public tax collection without confiscating existing private savings."
+
+ teq_military_development_excluded: "Military province: military funding only"

@@ -1,0 +1,14 @@
+﻿# Shared development category for every native treasury-budget government.
+budget_allocation_ministry_law = {
+ required_government_flag = { }
+ can_have_group = {
+  OR = {
+   government_has_flag = government_uses_ministry_budget
+   teq_ruler_valid = yes
+  }
+ }
+ is_treasury_budget_group = yes
+ flag = treasury_budget_law
+ flag = treasury_budget_ministry
+ default = budget_allocation_ministry_25
+}

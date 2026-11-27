@@ -1,0 +1,90 @@
+dejure_auto_title_retention_initialize_effect = {
+    if = { limit = { NOT = { OR = { var:dejure_auto_direct_tier = 1 var:dejure_auto_direct_tier = 2
+                    var:dejure_auto_direct_tier = 3 var:dejure_auto_direct_tier = 4 } } }
+        set_variable = { name = dejure_auto_direct_tier value = 1 }
+    }
+}
+dejure_auto_manual_titles_recount_effect = {
+    # Explicit scope: this is reached from preset init inside every_player, where root is not the character.
+    save_temporary_scope_as = dejure_auto_recount_owner
+    set_variable = { name = dejure_auto_manual_count_1 value = var:dejure_auto_manual_count }
+    set_variable = { name = dejure_auto_manual_count_2 value = 0 }
+    set_variable = { name = dejure_auto_manual_count_3 value = 0 }
+    set_variable = { name = dejure_auto_manual_count_4 value = 0 }
+    set_variable = { name = dejure_auto_manual_title_count value = 0 }
+    every_in_list = { variable = dejure_auto_manual_titles
+        if = { limit = { tier = tier_duchy } scope:dejure_auto_recount_owner = { change_variable = { name = dejure_auto_manual_count_2 add = 1 } } }
+        if = { limit = { tier = tier_kingdom } scope:dejure_auto_recount_owner = { change_variable = { name = dejure_auto_manual_count_3 add = 1 } } }
+        if = { limit = { tier = tier_empire } scope:dejure_auto_recount_owner = { change_variable = { name = dejure_auto_manual_count_4 add = 1 } } }
+        scope:dejure_auto_recount_owner = { change_variable = { name = dejure_auto_manual_title_count add = 1 } }
+    }
+}
+dejure_auto_manual_titles_prune_effect = {
+    # Match county-mark cleanup: defer destructive work during unresolved succession.
+    save_temporary_scope_as = dejure_auto_titles_prune_owner
+    if = { limit = { is_landed = yes exists = capital_county
+            capital_county = { holder = scope:dejure_auto_titles_prune_owner dejure_auto_map_county_trigger = yes } }
+        clear_variable_list = dejure_auto_manual_titles_valid
+        every_in_list = { variable = dejure_auto_manual_titles
+            limit = { tier >= tier_duchy tier <= tier_empire holder = scope:dejure_auto_titles_prune_owner dejure_auto_map_title_trigger = yes }
+            save_scope_as = dejure_auto_retained_title_item
+            scope:dejure_auto_titles_prune_owner = { if = { limit = { NOT = { is_target_in_variable_list = {
+                                name = dejure_auto_manual_titles_valid target = scope:dejure_auto_retained_title_item } } }
+                    add_to_variable_list = { name = dejure_auto_manual_titles_valid target = scope:dejure_auto_retained_title_item } } }
+        }
+        clear_variable_list = dejure_auto_manual_titles
+        every_in_list = { variable = dejure_auto_manual_titles_valid
+            save_scope_as = dejure_auto_retained_title_item
+            scope:dejure_auto_titles_prune_owner = { add_to_variable_list = { name = dejure_auto_manual_titles target = scope:dejure_auto_retained_title_item } }
+        }
+        clear_variable_list = dejure_auto_manual_titles_valid
+    }
+    dejure_auto_manual_titles_recount_effect = yes
+    clear_saved_scope = dejure_auto_retained_title_item
+}
+dejure_auto_manual_titles_inherit_effect = {
+    clear_variable_list = dejure_auto_manual_titles
+    set_variable = { name = dejure_auto_direct_tier value = 1 }
+    scope:previous_player_character = {
+        every_in_list = { variable = dejure_auto_manual_titles
+            save_scope_as = dejure_auto_retained_title_item
+            root = { if = { limit = { NOT = { is_target_in_variable_list = {
+                                name = dejure_auto_manual_titles target = scope:dejure_auto_retained_title_item } } }
+                    add_to_variable_list = { name = dejure_auto_manual_titles target = scope:dejure_auto_retained_title_item } } }
+        }
+        if = { limit = { OR = { var:dejure_auto_direct_tier = 1 var:dejure_auto_direct_tier = 2
+                    var:dejure_auto_direct_tier = 3 var:dejure_auto_direct_tier = 4 } }
+            root = { set_variable = { name = dejure_auto_direct_tier value = scope:previous_player_character.var:dejure_auto_direct_tier } }
+        }
+    }
+    # Ownership may not have moved yet; count copied references without pruning.
+    dejure_auto_manual_titles_recount_effect = yes
+    clear_saved_scope = dejure_auto_retained_title_item
+}
+dejure_auto_direct_realm_refresh_effect = {
+    clear_variable_list = dejure_auto_direct_realm_counties
+    if = { limit = { is_ai = no is_alive = yes is_landed = yes
+            has_variable = dejure_auto_direct_open var:dejure_auto_direct_tier >= 2 var:dejure_auto_direct_tier <= 4 }
+        every_sub_realm_county = {
+            limit = { dejure_auto_map_county_trigger = yes }
+            save_scope_as = dejure_auto_realm_county_item
+            root = { if = { limit = { NOT = { is_target_in_variable_list = {
+                                name = dejure_auto_direct_realm_counties target = scope:dejure_auto_realm_county_item } } }
+                    add_to_variable_list = { name = dejure_auto_direct_realm_counties target = scope:dejure_auto_realm_county_item } } }
+        }
+    }
+    clear_saved_scope = dejure_auto_realm_county_item
+}
+dejure_auto_direct_target_refresh_effect = {
+    remove_variable = dejure_auto_direct_target
+    if = { limit = { exists = var:dejure_auto_direct_current }
+        var:dejure_auto_direct_current.county = {
+            every_this_title_or_de_jure_above = {
+                limit = { holder = root dejure_auto_map_title_trigger = yes dejure_auto_direct_target_tier_trigger = yes }
+                save_scope_as = dejure_auto_retention_target_item
+                root = { set_variable = { name = dejure_auto_direct_target value = scope:dejure_auto_retention_target_item } }
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_retention_target_item
+}

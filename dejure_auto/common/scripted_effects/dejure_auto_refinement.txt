@@ -1,0 +1,396 @@
+﻿dejure_auto_reset_report_effect = {
+    remove_variable = dejure_auto_report_strong
+    clear_variable_list = dejure_auto_report_changed_titles
+    set_variable = {
+        name = dejure_auto_report_n_changed_titles
+        value = 0
+    }
+    clear_variable_list = dejure_auto_report_changed_people
+    set_variable = {
+        name = dejure_auto_report_n_changed_people
+        value = 0
+    }
+    clear_variable_list = dejure_auto_report_missing
+    set_variable = {
+        name = dejure_auto_report_n_missing
+        value = 0
+    }
+    clear_variable_list = dejure_auto_report_conflict
+    set_variable = {
+        name = dejure_auto_report_n_conflict
+        value = 0
+    }
+    clear_variable_list = dejure_auto_report_last_county
+    set_variable = {
+        name = dejure_auto_report_n_last_county
+        value = 0
+    }
+    clear_variable_list = dejure_auto_report_protected
+    set_variable = {
+        name = dejure_auto_report_n_protected
+        value = 0
+    }
+    clear_variable_list = dejure_auto_report_pending
+    set_variable = {
+        name = dejure_auto_report_n_pending
+        value = 0
+    }
+    clear_variable_list = dejure_auto_report_failed
+    set_variable = {
+        name = dejure_auto_report_n_failed
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_last_high
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_left_high
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_last_county_kept
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_last_player_counties
+        value = 0
+    }
+    dejure_auto_feedback_reset_effect = yes
+}
+dejure_auto_record_changed_titles_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_changed_titles < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_changed_titles
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_changed_titles
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_changed_titles
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_record_changed_people_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_changed_people < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_changed_people
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_changed_people
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_changed_people
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_record_missing_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_missing < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_missing
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_missing
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_missing
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_record_conflict_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_conflict < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_conflict
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_conflict
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_conflict
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_record_last_county_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_last_county < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_last_county
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_last_county
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_last_county
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_record_protected_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_protected < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_protected
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_protected
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_protected
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_record_pending_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_pending < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_pending
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_pending
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_pending
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_record_failed_effect = {
+    save_scope_as = dejure_auto_report_item
+    scope:dejure_auto_owner = {
+        if = {
+            limit = {
+                var:dejure_auto_report_n_failed < 50
+                NOT = {
+                    is_target_in_variable_list = {
+                        name = dejure_auto_report_failed
+                        target = scope:dejure_auto_report_item
+                    }
+                }
+            }
+            add_to_variable_list = {
+                name = dejure_auto_report_failed
+                target = scope:dejure_auto_report_item
+            }
+            change_variable = {
+                name = dejure_auto_report_n_failed
+                add = 1
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_report_item
+}
+dejure_auto_high_pass_effect = {
+    every_in_list = {
+        list = dejure_auto_high_titles
+        limit = {
+            tier = tier_empire
+            scope:dejure_auto_owner = {
+                var:dejure_auto_force_used < 50
+            }
+        }
+        dejure_auto_consider_high_effect = yes
+    }
+    every_in_list = {
+        list = dejure_auto_high_titles
+        limit = {
+            tier = tier_kingdom
+            scope:dejure_auto_owner = {
+                var:dejure_auto_force_used < 50
+            }
+        }
+        dejure_auto_consider_high_effect = yes
+    }
+    every_in_list = {
+        list = dejure_auto_high_titles
+        limit = {
+            tier = tier_duchy
+            scope:dejure_auto_owner = {
+                var:dejure_auto_force_used < 50
+            }
+        }
+        dejure_auto_consider_high_effect = yes
+    }
+}
+dejure_auto_consider_high_effect = {
+    save_scope_as = dejure_auto_high_title
+    if = {
+        limit = {
+            dejure_auto_high_source_trigger = yes
+        }
+        dejure_auto_find_parent_lord_effect = yes
+        if = {
+            limit = {
+                dejure_auto_high_transfer_trigger = yes
+            }
+            holder = {
+                save_scope_as = dejure_auto_high_source
+            }
+            scope:dejure_auto_owner = {
+                create_title_and_vassal_change = {
+                    type = granted
+                    save_scope_as = dejure_auto_high_change
+                    add_claim_on_loss = no
+                }
+            }
+            change_title_holder = {
+                holder = scope:dejure_auto_law_lord
+                change = scope:dejure_auto_high_change
+                take_baronies = no
+            }
+            resolve_title_and_vassal_change = scope:dejure_auto_high_change
+            clear_saved_scope = dejure_auto_high_change
+            if = {
+                limit = {
+                    holder = scope:dejure_auto_law_lord
+                }
+                scope:dejure_auto_owner = {
+                    change_variable = {
+                        name = dejure_auto_last_high
+                        add = 1
+                    }
+                    change_variable = {
+                        name = dejure_auto_force_used
+                        add = 1
+                    }
+                }
+                dejure_auto_record_changed_titles_effect = yes
+            }
+            else = {
+                dejure_auto_feedback_record_unconfirmed_effect = yes
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_high_title
+    clear_saved_scope = dejure_auto_high_source
+}
+dejure_auto_report_high_effect = {
+    save_scope_as = dejure_auto_high_title
+    if = {
+        limit = {
+            dejure_auto_high_source_trigger = yes
+        }
+        dejure_auto_find_parent_lord_effect = yes
+        if = {
+            limit = {
+                dejure_auto_high_misplaced_trigger = yes
+            }
+            scope:dejure_auto_owner = {
+                change_variable = {
+                    name = dejure_auto_left_high
+                    add = 1
+                }
+            }
+            if = {
+                limit = {
+                    holder = {
+                        dejure_auto_force_protected_trigger = yes
+                    }
+                }
+                dejure_auto_record_protected_effect = yes
+            }
+            else_if = {
+                limit = {
+                    this = holder.primary_title
+                }
+                dejure_auto_record_conflict_effect = yes
+            }
+            else_if = {
+                limit = {
+                    dejure_auto_high_transfer_trigger = no
+                }
+                dejure_auto_record_missing_effect = yes
+            }
+            else_if = {
+                limit = {
+                    scope:dejure_auto_owner = {
+                        var:dejure_auto_force_used >= 50
+                    }
+                }
+                dejure_auto_record_pending_effect = yes
+            }
+            else = {
+                dejure_auto_record_failed_effect = yes
+            }
+        }
+    }
+    clear_saved_scope = dejure_auto_high_title
+}

@@ -1,0 +1,33 @@
+# ===== 根目录的模组指针文件 =====
+# 含本机绝对路径，换电脑会失效；需要时用 tools/make-mod-files.ps1 重新生成。
+# 创意工坊订阅的 ugc_*.mod 是别人模组的指针，也不入库。
+/*.mod
+
+# ===== 自动建设助手有独立仓库，本仓库不跟踪 =====
+/domicile_auto_upgrade/
+
+# ===== 压缩包 / 发布产物 =====
+*.zip
+*.7z
+*.rar
+
+# ===== 运行产物 / 日志 =====
+*.log
+crash_reports/
+saves/
+oos/
+
+# ===== 临时文件 =====
+*.tmp
+*.bak
+*.orig
+*~
+
+# ===== 系统垃圾 =====
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ===== Python 缓存 =====
+__pycache__/
+*.pyc

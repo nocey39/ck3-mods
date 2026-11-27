@@ -1,0 +1,13 @@
+﻿l_simp_chinese:
+ tcc_reform_realm_decision:0 "玩家领地：一键改造"
+ tcc_reform_realm_decision_desc:0 "将你的直辖领地及所有层级封臣领地中的寺庙城寨转为城堡，并移除其中的标记为曼荼罗都城的建筑。 转为城堡时，游戏会移除与城堡不兼容的建筑。\n\n免费、立即生效。此决议不主动改变统治者的政体。"
+ tcc_reform_realm_decision_tooltip:0 "转换玩家整个领地的寺庙城寨，同时移除曼荼罗大型建筑。"
+ tcc_reform_realm_decision_confirm:0 "改造玩家领地"
+ tcc_reform_realm_decision_valid_tt:0 "你的领地中至少有一处寺庙城寨或曼荼罗大型建筑。"
+ tcc_reform_realm_decision_effect_tt:0 "你的直辖领地及所有层级封臣领地中的寺庙城寨转为城堡，曼荼罗大型建筑被移除。"
+ tcc_reform_world_decision:0 "全图：一键改造"
+ tcc_reform_world_decision_desc:0 "将全图的寺庙城寨转为城堡，移除全图的标记为曼荼罗都城的建筑，将执行前的所有有地曼荼罗统治者改为封建制，并将所有有地村社制统治者改为部落制。 转为城堡时，游戏会移除与城堡不兼容的建筑。\n\n包含玩家、独立统治者及所有层级封臣。免费、立即生效。"
+ tcc_reform_world_decision_tooltip:0 "转换全图寺庙城寨、移除曼荼罗大型建筑，将曼荼罗统治者改为封建制、村社制统治者改为部落制。"
+ tcc_reform_world_decision_confirm:0 "改造全图"
+ tcc_reform_world_decision_valid_tt:0 "全图至少有一处寺庙城寨、曼荼罗大型建筑，或一位有地曼荼罗或村社制统治者。"
+ tcc_reform_world_decision_effect_tt:0 "全图寺庙城寨转为城堡，曼荼罗大型建筑被移除，执行前的所有有地曼荼罗统治者改为封建制，所有有地村社制统治者改为部落制。"

@@ -1,0 +1,263 @@
+﻿# The native replace effect owns actual charging. These triggers check affordability only.
+court_auto_review_court_physician_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_physician_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_physician_court_position_prestige }
+}
+court_auto_review_travel_leader_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_travel_leader_court_position_prestige <= 0 prestige >= court_auto_review_cost_travel_leader_court_position_prestige }
+}
+court_auto_review_eparch_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_eparch_court_position_prestige <= 0 prestige >= court_auto_review_cost_eparch_court_position_prestige }
+    OR = { court_auto_review_cost_eparch_court_position_influence <= 0 influence >= court_auto_review_cost_eparch_court_position_influence }
+}
+court_auto_review_second_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_second_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_second_camp_officer_prestige }
+}
+court_auto_review_quartermaster_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_quartermaster_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_quartermaster_camp_officer_prestige }
+}
+court_auto_review_armorer_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_armorer_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_armorer_camp_officer_prestige }
+}
+court_auto_review_chief_forager_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_chief_forager_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_chief_forager_camp_officer_prestige }
+}
+court_auto_review_master_thief_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_master_thief_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_master_thief_camp_officer_prestige }
+}
+court_auto_review_head_porter_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_head_porter_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_head_porter_camp_officer_prestige }
+}
+court_auto_review_head_groom_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_head_groom_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_head_groom_camp_officer_prestige }
+}
+court_auto_review_huntperson_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_huntperson_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_huntperson_camp_officer_prestige }
+}
+court_auto_review_kennelperson_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_kennelperson_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_kennelperson_camp_officer_prestige }
+}
+court_auto_review_chief_engineer_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_chief_engineer_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_chief_engineer_camp_officer_prestige }
+}
+court_auto_review_witness_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_witness_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_witness_camp_officer_prestige }
+}
+court_auto_review_person_haggler_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_person_haggler_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_person_haggler_camp_officer_prestige }
+}
+court_auto_review_camp_cook_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_camp_cook_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_camp_cook_camp_officer_prestige }
+}
+court_auto_review_master_bard_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_master_bard_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_master_bard_camp_officer_prestige }
+}
+court_auto_review_stooge_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_stooge_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_stooge_camp_officer_prestige }
+}
+court_auto_review_master_of_arms_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_master_of_arms_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_master_of_arms_camp_officer_prestige }
+}
+court_auto_review_light_cavalry_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_light_cavalry_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_light_cavalry_captain_camp_officer_prestige }
+}
+court_auto_review_camelry_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_camelry_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_camelry_captain_camp_officer_prestige }
+}
+court_auto_review_elephantry_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_elephantry_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_elephantry_captain_camp_officer_prestige }
+}
+court_auto_review_heavy_cavalry_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_heavy_cavalry_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_heavy_cavalry_captain_camp_officer_prestige }
+}
+court_auto_review_horse_archer_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_horse_archer_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_horse_archer_captain_camp_officer_prestige }
+}
+court_auto_review_archer_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_archer_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_archer_captain_camp_officer_prestige }
+}
+court_auto_review_heavy_infantry_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_heavy_infantry_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_heavy_infantry_captain_camp_officer_prestige }
+}
+court_auto_review_light_infantry_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_light_infantry_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_light_infantry_captain_camp_officer_prestige }
+}
+court_auto_review_pike_captain_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_pike_captain_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_pike_captain_camp_officer_prestige }
+}
+court_auto_review_master_of_spoils_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_master_of_spoils_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_master_of_spoils_camp_officer_prestige }
+}
+court_auto_review_laureate_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_laureate_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_laureate_camp_officer_prestige }
+}
+court_auto_review_camp_priest_camp_officer_affordable_trigger = {
+    OR = { court_auto_review_cost_camp_priest_camp_officer_prestige <= 0 prestige >= court_auto_review_cost_camp_priest_camp_officer_prestige }
+}
+court_auto_review_grand_preceptor_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_grand_preceptor_court_position_prestige <= 0 prestige >= court_auto_review_cost_grand_preceptor_court_position_prestige }
+}
+court_auto_review_grand_mentor_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_grand_mentor_court_position_prestige <= 0 prestige >= court_auto_review_cost_grand_mentor_court_position_prestige }
+}
+court_auto_review_grand_guardian_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_grand_guardian_court_position_prestige <= 0 prestige >= court_auto_review_cost_grand_guardian_court_position_prestige }
+}
+court_auto_review_fire_dragon_engineer_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_fire_dragon_engineer_court_position_prestige <= 0 prestige >= court_auto_review_cost_fire_dragon_engineer_court_position_prestige }
+}
+court_auto_review_keeper_of_the_harem_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_keeper_of_the_harem_court_position_prestige <= 0 prestige >= court_auto_review_cost_keeper_of_the_harem_court_position_prestige }
+}
+court_auto_review_favored_minister_court_position_affordable_trigger = {
+    always = yes
+}
+court_auto_review_minister_bureaucrat_court_position_affordable_trigger = {
+    always = yes
+}
+court_auto_review_antiquarian_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_antiquarian_court_position_prestige <= 0 prestige >= court_auto_review_cost_antiquarian_court_position_prestige }
+}
+court_auto_review_seneschal_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_seneschal_court_position_prestige <= 0 prestige >= court_auto_review_cost_seneschal_court_position_prestige }
+}
+court_auto_review_court_tutor_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_tutor_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_tutor_court_position_prestige }
+}
+court_auto_review_wet_nurse_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_wet_nurse_court_position_prestige <= 0 prestige >= court_auto_review_cost_wet_nurse_court_position_prestige }
+}
+court_auto_review_charioteer_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_charioteer_court_position_prestige <= 0 prestige >= court_auto_review_cost_charioteer_court_position_prestige }
+}
+court_auto_review_bookmaker_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_bookmaker_court_position_prestige <= 0 prestige >= court_auto_review_cost_bookmaker_court_position_prestige }
+}
+court_auto_review_akolouthos_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_akolouthos_court_position_prestige <= 0 prestige >= court_auto_review_cost_akolouthos_court_position_prestige }
+}
+court_auto_review_chief_eunuch_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_chief_eunuch_court_position_prestige <= 0 prestige >= court_auto_review_cost_chief_eunuch_court_position_prestige }
+}
+court_auto_review_master_of_horse_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_master_of_horse_court_position_prestige <= 0 prestige >= court_auto_review_cost_master_of_horse_court_position_prestige }
+}
+court_auto_review_master_of_hunt_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_master_of_hunt_court_position_prestige <= 0 prestige >= court_auto_review_cost_master_of_hunt_court_position_prestige }
+}
+court_auto_review_master_assassin_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_master_assassin_court_position_prestige <= 0 prestige >= court_auto_review_cost_master_assassin_court_position_prestige }
+}
+court_auto_review_cultural_emissary_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_cultural_emissary_court_position_prestige <= 0 prestige >= court_auto_review_cost_cultural_emissary_court_position_prestige }
+}
+court_auto_review_cave_hermit_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_cave_hermit_court_position_prestige <= 0 prestige >= court_auto_review_cost_cave_hermit_court_position_prestige }
+}
+court_auto_review_chief_qadi_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_chief_qadi_court_position_prestige <= 0 prestige >= court_auto_review_cost_chief_qadi_court_position_prestige }
+}
+court_auto_review_court_gardener_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_gardener_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_gardener_court_position_prestige }
+}
+court_auto_review_court_scholar_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_scholar_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_scholar_court_position_prestige }
+}
+court_auto_review_chronicler_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_chronicler_court_position_prestige <= 0 prestige >= court_auto_review_cost_chronicler_court_position_prestige }
+}
+court_auto_review_champion_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_champion_court_position_prestige <= 0 prestige >= court_auto_review_cost_champion_court_position_prestige }
+}
+court_auto_review_court_brewmaster_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_brewmaster_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_brewmaster_court_position_prestige }
+}
+court_auto_review_lady_in_waiting_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_lady_in_waiting_court_position_prestige <= 0 prestige >= court_auto_review_cost_lady_in_waiting_court_position_prestige }
+}
+court_auto_review_royal_architect_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_royal_architect_court_position_prestige <= 0 prestige >= court_auto_review_cost_royal_architect_court_position_prestige }
+}
+court_auto_review_high_almoner_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_high_almoner_court_position_prestige <= 0 prestige >= court_auto_review_cost_high_almoner_court_position_prestige }
+}
+court_auto_review_court_poet_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_poet_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_poet_court_position_prestige }
+}
+court_auto_review_court_musician_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_musician_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_musician_court_position_prestige }
+}
+court_auto_review_cupbearer_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_cupbearer_court_position_prestige <= 0 prestige >= court_auto_review_cost_cupbearer_court_position_prestige }
+}
+court_auto_review_food_taster_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_food_taster_court_position_prestige <= 0 prestige >= court_auto_review_cost_food_taster_court_position_prestige }
+}
+court_auto_review_keeper_of_swans_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_keeper_of_swans_court_position_prestige <= 0 prestige >= court_auto_review_cost_keeper_of_swans_court_position_prestige }
+}
+court_auto_review_court_jester_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_jester_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_jester_court_position_prestige }
+}
+court_auto_review_executioner_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_executioner_court_position_prestige <= 0 prestige >= court_auto_review_cost_executioner_court_position_prestige }
+}
+court_auto_review_bodyguard_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_bodyguard_court_position_prestige <= 0 prestige >= court_auto_review_cost_bodyguard_court_position_prestige }
+}
+court_auto_review_court_artificer_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_artificer_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_artificer_court_position_prestige }
+}
+court_auto_review_garuda_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_garuda_court_position_prestige <= 0 prestige >= court_auto_review_cost_garuda_court_position_prestige }
+}
+court_auto_review_court_guru_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_guru_court_position_piety <= 0 piety >= court_auto_review_cost_court_guru_court_position_piety }
+}
+court_auto_review_court_brahmin_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_brahmin_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_brahmin_court_position_prestige }
+}
+court_auto_review_khlon_glan_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_khlon_glan_court_position_prestige <= 0 prestige >= court_auto_review_cost_khlon_glan_court_position_prestige }
+}
+court_auto_review_court_astrologer_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_court_astrologer_court_position_prestige <= 0 prestige >= court_auto_review_cost_court_astrologer_court_position_prestige }
+}
+court_auto_review_boyan_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_boyan_court_position_prestige <= 0 prestige >= court_auto_review_cost_boyan_court_position_prestige }
+}
+court_auto_review_siege_engineer_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_siege_engineer_court_position_prestige <= 0 prestige >= court_auto_review_cost_siege_engineer_court_position_prestige }
+}
+court_auto_review_yurtchi_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_yurtchi_court_position_prestige <= 0 prestige >= court_auto_review_cost_yurtchi_court_position_prestige }
+}
+court_auto_review_cherbi_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_cherbi_court_position_prestige <= 0 prestige >= court_auto_review_cost_cherbi_court_position_prestige }
+}
+court_auto_review_yeke_jarquchi_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_yeke_jarquchi_court_position_prestige <= 0 prestige >= court_auto_review_cost_yeke_jarquchi_court_position_prestige }
+}
+court_auto_review_foreign_emissary_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_foreign_emissary_court_position_prestige <= 0 prestige >= court_auto_review_cost_foreign_emissary_court_position_prestige }
+}
+court_auto_review_keeper_of_the_horses_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_keeper_of_the_horses_court_position_prestige <= 0 prestige >= court_auto_review_cost_keeper_of_the_horses_court_position_prestige }
+}
+court_auto_review_partner_court_position_affordable_trigger = {
+    always = yes
+}
+court_auto_review_fixer_court_position_affordable_trigger = {
+    always = yes
+}
+court_auto_review_translator_court_position_affordable_trigger = {
+    always = yes
+}
+court_auto_review_market_agent_court_position_affordable_trigger = {
+    always = yes
+}
+court_auto_review_bailiff_court_position_affordable_trigger = {
+    always = yes
+}
+court_auto_review_roman_censor_court_position_affordable_trigger = {
+    OR = { court_auto_review_cost_roman_censor_court_position_prestige <= 0 prestige >= court_auto_review_cost_roman_censor_court_position_prestige }
+}

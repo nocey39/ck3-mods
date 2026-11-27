@@ -1,0 +1,7 @@
+﻿dejure_auto_extra_duchy_text = { type = character
+    text = { trigger = { NOT = { var:dejure_auto_domain_keep = 2 } }
+        localization_key = dejure_auto_extra_disabled }
+    text = { trigger = { exists = var:dejure_auto_extra_duchy }
+        localization_key = dejure_auto_extra_selected }
+    text = { localization_key = dejure_auto_extra_waiting }
+}

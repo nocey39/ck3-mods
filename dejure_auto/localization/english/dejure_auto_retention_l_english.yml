@@ -1,0 +1,17 @@
+﻿l_english:
+ dejure_auto_domain_keep_heading:0 "Retain personal domain"
+ dejure_auto_domain_keep_0:0 "Capital county only"
+ dejure_auto_domain_keep_1:0 "Capital duchy"
+ dejure_auto_domain_keep_2:0 "Capital duchy + one extra duchy"
+ dejure_auto_domain_keep_help:0 "Two base policies: capital county or capital duchy (default). Manual marks add on top and cover distribution and new grants alike. Settings never distribute titles immediately."
+ dejure_auto_extra_help:0 "The third option locks an extra duchy holding your counties: prefer a duchy you already hold, then more counties and summed development; exact ties keep the first pick. New conquests never displace a locked anchor; it is reselected only after losing all counties there, becoming your capital duchy, or a policy change."
+ dejure_auto_extra_disabled:0 "Extra duchy: disabled"
+ dejure_auto_extra_waiting:0 "Extra duchy: waiting for the next eligible check"
+ dejure_auto_extra_selected:0 "Extra duchy: [GetPlayer.MakeScope.Var('dejure_auto_extra_duchy').Title.GetName]"
+ rule_dejure_auto_preset_domain_keep:0 "Retain personal domain"
+ setting_dejure_auto_preset_domain_keep_0:0 "Capital county only"
+ setting_dejure_auto_preset_domain_keep_1:0 "Capital duchy"
+ setting_dejure_auto_preset_domain_keep_0_desc:0 "Keeps only the capital county; other personal counties may be granted out."
+ setting_dejure_auto_preset_domain_keep_1_desc:0 "Keeps the capital county and your personal counties inside the capital duchy."
+
+

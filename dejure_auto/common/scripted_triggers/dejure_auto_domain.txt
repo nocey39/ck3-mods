@@ -1,0 +1,56 @@
+﻿dejure_auto_domain_source_trigger = {
+    scope:dejure_auto_owner = {
+        OR = {
+            var:dejure_auto_mode = 0
+            var:dejure_auto_mode = 1
+        }
+        var:dejure_auto_distribute_domain = 1
+        is_alive = yes
+        is_ai = no
+        is_landed = yes
+    }
+    dejure_auto_map_county_trigger = yes
+    holder = scope:dejure_auto_owner
+}
+dejure_auto_domain_safe_trigger = {
+    dejure_auto_domain_source_trigger = yes
+    exists = scope:dejure_auto_owner.capital_county
+    scope:dejure_auto_owner.capital_county = {
+        holder = scope:dejure_auto_owner
+        dejure_auto_map_county_trigger = yes
+    }
+    NOT = {
+        this = scope:dejure_auto_owner.capital_county
+    }
+    NOT = {
+        this = scope:dejure_auto_owner.primary_title
+    }
+    is_leased_out = no
+    NOT = {
+        any_county_province = {
+            exists = barony.holder
+            barony.holder = {
+                highest_held_title_tier = tier_barony
+                primary_title.de_jure_liege = scope:dejure_auto_county
+                OR = {
+                    dejure_auto_force_protected_trigger = yes
+                    dejure_auto_force_player_branch_trigger = yes
+                }
+            }
+        }
+    }
+    dejure_auto_domain_retained_trigger = no
+}
+dejure_auto_domain_recipient_trigger = {
+    scope:dejure_auto_law_lord = {
+        NOT = {
+            this = scope:dejure_auto_owner
+        }
+        is_alive = yes
+        is_ai = yes
+        is_landed = yes
+        is_vassal_or_below_of = scope:dejure_auto_owner
+        highest_held_title_tier > tier_county
+        dejure_auto_force_player_branch_trigger = no
+    }
+}

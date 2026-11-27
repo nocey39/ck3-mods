@@ -1,0 +1,12 @@
+﻿# Missing settings mean free wars and no new truces, including old saves.
+rconq_initialize_settings_effect = {
+ if = { limit = { NOT = { has_variable = rconq_configured } } set_variable = rconq_configured }
+}
+rconq_inherit_settings_effect = {
+ rconq_initialize_settings_effect = yes
+ remove_variable = rconq_panel_open
+ remove_variable = rconq_costs_enabled
+ remove_variable = rconq_truces_enabled
+ if = { limit = { scope:previous_player_character = { has_variable = rconq_costs_enabled } } set_variable = rconq_costs_enabled }
+ if = { limit = { scope:previous_player_character = { has_variable = rconq_truces_enabled } } set_variable = rconq_truces_enabled }
+}

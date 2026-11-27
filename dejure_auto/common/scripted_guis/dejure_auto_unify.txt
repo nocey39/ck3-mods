@@ -1,0 +1,24 @@
+﻿dejure_auto_unify_faith_gui = {
+    scope = character is_shown = { var:dejure_auto_unify_force_faith = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_unify_force_faith = 1 } set_variable = { name = dejure_auto_unify_force_faith value = 0 } }
+        else = { set_variable = { name = dejure_auto_unify_force_faith value = 1 } }
+    }
+}
+dejure_auto_unify_culture_gui = {
+    scope = character is_shown = { var:dejure_auto_unify_force_culture = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_unify_force_culture = 1 } set_variable = { name = dejure_auto_unify_force_culture value = 0 } }
+        else = { set_variable = { name = dejure_auto_unify_force_culture value = 1 } }
+    }
+}
+dejure_auto_unify_government_gui = {
+    scope = character is_shown = { var:dejure_auto_unify_government = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_unify_government = 1 } set_variable = { name = dejure_auto_unify_government value = 0 } }
+        else = { set_variable = { name = dejure_auto_unify_government value = 1 } }
+    }
+}

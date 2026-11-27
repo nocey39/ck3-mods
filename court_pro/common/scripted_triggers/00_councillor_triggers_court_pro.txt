@@ -1,0 +1,16 @@
+﻿# Apply the vanilla Family Business calculation to all player councillors.
+# Preserve vanilla culture/family requirements for AI rulers.
+councillor_liege_has_family_business_bonus = {
+	OR = {
+		AND = {
+			exists = scope:councillor_liege
+			scope:councillor_liege = { is_ai = no }
+		}
+		AND = {
+			scope:councillor_liege.culture ?= { has_cultural_parameter = close_family_better_councillors }
+			scope:councillor ?= {
+				is_close_family_of = scope:councillor_liege
+			}
+		}
+	}
+}

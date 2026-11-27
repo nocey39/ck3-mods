@@ -1,0 +1,45 @@
+widget = {
+ name = "rconq_settings_overlay" size = { 100% 100% } layer = middle visible = "[Not(IsObserver)]"
+ rconq_settings_panel = {}
+}
+types rconq_settings_types {
+ type rconq_settings_checkbox = button_checkbox_label {
+  onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  blockoverride "checkbox" { checked = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+ }
+ type rconq_settings_panel = widget {
+  name = "rconq_settings_panel" parentanchor = center size = { 660 550 } layer = middle filter_mouse = all alwaystransparent = no
+  datacontext = "[GetPlayer]" datacontext = "[GetScriptedGui('rconq_panel_gui')]"
+  visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  using = Window_Background using = Window_Decoration
+  text_single = { position = { 54 22 } size = { 530 34 } autoresize = no align = center|vcenter text = "rconq_panel_title" fontsize = 24 default_format = "#high" }
+  button_close = {
+   name = "rconq_settings_close" position = { 596 24 } size = { 32 32 } shortcut = "close_window" tooltip = "CLOSE_TOOLTIP"
+   onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  }
+  text_multi = { position = { 36 76 } size = { 588 58 } max_width = 588 autoresize = no align = left text = "rconq_settings_intro" fontsize = 16 }
+  widget = {
+   name = "rconq_cost_box" position = { 36 148 } size = { 588 132 } background = { using = Background_Area alpha = 0.35 }
+   rconq_settings_checkbox = { position = { 12 8 } size = { 564 34 } datacontext = "[GetScriptedGui('rconq_toggle_costs_gui')]" tooltip = "rconq_costs_help" blockoverride "text" { text = "rconq_costs_label" fontsize = 17 } }
+   text_multi = { position = { 12 48 } size = { 564 72 } max_width = 564 autoresize = no align = left text = "rconq_costs_help" fontsize = 16 }
+  }
+  widget = {
+   name = "rconq_truce_box" position = { 36 292 } size = { 588 104 } background = { using = Background_Area alpha = 0.35 }
+   rconq_settings_checkbox = { position = { 12 8 } size = { 564 34 } datacontext = "[GetScriptedGui('rconq_toggle_truces_gui')]" tooltip = "rconq_truces_help" blockoverride "text" { text = "rconq_truces_label" fontsize = 17 } }
+   text_multi = { position = { 12 48 } size = { 564 44 } max_width = 564 autoresize = no align = left text = "rconq_truces_help" fontsize = 16 }
+  }
+  text_multi = { position = { 36 410 } size = { 588 58 } max_width = 588 autoresize = no align = left text = "rconq_settings_saved_note" fontsize = 15 }
+  button_standard = {
+   name = "rconq_reset_settings" position = { 36 480 } size = { 260 36 } text = "rconq_settings_reset" tooltip = "rconq_settings_reset_help"
+   datacontext = "[GetScriptedGui('rconq_reset_settings_gui')]"
+   onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+   enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  }
+  button_standard = {
+   name = "rconq_settings_done" position = { 426 480 } size = { 198 36 } text = "rconq_settings_done"
+   datacontext = "[GetScriptedGui('rconq_panel_gui')]"
+   onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  }
+ }
+}

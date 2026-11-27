@@ -1,0 +1,8 @@
+﻿court_auto_regency_cooldown_text = {
+    type = character
+    text = {
+        trigger = { has_character_flag = court_auto_swing_cooldown }
+        localization_key = court_auto_regency_cooldown_waiting
+    }
+    text = { localization_key = court_auto_regency_cooldown_ready }
+}

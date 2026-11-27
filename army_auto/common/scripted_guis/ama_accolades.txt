@@ -1,0 +1,77 @@
+﻿
+ama_acc_tab_gui = {
+    scope = character
+    is_valid = { ama_acc_available_trigger = yes }
+    is_shown = { has_variable = ama_acc_show }
+    effect = {
+        if = { limit = { has_variable = ama_acc_show } remove_variable = ama_acc_show }
+        else = { set_variable = ama_acc_show }
+        remove_variable = ama_acc_picker
+    }
+}
+ama_acc_toggle_gui = {
+    scope = character
+    is_valid = { ama_acc_available_trigger = yes }
+    is_shown = { has_variable = ama_acc_enabled }
+    effect = {
+        if = {
+            limit = { has_variable = ama_acc_enabled }
+            remove_variable = ama_acc_enabled
+            ama_acc_clear_request_effect = yes
+        }
+        else = {
+            set_variable = ama_acc_enabled
+            ama_schedule_effect = yes
+        }
+    }
+}
+ama_acc_check_gui = {
+    scope = character
+    is_valid = { ama_acc_available_trigger = yes has_variable = ama_acc_enabled }
+    effect = { ama_acc_manual_check_effect = yes }
+}
+ama_acc_edit_gui = {
+    scope = character
+    saved_scopes = { ama_column }
+    is_valid = { ama_acc_available_trigger = yes }
+    effect = {
+        set_variable = { name = ama_acc_picker value = scope:ama_column }
+        ama_acc_build_catalog_effect = yes
+    }
+}
+ama_acc_cancel_pick_gui = {
+    scope = character
+    is_valid = { has_variable = ama_acc_picker }
+    effect = { remove_variable = ama_acc_picker }
+}
+ama_acc_clear_pick_gui = {
+    scope = character
+    is_valid = { ama_acc_available_trigger = yes has_variable = ama_acc_picker }
+    effect = { ama_acc_write_pick_effect = { CLEAR = yes VALUE = 0 } }
+}
+ama_acc_pick_gui = {
+    scope = character
+    saved_scopes = { ama_choice }
+    is_valid = {
+        ama_acc_available_trigger = yes
+        has_variable = ama_acc_picker
+        ama_acc_known_type_trigger = { TYPE = scope:ama_choice }
+        NOT = { ama_acc_attribute_assigned_trigger = { TYPE = scope:ama_choice } }
+        NAND = {
+            ama_acc_maa_type_trigger = { TYPE = scope:ama_choice }
+            ama_acc_companion_is_maa_trigger = yes
+        }
+    }
+    effect = { ama_acc_write_pick_effect = { CLEAR = no VALUE = scope:ama_choice } }
+}
+ama_acc_complete_gui = {
+    scope = character
+    saved_scopes = { ama_acc_reply }
+    is_valid = {
+        ama_acc_available_trigger = yes
+        has_variable = ama_acc_enabled
+        has_variable = ama_acc_request
+        var:ama_acc_target ?= scope:ama_acc_reply
+    }
+    effect = { ama_acc_clear_request_effect = yes }
+}

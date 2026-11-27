@@ -1,0 +1,1161 @@
+﻿dejure_auto_preferences_initialize_effect = {
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_mode
+            }
+        }
+        set_variable = {
+            name = dejure_auto_mode
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_last_taken
+            }
+        }
+        set_variable = {
+            name = dejure_auto_last_taken
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_tier_county
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_county
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_tier_duchy
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_duchy
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_tier_kingdom
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_kingdom
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_tier_empire
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_empire
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_left_counties
+            }
+        }
+        set_variable = {
+            name = dejure_auto_left_counties
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_left_people
+            }
+        }
+        set_variable = {
+            name = dejure_auto_left_people
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_unassigned
+            }
+        }
+        set_variable = {
+            name = dejure_auto_unassigned
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_conflicts
+            }
+        }
+        set_variable = {
+            name = dejure_auto_conflicts
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_last_high
+            }
+        }
+        set_variable = {
+            name = dejure_auto_last_high
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_left_high
+            }
+        }
+        set_variable = {
+            name = dejure_auto_left_high
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_last_county_kept
+            }
+        }
+        set_variable = {
+            name = dejure_auto_last_county_kept
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_distribute_domain
+            }
+        }
+        set_variable = {
+            name = dejure_auto_distribute_domain
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_last_player_counties
+            }
+        }
+        set_variable = {
+            name = dejure_auto_last_player_counties
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_create_duchy
+            }
+        }
+        set_variable = {
+            name = dejure_auto_create_duchy
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_create_kingdom
+            }
+        }
+        set_variable = {
+            name = dejure_auto_create_kingdom
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_create_empire
+            }
+        }
+        set_variable = {
+            name = dejure_auto_create_empire
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_grant_county
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_county
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_grant_duchy
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_duchy
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_grant_kingdom
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_kingdom
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_grant_empire
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_empire
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_people_direct
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_direct
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_people_house
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_house
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_people_dynasty
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_dynasty
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_people_noble
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_noble
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_people_lowborn
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_lowborn
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_people_culture
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_culture
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_people_faith
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_faith
+            value = 1
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_fee
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_fee
+            value = 100
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_reserve
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_reserve
+            value = 500
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_used
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_used
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_created
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_created
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_granted
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_granted
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_paid
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_paid
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_waiting
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_waiting
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_title_failed
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_failed
+            value = 0
+        }
+    }
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_domain_keep
+            }
+        }
+        set_variable = {
+            name = dejure_auto_domain_keep
+            value = 1
+        }
+    }
+    # The old request toggles do not enable forced conversion on upgrade.
+    if = {
+        limit = { NOT = { has_variable = dejure_auto_unify_force_faith } }
+        set_variable = { name = dejure_auto_unify_force_faith value = 0 }
+    }
+    if = {
+        limit = { NOT = { has_variable = dejure_auto_unify_force_culture } }
+        set_variable = { name = dejure_auto_unify_force_culture value = 0 }
+    }
+    if = {
+        limit = { NOT = { has_variable = dejure_auto_unify_force_faith_done } }
+        set_variable = { name = dejure_auto_unify_force_faith_done value = 0 }
+    }
+    if = {
+        limit = { NOT = { has_variable = dejure_auto_unify_force_culture_done } }
+        set_variable = { name = dejure_auto_unify_force_culture_done value = 0 }
+    }
+    if = {
+        limit = { NOT = { has_variable = dejure_auto_unify_government } }
+        set_variable = { name = dejure_auto_unify_government value = 0 }
+    }
+    if = {
+        limit = { NOT = { has_variable = dejure_auto_unify_government_done } }
+        set_variable = { name = dejure_auto_unify_government_done value = 0 }
+    }
+    dejure_auto_manual_migrate_effect = yes
+    dejure_auto_manual_prune_effect = yes
+}
+dejure_auto_preferences_inherit_effect = {
+    set_variable = {
+        name = dejure_auto_mode
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_mode
+            }
+        }
+        set_variable = {
+            name = dejure_auto_mode
+            value = scope:previous_player_character.var:dejure_auto_mode
+        }
+    }
+    set_variable = {
+        name = dejure_auto_tier_county
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_tier_county
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_county
+            value = scope:previous_player_character.var:dejure_auto_tier_county
+        }
+    }
+    set_variable = {
+        name = dejure_auto_tier_duchy
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_tier_duchy
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_duchy
+            value = scope:previous_player_character.var:dejure_auto_tier_duchy
+        }
+    }
+    set_variable = {
+        name = dejure_auto_tier_kingdom
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_tier_kingdom
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_kingdom
+            value = scope:previous_player_character.var:dejure_auto_tier_kingdom
+        }
+    }
+    set_variable = {
+        name = dejure_auto_tier_empire
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_tier_empire
+            }
+        }
+        set_variable = {
+            name = dejure_auto_tier_empire
+            value = scope:previous_player_character.var:dejure_auto_tier_empire
+        }
+    }
+    set_variable = {
+        name = dejure_auto_left_counties
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_left_people
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_unassigned
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_conflicts
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_last_high
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_left_high
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_last_county_kept
+        value = 0
+    }
+    dejure_auto_reset_report_effect = yes
+    remove_variable = dejure_auto_report_open
+    set_variable = {
+        name = dejure_auto_distribute_domain
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_distribute_domain
+            }
+        }
+        set_variable = {
+            name = dejure_auto_distribute_domain
+            value = scope:previous_player_character.var:dejure_auto_distribute_domain
+        }
+    }
+    set_variable = {
+        name = dejure_auto_create_duchy
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_create_duchy
+            }
+        }
+        set_variable = {
+            name = dejure_auto_create_duchy
+            value = scope:previous_player_character.var:dejure_auto_create_duchy
+        }
+    }
+    set_variable = {
+        name = dejure_auto_create_kingdom
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_create_kingdom
+            }
+        }
+        set_variable = {
+            name = dejure_auto_create_kingdom
+            value = scope:previous_player_character.var:dejure_auto_create_kingdom
+        }
+    }
+    set_variable = {
+        name = dejure_auto_create_empire
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_create_empire
+            }
+        }
+        set_variable = {
+            name = dejure_auto_create_empire
+            value = scope:previous_player_character.var:dejure_auto_create_empire
+        }
+    }
+    set_variable = {
+        name = dejure_auto_grant_county
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_grant_county
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_county
+            value = scope:previous_player_character.var:dejure_auto_grant_county
+        }
+    }
+    set_variable = {
+        name = dejure_auto_grant_duchy
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_grant_duchy
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_duchy
+            value = scope:previous_player_character.var:dejure_auto_grant_duchy
+        }
+    }
+    set_variable = {
+        name = dejure_auto_grant_kingdom
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_grant_kingdom
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_kingdom
+            value = scope:previous_player_character.var:dejure_auto_grant_kingdom
+        }
+    }
+    set_variable = {
+        name = dejure_auto_grant_empire
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_grant_empire
+            }
+        }
+        set_variable = {
+            name = dejure_auto_grant_empire
+            value = scope:previous_player_character.var:dejure_auto_grant_empire
+        }
+    }
+    set_variable = {
+        name = dejure_auto_people_direct
+        value = 0
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_people_direct
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_direct
+            value = scope:previous_player_character.var:dejure_auto_people_direct
+        }
+    }
+    set_variable = {
+        name = dejure_auto_people_house
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_people_house
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_house
+            value = scope:previous_player_character.var:dejure_auto_people_house
+        }
+    }
+    set_variable = {
+        name = dejure_auto_people_dynasty
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_people_dynasty
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_dynasty
+            value = scope:previous_player_character.var:dejure_auto_people_dynasty
+        }
+    }
+    set_variable = {
+        name = dejure_auto_people_noble
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_people_noble
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_noble
+            value = scope:previous_player_character.var:dejure_auto_people_noble
+        }
+    }
+    set_variable = {
+        name = dejure_auto_people_lowborn
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_people_lowborn
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_lowborn
+            value = scope:previous_player_character.var:dejure_auto_people_lowborn
+        }
+    }
+    set_variable = {
+        name = dejure_auto_people_culture
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_people_culture
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_culture
+            value = scope:previous_player_character.var:dejure_auto_people_culture
+        }
+    }
+    set_variable = {
+        name = dejure_auto_people_faith
+        value = 1
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_people_faith
+            }
+        }
+        set_variable = {
+            name = dejure_auto_people_faith
+            value = scope:previous_player_character.var:dejure_auto_people_faith
+        }
+    }
+    set_variable = {
+        name = dejure_auto_title_fee
+        value = 100
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_title_fee
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_fee
+            value = scope:previous_player_character.var:dejure_auto_title_fee
+        }
+    }
+    set_variable = {
+        name = dejure_auto_title_reserve
+        value = 500
+    }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_title_reserve
+            }
+        }
+        set_variable = {
+            name = dejure_auto_title_reserve
+            value = scope:previous_player_character.var:dejure_auto_title_reserve
+        }
+    }
+    set_variable = {
+        name = dejure_auto_title_used
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_created
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_granted
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_paid
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_waiting
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_title_failed
+        value = 0
+    }
+    clear_variable_list = dejure_auto_title_created_list
+    clear_variable_list = dejure_auto_title_granted_list
+    clear_variable_list = dejure_auto_title_waiting_list
+    clear_variable_list = dejure_auto_title_failed_list
+    set_variable = {
+        name = dejure_auto_domain_keep
+        value = 1
+    }
+    remove_variable = dejure_auto_core_duchy
+    remove_variable = dejure_auto_extra_duchy
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_domain_keep
+            }
+        }
+        set_variable = {
+            name = dejure_auto_domain_keep
+            value = scope:previous_player_character.var:dejure_auto_domain_keep
+        }
+    }
+    if = {
+        limit = {
+            var:dejure_auto_domain_keep = 2
+            scope:previous_player_character = {
+                exists = var:dejure_auto_extra_duchy
+            }
+        }
+        set_variable = {
+            name = dejure_auto_extra_duchy
+            value = scope:previous_player_character.var:dejure_auto_extra_duchy
+        }
+    }
+    set_variable = { name = dejure_auto_unify_government value = 0 }
+    set_variable = { name = dejure_auto_unify_government_done value = 0 }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_unify_government
+                var:dejure_auto_unify_government = 1
+            }
+        }
+        set_variable = { name = dejure_auto_unify_government value = 1 }
+    }
+    set_variable = { name = dejure_auto_unify_force_faith value = 0 }
+    set_variable = { name = dejure_auto_unify_force_faith_done value = 0 }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_unify_force_faith
+                var:dejure_auto_unify_force_faith = 1
+            }
+        }
+        set_variable = { name = dejure_auto_unify_force_faith value = 1 }
+    }
+    set_variable = { name = dejure_auto_unify_force_culture value = 0 }
+    set_variable = { name = dejure_auto_unify_force_culture_done value = 0 }
+    if = {
+        limit = {
+            scope:previous_player_character = {
+                has_variable = dejure_auto_unify_force_culture
+                var:dejure_auto_unify_force_culture = 1
+            }
+        }
+        set_variable = { name = dejure_auto_unify_force_culture value = 1 }
+    }
+    dejure_auto_manual_inherit_effect = yes
+}
+dejure_auto_force_check_effect = {
+    set_variable = {
+        name = dejure_auto_force_used
+        value = 0
+    }
+    if = {
+        limit = {
+            var:dejure_auto_distribute_domain = 1
+        }
+        dejure_auto_domain_snapshot_effect = yes
+    }
+    every_in_list = {
+        list = dejure_auto_candidates
+        limit = {
+            is_alive = yes
+            is_ai = yes
+            is_landed = yes
+            dejure_auto_tier_selected_trigger = yes
+            dejure_auto_force_protected_trigger = yes
+        }
+        primary_title = {
+            if = {
+                limit = {
+                    dejure_auto_map_title_trigger = yes
+                }
+                dejure_auto_record_protected_effect = yes
+            }
+        }
+    }
+    set_variable = {
+        name = dejure_auto_left_counties
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_left_people
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_unassigned
+        value = 0
+    }
+    set_variable = {
+        name = dejure_auto_conflicts
+        value = 0
+    }
+    every_in_list = {
+        list = dejure_auto_candidates
+        limit = {
+            is_alive = yes
+            is_landed = yes
+            is_ai = yes
+            liege = scope:dejure_auto_owner
+            dejure_auto_tier_selected_trigger = yes
+            dejure_auto_force_protected_trigger = no
+        }
+        add_to_temporary_list = dejure_auto_hierarchy_people
+        every_vassal_or_below = {
+            limit = {
+                highest_held_title_tier > tier_barony
+                is_landed = yes
+                is_alive = yes
+            }
+            add_to_temporary_list = dejure_auto_hierarchy_people
+        }
+        every_sub_realm_county = {
+            limit = {
+                exists = holder
+                holder = {
+                    NOT = {
+                        this = scope:dejure_auto_owner
+                    }
+                }
+            }
+            add_to_temporary_list = dejure_auto_hierarchy_counties
+        }
+    }
+    every_in_list = {
+        list = dejure_auto_hierarchy_people
+        every_held_title = {
+            limit = {
+                tier >= tier_duchy
+                tier <= tier_empire
+            }
+            add_to_temporary_list = dejure_auto_high_titles
+        }
+    }
+    dejure_auto_high_pass_effect = yes
+    dejure_auto_hierarchy_pass_effect = yes
+    every_in_list = {
+        list = dejure_auto_hierarchy_counties
+        limit = {
+            scope:dejure_auto_owner = {
+                var:dejure_auto_force_used < 50
+            }
+        }
+        dejure_auto_force_consider_effect = yes
+    }
+    if = {
+        limit = {
+            var:dejure_auto_distribute_domain = 1
+        }
+        every_in_list = {
+            list = dejure_auto_domain_counties
+            limit = {
+                scope:dejure_auto_owner = {
+                    var:dejure_auto_force_used < 50
+                }
+            }
+            dejure_auto_domain_consider_effect = yes
+        }
+    }
+    dejure_auto_hierarchy_pass_effect = yes
+    every_in_list = {
+        list = dejure_auto_high_titles
+        dejure_auto_report_high_effect = yes
+    }
+    set_variable = dejure_auto_report_strong
+    clear_saved_scope = dejure_auto_high_title
+    clear_saved_scope = dejure_auto_high_source
+    clear_saved_scope = dejure_auto_high_change
+    every_in_list = {
+        list = dejure_auto_hierarchy_people
+        dejure_auto_report_person_effect = yes
+    }
+    every_in_list = {
+        list = dejure_auto_hierarchy_counties
+        dejure_auto_report_county_effect = yes
+    }
+    clear_saved_scope = dejure_auto_law_lord
+    clear_saved_scope = dejure_auto_hierarchy_person
+    clear_saved_scope = dejure_auto_county
+    clear_saved_scope = dejure_auto_force_recipient
+    if = {
+        limit = {
+            var:dejure_auto_distribute_domain = 1
+        }
+        every_in_list = {
+            list = dejure_auto_domain_counties
+            dejure_auto_domain_report_effect = yes
+        }
+    }
+    remove_variable = dejure_auto_force_used
+    remove_variable = dejure_auto_law_found
+    remove_variable = dejure_auto_law_conflict
+}
+dejure_auto_force_consider_effect = {
+    save_scope_as = dejure_auto_county
+    if = {
+        limit = {
+            dejure_auto_force_county_trigger = yes
+            dejure_auto_last_county_trigger = no
+        }
+        dejure_auto_find_parent_lord_effect = yes
+        if = {
+            limit = {
+                scope:dejure_auto_law_lord = {
+                    NOT = {
+                        this = scope:dejure_auto_owner
+                    }
+                    NOT = {
+                        this = scope:dejure_auto_county.holder
+                    }
+                    NOT = {
+                        is_liege_or_above_of = scope:dejure_auto_county.holder
+                    }
+                    is_alive = yes
+                    is_ai = yes
+                    is_landed = yes
+                    is_vassal_or_below_of = scope:dejure_auto_owner
+                }
+                dejure_auto_force_county_trigger = yes
+            }
+            scope:dejure_auto_law_lord = {
+                save_scope_as = dejure_auto_force_recipient
+            }
+            dejure_auto_force_transfer_effect = yes
+        }
+    }
+    clear_saved_scope = dejure_auto_force_recipient
+    clear_saved_scope = dejure_auto_county
+}
+dejure_auto_force_transfer_effect = {
+    create_title_and_vassal_change = {
+        type = granted
+        save_scope_as = dejure_auto_force_change
+        add_claim_on_loss = no
+    }
+    change_title_holder = {
+        holder = scope:dejure_auto_force_recipient
+        change = scope:dejure_auto_force_change
+        take_baronies = no
+    }
+    every_county_province = {
+        limit = {
+            exists = barony.holder
+        }
+        barony.holder = {
+            if = {
+                limit = {
+                    is_alive = yes
+                    is_ai = yes
+                    highest_held_title_tier = tier_barony
+                    primary_title.de_jure_liege = scope:dejure_auto_county
+                    is_vassal_or_below_of = scope:dejure_auto_owner
+                    NOT = {
+                        liege = scope:dejure_auto_force_recipient
+                    }
+                    dejure_auto_force_protected_trigger = no
+                    dejure_auto_force_player_branch_trigger = no
+                }
+                change_liege = {
+                    liege = scope:dejure_auto_force_recipient
+                    change = scope:dejure_auto_force_change
+                }
+            }
+        }
+    }
+    resolve_title_and_vassal_change = scope:dejure_auto_force_change
+    clear_saved_scope = dejure_auto_force_change
+    if = {
+        limit = {
+            holder = scope:dejure_auto_force_recipient
+        }
+        scope:dejure_auto_owner = {
+            change_variable = {
+                name = dejure_auto_last_taken
+                add = 1
+            }
+            change_variable = {
+                name = dejure_auto_force_used
+                add = 1
+            }
+        }
+        save_scope_as = dejure_auto_report_item
+        scope:dejure_auto_owner = {
+            if = {
+                limit = {
+                    var:dejure_auto_report_n_changed_titles < 50
+                    NOT = {
+                        is_target_in_variable_list = {
+                            name = dejure_auto_report_changed_titles
+                            target = scope:dejure_auto_report_item
+                        }
+                    }
+                }
+                add_to_variable_list = {
+                    name = dejure_auto_report_changed_titles
+                    target = scope:dejure_auto_report_item
+                }
+                change_variable = {
+                    name = dejure_auto_report_n_changed_titles
+                    add = 1
+                }
+            }
+        }
+        clear_saved_scope = dejure_auto_report_item
+    }
+    else = {
+        dejure_auto_feedback_record_unconfirmed_effect = yes
+    }
+}

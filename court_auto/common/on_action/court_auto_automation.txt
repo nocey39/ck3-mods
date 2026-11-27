@@ -1,0 +1,43 @@
+﻿# Additive hooks: base-game on_action effects and other mods are preserved.
+on_player_character_change = { on_actions = { court_auto_player_change } }
+court_auto_player_change = {
+    trigger = { is_ai = no is_alive = yes }
+    effect = {
+        if = {
+            limit = {
+                exists = scope:previous_player_character
+                scope:previous_player_character = { is_alive = no has_variable = court_auto_configured }
+            }
+            court_auto_inherit_settings_effect = yes
+        }
+        else_if = { limit = { has_variable = court_auto_configured } court_auto_restart_schedule_effect = yes }
+    }
+}
+court_auto_succession_check = {
+    trigger = { court_auto_automation_active_trigger = yes
+        OR = { NOT = { exists = scope:court_auto_succession_ticket } scope:court_auto_succession_ticket = var:court_auto_generation } }
+    effect = { court_auto_check_effect = yes court_auto_schedule_effect = yes }
+}
+court_auto_scheduled_check = {
+    effect = {
+        if = {
+            limit = { has_variable = court_auto_pending exists = scope:court_auto_ticket scope:court_auto_ticket = var:court_auto_generation }
+            remove_variable = court_auto_pending
+            court_auto_initialize_effect = yes
+            if = {
+                limit = { court_auto_automation_active_trigger = yes }
+                court_auto_monthly_check_effect = yes
+                court_auto_schedule_effect = yes
+            }
+        }
+    }
+}
+# Recovery for old saves or an interrupted delayed chain.
+quarterly_playable_pulse = { on_actions = { court_auto_recover_schedule } }
+court_auto_recover_schedule = {
+    trigger = {
+        court_auto_automation_active_trigger = yes
+        OR = { NOT = { has_variable = court_auto_pending } NOT = { var:court_auto_interval = 1 } }
+    }
+    effect = { court_auto_initialize_effect = yes court_auto_due_check_effect = yes court_auto_schedule_effect = yes }
+}

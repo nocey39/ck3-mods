@@ -1,0 +1,6 @@
+﻿court_auto_regency_active_trigger = {
+    is_ai = no
+    is_alive = yes
+    has_variable = court_auto_enabled
+    has_variable = court_auto_regency_enabled
+}

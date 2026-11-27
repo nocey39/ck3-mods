@@ -1,0 +1,355 @@
+﻿court_auto_preset_new_player_effect = {
+    if = {
+        limit = {
+            NOT = {
+                has_variable = court_auto_preset_player_initialized
+            }
+            is_ai = no
+            is_alive = yes
+            OR = {
+                has_game_rule = court_auto_preset_enabled_0
+                has_game_rule = court_auto_preset_enabled_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_council_0
+                has_game_rule = court_auto_preset_council_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_court_0
+                has_game_rule = court_auto_preset_court_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_strategy_0
+                has_game_rule = court_auto_preset_strategy_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_council_replace_0
+                has_game_rule = court_auto_preset_council_replace_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_court_replace_0
+                has_game_rule = court_auto_preset_court_replace_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_review_interval_1
+                has_game_rule = court_auto_preset_review_interval_6
+                has_game_rule = court_auto_preset_review_interval_12
+            }
+            OR = {
+                has_game_rule = court_auto_preset_conversion_0
+                has_game_rule = court_auto_preset_conversion_1
+                has_game_rule = court_auto_preset_conversion_2
+                has_game_rule = court_auto_preset_conversion_3
+            }
+            OR = {
+                has_game_rule = court_auto_preset_culture_0
+                has_game_rule = court_auto_preset_culture_1
+                has_game_rule = court_auto_preset_culture_2
+                has_game_rule = court_auto_preset_culture_3
+            }
+            OR = {
+                has_game_rule = court_auto_preset_control_0
+                has_game_rule = court_auto_preset_control_1
+                has_game_rule = court_auto_preset_control_2
+                has_game_rule = court_auto_preset_control_3
+            }
+        }
+        set_variable = court_auto_preset_player_initialized
+        court_auto_preset_restore_effect = yes
+    }
+}
+court_auto_preset_restore_effect = {
+    if = {
+        limit = {
+            is_ai = no
+            is_alive = yes
+            OR = {
+                has_game_rule = court_auto_preset_enabled_0
+                has_game_rule = court_auto_preset_enabled_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_council_0
+                has_game_rule = court_auto_preset_council_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_court_0
+                has_game_rule = court_auto_preset_court_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_strategy_0
+                has_game_rule = court_auto_preset_strategy_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_council_replace_0
+                has_game_rule = court_auto_preset_council_replace_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_court_replace_0
+                has_game_rule = court_auto_preset_court_replace_1
+            }
+            OR = {
+                has_game_rule = court_auto_preset_review_interval_1
+                has_game_rule = court_auto_preset_review_interval_6
+                has_game_rule = court_auto_preset_review_interval_12
+            }
+            OR = {
+                has_game_rule = court_auto_preset_conversion_0
+                has_game_rule = court_auto_preset_conversion_1
+                has_game_rule = court_auto_preset_conversion_2
+                has_game_rule = court_auto_preset_conversion_3
+            }
+            OR = {
+                has_game_rule = court_auto_preset_culture_0
+                has_game_rule = court_auto_preset_culture_1
+                has_game_rule = court_auto_preset_culture_2
+                has_game_rule = court_auto_preset_culture_3
+            }
+            OR = {
+                has_game_rule = court_auto_preset_control_0
+                has_game_rule = court_auto_preset_control_1
+                has_game_rule = court_auto_preset_control_2
+                has_game_rule = court_auto_preset_control_3
+            }
+        }
+        set_variable = {
+            name = court_auto_interval
+            value = 1
+        }
+        court_auto_initialize_effect = yes
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_enabled_0
+            }
+            remove_variable = court_auto_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_enabled_1
+            }
+            set_variable = court_auto_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_council_0
+            }
+            remove_variable = court_auto_council_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_council_1
+            }
+            set_variable = court_auto_council_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_court_0
+            }
+            remove_variable = court_auto_court_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_court_1
+            }
+            set_variable = court_auto_court_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_strategy_0
+            }
+            set_variable = {
+                name = court_auto_strategy
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_strategy_1
+            }
+            set_variable = {
+                name = court_auto_strategy
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_council_replace_0
+            }
+            set_variable = {
+                name = court_auto_council_replace
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_council_replace_1
+            }
+            set_variable = {
+                name = court_auto_council_replace
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_court_replace_0
+            }
+            set_variable = {
+                name = court_auto_court_replace
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_court_replace_1
+            }
+            set_variable = {
+                name = court_auto_court_replace
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_review_interval_1
+            }
+            set_variable = {
+                name = court_auto_review_interval
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_review_interval_6
+            }
+            set_variable = {
+                name = court_auto_review_interval
+                value = 6
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_review_interval_12
+            }
+            set_variable = {
+                name = court_auto_review_interval
+                value = 12
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_conversion_0
+            }
+            set_variable = {
+                name = court_auto_task_conversion_scope
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_conversion_1
+            }
+            set_variable = {
+                name = court_auto_task_conversion_scope
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_conversion_2
+            }
+            set_variable = {
+                name = court_auto_task_conversion_scope
+                value = 2
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_conversion_3
+            }
+            set_variable = {
+                name = court_auto_task_conversion_scope
+                value = 3
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_culture_0
+            }
+            set_variable = {
+                name = court_auto_task_culture_scope
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_culture_1
+            }
+            set_variable = {
+                name = court_auto_task_culture_scope
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_culture_2
+            }
+            set_variable = {
+                name = court_auto_task_culture_scope
+                value = 2
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_culture_3
+            }
+            set_variable = {
+                name = court_auto_task_culture_scope
+                value = 3
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_control_0
+            }
+            set_variable = {
+                name = court_auto_task_control_scope
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_control_1
+            }
+            set_variable = {
+                name = court_auto_task_control_scope
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_control_2
+            }
+            set_variable = {
+                name = court_auto_task_control_scope
+                value = 2
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = court_auto_preset_control_3
+            }
+            set_variable = {
+                name = court_auto_task_control_scope
+                value = 3
+            }
+        }
+        set_variable = {
+            name = court_auto_interval
+            value = 1
+        }
+        set_variable = {
+            name = court_auto_review_elapsed
+            value = 0
+        }
+        set_variable = court_auto_preset_imported
+        court_auto_restart_schedule_effect = yes
+    }
+}

@@ -1,0 +1,19 @@
+﻿l_simp_chinese:
+ dejure_auto_feedback_short:0 "上次：创建 [GetPlayer.MakeScope.Var('dejure_auto_feedback_created').GetValue|0] · 授予头衔 [GetPlayer.MakeScope.Var('dejure_auto_feedback_granted').GetValue|0] · 归整 [GetPlayer.MakeScope.Var('dejure_auto_feedback_organized').GetValue|0]"
+ dejure_auto_feedback_no_history:0 "本版尚无执行记录；旧版明细如有则仍保留。"
+ dejure_auto_feedback_history_heading:0 "上次执行 · 历史结果"
+ dejure_auto_feedback_history_hint:0 "此处记录实际执行，与当前保护名单分开。打开窗口、改保留或应用规则不会生成一次执行记录。"
+ dejure_auto_feedback_summary:0 "创建 [GetPlayer.MakeScope.Var('dejure_auto_feedback_created').GetValue|0] 个 · 授予 [GetPlayer.MakeScope.Var('dejure_auto_feedback_granted').GetValue|0] 个\n归整 [GetPlayer.MakeScope.Var('dejure_auto_feedback_organized').GetValue|0] 次：转封 [GetPlayer.MakeScope.Var('dejure_auto_feedback_moved').GetValue|0]、领 [GetPlayer.MakeScope.Var('dejure_auto_feedback_counties').GetValue|0]、高阶 [GetPlayer.MakeScope.Var('dejure_auto_feedback_high').GetValue|0]\n创建支出 [GetPlayer.MakeScope.Var('dejure_auto_feedback_paid').GetValue|0]"
+ dejure_auto_feedback_reasons_heading:0 "本轮已记录的主要原因"
+ dejure_auto_feedback_reason_scope:0 "每类按头衔去重、最多 50 项，类别间可重叠。候选保护不等于已通过最终授予资格；未勾选或未入候选的头衔不计为失败。"
+ dejure_auto_feedback_protected_heading:0 "候选因保留规则排除：[GetPlayer.MakeScope.Var('dejure_auto_feedback_n_protected').GetValue|0]"
+ dejure_auto_feedback_funds_heading:0 "创建资金不足（含配置储备）：[GetPlayer.MakeScope.Var('dejure_auto_feedback_n_funds').GetValue|0]"
+ dejure_auto_feedback_waiting_heading:0 "分封未找到合格人选：[GetPlayer.MakeScope.Var('dejure_auto_feedback_n_waiting').GetValue|0]"
+ dejure_auto_feedback_unconfirmed_heading:0 "已提交但结果未确认记录：[GetPlayer.MakeScope.Var('dejure_auto_feedback_n_unconfirmed').GetValue|0]（本轮曾发生，后续成功重试不抹去）"
+ dejure_auto_feedback_limit_heading:0 "连带分封名额不足：[GetPlayer.MakeScope.Var('dejure_auto_feedback_n_limit').GetValue|0]"
+ dejure_auto_feedback_cap_creation:0 "已达本轮创建上限：5个头衔。"
+ dejure_auto_feedback_cap_title:0 "已达本轮创建与授予合计上限：20个头衔。"
+ dejure_auto_feedback_cap_organizer:0 "已达本轮归整上限：50次。"
+ dejure_auto_feedback_caps_note:0 "达到上限仅表示本轮成功额度用尽，不代表仍有合格候选。具体头衔明细如下。"
+
+

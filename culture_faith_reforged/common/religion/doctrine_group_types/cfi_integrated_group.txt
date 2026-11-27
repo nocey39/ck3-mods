@@ -1,0 +1,7 @@
+﻿# 文化与信仰机制整合 2.1.1 / CK3 1.21.0.3
+cfi_integrated_group = {
+    category = special
+    doctrine_lock = rite
+    # A new rite is a fresh opt-in, preventing AI splinter rites inheriting the bundle.
+    is_available_on_create = { always = no }
+}

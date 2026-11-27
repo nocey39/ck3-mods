@@ -1,0 +1,801 @@
+﻿######################################################
+############### CHANGE TREASURY BUDGET ###############
+######################################################
+
+window = {
+	name = "window_treasury_budget_change"
+	widgetid = "window_treasury_budget_change"
+ state = { name = "teq_open_calibration" trigger_when = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]" duration = 0.01
+  on_finish = "[GetScriptedGui('teq_budget_commit').Execute(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
+ }
+	size = { 1200 875 }
+	parentanchor = center
+	layer = middle
+
+	using = Window_Background
+	using = Window_Decoration
+	using = Animation_ShowHide_Standard
+
+	datacontext = "[TreasuryBudgetChangeWindow.GetTitle]"
+	datacontext = "[Title.GetHolder]"
+
+
+	vbox = {
+		using = Window_Margins
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_control_window_title', 'WINDOW_TREASURY_BUDGET_CHANGE_TITLE')]"
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[TreasuryBudgetChangeWindow.Close]"
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				## Left Side
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+						minimumsize = { 0 312 }
+						margin = { 14 14 }
+						spacing = 10
+
+						background = {
+							using = Background_Area
+						}
+
+						hbox = {
+							datacontext = "[TreasuryBudgetChangeWindow.GetTitle.GetHolder]"
+							layoutpolicy_horizontal = expanding
+							margin = { 10 10 }
+
+							background = {
+								using = Background_Area
+							}
+
+							portrait_head = {}
+
+							vbox = {
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								margin_left = 10
+								margin_top = 5
+
+								text_single = {
+									text = "[Character.GetNameNoTooltip]"
+									align = left
+									default_format = "#high"
+									using = Font_Size_Medium
+									autoresize = no
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									text = "WINDOW_TREASURY_BUDGET_CHANGE_TREASURY_LABEL"
+									align = left
+									autoresize = no
+									layoutpolicy_horizontal = expanding
+								}
+#								text_single = {
+#									text = "WINDOW_TREASURY_BUDGET_CHANGE_MONTHLY_INCOME_LABEL"
+#								}
+
+								text_single = {
+									text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_current_envelope', 'WINDOW_TREASURY_BUDGET_CHANGE_PREVIOUS_BUDGET')]"
+									align = left
+									autoresize = no
+									layoutpolicy_horizontal = expanding
+								}
+								text_single = {
+									text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_retained_target', 'WINDOW_TREASURY_BUDGET_CHANGE_BUDGET_CAPACITY')]"
+									align = left
+									using = Font_Size_Small
+									autoresize = no
+									layoutpolicy_horizontal = expanding
+								}
+
+								expand = {}
+							}
+						}
+
+
+						text_label_center = {
+							text = "WINDOW_TREASURY_BUDGET_CHANGE_ALLOCATED"
+						}
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							datamodel = "[TreasuryBudgetChangeWindow.AccessLawGroups]"
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								min_height = 40
+
+								background = {
+									using = Background_Area
+								}
+
+								text_single = {
+									min_width = 160
+									max_width = 160
+									margin_left = 20
+									text = ""
+									align = left
+								}
+								text_single = {
+									min_width = 100
+									max_width = 100
+									margin_left = 10
+									text = "WINDOW_TREASURY_BUDGET_CHANGE_CHARACTERS_HEADER"
+								}
+								text_single = {
+									min_width = 110
+									max_width = 100
+									margin_right = 20
+
+									text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_control_allocation_header', 'WINDOW_TREASURY_BUDGET_CHANGE_ALLOCATION_HEADER')]"
+								}
+								text_single = {
+									min_width = 100
+									max_width = 100
+									text = "WINDOW_TREASURY_BUDGET_CHANGE_TOTAL_HEADER"
+									align = left
+								}
+								text_single = {
+									min_width = 100
+									max_width = 100
+									text = "WINDOW_TREASURY_BUDGET_CHANGE_BASE_RATE_HEADER"
+									align = left
+								}
+								text_single = {
+									min_width = 100
+									max_width = 100
+									text = "WINDOW_TREASURY_BUDGET_CHANGE_TREND_HEADER"
+									align = left
+								}
+								expand = {}
+							}
+
+							item = {
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									min_height = 40
+									visible = "[TreasuryBudgetChangeWindow.AccessSelectedLaw( GuiLawGroup.AccessSelf ).GetLaw.IsValid]"
+
+									text_single = {
+										layoutpolicy_vertical = expanding
+										min_width = 160
+										max_width = 160
+										min_height = 40
+										margin_left = 20
+
+										text = "[SelectLocalization(And(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), EqualTo_string(TreasuryBudgetChangeWindow.GetBudgetCategoryKey(GuiLawGroup.Self), 'SALARY')), 'teq_control_salary_label', Concatenate('WINDOW_TREASURY_BUDGET_CATEGORY_', TreasuryBudgetChangeWindow.GetBudgetCategoryKey(GuiLawGroup.Self)))]"
+										align = left|nobaseline
+
+										background = {
+											using = Background_Area
+										}
+									}
+									# Keep the law-group argument in the direct row context.
+widget = { size = { 100 40 } min_width = 100 max_width = 100 margin_left = 10
+ text_single = { size = { 100% 100% } visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
+  text = "[TreasuryBudgetChangeWindow.GetCurrentBudgetReceiverCount(GuiLawGroup.Self)]"
+  align = left|nobaseline tooltip = "WINDOW_TREASURY_BUDGET_CHANGE_RECEIVER_TOOLTIP" using = tooltip_se
+ }
+ text_single = { size = { 100% 100% } visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
+  text = "[TreasuryBudgetChangeWindow.GetNewBudgetReceiverCount(GuiLawGroup.Self)]"
+  align = left|nobaseline tooltip = "WINDOW_TREASURY_BUDGET_CHANGE_RECEIVER_TOOLTIP" using = tooltip_se
+ }
+}
+									# The native law preview is retained for characters outside the shared system.
+# Fixed cell: mutually exclusive controls overlap instead of adding hidden widths.
+widget = { size = { 110 40 } min_width = 110 max_width = 110 margin_right = 20
+hbox = { position = { 0 0 } size = { 110 40 } max_width = 110 visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
+ button_round = { raw_text = "<" size = { 20 20 }
+  onclick = "[TreasuryBudgetChangeWindow.DecreaseBudgetGroupLaw(GuiLawGroup.AccessSelf)]"
+  enabled = "[TreasuryBudgetChangeWindow.CanDecreaseBudgetGroupLaw(GuiLawGroup.Self)]"
+ }
+ text_single = { min_width = 50 text = "[TreasuryBudgetChangeWindow.AccessSelectedLaw(GuiLawGroup.AccessSelf).GetLaw.GetShortName]" align = center|nobaseline default_format = "#high" }
+ button_round = { raw_text = ">" size = { 20 20 }
+  onclick = "[TreasuryBudgetChangeWindow.IncreaseBudgetGroupLaw(GuiLawGroup.AccessSelf)]"
+  enabled = "[TreasuryBudgetChangeWindow.CanIncreaseBudgetGroupLaw(GuiLawGroup.Self)]"
+ }
+}
+widget = { position = { 0 0 } size = { 110 40 } visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
+ hbox = { position = { 0 0 } size = { 90 40 } visible = "[EqualTo_string(TreasuryBudgetChangeWindow.GetBudgetCategoryKey(GuiLawGroup.Self), 'MINISTRY')]"
+  button_round = {
+ size = { 20 20 } raw_text = "<"
+ visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+ enabled = "[GetScriptedGui('teq_control_development_down').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ onclick = "[GetScriptedGui('teq_control_development_down').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ button_ignore = none
+ onrightclick = "[GetScriptedGui('teq_control_development_down_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ tooltip = "teq_control_public_help"
+}
+  text_single = { min_width = 50 text = "teq_control_development_display" tooltip = "teq_control_public_help" align = center|nobaseline default_format = "#high" }
+  button_round = {
+ size = { 20 20 } raw_text = ">"
+ visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+ enabled = "[GetScriptedGui('teq_control_development_up').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ onclick = "[GetScriptedGui('teq_control_development_up').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ button_ignore = none
+ onrightclick = "[GetScriptedGui('teq_control_development_up_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ tooltip = "teq_control_public_help"
+}
+ }
+ hbox = { position = { 0 0 } size = { 90 40 } visible = "[EqualTo_string(TreasuryBudgetChangeWindow.GetBudgetCategoryKey(GuiLawGroup.Self), 'MILITARY')]"
+  button_round = {
+ size = { 20 20 } raw_text = "<"
+ visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+ enabled = "[GetScriptedGui('teq_control_military_down').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ onclick = "[GetScriptedGui('teq_control_military_down').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ button_ignore = none
+ onrightclick = "[GetScriptedGui('teq_control_military_down_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ tooltip = "teq_control_public_help"
+}
+  text_single = { min_width = 50 text = "teq_control_military_display" tooltip = "teq_control_public_help" align = center|nobaseline default_format = "#high" }
+  button_round = {
+ size = { 20 20 } raw_text = ">"
+ visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+ enabled = "[GetScriptedGui('teq_control_military_up').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ onclick = "[GetScriptedGui('teq_control_military_up').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ button_ignore = none
+ onrightclick = "[GetScriptedGui('teq_control_military_up_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ tooltip = "teq_control_public_help"
+}
+ }
+ hbox = { position = { 0 0 } size = { 90 40 } visible = "[EqualTo_string(TreasuryBudgetChangeWindow.GetBudgetCategoryKey(GuiLawGroup.Self), 'SALARY')]"
+  button_round = {
+ size = { 20 20 } raw_text = "<"
+ visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+ enabled = "[GetScriptedGui('teq_control_salary_down').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ onclick = "[GetScriptedGui('teq_control_salary_down').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ button_ignore = none
+ onrightclick = "[GetScriptedGui('teq_control_salary_down_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ tooltip = "teq_salary_curve_help"
+}
+  widget = { size = { 50 30 } tooltip = "teq_salary_curve_help"
+ text_single = { size = { 100% 100% } text = "teq_salary_coefficient" align = center|nobaseline default_format = "#high" alwaystransparent = yes }
+ button = { size = { 100% 100% } visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+  enabled = "[GetScriptedGui('teq_control_salary_reset').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  onclick = "[GetScriptedGui('teq_control_salary_reset').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+  tooltip = "teq_control_salary_reset_help"
+ }
+}
+  button_round = {
+ size = { 20 20 } raw_text = ">"
+ visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+ enabled = "[GetScriptedGui('teq_control_salary_up').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ onclick = "[GetScriptedGui('teq_control_salary_up').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ button_ignore = none
+ onrightclick = "[GetScriptedGui('teq_control_salary_up_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+ tooltip = "teq_salary_curve_help"
+}
+ }
+ text_single = { position = { 0 0 } size = { 90 40 } visible = "[EqualTo_string(TreasuryBudgetChangeWindow.GetBudgetCategoryKey(GuiLawGroup.Self), 'CARDINAL')]" min_width = 90 text = "teq_control_cardinal_display" tooltip = "teq_control_cardinal_help" align = center|nobaseline default_format = "#high" }
+}
+}
+									widget = { size = { 100 40 }
+state = { name = _mouse_enter on_start = "[AccessTopBar.ResetLastUpdateFrame]" }
+text_single = { position = { 0 8 } size = { 100 24 } visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
+min_width = 100
+
+raw_text = "[treasury_i] [TreasuryBudgetChangeWindow.GetCurrentBudgetTotal(GuiLawGroup.Self)|1L]"
+										align = left|nobaseline
+										default_format = "#high"
+
+										using = tooltip_se
+										tooltipwidget = {
+ widget = {
+  size = { 50 50 }
+  alwaystransparent = no
+  using = DefaultTooltipBackground
+  vbox = {
+   set_parent_size_to_minimum = yes
+   margin = { 18 12 }
+   margin_bottom = 20
+   spacing = 6
+   text_single = {
+    visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+    text = "teq_current_budget_breakdown_title"
+    layoutpolicy_horizontal = expanding
+    align = left
+    default_format = "#T"
+   }
+   text_single = {
+    visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+    text = "teq_current_budget_breakdown_total"
+    layoutpolicy_horizontal = expanding
+    align = left
+    default_format = "#high"
+   }
+   vbox = {
+    visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+    layoutpolicy_horizontal = expanding
+    datamodel = "[AccessTopBar.GetTreasuryExpensesBreakdown.GetSubValues]"
+    item = {
+     vbox = {
+      layoutpolicy_horizontal = expanding
+      visible = "[EqualTo_string(ValueBreakdown.GetName, Localize(Concatenate(Concatenate('BREAKDOWN_ENTRY_TREASURY_', TreasuryBudgetChangeWindow.GetBudgetCategoryKey(GuiLawGroup.Self)), '_BUDGET')))]"
+      spacing = 5
+      text_single = {
+       text = "[ValueBreakdown.GetName]"
+       layoutpolicy_horizontal = expanding
+       align = left
+       default_format = "#high"
+      }
+      vbox = {
+       layoutpolicy_horizontal = expanding
+       datamodel = "[ValueBreakdown.GetSubValues]"
+       spacing = 5
+       item = {
+        hbox = {
+         layoutpolicy_horizontal = expanding
+         text_single = {
+          layoutpolicy_horizontal = expanding
+          text = "[ValueBreakdown.GetName]"
+          min_width = 180
+          max_width = 275
+          margin_right = 12
+          align = left
+          fonttintcolor = "[TooltipInfo.GetTintColor]"
+         }
+         text_single = {
+          visible = "[And(ValueBreakdown.HasTooltip, ValueBreakdown.ShouldShowValue)]"
+          text = "[ValueBreakdown.GetValue|L]"
+          align = right
+          fonttintcolor = "[TooltipInfo.GetTintColor]"
+          using = tooltip_below
+          tooltipwidget = {
+           recursive = yes
+           widget_value_breakdown_tooltip = {}
+          }
+         }
+         text_single = {
+          visible = "[And(Not(ValueBreakdown.HasTooltip), ValueBreakdown.ShouldShowValue)]"
+          text = "[ValueBreakdown.GetValue]"
+          align = right
+          fonttintcolor = "[TooltipInfo.GetTintColor]"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+   widget_value_breakdown_list = {
+    visible = "[Not(ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self))]"
+    datacontext = "[TreasuryBudgetChangeWindow.AccessNewBudgetTooltip(GuiLawGroup.Self)]"
+    layoutpolicy_horizontal = expanding
+   }
+   text_multi = {
+    visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+    text = "teq_current_budget_breakdown_note"
+    autoresize = yes
+    min_width = 350
+    max_width = 400
+    default_format = "#weak"
+   }
+  }
+ }
+}
+
+									}
+text_single = { position = { 0 8 } size = { 100 24 } visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
+										min_width = 100
+
+										raw_text = "[treasury_i] [TreasuryBudgetChangeWindow.GetNewBudgetTotal( GuiLawGroup.Self )|1L]"
+										align = left|nobaseline
+										default_format = "#high"
+
+										using = tooltip_se
+										tooltipwidget = {
+											widget_value_breakdown_tooltip = {
+												datacontext = "[TreasuryBudgetChangeWindow.AccessNewBudgetTooltip( GuiLawGroup.Self )]"
+                                                visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
+											}
+										}
+									}
+}
+									text_single = {
+										min_width = 100
+										raw_text = "[SelectLocalization( EqualTo_string( TreasuryBudgetChangeWindow.GetBudgetCategoryKey( GuiLawGroup.Self ), 'SALARY' ), 'teq_preview_base_gold', 'teq_preview_base_treasury')]"
+										align = left|nobaseline
+									}
+									text_single = {
+										min_width = 100
+										text = "teq_preview_trend"
+										align = left|nobaseline
+									}
+									expand = {}
+								}
+							}
+						}
+
+						divider_light = {
+							layoutpolicy_horizontal = expanding
+						}
+
+						vbox = {
+							layoutpolicy_horizontal = expanding
+
+							# Summary
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								min_height = 40
+
+								text_single = {
+									layoutpolicy_vertical = expanding
+									min_width = 160
+									max_width = 160
+									min_height = 40
+									margin_left = 20
+
+									text = "WINDOW_TREASURY_BUDGET_CHANGE_SUMMARY_TOTAL"
+									align = left|nobaseline
+
+									background = {
+										using = Background_Area
+									}
+								}
+								text_single = {
+									min_width = 100
+									margin_left = 10
+									text = ""
+									align = left|nobaseline
+								}
+								hbox = {
+									min_width = 110
+									margin_left = 20
+									margin_right = 40
+
+									text_single = {
+										min_width = 50
+
+text = "[Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), Min_CFixedPoint(Add_CFixedPoint(Divide_CFixedPoint(TreasuryBudgetChangeWindow.GetCurrentBudgetTotalSum, Max_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_total_budget').GetValue, '(CFixedPoint)0.001')), '(CFixedPoint)0.005'), '(CFixedPoint)1'), TreasuryBudgetChangeWindow.GetNewAllocationTotalPercentage)|%0]"
+										align = center|nobaseline
+										default_format = "#high"
+									}
+								}
+								text_single = {
+									min_width = 100
+
+raw_text = "[treasury_i] [Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), TreasuryBudgetChangeWindow.GetCurrentBudgetTotalSum, TreasuryBudgetChangeWindow.GetNewBudgetTotalSum)|1]"
+									align = left|nobaseline
+									default_format = "#high"
+								}
+								text_single = {
+									min_width = 100
+									text = ""
+									align = left|nobaseline
+								}
+								text_single = {
+									min_width = 100
+text = "[Add_CFixedPoint(Subtract_CFixedPoint(Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), TreasuryBudgetChangeWindow.GetCurrentBudgetTotalSum, TreasuryBudgetChangeWindow.GetNewBudgetTotalSum), TreasuryBudgetChangeWindow.GetNewBudgetTotalSum), TreasuryBudgetChangeWindow.GetBudgetTotalSumDiff())|1+=]"
+									align = left|nobaseline
+								}
+								expand = {}
+							}
+
+							# Summary
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								min_height = 40
+
+								text_single = {
+									layoutpolicy_vertical = expanding
+									min_width = 160
+									max_width = 160
+									min_height = 40
+									margin_left = 20
+
+									raw_text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_reserve_flow', SelectLocalization( LessThan_CFixedPoint( TreasuryBudgetChangeWindow.GetNewBudgetSurplus, '(CFixedPoint)0'), 'WINDOW_TREASURY_BUDGET_CHANGE_SUMMARY_DEFICIT', SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_reserve_flow', 'WINDOW_TREASURY_BUDGET_CHANGE_SUMMARY_UNALLOCATED')))]"
+									align = left|nobaseline
+
+									background = {
+										using = Background_Area
+									}
+								}
+								text_single = {
+									min_width = 100
+									margin_left = 10
+									text = ""
+									align = left|nobaseline
+								}
+								hbox = {
+									min_width = 110
+									margin_left = 0
+									margin_right = 20
+
+									text_single = {
+										min_width = 50
+
+										visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
+                                    text = "[Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), '(CFixedPoint)0', Subtract_CFixedPoint('(CFixedPoint)1.0', TreasuryBudgetChangeWindow.GetNewAllocationTotalPercentage))|%0]"
+										align = center|nobaseline
+										default_format = "#high"
+									}
+                                    hbox = {
+                                     visible = "[And(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self))]"
+                                     button_round = { size = { 20 20 } raw_text = "<"
+                                      enabled = "[GetScriptedGui('teq_control_reserve_down').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                      onclick = "[GetScriptedGui('teq_control_reserve_down').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                      button_ignore = none
+                                      onrightclick = "[GetScriptedGui('teq_control_reserve_down_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                      tooltip = "teq_reserve_adjust_help"
+                                     }
+                                     text_single = { min_width = 50 align = center|nobaseline default_format = "#high"
+                                      text = "[Add_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_retained_income_fraction'), '(CFixedPoint)0.00005')|%0]"
+                                     }
+                                     button_round = { size = { 20 20 } raw_text = ">"
+                                      enabled = "[GetScriptedGui('teq_control_reserve_up').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                      onclick = "[GetScriptedGui('teq_control_reserve_up').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                      button_ignore = none
+                                      onrightclick = "[GetScriptedGui('teq_control_reserve_up_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                      tooltip = "teq_reserve_adjust_help"
+                                     }
+                                    }
+								}
+								text_single = {
+									min_width = 100
+
+									raw_text = "[treasury_i] [Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_retained_flow').GetValue, TreasuryBudgetChangeWindow.GetNewBudgetSurplus)|1]"
+									align = left|nobaseline
+									default_format = "#high"
+								}
+								text_single = {
+									min_width = 100
+									text = ""
+									align = left|nobaseline
+								}
+								text_single = {
+									min_width = 100
+									text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_empty', 'teq_native_surplus_diff')]"
+									align = left|nobaseline
+								}
+								expand = {}
+							}
+                            # Shares of income entering personal gold, separate from the treasury reserve.
+                            hbox = {
+                                visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
+                                layoutpolicy_horizontal = expanding
+                                min_height = 40
+
+                                text_single = {
+                                    layoutpolicy_vertical = expanding
+                                    min_width = 160
+                                    max_width = 160
+                                    min_height = 40
+                                    margin_left = 20
+                                    text = "teq_private_share"
+                                    align = left|nobaseline
+                                    tooltip = "teq_private_adjust_help"
+                                    background = { using = Background_Area }
+                                }
+                                text_single = {
+                                    min_width = 100
+                                    margin_left = 10
+                                    text = ""
+                                    align = left|nobaseline
+                                }
+                                hbox = {
+                                    min_width = 110
+                                    margin_left = 0
+                                    margin_right = 20
+                                    hbox = {
+                                        visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+                                        button_round = {
+                                            size = { 20 20 }
+                                            raw_text = "<"
+                                            enabled = "[GetScriptedGui('teq_control_private_down').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            onclick = "[GetScriptedGui('teq_control_private_down').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            button_ignore = none
+                                            onrightclick = "[GetScriptedGui('teq_control_private_down_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            tooltip = "teq_private_adjust_help"
+                                        }
+                                        text_single = {
+                                            min_width = 50
+                                            align = center|nobaseline
+                                            default_format = "#high"
+                                            text = "[Add_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_private_income_fraction'), '(CFixedPoint)0.00005')|%0]"
+                                            tooltip = "teq_private_adjust_help"
+                                        }
+                                        button_round = {
+                                            size = { 20 20 }
+                                            raw_text = ">"
+                                            enabled = "[GetScriptedGui('teq_control_private_up').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            onclick = "[GetScriptedGui('teq_control_private_up').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            button_ignore = none
+                                            onrightclick = "[GetScriptedGui('teq_control_private_up_5').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            tooltip = "teq_private_adjust_help"
+                                        }
+                                    }
+                                    text_single = {
+                                        visible = "[Not(ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self))]"
+                                        min_width = 90
+                                        text = "[Add_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_private_income_fraction'), '(CFixedPoint)0.00005')|%0]"
+                                        align = center|nobaseline
+                                        default_format = "#high"
+                                        tooltip = "teq_private_adjust_help"
+                                    }
+                                }
+                                button_standard = {
+                                    visible = "[ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)]"
+                                    size = { 100 30 }
+                                    min_width = 100
+                                    max_width = 100
+                                    text = "teq_private_reset"
+                                    enabled = "[GetScriptedGui('teq_private_reset').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('teq_private_reset').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    tooltip = "teq_private_adjust_help"
+                                }
+                                expand = {}
+                            }
+						}
+
+
+						text_multi = {
+							visible = "[Not( GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' ) )]"
+							layoutpolicy_horizontal = expanding
+							size = { 0 90 }
+							max_width = 630
+							align = center
+							autoresize = yes
+							text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_budget_explanation', 'WINDOW_TREASURY_BUDGET_CHANGE_EXPLANATION')]"
+						}
+
+						text_multi = {
+							visible = "[GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' )]"
+							layoutpolicy_horizontal = expanding
+							size = { 0 90 }
+							max_width = 630
+							align = center
+							autoresize = yes
+							text = "WINDOW_TREASURY_BUDGET_ECCLESIASTICAL_EXPLANATION"
+						}
+
+						text_multi = {
+							visible = "[And(Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)), LessThan_CFixedPoint( TreasuryBudgetChangeWindow.GetNewBudgetSurplus, '(CFixedPoint)0' ))]"
+							layoutpolicy_horizontal = expanding
+							size = { 0 90 }
+							max_width = 450
+							align = center
+							autoresize = yes
+							text = "WINDOW_TREASURY_BUDGET_CHANGE_DEFICIT_WARNING"
+						}
+
+						expand = {}
+					}
+
+				}
+
+				## Right Side
+				vbox_changes_desc = {
+					max_width = 300
+					min_width = 300
+					margin = { 15 15 }
+					spacing = 10
+
+					background = {
+						using = Background_Area
+					}
+				}
+			}
+
+			# Buttons when character can change laws manually
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 10
+				margin_bottom = 12
+
+				text_single = {
+					text = "WINDOW_TREASURY_BUDGET_CHANGE_ENACT_COST"
+					tooltip = "WINDOW_TREASURY_BUDGET_CHANGE_ENACT_COST_TOOLTIP"
+					using = Font_Size_Medium
+				}
+
+				hbox = {
+					spacing = 20
+
+					button_standard = {
+						onclick = "[TreasuryBudgetChangeWindow.Close]"
+						text = "CANCEL"
+						using = tooltip_above
+					}
+
+					button_primary = {
+						visible = no
+						enabled = "[TreasuryBudgetChangeWindow.CanEnact]"
+						onclick = "[TreasuryBudgetChangeWindow.EnactBudgetLaws]"
+
+						text = "WINDOW_TREASURY_BUDGET_CHANGE_ALLOCATION_LAWS"
+
+						using = tooltip_above
+					}
+
+					button_primary = {
+						visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
+                        enabled = "[TreasuryBudgetChangeWindow.CanEnact]"
+						onclick = "[TreasuryBudgetChangeWindow.EnactBudget]"
+
+						text = "WINDOW_TREASURY_BUDGET_CHANGE_ENACT_BUDGET"
+
+						using = tooltip_above
+						tooltip = "[TreasuryBudgetChangeWindow.GetCanEnactBudgetDescription]"
+					}
+                    button_primary = {
+						visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
+                        enabled = "[TreasuryBudgetChangeWindow.CanEnact]"
+						onclick = "[TreasuryBudgetChangeWindow.EnactBudget]"
+                        onclick = "[GetScriptedGui('teq_budget_commit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						text = "teq_apply_allocation"
+                        onclick = "[TreasuryBudgetChangeWindow.Close]"
+                        using = tooltip_above
+						tooltip = "teq_control_political_help"
+					}
+				}
+			}
+		}
+	}
+}
+
+
+types TreasuryBudgetChangeLawTypes
+{
+	type vbox_changes_desc = vbox {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+		margin = { 10 10 }
+
+		vbox = {
+			text_single = {
+				text = "WINDOW_TREASURY_BUDGET_CHANGE_EFFECTS"
+				margin = { 10 10 }
+			}
+		}
+		
+		scrollbox = {
+			min_width = 0
+            max_width = 270
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			blockoverride "scrollbox_content"
+			{
+				vbox = {
+					layoutpolicy_horizontal = expanding
+
+					text_multi = {
+						layoutpolicy_horizontal = expanding
+						autoresize = yes
+						max_width = 250
+						margin_right = 12
+						text = "[SelectLocalization(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), 'teq_allocation_effects', 'teq_vanilla_effects')]"
+					}
+				}
+			}
+		}
+
+		#expand = {}
+
+	}
+}

@@ -1,0 +1,878 @@
+﻿# Revoke affordability derived from the effective CK3 court-position definitions.
+court_auto_review_cost_court_physician_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_physician } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_travel_leader_court_position_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = travel_leader } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_eparch_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = eparch } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_eparch_court_position_influence = {
+			value = major_influence_value
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = eparch } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_second_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = second } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_quartermaster_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = quartermaster } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_armorer_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+			
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = armorer } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_chief_forager_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = chief_forager } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_master_thief_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = master_thief } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_head_porter_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = head_porter } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_head_groom_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = head_groom } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_huntperson_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = huntperson } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_kennelperson_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = kennelperson } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_chief_engineer_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = chief_engineer } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_witness_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = witness } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_person_haggler_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = person_haggler } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_camp_cook_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = camp_cook } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_master_bard_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = master_bard } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_stooge_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = stooge } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_master_of_arms_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = master_of_arms } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_light_cavalry_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = light_cavalry_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_camelry_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = camelry_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_elephantry_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = elephantry_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_heavy_cavalry_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = heavy_cavalry_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_horse_archer_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = horse_archer_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_archer_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = archer_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_heavy_infantry_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = heavy_infantry_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_light_infantry_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = light_infantry_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_pike_captain_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = pike_captain } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_master_of_spoils_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = master_of_spoils } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_laureate_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = laureate } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_camp_priest_camp_officer_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { camp_officer_inner_circle_revoke_trigger = { POS = camp_priest } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_grand_preceptor_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = grand_preceptor } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_grand_mentor_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = grand_mentor } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_grand_guardian_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = grand_guardian } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_fire_dragon_engineer_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = fire_dragon_engineer } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_keeper_of_the_harem_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = keeper_of_the_harem } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_antiquarian_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = antiquarian } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_seneschal_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = seneschal } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_tutor_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_tutor } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_wet_nurse_court_position_prestige = {
+			value = minor_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = wet_nurse } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_charioteer_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = charioteer } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_bookmaker_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = bookmaker } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_akolouthos_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = akolouthos } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_chief_eunuch_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = chief_eunuch } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_master_of_horse_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = master_of_horse } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_master_of_hunt_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = master_of_hunt } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_master_assassin_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = master_assassin } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_cultural_emissary_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = cultural_emissary } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_cave_hermit_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = cave_hermit } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_chief_qadi_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = chief_qadi } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_gardener_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_gardener } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_scholar_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_scholar } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_chronicler_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = chronicler } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_champion_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = champion } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_brewmaster_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_brewmaster } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_lady_in_waiting_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = lady_in_waiting } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_royal_architect_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = royal_architect } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_high_almoner_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = high_almoner } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_poet_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_poet } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_musician_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_musician } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_cupbearer_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = cupbearer } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_food_taster_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = food_taster } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_keeper_of_swans_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = keeper_of_swans } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_jester_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_jester } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_executioner_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = executioner } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_bodyguard_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = bodyguard } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_artificer_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_artificer } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_garuda_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = garuda } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_guru_court_position_piety = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_guru } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_brahmin_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_brahmin } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = { 
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_khlon_glan_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = khlon_glan } }
+				multiply = 0
+			}
+			#Lowering for LAAMPS, to match Camp Officer revoke cost
+			if = {
+				limit = {
+					exists = this
+					government_has_flag = government_is_landless_adventurer
+				}
+				value = minor_court_position_prestige_revoke_cost
+			}
+		}
+court_auto_review_cost_court_astrologer_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = court_astrologer } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_boyan_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = boyan } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_siege_engineer_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = siege_engineer } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_yurtchi_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = yurtchi } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_cherbi_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = cherbi } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_yeke_jarquchi_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = yeke_jarquchi } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_foreign_emissary_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = foreign_emissary } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_keeper_of_the_horses_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = keeper_of_the_horses } }
+				multiply = 0
+			}
+		}
+court_auto_review_cost_roman_censor_court_position_prestige = {
+			value = major_court_position_prestige_revoke_cost
+
+			if = {
+				limit = { free_court_position_revoke_trigger = { POS = roman_censor } }
+				multiply = 0
+			}
+		}

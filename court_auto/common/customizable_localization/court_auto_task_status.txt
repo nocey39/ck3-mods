@@ -1,0 +1,30 @@
+﻿court_auto_task_conversion_status = {
+    type = character
+    text = { trigger = { var:court_auto_task_conversion_scope = 0 } localization_key = court_auto_task_status_off }
+    text = { trigger = { NOT = { has_variable = court_auto_enabled } } localization_key = court_auto_task_status_master_off }
+    text = { trigger = { NOT = { exists = cp:councillor_court_chaplain } } localization_key = court_auto_task_status_no_worker }
+    text = { trigger = { has_variable = court_auto_task_conversion_exhausted } localization_key = court_auto_task_status_exhausted }
+    text = { trigger = { has_variable = court_auto_task_conversion_manual } localization_key = court_auto_task_status_manual }
+    text = { trigger = { cp:councillor_court_chaplain = { is_performing_council_task = task_conversion } } localization_key = court_auto_task_status_working }
+    text = { localization_key = court_auto_task_status_waiting }
+}
+court_auto_task_culture_status = {
+    type = character
+    text = { trigger = { var:court_auto_task_culture_scope = 0 } localization_key = court_auto_task_status_off }
+    text = { trigger = { NOT = { has_variable = court_auto_enabled } } localization_key = court_auto_task_status_master_off }
+    text = { trigger = { NOT = { exists = cp:councillor_steward } } localization_key = court_auto_task_status_no_worker }
+    text = { trigger = { has_variable = court_auto_task_culture_exhausted } localization_key = court_auto_task_status_exhausted }
+    text = { trigger = { has_variable = court_auto_task_culture_manual } localization_key = court_auto_task_status_manual }
+    text = { trigger = { cp:councillor_steward = { is_performing_council_task = task_promote_culture } } localization_key = court_auto_task_status_working }
+    text = { localization_key = court_auto_task_status_waiting }
+}
+court_auto_task_control_status = {
+    type = character
+    text = { trigger = { var:court_auto_task_control_scope = 0 } localization_key = court_auto_task_status_off }
+    text = { trigger = { NOT = { has_variable = court_auto_enabled } } localization_key = court_auto_task_status_master_off }
+    text = { trigger = { NOT = { exists = cp:councillor_marshal } } localization_key = court_auto_task_status_no_worker }
+    text = { trigger = { has_variable = court_auto_task_control_exhausted } localization_key = court_auto_task_status_exhausted }
+    text = { trigger = { has_variable = court_auto_task_control_manual } localization_key = court_auto_task_status_manual }
+    text = { trigger = { cp:councillor_marshal = { is_performing_council_task = task_increase_control } } localization_key = court_auto_task_status_working }
+    text = { localization_key = court_auto_task_status_waiting }
+}

@@ -1,0 +1,207 @@
+widget = {
+    name = "fa_overlay"
+    size = { 100% 100% }
+    layer = middle
+    visible = "[And(GetPlayer.IsValid, Not(IsObserver))]"
+    fa_settings_panel = {}
+}
+
+types fa_types {
+    type fa_checkbox = button_checkbox_label {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "checkbox" { checked = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+
+    type fa_option = button_standard {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "button_standard_current" { visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 } align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+    }
+
+    type fa_settings_panel = widget {
+        name = "fa_settings_panel"
+        parentanchor = center
+        size = { 640 660 }
+        layer = middle
+        filter_mouse = all
+        alwaystransparent = no
+        datacontext = "[GetPlayer]"
+        datacontext = "[GetScriptedGui('fa_panel_gui')]"
+        visible = "[GetPlayer.MakeScope.Var('fa_panel_open').IsSet]"
+        using = Window_Background
+        using = Window_Decoration
+
+        text_single = { parentanchor = top|left position = { 110 20 } size = { 420 32 } autoresize = no align = center|vcenter text = "fa_panel_title" fontsize = 26 default_format = "#high" }
+        button_close = {
+            name = "fa_close"
+            parentanchor = top|left position = { 558 24 } size = { 32 32 }
+            shortcut = "close_window" tooltip = "CLOSE_TOOLTIP"
+            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        }
+
+        widget = {
+            name = "fa_fixed_overview"
+            parentanchor = top|left position = { 48 68 } size = { 504 86 }
+            background = { using = Background_Area alpha = 0.35 }
+            fa_checkbox = {
+                position = { 12 4 } size = { 328 34 }
+                datacontext = "[GetScriptedGui('fa_master_gui')]"
+                tooltip = "fa_master_help"
+                blockoverride "text" { text = "fa_master_label" fontsize = 16 }
+            }
+            button_primary = {
+                name = "fa_check_now"
+                position = { 348 4 } size = { 144 36 }
+                datacontext = "[GetScriptedGui('fa_check_now_gui')]"
+                text = "fa_check_now" tooltip = "fa_check_help"
+                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 } align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+            }
+            text_multi = { position = { 12 45 } size = { 480 36 } max_width = 480 autoresize = no align = left text = "fa_master_help" fontsize = 15 }
+        }
+        scrollbox = {
+            name = "fa_settings_scroll"
+            parentanchor = top|left position = { 48 166 } size = { 544 470 }
+            blockoverride "scrollbox_margins" { margin_top = 0 margin_bottom = 0 margin_left = 0 margin_right = 0 }
+            blockoverride "scrollbox_background" {}
+            blockoverride "scrollbox_background_fade" {}
+            blockoverride "scrollbox_content" {
+                vbox = {
+                    name = "fa_settings_body"
+                    minimumsize = { 504 0 } layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 10
+                    fa_education_controls = {}
+                    fa_trait_settings = {}
+                    fa_fixed_focus_settings = {}
+                    text_single = { size = { 504 24 } autoresize = no align = left|vcenter text = "fa_initial_only_note" fontsize = 15 }
+                    fa_perk_settings = {}
+                    fa_marriage_settings = {}
+                }
+            }
+        }
+    }
+
+    type fa_education_controls = widget {
+        size = { 504 132 }
+        text_single = { position = { 0 0 } size = { 504 24 } autoresize = no align = left|vcenter text = "fa_education_heading" fontsize = 18 default_format = "#high" }
+        fa_checkbox = {
+            position = { 0 28 } size = { 244 34 }
+            datacontext = "[GetScriptedGui('fa_guardians_enabled_gui')]"
+            tooltip = "fa_guardians_help"
+            blockoverride "text" { text = "fa_guardians_label" fontsize = 16 }
+        }
+        fa_checkbox = {
+            position = { 260 28 } size = { 244 34 }
+            datacontext = "[GetScriptedGui('fa_include_heir_gui')]"
+            tooltip = "fa_heir_help"
+            blockoverride "text" { text = "fa_heir_label" fontsize = 16 }
+        }
+        text_single = { position = { 0 66 } size = { 230 24 } autoresize = no align = left|vcenter text = "fa_mode_label" fontsize = 16 }
+        text_single = { position = { 238 66 } size = { 266 24 } autoresize = no align = right|vcenter text = "fa_default_note" fontsize = 15 }
+        fa_option = { position = { 0 94 } size = { 244 34 } datacontext = "[GetScriptedGui('fa_mode_1_gui')]" text = "fa_mode_1" tooltip = "fa_mode_1_help" }
+        fa_option = { position = { 260 94 } size = { 244 34 } datacontext = "[GetScriptedGui('fa_mode_2_gui')]" text = "fa_mode_2" tooltip = "fa_mode_2_help" }
+    }
+
+    type fa_trait_settings = widget {
+        size = { 504 184 }
+        datacontext = "[GetScriptedGui('fa_mode_1_gui')]"
+        visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        text_single = { position = { 0 0 } size = { 104 34 } autoresize = no align = left|vcenter text = "trait_bossy" fontsize = 16 }
+        fa_option = { position = { 110 0 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_bossy_2_gui')]" text = "fa_skill_martial" }
+        fa_option = { position = { 313 0 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_bossy_3_gui')]" text = "fa_skill_stewardship" }
+
+        text_single = { position = { 0 37 } size = { 104 34 } autoresize = no align = left|vcenter text = "trait_pensive" fontsize = 16 }
+        fa_option = { position = { 110 37 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_pensive_3_gui')]" text = "fa_skill_stewardship" }
+        fa_option = { position = { 313 37 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_pensive_5_gui')]" text = "fa_skill_learning" }
+
+        text_single = { position = { 0 74 } size = { 104 34 } autoresize = no align = left|vcenter text = "trait_curious" fontsize = 16 }
+        fa_option = { position = { 110 74 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_curious_1_gui')]" text = "fa_skill_diplomacy" }
+        fa_option = { position = { 313 74 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_curious_5_gui')]" text = "fa_skill_learning" }
+
+        text_single = { position = { 0 111 } size = { 104 34 } autoresize = no align = left|vcenter text = "trait_charming" fontsize = 16 }
+        fa_option = { position = { 110 111 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_charming_1_gui')]" text = "fa_skill_diplomacy" }
+        fa_option = { position = { 313 111 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_charming_4_gui')]" text = "fa_skill_intrigue" }
+
+        text_single = { position = { 0 148 } size = { 104 34 } autoresize = no align = left|vcenter text = "trait_rowdy" fontsize = 16 }
+        fa_option = { position = { 110 148 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_rowdy_2_gui')]" text = "fa_skill_martial" }
+        fa_option = { position = { 313 148 } size = { 191 34 } datacontext = "[GetScriptedGui('fa_rowdy_4_gui')]" text = "fa_skill_intrigue" }
+    }
+
+    type fa_fixed_focus_settings = widget {
+        size = { 504 100 }
+        datacontext = "[GetScriptedGui('fa_mode_2_gui')]"
+        visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        fa_option = { position = { 0 0 } size = { 96 34 } datacontext = "[GetScriptedGui('fa_fixed_1_gui')]" text = "fa_skill_diplomacy" tooltip = "fa_fixed_diplomacy_help" }
+        fa_option = { position = { 103 0 } size = { 84 34 } datacontext = "[GetScriptedGui('fa_fixed_2_gui')]" text = "fa_skill_martial" tooltip = "fa_fixed_martial_help" }
+        fa_option = { position = { 194 0 } size = { 112 34 } datacontext = "[GetScriptedGui('fa_fixed_3_gui')]" text = "fa_skill_stewardship" tooltip = "fa_fixed_stewardship_help" }
+        fa_option = { position = { 313 0 } size = { 96 34 } datacontext = "[GetScriptedGui('fa_fixed_4_gui')]" text = "fa_skill_intrigue" tooltip = "fa_fixed_intrigue_help" }
+        fa_option = { position = { 416 0 } size = { 88 34 } datacontext = "[GetScriptedGui('fa_fixed_5_gui')]" text = "fa_skill_learning" tooltip = "fa_fixed_learning_help" }
+        text_multi = { position = { 0 44 } size = { 504 54 } max_width = 504 autoresize = no align = left text = "fa_fixed_note" fontsize = 16 }
+    }
+
+    type fa_perk_settings = widget {
+        size = { 504 196 }
+        text_single = { position = { 0 0 } size = { 504 24 } autoresize = no align = left|vcenter text = "fa_perk_heading" fontsize = 18 default_format = "#high" }
+        fa_checkbox = {
+            position = { 0 28 } size = { 504 34 }
+            datacontext = "[GetScriptedGui('fa_perk_follow_gui')]"
+            tooltip = "fa_perk_follow_help"
+            blockoverride "text" { text = "fa_perk_follow_label" fontsize = 16 }
+        }
+        fa_checkbox = {
+            position = { 0 64 } size = { 504 34 }
+            datacontext = "[GetScriptedGui('fa_perk_continue_education_gui')]"
+            tooltip = "fa_perk_continue_help"
+            blockoverride "text" { text = "fa_perk_continue_label" fontsize = 16 }
+        }
+        fa_checkbox = {
+            position = { 0 100 } size = { 504 34 }
+            datacontext = "[GetScriptedGui('fa_perk_convert_gui')]"
+            tooltip = "fa_perk_convert_help"
+            blockoverride "text" { text = "fa_perk_convert_label" fontsize = 16 }
+        }
+        text_multi = { position = { 0 141 } size = { 504 52 } max_width = 504 autoresize = no align = left text = "fa_perk_priority_note" fontsize = 15 }
+    }
+
+    type fa_marriage_settings = widget {
+        size = { 504 217 }
+        text_single = { position = { 0 0 } size = { 504 24 } autoresize = no align = left|vcenter text = "fa_marriage_heading" fontsize = 18 default_format = "#high" }
+        fa_checkbox = {
+            position = { 0 28 } size = { 504 34 }
+            datacontext = "[GetScriptedGui('fa_marriage_enabled_gui')]"
+            tooltip = "fa_marriage_help"
+            blockoverride "text" { text = "fa_marriage_label" fontsize = 16 }
+        }
+        fa_checkbox = {
+            position = { 0 66 } size = { 244 34 }
+            datacontext = "[GetScriptedGui('fa_marriage_scope_self_gui')]"
+            tooltip = "fa_marriage_scope_self_help"
+            blockoverride "text" { text = "fa_marriage_scope_self" fontsize = 16 }
+        }
+        fa_checkbox = {
+            position = { 248 66 } size = { 244 34 }
+            datacontext = "[GetScriptedGui('fa_marriage_scope_children_gui')]"
+            tooltip = "fa_marriage_scope_children_help"
+            blockoverride "text" { text = "fa_marriage_scope_children" fontsize = 16 }
+        }
+        fa_checkbox = {
+            position = { 0 100 } size = { 244 34 }
+            datacontext = "[GetScriptedGui('fa_marriage_scope_relatives_gui')]"
+            tooltip = "fa_marriage_scope_relatives_help"
+            blockoverride "text" { text = "fa_marriage_scope_relatives" fontsize = 16 }
+        }
+        button_standard = {
+            position = { 248 101 } size = { 244 34 }
+            datacontext = "[GetScriptedGui('fa_marriage_review_gui')]"
+            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            text = "fa_marriage_review"
+            tooltip = "fa_marriage_review_help"
+            buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 } align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+        }
+        text_multi = { position = { 0 143 } size = { 504 70 } max_width = 504 autoresize = no align = left text = "fa_marriage_note" fontsize = 15 }
+    }
+}
+

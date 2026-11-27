@@ -1,0 +1,5 @@
+﻿# Separate signs keep every sampled scale nonnegative. No cardinal correction.
+teq_control_development_positive = { hide_effects = yes treasury_ministry_budget_allocation = 1 scale = teq_control_dev_positive_scale }
+teq_control_development_negative = { hide_effects = yes treasury_ministry_budget_allocation = -1 scale = teq_control_dev_negative_scale }
+teq_control_military_positive = { hide_effects = yes treasury_military_budget_allocation = 1 scale = teq_control_mil_positive_scale }
+teq_control_military_negative = { hide_effects = yes treasury_military_budget_allocation = -1 scale = teq_control_mil_negative_scale }

@@ -1,0 +1,1563 @@
+﻿namespace = dau_eba_choice
+
+dau_eba_choice.1000 = {
+    type = character_event
+    title = dau_eba_choice.1000.t
+    desc = dau_eba_choice.1000.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_barracks_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_barracks_knight_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_barracks_knight_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_barracks_knight_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_barracks_knight_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:barracks_knight_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_barracks_training_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_barracks_training_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_barracks_training_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_barracks_training_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:barracks_training_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_barracks_levies_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_barracks_levies_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_barracks_levies_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_barracks_levies_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:barracks_levies_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1001 = {
+    type = character_event
+    title = dau_eba_choice.1001.t
+    desc = dau_eba_choice.1001.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_garden_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_garden_gardener_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_garden_gardener_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_garden_gardener_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_garden_gardener_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:garden_gardener_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_garden_herb_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_garden_herb_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_garden_herb_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_garden_herb_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:garden_herb_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_garden_maze_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_garden_maze_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_garden_maze_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_garden_maze_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:garden_maze_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_garden_wine_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_garden_wine_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_garden_wine_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_garden_wine_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:garden_wine_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1002 = {
+    type = character_event
+    title = dau_eba_choice.1002.t
+    desc = dau_eba_choice.1002.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_grain_field_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_grain_mill_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_grain_mill_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_grain_mill_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_grain_mill_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:grain_mill_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_grain_vegetable_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_grain_vegetable_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_grain_vegetable_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_grain_vegetable_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:grain_vegetable_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_grain_beer_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_grain_beer_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_grain_beer_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_grain_beer_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:grain_beer_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1003 = {
+    type = character_event
+    title = dau_eba_choice.1003.t
+    desc = dau_eba_choice.1003.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_grazing_land_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_grazing_pasture_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_grazing_pasture_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_grazing_pasture_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_grazing_pasture_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:grazing_pasture_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_grazing_wool_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_grazing_wool_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_grazing_wool_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_grazing_wool_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:grazing_wool_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_grazing_cavalry_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_grazing_cavalry_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_grazing_cavalry_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_grazing_cavalry_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:grazing_cavalry_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1004 = {
+    type = character_event
+    title = dau_eba_choice.1004.t
+    desc = dau_eba_choice.1004.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_guardhouse_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_guardhouse_guard_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_guardhouse_guard_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_guardhouse_guard_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_guardhouse_guard_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:guardhouse_guard_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_guardhouse_officer_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_guardhouse_officer_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_guardhouse_officer_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_guardhouse_officer_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:guardhouse_officer_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_guardhouse_spy_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_guardhouse_spy_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_guardhouse_spy_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_guardhouse_spy_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:guardhouse_spy_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1005 = {
+    type = character_event
+    title = dau_eba_choice.1005.t
+    desc = dau_eba_choice.1005.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_market_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_market_storage_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_market_storage_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_market_storage_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_market_storage_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:market_storage_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_market_tax_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_market_tax_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_market_tax_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_market_tax_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:market_tax_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_market_guild_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_market_guild_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_market_guild_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_market_guild_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:market_guild_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1006 = {
+    type = character_event
+    title = dau_eba_choice.1006.t
+    desc = dau_eba_choice.1006.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_olive_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_olive_oil_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_olive_oil_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_olive_oil_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_olive_oil_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:olive_oil_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_olive_soap_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_olive_soap_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_olive_soap_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_olive_soap_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:olive_soap_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_olive_perfume_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_olive_perfume_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_olive_perfume_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_olive_perfume_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:olive_perfume_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1007 = {
+    type = character_event
+    title = dau_eba_choice.1007.t
+    desc = dau_eba_choice.1007.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_rice_field_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_rice_cellar_cave_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_rice_cellar_cave_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_rice_cellar_cave_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_rice_cellar_cave_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:rice_cellar_cave_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_rice_wine_stores_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_rice_wine_stores_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_rice_wine_stores_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_rice_wine_stores_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:rice_wine_stores_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_rice_fish_duck_ponds_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_rice_fish_duck_ponds_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_rice_fish_duck_ponds_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_rice_fish_duck_ponds_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:rice_fish_duck_ponds_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1008 = {
+    type = character_event
+    title = dau_eba_choice.1008.t
+    desc = dau_eba_choice.1008.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_silk_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_silk_morus_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_silk_morus_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_silk_morus_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_silk_morus_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:silk_morus_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_silk_textile_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_silk_textile_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_silk_textile_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_silk_textile_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:silk_textile_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_silk_trade_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_silk_trade_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_silk_trade_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_silk_trade_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:silk_trade_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1009 = {
+    type = character_event
+    title = dau_eba_choice.1009.t
+    desc = dau_eba_choice.1009.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_stable_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_stabl_knight_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_stabl_knight_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_stabl_knight_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_stabl_knight_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:stabl_knight_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_stable_caravanserai_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_stable_caravanserai_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_stable_caravanserai_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_stable_caravanserai_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:stable_caravanserai_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_stable_race_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_stable_race_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_stable_race_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_stable_race_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:stable_race_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1010 = {
+    type = character_event
+    title = dau_eba_choice.1010.t
+    desc = dau_eba_choice.1010.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_storage_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_storage_auditor_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_storage_auditor_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_storage_auditor_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_storage_auditor_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:storage_auditor_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_storage_kitchen_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_storage_kitchen_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_storage_kitchen_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_storage_kitchen_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:storage_kitchen_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_storage_extra_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_storage_extra_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_storage_extra_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_storage_extra_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:storage_extra_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_storage_food_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_storage_food_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_storage_food_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_storage_food_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:storage_food_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1011 = {
+    type = character_event
+    title = dau_eba_choice.1011.t
+    desc = dau_eba_choice.1011.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_tea_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_tea_matcha_factory_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_tea_matcha_factory_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_tea_matcha_factory_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_tea_matcha_factory_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:tea_matcha_factory_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_tea_medicine_house_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_tea_medicine_house_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_tea_medicine_house_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_tea_medicine_house_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:tea_medicine_house_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_tea_roastery_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_tea_roastery_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_tea_roastery_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_tea_roastery_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:tea_roastery_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1012 = {
+    type = character_event
+    title = dau_eba_choice.1012.t
+    desc = dau_eba_choice.1012.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_temple_small_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_temple_monument_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_temple_monument_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_temple_monument_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_temple_monument_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:temple_monument_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_temple_hall_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_temple_hall_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_temple_hall_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_temple_hall_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:temple_hall_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_temple_archive_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_temple_archive_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_temple_archive_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_temple_archive_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:temple_archive_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1013 = {
+    type = character_event
+    title = dau_eba_choice.1013.t
+    desc = dau_eba_choice.1013.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_vineyard_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_vineyard_breeding_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_vineyard_breeding_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_vineyard_breeding_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_vineyard_breeding_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:vineyard_breeding_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_vineyard_cellar_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_vineyard_cellar_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_vineyard_cellar_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_vineyard_cellar_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:vineyard_cellar_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_vineyard_wine_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_vineyard_wine_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_vineyard_wine_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_vineyard_wine_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:vineyard_wine_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1014 = {
+    type = character_event
+    title = dau_eba_choice.1014.t
+    desc = dau_eba_choice.1014.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_watchtower_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_watchtower_fort_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_watchtower_fort_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_watchtower_fort_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_watchtower_fort_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:watchtower_fort_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_watchtower_range_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_watchtower_range_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_watchtower_range_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_watchtower_range_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:watchtower_range_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_watchtower_sentry_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_watchtower_sentry_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_watchtower_sentry_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_watchtower_sentry_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:watchtower_sentry_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}
+
+dau_eba_choice.1015 = {
+    type = character_event
+    title = dau_eba_choice.1015.t
+    desc = dau_eba_choice.1015.desc
+    theme = stewardship
+    after = {
+        dau_choice_after_effect = yes
+    }
+    option = {
+        name = dau_choice_later
+        hidden_effect = {
+            if = {
+                limit = {
+                    domicile ?= {
+                        this = scope:dau_choice_home
+                    }
+                }
+                domicile = {
+                    set_variable = {
+                        name = dau_defer_internal_workshop_01
+                        value = 1
+                        days = 365
+                    }
+                }
+            }
+        }
+        ai_chance = {
+            base = 100
+        }
+    }
+    option = {
+        name = dau_choice_build_workshop_apprentice_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_workshop_apprentice_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_workshop_apprentice_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_workshop_apprentice_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:workshop_apprentice_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_workshop_smith_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_workshop_smith_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_workshop_smith_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_workshop_smith_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:workshop_smith_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+    option = {
+        name = dau_choice_build_workshop_guild_01
+        trigger = {
+            dau_choice_context_trigger = yes
+            dau_choice_ready_workshop_guild_01 = yes
+        }
+        show_as_unavailable = {
+            dau_choice_context_trigger = yes
+            dau_eligible_workshop_guild_01 = yes
+        }
+        custom_tooltip = dau_choice_cost_workshop_guild_01
+        hidden_effect = {
+            set_variable = {
+                name = dau_choice_selected
+                value = flag:workshop_guild_01
+            }
+        }
+        ai_chance = {
+            base = 0
+        }
+    }
+}

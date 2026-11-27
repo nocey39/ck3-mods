@@ -1,0 +1,372 @@
+﻿dejure_auto_grant_native_governorship_is_shown_trigger = {
+    scope:puppet_or_actor != scope:recipient
+    scope:recipient = {
+        OR = {
+            target_is_liege_or_above = scope:puppet_or_actor
+            is_pool_guest_of = scope:puppet_or_actor
+        }
+    }
+    scope:puppet_or_actor ?= {
+        government_has_mechanic = administrative
+        highest_held_title_tier >= tier_county
+    }
+    trigger_if = {
+        limit = {
+            scope:actor = {
+                is_ai = yes
+            }
+        }
+        scope:recipient = {
+            NOT = {
+                any_parent = {
+                    is_ai = no
+                }
+            }
+        }
+    }
+}
+dejure_auto_grant_native_governorship_is_valid_showing_failures_only_trigger = {
+    scope:puppet_or_actor = {
+        custom_tooltip = {
+            text = grant_governorship_interaction_no_title_tt
+            any_held_title = {
+                tier >= tier_county
+                is_noble_family_title = no
+                is_landless_type_title = no
+                NOR = {
+                    this = scope:puppet_or_actor.capital_county
+                    this = scope:puppet_or_actor.primary_title
+                }
+            }
+        }
+    }
+    scope:recipient = {
+        is_adult = yes
+        NOT = {
+            is_at_war_with = scope:puppet_or_actor
+        }
+        bp2_valid_for_standard_interactions_trigger = yes
+        trigger_if = {
+            limit = {
+                is_ruler = no
+            }
+            is_imprisoned = no
+        }
+        government_has_mechanic = administrative
+        trigger_if = {
+            limit = {
+                scope:puppet_or_actor = {
+                    OR = {
+                        has_realm_law = male_only_law
+                        has_realm_law = male_preference_law
+                    }
+                }
+                is_landed = no
+            }
+            custom_tooltip = {
+                text = recipient_cannot_be_appointed_gender_laws_tt
+                is_female = no
+            }
+        }
+        trigger_if = {
+            limit = {
+                scope:puppet_or_actor = {
+                    OR = {
+                        has_realm_law = female_only_law
+                        has_realm_law = female_preference_law
+                    }
+                }
+                is_landed = no
+            }
+            custom_tooltip = {
+                text = recipient_cannot_be_appointed_gender_laws_tt
+                is_female = yes
+            }
+        }
+        custom_description = {
+            text = grant_title_stealing_acclaimed_knight
+            subject = scope:recipient
+            NOR = {
+                AND = {
+                    is_acclaimed = yes
+                    liege ?= {
+                        is_ai = no
+                        this != scope:puppet_or_actor
+                    }
+                }
+                AND = {
+                    is_acclaimed = yes
+                    scope:actor = {
+                        is_ai = yes
+                    }
+                }
+            }
+        }
+        is_clergy = no
+        NOT = {
+            has_trait = gallivanter
+        }
+        tgp_japan_grant_titles_restriction_trigger = {
+            GRANTER = scope:puppet_or_actor
+            GRANTEE = scope:recipient
+        }
+        custom_tooltip = {
+            text = recipient_is_a_minister_desc
+            tgp_is_any_minister = no
+        }
+    }
+}
+dejure_auto_grant_native_governorship_can_send_trigger = {
+    scope:recipient = {
+        custom_tooltip = {
+            text = promote_candidate_interaction_existing_holder_tt
+            this != scope:target.holder
+        }
+        trigger_if = {
+            limit = {
+                is_governor = yes
+                scope:target = {
+                    is_noble_family_title = no
+                }
+            }
+            custom_tooltip = {
+                text = only_one_province_of_highest_rank_tt
+                NAND = {
+                    highest_held_title_tier = scope:target.tier
+                    scope:target.tier >= tier_duchy
+                    scope:target = {
+                        any_de_jure_county = {
+                            count < 1
+                            OR = {
+                                holder = scope:recipient
+                                holder = {
+                                    is_vassal_or_below_of = scope:recipient
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            custom_tooltip = {
+                text = admin_must_be_de_jure_or_neighboring
+                any_held_title = {
+                    OR = {
+                        is_de_jure_liege_or_above_target = scope:target
+                        target_is_de_jure_liege_or_above = scope:target
+                        AND = {
+                            NOT = {
+                                tier = tier_barony
+                            }
+                            any_title_to_title_neighboring_county = {
+                                this = scope:target
+                            }
+                            scope:target = {
+                                tier = tier_county
+                                duchy = {
+                                    OR = {
+                                        NOT = {
+                                            exists = holder
+                                        }
+                                        holder = {
+                                            NOR = {
+                                                is_vassal_or_below_of = scope:puppet_or_actor
+                                                this = scope:puppet_or_actor
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        trigger_if = {
+            limit = {
+                is_landless_ruler = yes
+                any_held_title = {
+                    is_noble_family_title = yes
+                }
+                scope:target.tier < min_appointment_tier
+            }
+            primary_title.tier <= scope:target.tier
+        }
+        trigger_if = {
+            limit = {
+                highest_held_title_tier = tier_county
+                main_administrative_tier > tier_county
+                is_landed = yes
+                scope:target.tier = tier_county
+            }
+            custom_tooltip = {
+                text = admin_count_grant_only_counties
+                any_held_title = {
+                    duchy = scope:target.duchy
+                }
+            }
+        }
+        tgp_is_ceremonial_liege_trigger = no
+    }
+}
+dejure_auto_grant_native_governorship_can_be_picked_title_trigger = {
+    scope:target = {
+        is_leased_out = no
+        scope:recipient = {
+            trigger_if = {
+                limit = {
+                    is_governor = yes
+                    scope:target = {
+                        is_noble_family_title = no
+                    }
+                }
+                custom_tooltip = {
+                    text = only_one_province_of_highest_rank_tt
+                    NAND = {
+                        highest_held_title_tier = scope:target.tier
+                        scope:target.tier >= main_administrative_tier
+                        trigger_if = {
+                            limit = {
+                                scope:target.tier >= tier_duchy
+                            }
+                            scope:target = {
+                                any_de_jure_county = {
+                                    count < 1
+                                    OR = {
+                                        holder = scope:recipient
+                                        holder = {
+                                            is_vassal_or_below_of = scope:recipient
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                custom_tooltip = {
+                    text = admin_must_be_de_jure_or_neighboring
+                    any_held_title = {
+                        OR = {
+                            is_de_jure_liege_or_above_target = scope:target
+                            target_is_de_jure_liege_or_above = scope:target
+                            AND = {
+                                tier >= tier_county
+                                any_title_to_title_neighboring_county = {
+                                    this = scope:target
+                                }
+                                scope:target = {
+                                    tier = tier_county
+                                    duchy = {
+                                        OR = {
+                                            NOT = {
+                                                exists = holder
+                                            }
+                                            holder = {
+                                                NOR = {
+                                                    is_vassal_or_below_of = scope:puppet_or_actor
+                                                    this = scope:puppet_or_actor
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            trigger_if = {
+                limit = {
+                    is_landless_ruler = yes
+                    any_held_title = {
+                        is_noble_family_title = yes
+                    }
+                    scope:target.tier < min_appointment_tier
+                }
+                primary_title.tier <= scope:target.tier
+            }
+            trigger_if = {
+                limit = {
+                    highest_held_title_tier = tier_county
+                    main_administrative_tier > tier_county
+                    is_landed = yes
+                    scope:target.tier = tier_county
+                }
+                custom_tooltip = {
+                    text = admin_count_grant_only_counties
+                    any_held_title = {
+                        duchy = scope:target.duchy
+                    }
+                }
+            }
+            tgp_is_ceremonial_liege_trigger = no
+        }
+        custom_tooltip = {
+            text = GRANT_TITLES_ITEM_CANT_GIVE_ADMIN_PRIMARY
+            this != scope:puppet_or_actor.capital_province.duchy
+        }
+        trigger_if = {
+            limit = {
+                is_noble_family_title = yes
+            }
+            custom_tooltip = {
+                text = GRANT_TITLES_ITEM_CANT_GIVE_NOBLE_FAMILY
+                always = no
+            }
+        }
+        trigger_if = {
+            limit = {
+                exists = var:ceremonial_title
+            }
+            custom_tooltip = {
+                text = GRANT_TITLES_ITEM_CANT_GIVE_CEREMONIAL_TITLE
+                always = no
+            }
+        }
+        trigger_if = {
+            limit = {
+                list_size:target_titles > 0
+            }
+            custom_tooltip = {
+                text = GRANT_TITLES_ITEM_ADMIN_CANT_GIVE_MORE_THAN_ONE
+                any_in_list = {
+                    list = target_titles
+                    scope:target ?= this
+                }
+            }
+        }
+        trigger_if = {
+            limit = {
+                scope:target = title:k_fashion
+            }
+            NOT = {
+                scope:target = title:k_fashion
+            }
+        }
+    }
+    custom_description = {
+        text = grant_titles_interaction_can_only_give_diarch_de_jure_liege_to_diarch
+        subject = scope:puppet_or_actor.diarch
+        object = scope:puppet_or_actor
+        NAND = {
+            scope:puppet_or_actor = {
+                has_active_diarchy = yes
+            }
+            scope:target = {
+                any_dejure_vassal_title_holder = {
+                    this = scope:puppet_or_actor.diarch
+                }
+                scope:recipient != scope:puppet_or_actor.diarch
+                tier < scope:puppet_or_actor.highest_held_title_tier
+            }
+        }
+    }
+    custom_description = {
+        text = grant_titles_interaction_title_being_wagered
+        subject = scope:puppet_or_actor
+        NOT = {
+            scope:target = {
+                has_variable = wagered_county
+            }
+        }
+    }
+}

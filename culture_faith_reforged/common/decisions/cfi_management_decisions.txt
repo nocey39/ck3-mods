@@ -1,0 +1,79 @@
+﻿cfi_enable_culture_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds" }
+    decision_group_type = cfi_management
+    desc = cfi_enable_culture_decision_desc
+    selection_tooltip = cfi_enable_culture_decision_tooltip
+    confirm_text = cfi_enable_culture_decision_confirm
+    is_shown = {
+        is_ai = no
+        exists = culture
+        culture = { NOT = { has_cultural_tradition = tradition_cfi_integrated } }
+    }
+    is_valid = { is_ai = no }
+    effect = {
+        custom_tooltip = cfi_enable_culture_effect_tt
+        hidden_effect = { cfi_enable_culture_effect = yes }
+    }
+    ai_check_interval = 0
+    ai_will_do = { base = 0 }
+}
+
+cfi_disable_culture_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds" }
+    decision_group_type = cfi_management
+    desc = cfi_disable_culture_decision_desc
+    selection_tooltip = cfi_disable_culture_decision_tooltip
+    confirm_text = cfi_disable_culture_decision_confirm
+    is_shown = {
+        is_ai = no
+        exists = culture
+        culture = { has_cultural_tradition = tradition_cfi_integrated }
+    }
+    is_valid = { is_ai = no }
+    effect = {
+        custom_tooltip = cfi_disable_culture_effect_tt
+        hidden_effect = { cfi_disable_culture_effect = yes }
+    }
+    ai_check_interval = 0
+    ai_will_do = { base = 0 }
+}
+
+cfi_enable_religion_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/hindu_religious.dds" }
+    decision_group_type = cfi_management
+    desc = cfi_enable_religion_decision_desc
+    selection_tooltip = cfi_enable_religion_decision_tooltip
+    confirm_text = cfi_enable_religion_decision_confirm
+    is_shown = {
+        is_ai = no
+        exists = rite
+        rite = { NOT = { rite_has_doctrine = special_doctrine_cfi_integrated } }
+    }
+    is_valid = { is_ai = no }
+    effect = {
+        custom_tooltip = cfi_enable_religion_effect_tt
+        hidden_effect = { cfi_enable_religion_effect = yes }
+    }
+    ai_check_interval = 0
+    ai_will_do = { base = 0 }
+}
+
+cfi_disable_religion_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/hindu_religious.dds" }
+    decision_group_type = cfi_management
+    desc = cfi_disable_religion_decision_desc
+    selection_tooltip = cfi_disable_religion_decision_tooltip
+    confirm_text = cfi_disable_religion_decision_confirm
+    is_shown = {
+        is_ai = no
+        exists = rite
+        rite = { rite_has_doctrine = special_doctrine_cfi_integrated }
+    }
+    is_valid = { is_ai = no }
+    effect = {
+        custom_tooltip = cfi_disable_religion_effect_tt
+        hidden_effect = { cfi_disable_religion_effect = yes }
+    }
+    ai_check_interval = 0
+    ai_will_do = { base = 0 }
+}

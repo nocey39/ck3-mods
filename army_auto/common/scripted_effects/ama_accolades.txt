@@ -1,0 +1,444 @@
+﻿
+ama_acc_clear_request_effect = {
+    remove_variable = ama_acc_target
+    remove_variable = ama_acc_target_type
+    remove_variable = ama_acc_request
+    clear_variable_list = ama_acc_requests_0
+    clear_variable_list = ama_acc_requests_1
+}
+ama_acc_check_effect = {
+    ama_acc_clear_request_effect = yes
+    if = {
+        limit = { has_variable = ama_acc_enabled ama_acc_available_trigger = yes }
+        save_scope_as = owner
+        save_scope_as = value_target
+        ama_acc_row_effect = { SLOT = 1 }
+        ama_acc_row_effect = { SLOT = 2 }
+        ama_acc_row_effect = { SLOT = 3 }
+        ama_acc_row_effect = { SLOT = 4 }
+        ama_acc_row_effect = { SLOT = 5 }
+        if = {
+            limit = { has_variable = ama_acc_request }
+            # Alternate the host lists to give each request a fresh GUI animation.
+            if = {
+                limit = { var:ama_acc_request_phase ?= 1 }
+                set_variable = { name = ama_acc_request_phase value = 0 }
+                add_to_variable_list = { name = ama_acc_requests_0 target = var:ama_acc_target }
+            }
+            else = {
+                set_variable = { name = ama_acc_request_phase value = 1 }
+                add_to_variable_list = { name = ama_acc_requests_1 target = var:ama_acc_target }
+            }
+        }
+    }
+}
+ama_acc_row_effect = {
+    if = {
+        limit = {
+            has_variable = ama_acc_first_$SLOT$
+            has_variable = ama_acc_second_$SLOT$
+        }
+        if = {
+            limit = {
+                any_accolade = {
+                    ama_acc_initial_type_trigger = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ }
+                }
+            }
+            every_accolade = {
+                limit = { ama_acc_initial_type_trigger = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ } }
+                ama_acc_plan_upgrade_effect = { SLOT = $SLOT$ }
+            }
+            set_variable = { name = ama_acc_state_$SLOT$ value = 1 }
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    any_accolade = { ama_acc_has_type_trigger = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ } }
+                    any_accolade = { ama_acc_has_type_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ } }
+                }
+            }
+            set_variable = { name = ama_acc_state_$SLOT$ value = 2 }
+        }
+        else_if = {
+            limit = { num_accolades >= max_accolades }
+            set_variable = { name = ama_acc_state_$SLOT$ value = 3 }
+        }
+        else_if = {
+            limit = {
+                NOT = {
+                    ama_acc_culture_trigger = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ }
+                    ama_acc_culture_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ }
+                }
+            }
+            set_variable = { name = ama_acc_state_$SLOT$ value = 4 }
+        }
+        else_if = {
+            limit = { prestige < accolade_creation_prestige_cost }
+            set_variable = { name = ama_acc_state_$SLOT$ value = 5 }
+        }
+        else_if = {
+            limit = { NOT = { has_variable = ama_acc_retry_$SLOT$ } }
+            set_variable = { name = ama_acc_state_$SLOT$ value = 6 }
+            ama_acc_generate_effect = { SLOT = $SLOT$ }
+            if = {
+                limit = {
+                    any_accolade = { ama_acc_initial_type_trigger = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ } }
+                }
+                set_variable = { name = ama_acc_state_$SLOT$ value = 1 }
+            }
+            else = {
+                set_variable = { name = ama_acc_retry_$SLOT$ value = yes days = 365 }
+            }
+        }
+        else = {
+            # Preserve a specific failure while refreshing obsolete generic states.
+            if = {
+                limit = { NOT = { OR = {
+                    var:ama_acc_state_$SLOT$ ?= 8
+                    var:ama_acc_state_$SLOT$ ?= 9
+                    var:ama_acc_state_$SLOT$ ?= 10
+                    var:ama_acc_state_$SLOT$ ?= 11
+                } } }
+                set_variable = { name = ama_acc_state_$SLOT$ value = 6 }
+            }
+        }
+    }
+}
+ama_acc_generate_effect = {
+    if = {
+        limit = {
+            OR = {
+                scope:owner.var:ama_acc_first_$SLOT$ = flag:contender_attribute
+                scope:owner.var:ama_acc_second_$SLOT$ = flag:contender_attribute
+            }
+        }
+        ama_acc_spawn_effect = { PROWESS = 24 }
+    }
+    else = { ama_acc_spawn_effect = { PROWESS = 15 } }
+    scope:ama_acc_candidate = {
+        ama_acc_train_effect = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ }
+        ama_acc_train_effect = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ }
+    }
+    if = {
+        limit = { scope:ama_acc_candidate = { NOT = { can_be_knight_trigger = { ARMY_OWNER = scope:owner } } } }
+        set_variable = { name = ama_acc_state_$SLOT$ value = 8 }
+    }
+    else_if = {
+        limit = { scope:ama_acc_candidate = { NOT = { ama_acc_fit_trigger = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ } } } }
+        set_variable = { name = ama_acc_state_$SLOT$ value = 9 }
+    }
+    else_if = {
+        limit = { scope:ama_acc_candidate = { NOT = { ama_acc_fit_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ } } } }
+        set_variable = { name = ama_acc_state_$SLOT$ value = 10 }
+    }
+    else = {
+        scope:ama_acc_candidate = { set_knight_status = force }
+        ama_acc_create_effect = { SLOT = $SLOT$ }
+        if = {
+            limit = { scope:ama_acc_candidate = { NOT = { exists = accolade } } }
+            set_variable = { name = ama_acc_state_$SLOT$ value = 11 }
+        }
+    }
+    if = {
+        limit = { scope:ama_acc_candidate = { NOT = { exists = accolade } } }
+        scope:ama_acc_candidate = { set_knight_status = default move_to_pool = yes }
+    }
+}
+ama_acc_train_effect = {
+    if = { limit = { $TYPE$ = flag:marauder_attribute } add_trait = vengeful }
+    else_if = { limit = { $TYPE$ = flag:idealist_attribute } add_trait = generous }
+    else_if = { limit = { $TYPE$ = flag:charmer_attribute } add_trait = lustful }
+    else_if = { limit = { $TYPE$ = flag:thug_attribute } add_trait = reaver }
+    else_if = { limit = { $TYPE$ = flag:disciplinarian_attribute } add_trait = organizer }
+    else_if = { limit = { $TYPE$ = flag:fanatic_attribute } add_trait = holy_warrior }
+    else_if = { limit = { $TYPE$ = flag:valiant_attribute } add_trait = brave }
+    else_if = { limit = { $TYPE$ = flag:stalwart_attribute } add_trait = unyielding_defender }
+    else_if = { limit = { $TYPE$ = flag:scoundrel_attribute } add_trait = adventurer }
+    else_if = { limit = { $TYPE$ = flag:archer_attribute } add_trait = forest_fighter }
+    else_if = { limit = { $TYPE$ = flag:skirmisher_attribute } add_trait = winter_soldier }
+    else_if = { limit = { $TYPE$ = flag:pike_attribute } add_trait = rough_terrain_expert }
+    else_if = { limit = { $TYPE$ = flag:outrider_attribute } add_trait = open_terrain_expert }
+    else_if = { limit = { $TYPE$ = flag:vanguard_attribute } add_trait = strong }
+    else_if = { limit = { $TYPE$ = flag:lancer_attribute } add_trait = aggressive_attacker }
+    else_if = { limit = { $TYPE$ = flag:crossbowmen_attribute } add_trait = cautious_leader }
+    else_if = { limit = { $TYPE$ = flag:besieger_attribute } add_trait = military_engineer }
+    else_if = { limit = { $TYPE$ = flag:camelry_attribute } add_trait = desert_warrior }
+    else_if = { limit = { $TYPE$ = flag:elephantry_attribute } add_trait = jungle_stalker }
+    else_if = { limit = { $TYPE$ = flag:horse_archer_attribute } add_trait = flexible_leader }
+    else_if = { limit = { $TYPE$ = flag:gunpowder_attribute } add_trait = erudite }
+    else_if = { limit = { $TYPE$ = flag:huntsmaster_attribute } add_trait = lifestyle_hunter }
+    else_if = { limit = { $TYPE$ = flag:blademaster_attribute } add_trait = lifestyle_blademaster add_trait_xp = { trait = lifestyle_blademaster value = 100 } }
+    else_if = { limit = { $TYPE$ = flag:master_of_revels_attribute } add_trait = lifestyle_reveler }
+    else_if = { limit = { $TYPE$ = flag:house_knight_attribute } add_trait = loyal }
+    else_if = { limit = { $TYPE$ = flag:politicker_attribute } add_diplomacy_skill = { value = skill_accolade_qualifying_value subtract = diplomacy min = 0 } if = { limit = { diplomacy < skill_accolade_qualifying_value } add_trait = diplomat } }
+    else_if = { limit = { $TYPE$ = flag:tactician_attribute } add_martial_skill = { value = skill_accolade_qualifying_value subtract = martial min = 0 } if = { limit = { martial < skill_accolade_qualifying_value } add_trait = strategist } }
+    else_if = { limit = { $TYPE$ = flag:reeve_attribute } add_stewardship_skill = { value = skill_accolade_qualifying_value subtract = stewardship min = 0 } if = { limit = { stewardship < skill_accolade_qualifying_value } add_trait = administrator } }
+    else_if = { limit = { $TYPE$ = flag:manipulator_attribute } add_intrigue_skill = { value = skill_accolade_qualifying_value subtract = intrigue min = 0 } if = { limit = { intrigue < skill_accolade_qualifying_value } add_trait = schemer } }
+    else_if = { limit = { $TYPE$ = flag:mentor_attribute } add_learning_skill = { value = skill_accolade_qualifying_value subtract = learning min = 0 } if = { limit = { learning < skill_accolade_qualifying_value } add_trait = whole_of_body } }
+    else_if = { limit = { $TYPE$ = flag:contender_attribute } add_prowess_skill = { value = 24 subtract = prowess min = 0 } }
+}
+ama_acc_create_effect = {
+    if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:marauder_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = marauder_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:idealist_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = idealist_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:charmer_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = charmer_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:thug_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = thug_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:disciplinarian_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = disciplinarian_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:fanatic_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = fanatic_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:valiant_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = valiant_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:stalwart_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = stalwart_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:scoundrel_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = scoundrel_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:archer_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = archer_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:skirmisher_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = skirmisher_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:pike_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = pike_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:outrider_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = outrider_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:vanguard_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = vanguard_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:lancer_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = lancer_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:crossbowmen_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = crossbowmen_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:besieger_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = besieger_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:camelry_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = camelry_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:elephantry_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = elephantry_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:horse_archer_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = horse_archer_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:gunpowder_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = gunpowder_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:huntsmaster_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = huntsmaster_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:blademaster_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = blademaster_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:master_of_revels_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = master_of_revels_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:house_knight_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = house_knight_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:politicker_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = politicker_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:tactician_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = tactician_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:reeve_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = reeve_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:manipulator_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = manipulator_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:mentor_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = mentor_attribute } }
+    else_if = { limit = { scope:owner.var:ama_acc_first_$SLOT$ = flag:contender_attribute } create_accolade = { knight = scope:ama_acc_candidate primary = contender_attribute } }
+}
+ama_acc_plan_upgrade_effect = {
+    if = {
+        limit = {
+            exists = acclaimed_knight
+            accolade_can_spend_attribute = yes
+            accolade_owner = { NOT = { has_variable = ama_acc_request } }
+        }
+        save_temporary_scope_as = ama_acc_current
+        if = {
+            limit = {
+                NOT = { ama_acc_has_type_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ } }
+                accolade_can_have_more_attributes = yes
+                acclaimed_knight = { ama_acc_fit_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ } }
+                accolade_owner = {
+                    NOT = { any_accolade = { ama_acc_has_type_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ } } }
+                }
+            }
+            accolade_owner = {
+                set_variable = { name = ama_acc_target value = scope:ama_acc_current }
+                set_variable = { name = ama_acc_target_type value = scope:owner.var:ama_acc_second_$SLOT$ }
+                set_variable = { name = ama_acc_request value = 1 }
+            }
+        }
+        else_if = {
+            limit = { ama_acc_has_type_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ } }
+            if = {
+                limit = { ama_acc_type_below_max_trigger = { TYPE = scope:owner.var:ama_acc_first_$SLOT$ } }
+                accolade_owner = {
+                    set_variable = { name = ama_acc_target value = scope:ama_acc_current }
+                    set_variable = { name = ama_acc_target_type value = scope:owner.var:ama_acc_first_$SLOT$ }
+                    set_variable = { name = ama_acc_request value = 2 }
+                }
+            }
+            else_if = {
+                limit = { ama_acc_type_below_max_trigger = { TYPE = scope:owner.var:ama_acc_second_$SLOT$ } }
+                accolade_owner = {
+                    set_variable = { name = ama_acc_target value = scope:ama_acc_current }
+                    set_variable = { name = ama_acc_target_type value = scope:owner.var:ama_acc_second_$SLOT$ }
+                    set_variable = { name = ama_acc_request value = 2 }
+                }
+            }
+        }
+    }
+}
+
+# These lists are rebuilt from the saved slot choices whenever the picker opens.
+ama_acc_build_catalog_effect = {
+    clear_variable_list = ama_acc_options_assigned
+    clear_variable_list = ama_acc_options_common
+    clear_variable_list = ama_acc_options_skilled
+    clear_variable_list = ama_acc_options_maa
+    clear_variable_list = ama_acc_options_eminent
+
+    ama_acc_catalog_item_effect = { TYPE = marauder_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = idealist_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = charmer_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = thug_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = disciplinarian_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = fanatic_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = valiant_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = stalwart_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = scoundrel_attribute GROUP = common }
+    ama_acc_catalog_item_effect = { TYPE = politicker_attribute GROUP = skilled }
+    ama_acc_catalog_item_effect = { TYPE = tactician_attribute GROUP = skilled }
+    ama_acc_catalog_item_effect = { TYPE = reeve_attribute GROUP = skilled }
+    ama_acc_catalog_item_effect = { TYPE = manipulator_attribute GROUP = skilled }
+    ama_acc_catalog_item_effect = { TYPE = mentor_attribute GROUP = skilled }
+    ama_acc_catalog_item_effect = { TYPE = contender_attribute GROUP = skilled }
+    ama_acc_catalog_item_effect = { TYPE = archer_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = skirmisher_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = pike_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = outrider_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = vanguard_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = lancer_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = crossbowmen_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = besieger_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = camelry_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = elephantry_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = horse_archer_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = gunpowder_attribute GROUP = maa }
+    ama_acc_catalog_item_effect = { TYPE = huntsmaster_attribute GROUP = eminent }
+    ama_acc_catalog_item_effect = { TYPE = blademaster_attribute GROUP = eminent }
+    ama_acc_catalog_item_effect = { TYPE = master_of_revels_attribute GROUP = eminent }
+    ama_acc_catalog_item_effect = { TYPE = house_knight_attribute GROUP = eminent }
+}
+ama_acc_catalog_item_effect = {
+    if = {
+        limit = { ama_acc_attribute_assigned_trigger = { TYPE = flag:$TYPE$ } }
+        add_to_variable_list = { name = ama_acc_options_assigned target = flag:$TYPE$ }
+    }
+    else = { add_to_variable_list = { name = ama_acc_options_$GROUP$ target = flag:$TYPE$ } }
+}
+
+ama_acc_write_pick_effect = {
+    ama_acc_clear_request_effect = yes
+    if = {
+        limit = { var:ama_acc_picker = 1 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_first_1
+        }
+        else = { set_variable = { name = ama_acc_first_1 value = $VALUE$ } }
+        remove_variable = ama_acc_state_1
+        remove_variable = ama_acc_retry_1
+    }
+    if = {
+        limit = { var:ama_acc_picker = 6 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_second_1
+        }
+        else = { set_variable = { name = ama_acc_second_1 value = $VALUE$ } }
+        remove_variable = ama_acc_state_1
+        remove_variable = ama_acc_retry_1
+    }
+    if = {
+        limit = { var:ama_acc_picker = 2 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_first_2
+        }
+        else = { set_variable = { name = ama_acc_first_2 value = $VALUE$ } }
+        remove_variable = ama_acc_state_2
+        remove_variable = ama_acc_retry_2
+    }
+    if = {
+        limit = { var:ama_acc_picker = 7 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_second_2
+        }
+        else = { set_variable = { name = ama_acc_second_2 value = $VALUE$ } }
+        remove_variable = ama_acc_state_2
+        remove_variable = ama_acc_retry_2
+    }
+    if = {
+        limit = { var:ama_acc_picker = 3 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_first_3
+        }
+        else = { set_variable = { name = ama_acc_first_3 value = $VALUE$ } }
+        remove_variable = ama_acc_state_3
+        remove_variable = ama_acc_retry_3
+    }
+    if = {
+        limit = { var:ama_acc_picker = 8 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_second_3
+        }
+        else = { set_variable = { name = ama_acc_second_3 value = $VALUE$ } }
+        remove_variable = ama_acc_state_3
+        remove_variable = ama_acc_retry_3
+    }
+    if = {
+        limit = { var:ama_acc_picker = 4 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_first_4
+        }
+        else = { set_variable = { name = ama_acc_first_4 value = $VALUE$ } }
+        remove_variable = ama_acc_state_4
+        remove_variable = ama_acc_retry_4
+    }
+    if = {
+        limit = { var:ama_acc_picker = 9 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_second_4
+        }
+        else = { set_variable = { name = ama_acc_second_4 value = $VALUE$ } }
+        remove_variable = ama_acc_state_4
+        remove_variable = ama_acc_retry_4
+    }
+    if = {
+        limit = { var:ama_acc_picker = 5 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_first_5
+        }
+        else = { set_variable = { name = ama_acc_first_5 value = $VALUE$ } }
+        remove_variable = ama_acc_state_5
+        remove_variable = ama_acc_retry_5
+    }
+    if = {
+        limit = { var:ama_acc_picker = 10 }
+        if = {
+            limit = { always = $CLEAR$ }
+            remove_variable = ama_acc_second_5
+        }
+        else = { set_variable = { name = ama_acc_second_5 value = $VALUE$ } }
+        remove_variable = ama_acc_state_5
+        remove_variable = ama_acc_retry_5
+    }
+
+    remove_variable = ama_acc_picker
+}
+
+# Explicit player checks retry candidates immediately.
+ama_acc_manual_check_effect = {
+    ama_initialize_effect = yes
+    remove_variable = ama_acc_retry_1
+    remove_variable = ama_acc_retry_2
+    remove_variable = ama_acc_retry_3
+    remove_variable = ama_acc_retry_4
+    remove_variable = ama_acc_retry_5
+    ama_acc_check_effect = yes
+    ama_schedule_effect = yes
+}
+ama_acc_refresh_on_load_effect = {
+    ama_acc_clear_request_effect = yes
+    if = {
+        limit = { has_variable = ama_acc_enabled ama_acc_available_trigger = yes }
+        ama_initialize_effect = yes
+        ama_acc_check_effect = yes
+        ama_schedule_effect = yes
+    }
+}
+
+ama_acc_spawn_effect = {
+    create_character = {
+        employer = this
+        culture = culture
+        faith = faith
+        gender_female_chance = scope_value_target_soldier_female_chance
+        age = { 22 34 }
+        prowess = $PROWESS$
+        random_traits = no
+        save_scope_as = ama_acc_candidate
+    }
+}

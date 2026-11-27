@@ -1,0 +1,82 @@
+﻿dejure_auto_force_protected_trigger = {
+    OR = {
+        AND = {
+            has_variable = dejure_auto_keep_for
+            var:dejure_auto_keep_for = scope:dejure_auto_owner
+        }
+        any_liege_or_above = {
+            is_vassal_or_below_of = scope:dejure_auto_owner
+            has_variable = dejure_auto_keep_for
+            var:dejure_auto_keep_for = scope:dejure_auto_owner
+        }
+    }
+}
+dejure_auto_force_player_branch_trigger = {
+    OR = {
+        is_ai = no
+        any_liege_or_above = {
+            is_ai = no
+            is_vassal_or_below_of = scope:dejure_auto_owner
+        }
+    }
+}
+dejure_auto_tier_selected_trigger = {
+    OR = {
+        AND = {
+            highest_held_title_tier = tier_county
+            scope:dejure_auto_owner = {
+                var:dejure_auto_tier_county = 1
+            }
+        }
+        AND = {
+            highest_held_title_tier = tier_duchy
+            scope:dejure_auto_owner = {
+                var:dejure_auto_tier_duchy = 1
+            }
+        }
+        AND = {
+            highest_held_title_tier = tier_kingdom
+            scope:dejure_auto_owner = {
+                var:dejure_auto_tier_kingdom = 1
+            }
+        }
+        AND = {
+            highest_held_title_tier = tier_empire
+            scope:dejure_auto_owner = {
+                var:dejure_auto_tier_empire = 1
+            }
+        }
+    }
+}
+dejure_auto_force_county_trigger = {
+    tier = tier_county
+    exists = holder
+    is_leased_out = no
+    holder = {
+        is_alive = yes
+        is_landed = yes
+        is_vassal_or_below_of = scope:dejure_auto_owner
+        NOT = {
+            this = scope:dejure_auto_owner
+        }
+        dejure_auto_force_protected_trigger = no
+        dejure_auto_force_player_branch_trigger = no
+    }
+    NOT = {
+        any_county_province = {
+            exists = barony.holder
+            barony.holder = {
+                highest_held_title_tier = tier_barony
+                primary_title.de_jure_liege = scope:dejure_auto_county
+                OR = {
+                    dejure_auto_force_protected_trigger = yes
+                    dejure_auto_force_player_branch_trigger = yes
+                }
+            }
+        }
+    }
+    dejure_auto_map_county_trigger = yes
+    holder = {
+        dejure_auto_hierarchy_subtree_safe_trigger = yes
+    }
+}

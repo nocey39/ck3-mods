@@ -1,0 +1,97 @@
+﻿# Vanilla duchy and kingdom holy-war piety rules, applied only when enabled.
+# Empire uses twice the final kingdom cost.
+rconq_duchy_holy_war_cost = {
+    value = 0
+    if = {
+        limit = {
+            scope:attacker = {
+                has_variable = rconq_costs_enabled
+            }
+        }
+        add = {
+            value = 200
+            desc = CB_BASE_COST
+        }
+        multiply = common_cb_piety_cost_multiplier
+        multiply = holy_war_cb_piety_cost_multiplier
+        if = {
+            limit = {
+                scope:attacker.house ?= {
+                    OR = {
+                        has_house_modifier = fp2_struggle_hostility_house_faith_modifier
+                        has_house_modifier = fp2_struggle_hostility_house_combined_modifier
+                    }
+                }
+                any_in_global_list = {
+                    variable = fp2_struggle_ending_faith_list
+                    this = scope:attacker.faith
+                }
+                any_in_global_list = {
+                    variable = fp2_struggle_ending_faith_list
+                    this = scope:defender.faith
+                }
+            }
+            divide = {
+                value = 2
+                desc = CB_COST_FP2_STRUGGLE_HOSTILITY_FAITH_DISCOUNT
+            }
+        }
+        if = {
+            limit = {
+                has_global_variable = fp2_struggle_compromise_ending
+                any_in_global_list = {
+                    variable = fp2_struggle_ending_faith_list
+                    this = scope:attacker.faith
+                }
+                any_in_global_list = {
+                    variable = fp2_struggle_ending_faith_list
+                    this = scope:defender.faith
+                }
+            }
+            multiply = {
+                value = 2
+                desc = CB_COST_FP2_STRUGGLE_COMPROMISE_MULTIPLIER
+            }
+        }
+        min = 25
+        if = {
+            limit = {
+                scope:attacker = {
+                    has_character_flag = holy_war_incited
+                }
+            }
+            multiply = 0
+        }
+    }
+}
+
+rconq_kingdom_holy_war_cost = {
+    value = 0
+    if = {
+        limit = {
+            scope:attacker = {
+                has_variable = rconq_costs_enabled
+            }
+        }
+        add = {
+            value = 750
+            desc = CB_BASE_COST
+        }
+        multiply = common_cb_piety_cost_multiplier
+        multiply = holy_war_cb_piety_cost_multiplier
+        min = 90
+        if = {
+            limit = {
+                scope:attacker = {
+                    has_character_flag = holy_war_incited
+                }
+            }
+            multiply = 0
+        }
+    }
+}
+
+rconq_empire_holy_war_cost = {
+    value = rconq_kingdom_holy_war_cost
+    multiply = 2
+}

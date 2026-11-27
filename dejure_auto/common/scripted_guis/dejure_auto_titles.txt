@@ -1,0 +1,100 @@
+﻿dejure_auto_create_duchy_gui = { scope = character
+    is_shown = { var:dejure_auto_create_duchy = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_create_duchy = 1 } set_variable = { name = dejure_auto_create_duchy value = 0 } }
+        else = { set_variable = { name = dejure_auto_create_duchy value = 1 } } } }
+dejure_auto_create_kingdom_gui = { scope = character
+    is_shown = { var:dejure_auto_create_kingdom = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_create_kingdom = 1 } set_variable = { name = dejure_auto_create_kingdom value = 0 } }
+        else = { set_variable = { name = dejure_auto_create_kingdom value = 1 } } } }
+dejure_auto_create_empire_gui = { scope = character
+    is_shown = { var:dejure_auto_create_empire = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_create_empire = 1 } set_variable = { name = dejure_auto_create_empire value = 0 } }
+        else = { set_variable = { name = dejure_auto_create_empire value = 1 } } } }
+dejure_auto_grant_county_gui = { scope = character
+    is_shown = { var:dejure_auto_grant_county = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_grant_county = 1 } set_variable = { name = dejure_auto_grant_county value = 0 } }
+        else = { set_variable = { name = dejure_auto_grant_county value = 1 } } } }
+dejure_auto_grant_duchy_gui = { scope = character
+    is_shown = { var:dejure_auto_grant_duchy = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_grant_duchy = 1 } set_variable = { name = dejure_auto_grant_duchy value = 0 } }
+        else = { set_variable = { name = dejure_auto_grant_duchy value = 1 } } } }
+dejure_auto_grant_kingdom_gui = { scope = character
+    is_shown = { var:dejure_auto_grant_kingdom = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_grant_kingdom = 1 } set_variable = { name = dejure_auto_grant_kingdom value = 0 } }
+        else = { set_variable = { name = dejure_auto_grant_kingdom value = 1 } } } }
+dejure_auto_grant_empire_gui = { scope = character
+    is_shown = { var:dejure_auto_grant_empire = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_grant_empire = 1 } set_variable = { name = dejure_auto_grant_empire value = 0 } }
+        else = { set_variable = { name = dejure_auto_grant_empire value = 1 } } } }
+dejure_auto_people_direct_gui = { scope = character
+    is_shown = { var:dejure_auto_people_direct = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_people_direct = 1 } set_variable = { name = dejure_auto_people_direct value = 0 } }
+        else = { set_variable = { name = dejure_auto_people_direct value = 1 } } } }
+dejure_auto_people_house_gui = { scope = character
+    is_shown = { var:dejure_auto_people_house = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_people_house = 1 } set_variable = { name = dejure_auto_people_house value = 0 } }
+        else = { set_variable = { name = dejure_auto_people_house value = 1 } } } }
+dejure_auto_people_dynasty_gui = { scope = character
+    is_shown = { var:dejure_auto_people_dynasty = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_people_dynasty = 1 } set_variable = { name = dejure_auto_people_dynasty value = 0 } }
+        else = { set_variable = { name = dejure_auto_people_dynasty value = 1 } } } }
+dejure_auto_people_noble_gui = { scope = character
+    is_shown = { var:dejure_auto_people_noble = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_people_noble = 1 } set_variable = { name = dejure_auto_people_noble value = 0 } }
+        else = { set_variable = { name = dejure_auto_people_noble value = 1 } } } }
+dejure_auto_people_lowborn_gui = { scope = character
+    is_shown = { var:dejure_auto_people_lowborn = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_people_lowborn = 1 } set_variable = { name = dejure_auto_people_lowborn value = 0 } }
+        else = { set_variable = { name = dejure_auto_people_lowborn value = 1 } } } }
+dejure_auto_people_culture_gui = { scope = character
+    is_shown = { var:dejure_auto_people_culture = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_people_culture = 1 } set_variable = { name = dejure_auto_people_culture value = 0 } }
+        else = { set_variable = { name = dejure_auto_people_culture value = 1 } } } }
+dejure_auto_people_faith_gui = { scope = character
+    is_shown = { var:dejure_auto_people_faith = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_people_faith = 1 } set_variable = { name = dejure_auto_people_faith value = 0 } }
+        else = { set_variable = { name = dejure_auto_people_faith value = 1 } } } }
+dejure_auto_title_fee_minus_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes var:dejure_auto_title_fee > 0 }
+    effect = { dejure_auto_initialize_effect = yes if = { limit = { var:dejure_auto_title_fee < 10 } set_variable = { name = dejure_auto_title_fee value = 0 } }
+        else = { change_variable = { name = dejure_auto_title_fee add = -10 } } } }
+dejure_auto_title_fee_plus_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes var:dejure_auto_title_fee < 200 }
+    effect = { dejure_auto_initialize_effect = yes if = { limit = { var:dejure_auto_title_fee > 190 } set_variable = { name = dejure_auto_title_fee value = 200 } }
+        else = { change_variable = { name = dejure_auto_title_fee add = 10 } } } }
+dejure_auto_title_reserve_minus_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes var:dejure_auto_title_reserve > 0 }
+    effect = { dejure_auto_initialize_effect = yes if = { limit = { var:dejure_auto_title_reserve < 100 } set_variable = { name = dejure_auto_title_reserve value = 0 } }
+        else = { change_variable = { name = dejure_auto_title_reserve add = -100 } } } }
+dejure_auto_title_reserve_plus_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes var:dejure_auto_title_reserve < 10000 }
+    effect = { dejure_auto_initialize_effect = yes if = { limit = { var:dejure_auto_title_reserve > 9900 } set_variable = { name = dejure_auto_title_reserve value = 10000 } }
+        else = { change_variable = { name = dejure_auto_title_reserve add = 100 } } } }

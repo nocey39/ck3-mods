@@ -1,0 +1,78 @@
+﻿# Character scope. Call before the first raw native enactment, and on teardown.
+# Removing a modifier and recalculating alone does not prove allocation getter
+# freshness; the caller must enact before sampling the raw native allocations.
+teq_prepare_public_allocation = { hidden_effect = {
+ remove_character_modifier = teq_control_development_positive
+ remove_character_modifier = teq_control_development_negative
+ remove_character_modifier = teq_control_military_positive
+ remove_character_modifier = teq_control_military_negative
+ remove_variable = teq_control_dev_offset
+ remove_variable = teq_control_mil_offset
+} }
+# Title scope, immediately after a raw native enact with our corrections absent.
+# Keep the saved integer pair preference; native law changes can still change
+# the cardinal pool. No native law, special currency or cardinal rate is edited.
+teq_ensure_public_shares = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes }
+  if = { limit = { NOT = { has_variable = teq_control_dev_percent } }
+   set_variable = { name = teq_control_dev_percent value = holder.teq_control_seed_dev_percent }
+  }
+  else = {
+   set_variable = { name = teq_control_dev_percent value = { value = var:teq_control_dev_percent min = 0 max = 100 floor = yes } }
+  }
+  set_variable = { name = teq_control_pair_weight value = holder.teq_control_raw_pair_weight }
+  set_variable = { name = teq_control_cardinal_fraction value = 0 }
+  if = { limit = { holder = { teq_control_raw_cardinal_weight > 0 } }
+   set_variable = { name = teq_control_cardinal_fraction value = {
+    value = holder.teq_control_raw_cardinal_weight
+    divide = { value = var:teq_control_pair_weight add = holder.teq_control_raw_cardinal_weight }
+    min = 0 max = 1
+   } }
+  }
+  else_if = { limit = { var:teq_control_pair_weight <= 0 }
+   # Both raw laws may be zero. A positive trial pool allows the native enact
+   # to discover real receivers instead of permanently locking both channels.
+   set_variable = { name = teq_control_pair_weight value = 1 }
+  }
+ }
+} }
+# Character scope. The two live getters must still contain the unmodified raw
+# allocations. Add these corrections alongside the fixed-payroll correction,
+# then perform the caller's existing final native enact before scaling bases.
+teq_apply_public_allocation = { hidden_effect = {
+ if = { limit = { teq_ruler_valid = yes primary_title = { has_variable = teq_control_dev_percent } }
+  set_variable = { name = teq_control_dev_offset value = {
+   value = teq_control_development_allocation subtract = treasury_budget_allocation_ministries
+  } }
+  set_variable = { name = teq_control_mil_offset value = {
+   value = teq_control_military_allocation subtract = treasury_budget_allocation_military
+  } }
+  if = { limit = { var:teq_control_dev_offset > 0 } add_character_modifier = teq_control_development_positive }
+  else_if = { limit = { var:teq_control_dev_offset < 0 } add_character_modifier = teq_control_development_negative }
+  if = { limit = { var:teq_control_mil_offset > 0 } add_character_modifier = teq_control_military_positive }
+  else_if = { limit = { var:teq_control_mil_offset < 0 } add_character_modifier = teq_control_military_negative }
+ }
+} }
+# Title scope. Policy is immediately applied, has no treasury/gold transaction,
+# and belongs to the title through succession. AI never runs these actions.
+teq_control_change_development = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes } }
+  if = { limit = { NOT = { has_variable = teq_control_dev_percent } } teq_apply_budget = yes }
+  if = { limit = { has_variable = teq_control_dev_percent }
+   set_variable = { name = teq_control_previous_dev_percent value = var:teq_control_dev_percent }
+   set_variable = { name = teq_control_dev_percent value = { value = var:teq_control_dev_percent add = $STEP$ min = 0 max = 100 floor = yes } }
+   if = { limit = { NOT = { var:teq_control_dev_percent = var:teq_control_previous_dev_percent } }
+    teq_apply_budget = yes
+   }
+   remove_variable = teq_control_previous_dev_percent
+  }
+ }
+} }
+teq_control_development_up = { teq_control_change_development = { STEP = 1 } }
+teq_control_development_down = { teq_control_change_development = { STEP = -1 } }
+teq_control_development_up_5 = { teq_control_change_development = { STEP = 5 } }
+teq_control_development_down_5 = { teq_control_change_development = { STEP = -5 } }
+teq_control_military_up = { teq_control_change_development = { STEP = -1 } }
+teq_control_military_down = { teq_control_change_development = { STEP = 1 } }
+teq_control_military_up_5 = { teq_control_change_development = { STEP = -5 } }
+teq_control_military_down_5 = { teq_control_change_development = { STEP = 5 } }

@@ -1,0 +1,8 @@
+﻿fa_perk_active_trigger = {
+    fa_can_configure_trigger = yes
+    fa_master_active_trigger = yes
+    OR = {
+        has_variable = fa_perk_follow
+        has_variable = fa_perk_convert
+    }
+}

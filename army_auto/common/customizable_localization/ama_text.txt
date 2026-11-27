@@ -1,0 +1,242 @@
+﻿ama_status = {
+    type = character
+    text = { trigger = { var:ama_status = 16 } localization_key = ama_status_16 }
+    text = { trigger = { var:ama_status = 17 } localization_key = ama_status_17 }
+    text = {
+        trigger = {
+            has_variable = ama_tx_pending
+            var:ama_tx_mode = 4
+        }
+        localization_key = ama_direct_pending_text
+    }
+    text = {
+        trigger = {
+            var:ama_status = 5
+            var:ama_tx_mode = 4
+        }
+        localization_key = ama_direct_failed_text
+    }
+    text = {
+        trigger = {
+            var:ama_status = 15
+        }
+        localization_key = ama_direct_changed_text
+    }
+    text = {
+        trigger = {
+            has_variable = ama_repl_pending
+        }
+        localization_key = ama_repl_pending_text
+    }
+    text = {
+        trigger = {
+            has_variable = ama_tx_pending
+        }
+        localization_key = ama_status_1
+    }
+    text = {
+        trigger = {
+            NOT = {
+                has_variable = ama_enabled
+            }
+        }
+        localization_key = ama_status_off
+    }
+    text = {
+        trigger = {
+            var:ama_status = 0
+        }
+        localization_key = ama_status_0
+    }
+    text = {
+        trigger = {
+            var:ama_status = 2
+        }
+        localization_key = ama_status_2
+    }
+    text = {
+        trigger = {
+            var:ama_status = 3
+        }
+        localization_key = ama_status_3
+    }
+    text = {
+        trigger = {
+            var:ama_status = 4
+        }
+        localization_key = ama_status_4
+    }
+    text = {
+        trigger = {
+            var:ama_status = 5
+        }
+        localization_key = ama_status_5
+    }
+    text = {
+        trigger = {
+            var:ama_status = 6
+        }
+        localization_key = ama_status_6
+    }
+    text = {
+        trigger = {
+            var:ama_status = 7
+        }
+        localization_key = ama_status_7
+    }
+    text = {
+        trigger = {
+            var:ama_status = 8
+        }
+        localization_key = ama_status_8
+    }
+    text = {
+        trigger = {
+            var:ama_status = 9
+        }
+        localization_key = ama_status_9
+    }
+    text = {
+        trigger = {
+            var:ama_status = 10
+        }
+        localization_key = ama_status_10
+    }
+    text = {
+        localization_key = ama_status_0
+    }
+}
+ama_wallet_name = { type = character
+    text = { trigger = { var:ama_wallet = 0 } localization_key = ama_wallet_0 }
+    text = { trigger = { var:ama_wallet = 1 } localization_key = ama_wallet_1 }
+    text = { trigger = { var:ama_wallet = 2 } localization_key = ama_wallet_2 }
+    text = { trigger = { var:ama_wallet = 3 } localization_key = ama_wallet_3 }
+    text = { trigger = { var:ama_wallet = 4 } localization_key = ama_wallet_4 }
+    text = { localization_key = ama_wallet_0 }
+}
+ama_last_type_name = { type = character
+    text = { trigger = { var:ama_last_type = 1 } localization_key = ama_type_1 }
+    text = { trigger = { var:ama_last_type = 2 } localization_key = ama_type_2 }
+    text = { trigger = { var:ama_last_type = 3 } localization_key = ama_type_3 }
+    text = { trigger = { var:ama_last_type = 4 } localization_key = ama_type_4 }
+    text = { trigger = { var:ama_last_type = 5 } localization_key = ama_type_5 }
+    text = { trigger = { var:ama_last_type = 6 } localization_key = ama_type_6 }
+    text = { trigger = { var:ama_last_type = 7 } localization_key = ama_type_7 }
+    text = { trigger = { var:ama_last_type = 8 } localization_key = ama_type_8 }
+    text = { trigger = { var:ama_last_type = 9 } localization_key = ama_type_9 }
+    text = { trigger = { var:ama_last_type = 10 } localization_key = ama_type_10 }
+    text = { trigger = { var:ama_last_type = 11 } localization_key = ama_type_11 }
+    text = { trigger = { var:ama_last_type = 12 } localization_key = ama_type_12 }
+    text = { trigger = { var:ama_last_type = 13 } localization_key = ama_type_13 }
+    text = { trigger = { var:ama_last_type = 14 } localization_key = ama_type_14 }
+    text = { trigger = { var:ama_last_type = 15 } localization_key = ama_type_15 }
+    text = { trigger = { var:ama_last_type = 16 } localization_key = ama_type_16 }
+    text = { trigger = { var:ama_last_type = 17 } localization_key = ama_type_17 }
+    text = { trigger = { var:ama_last_type = 18 } localization_key = ama_type_18 }
+    text = { trigger = { var:ama_last_type = 19 } localization_key = ama_type_19 }
+    text = { trigger = { var:ama_last_type = 20 } localization_key = ama_type_20 }
+    text = { trigger = { var:ama_last_type = 21 } localization_key = ama_type_21 }
+    text = { trigger = { var:ama_last_type = 22 } localization_key = ama_type_22 }
+    text = { trigger = { var:ama_last_type = 23 } localization_key = ama_type_23 }
+    text = { trigger = { var:ama_last_type = 24 } localization_key = ama_type_24 }
+    text = { trigger = { var:ama_last_type = 25 } localization_key = ama_type_25 }
+    text = { trigger = { var:ama_last_type = 26 } localization_key = ama_type_26 }
+    text = { trigger = { var:ama_last_type = 27 } localization_key = ama_type_27 }
+    text = { trigger = { var:ama_last_type = 28 } localization_key = ama_type_28 }
+    text = { trigger = { var:ama_last_type = 29 } localization_key = ama_type_29 }
+    text = { trigger = { var:ama_last_type = 30 } localization_key = ama_type_30 }
+    text = { trigger = { var:ama_last_type = 31 } localization_key = ama_type_31 }
+    text = { trigger = { var:ama_last_type = 32 } localization_key = ama_type_32 }
+    text = { trigger = { var:ama_last_type = 33 } localization_key = ama_type_33 }
+    text = { trigger = { var:ama_last_type = 34 } localization_key = ama_type_34 }
+    text = { trigger = { var:ama_last_type = 35 } localization_key = ama_type_35 }
+    text = { trigger = { var:ama_last_type = 36 } localization_key = ama_type_36 }
+    text = { trigger = { var:ama_last_type = 37 } localization_key = ama_type_37 }
+    text = { trigger = { var:ama_last_type = 38 } localization_key = ama_type_38 }
+    text = { trigger = { var:ama_last_type = 39 } localization_key = ama_type_39 }
+    text = { trigger = { var:ama_last_type = 40 } localization_key = ama_type_40 }
+    text = { trigger = { var:ama_last_type = 41 } localization_key = ama_type_41 }
+    text = { trigger = { var:ama_last_type = 42 } localization_key = ama_type_42 }
+    text = { trigger = { var:ama_last_type = 43 } localization_key = ama_type_43 }
+    text = { trigger = { var:ama_last_type = 44 } localization_key = ama_type_44 }
+    text = { trigger = { var:ama_last_type = 45 } localization_key = ama_type_45 }
+    text = { trigger = { var:ama_last_type = 46 } localization_key = ama_type_46 }
+    text = { trigger = { var:ama_last_type = 47 } localization_key = ama_type_47 }
+    text = { trigger = { var:ama_last_type = 48 } localization_key = ama_type_48 }
+    text = { trigger = { var:ama_last_type = 49 } localization_key = ama_type_49 }
+    text = { trigger = { var:ama_last_type = 50 } localization_key = ama_type_50 }
+    text = { trigger = { var:ama_last_type = 51 } localization_key = ama_type_51 }
+    text = { trigger = { var:ama_last_type = 52 } localization_key = ama_type_52 }
+    text = { trigger = { var:ama_last_type = 53 } localization_key = ama_type_53 }
+    text = { trigger = { var:ama_last_type = 54 } localization_key = ama_type_54 }
+    text = { trigger = { var:ama_last_type = 55 } localization_key = ama_type_55 }
+    text = { trigger = { var:ama_last_type = 56 } localization_key = ama_type_56 }
+    text = { trigger = { var:ama_last_type = 57 } localization_key = ama_type_57 }
+    text = { trigger = { var:ama_last_type = 58 } localization_key = ama_type_58 }
+    text = { trigger = { var:ama_last_type = 59 } localization_key = ama_type_59 }
+    text = { trigger = { var:ama_last_type = 60 } localization_key = ama_type_60 }
+    text = { trigger = { var:ama_last_type = 61 } localization_key = ama_type_61 }
+    text = { trigger = { var:ama_last_type = 62 } localization_key = ama_type_62 }
+    text = { trigger = { var:ama_last_type = 63 } localization_key = ama_type_63 }
+    text = { trigger = { var:ama_last_type = 64 } localization_key = ama_type_64 }
+    text = { trigger = { var:ama_last_type = 65 } localization_key = ama_type_65 }
+    text = { trigger = { var:ama_last_type = 66 } localization_key = ama_type_66 }
+    text = { trigger = { var:ama_last_type = 67 } localization_key = ama_type_67 }
+text = { trigger = { var:ama_last_type = 110 } localization_key = ama_type_110 }
+    text = { trigger = { var:ama_last_type = 68 } localization_key = ama_type_68 }
+    text = { trigger = { var:ama_last_type = 69 } localization_key = ama_type_69 }
+    text = { trigger = { var:ama_last_type = 70 } localization_key = ama_type_70 }
+    text = { trigger = { var:ama_last_type = 71 } localization_key = ama_type_71 }
+    text = { trigger = { var:ama_last_type = 72 } localization_key = ama_type_72 }
+    text = { trigger = { var:ama_last_type = 73 } localization_key = ama_type_73 }
+    text = { trigger = { var:ama_last_type = 74 } localization_key = ama_type_74 }
+    text = { trigger = { var:ama_last_type = 75 } localization_key = ama_type_75 }
+    text = { trigger = { var:ama_last_type = 76 } localization_key = ama_type_76 }
+    text = { trigger = { var:ama_last_type = 77 } localization_key = ama_type_77 }
+    text = { trigger = { var:ama_last_type = 78 } localization_key = ama_type_78 }
+    text = { trigger = { var:ama_last_type = 79 } localization_key = ama_type_79 }
+    text = { trigger = { var:ama_last_type = 80 } localization_key = ama_type_80 }
+    text = { trigger = { var:ama_last_type = 81 } localization_key = ama_type_81 }
+    text = { trigger = { var:ama_last_type = 82 } localization_key = ama_type_82 }
+    text = { trigger = { var:ama_last_type = 83 } localization_key = ama_type_83 }
+    text = { trigger = { var:ama_last_type = 84 } localization_key = ama_type_84 }
+    text = { trigger = { var:ama_last_type = 85 } localization_key = ama_type_85 }
+    text = { trigger = { var:ama_last_type = 86 } localization_key = ama_type_86 }
+    text = { trigger = { var:ama_last_type = 87 } localization_key = ama_type_87 }
+    text = { trigger = { var:ama_last_type = 88 } localization_key = ama_type_88 }
+    text = { trigger = { var:ama_last_type = 89 } localization_key = ama_type_89 }
+    text = { trigger = { var:ama_last_type = 90 } localization_key = ama_type_90 }
+    text = { trigger = { var:ama_last_type = 91 } localization_key = ama_type_91 }
+    text = { trigger = { var:ama_last_type = 92 } localization_key = ama_type_92 }
+    text = { trigger = { var:ama_last_type = 93 } localization_key = ama_type_93 }
+    text = { trigger = { var:ama_last_type = 94 } localization_key = ama_type_94 }
+    text = { trigger = { var:ama_last_type = 95 } localization_key = ama_type_95 }
+    text = { trigger = { var:ama_last_type = 96 } localization_key = ama_type_96 }
+    text = { trigger = { var:ama_last_type = 97 } localization_key = ama_type_97 }
+    text = { trigger = { var:ama_last_type = 98 } localization_key = ama_type_98 }
+    text = { trigger = { var:ama_last_type = 99 } localization_key = ama_type_99 }
+    text = { trigger = { var:ama_last_type = 100 } localization_key = ama_type_100 }
+    text = { trigger = { var:ama_last_type = 101 } localization_key = ama_type_101 }
+    text = { trigger = { var:ama_last_type = 102 } localization_key = ama_type_102 }
+    text = { localization_key = ama_none }
+}
+ama_receipt = { type = character
+    text = { trigger = { has_variable = ama_paid_gold } localization_key = ama_receipt_values }
+    text = { localization_key = ama_receipt_none }
+}
+ama_size_state = { type = character
+    text = { trigger = { var:ama_size_last_state = 1 } localization_key = ama_size_state_1 }
+    text = { trigger = { var:ama_size_last_state = 2 } localization_key = ama_size_state_2 }
+    text = { trigger = { var:ama_size_last_state = 3 } localization_key = ama_size_state_3 }
+    text = { trigger = { var:ama_size_last_state = 4 } localization_key = ama_size_state_4 }
+    text = { trigger = { var:ama_size_last_state = 5 } localization_key = ama_size_state_5 }
+    text = { trigger = { var:ama_size_last_state = 6 } localization_key = ama_size_state_6 }
+    text = { trigger = { var:ama_size_last_state = 7 } localization_key = ama_size_state_7 }
+    text = { localization_key = ama_size_state_0 }
+}
+ama_repl_state = { type = character
+    text = { trigger = { var:ama_repl_last_state = 1 } localization_key = ama_repl_state_1 }
+    text = { trigger = { var:ama_repl_last_state = 2 } localization_key = ama_repl_state_2 }
+    text = { trigger = { var:ama_repl_last_state = 3 } localization_key = ama_repl_state_3 }
+    text = { localization_key = ama_repl_state_0 }
+}

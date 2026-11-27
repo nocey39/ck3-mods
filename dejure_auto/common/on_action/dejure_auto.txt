@@ -1,0 +1,81 @@
+﻿on_player_character_change = {
+    on_actions = {
+        dejure_auto_player_change
+    }
+}
+dejure_auto_player_change = {
+    trigger = {
+        is_ai = no
+        is_alive = yes
+    }
+    effect = {
+        if = {
+            limit = {
+                exists = scope:previous_player_character
+                scope:previous_player_character = {
+                    is_alive = no
+                    has_variable = dejure_auto_configured
+                }
+            }
+            dejure_auto_inherit_effect = yes
+        }
+        else_if = {
+            limit = {
+                has_variable = dejure_auto_configured
+            }
+            dejure_auto_restart_effect = yes
+        }
+    }
+}
+dejure_auto_succession_check = {
+    trigger = {
+        dejure_auto_active_trigger = yes
+        OR = {
+            NOT = {
+                exists = scope:dejure_auto_succession_ticket
+            }
+            scope:dejure_auto_succession_ticket = var:dejure_auto_generation
+        }
+    }
+    effect = {
+        dejure_auto_check_effect = yes
+        dejure_auto_schedule_effect = yes
+    }
+}
+dejure_auto_monthly_check = {
+    effect = {
+        if = {
+            limit = {
+                has_variable = dejure_auto_pending
+                exists = scope:dejure_auto_ticket
+                scope:dejure_auto_ticket = var:dejure_auto_generation
+            }
+            remove_variable = dejure_auto_pending
+            if = {
+                limit = {
+                    dejure_auto_active_trigger = yes
+                }
+                dejure_auto_check_effect = yes
+                dejure_auto_schedule_effect = yes
+            }
+        }
+    }
+}
+quarterly_playable_pulse = {
+    on_actions = {
+        dejure_auto_recover
+    }
+}
+dejure_auto_recover = {
+    trigger = {
+        dejure_auto_active_trigger = yes
+        NOT = {
+            has_variable = dejure_auto_pending
+        }
+    }
+    effect = {
+        dejure_auto_initialize_effect = yes
+        dejure_auto_check_effect = yes
+        dejure_auto_schedule_effect = yes
+    }
+}

@@ -1,0 +1,46 @@
+﻿tcc_reform_realm_decision = {
+    picture = {
+        reference = "gfx/interface/illustrations/decisions/tgp_projects_mandala_capital.dds"
+    }
+    sort_order = 110
+    desc = tcc_reform_realm_decision_desc
+    selection_tooltip = tcc_reform_realm_decision_tooltip
+    confirm_text = tcc_reform_realm_decision_confirm
+    is_shown = { is_ai = no is_landed = yes }
+    is_valid = {
+        custom_tooltip = {
+            text = tcc_reform_realm_decision_valid_tt
+            tcc_realm_has_targets_trigger = yes
+        }
+    }
+    effect = {
+        custom_tooltip = tcc_reform_realm_decision_effect_tt
+        hidden_effect = { tcc_reform_realm_effect = yes }
+    }
+    ai_check_interval = 0
+    ai_will_do = { base = 0 }
+}
+
+
+tcc_reform_world_decision = {
+    picture = {
+        reference = "gfx/interface/illustrations/decisions/tgp_projects_mandala_capital.dds"
+    }
+    sort_order = 109
+    desc = tcc_reform_world_decision_desc
+    selection_tooltip = tcc_reform_world_decision_tooltip
+    confirm_text = tcc_reform_world_decision_confirm
+    is_shown = { is_ai = no is_landed = yes }
+    is_valid = {
+        custom_tooltip = {
+            text = tcc_reform_world_decision_valid_tt
+            tcc_world_has_targets_trigger = yes
+        }
+    }
+    effect = {
+        custom_tooltip = tcc_reform_world_decision_effect_tt
+        hidden_effect = { tcc_reform_world_effect = yes }
+    }
+    ai_check_interval = 0
+    ai_will_do = { base = 0 }
+}

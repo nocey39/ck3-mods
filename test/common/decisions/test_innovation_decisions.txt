@@ -1,0 +1,111 @@
+﻿test_complete_available_innovations_decision = {
+	ai_check_interval = 0
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_culture.dds"
+	}
+	desc = test_complete_available_innovations_decision_desc
+	selection_tooltip = test_complete_available_innovations_decision_tooltip
+	confirm_text = test_complete_available_innovations_decision_confirm
+
+	is_shown = {
+		is_ai = no
+	}
+
+	is_valid = {
+		custom_description = {
+			text = test_complete_available_innovations_decision_available
+			OR = {
+				culture = {
+					OR = {
+						test_can_complete_era_transition_trigger = {
+							CURRENT_ERA = culture_era_tribal
+							NEXT_ERA = culture_era_early_medieval
+							START_DATE = 843.1.1
+						}
+						test_can_complete_era_transition_trigger = {
+							CURRENT_ERA = culture_era_early_medieval
+							NEXT_ERA = culture_era_high_medieval
+							START_DATE = 1050.1.1
+						}
+						test_can_complete_era_transition_trigger = {
+							CURRENT_ERA = culture_era_high_medieval
+							NEXT_ERA = culture_era_late_medieval
+							START_DATE = 1200.1.1
+						}
+					}
+				}
+				any_culture_innovation = {
+					culture_can_know_innovation = root.culture
+					NOT = { is_known_by_culture = root.culture }
+					NOT = { is_ahead_of_time_for_culture = root.culture }
+				}
+			}
+		}
+	}
+
+	effect = {
+		custom_tooltip = test_complete_available_innovations_decision_effect
+		hidden_effect = {
+			# Snapshot eligibility before completing any innovation.
+			every_culture_innovation = {
+				limit = {
+					culture_can_know_innovation = root.culture
+					NOT = { is_known_by_culture = root.culture }
+					NOT = { is_ahead_of_time_for_culture = root.culture }
+				}
+				add_to_temporary_list = test_available_innovations
+			}
+			# Complete only a transition unlocked BEFORE granting innovations.
+			# Respect the era's date gate and current-era innovation requirement.
+			root.culture = {
+				if = {
+					limit = {
+						test_can_complete_era_transition_trigger = {
+							CURRENT_ERA = culture_era_tribal
+							NEXT_ERA = culture_era_early_medieval
+							START_DATE = 843.1.1
+						}
+					}
+					join_era = culture_era_early_medieval
+				}
+				else_if = {
+					limit = {
+						test_can_complete_era_transition_trigger = {
+							CURRENT_ERA = culture_era_early_medieval
+							NEXT_ERA = culture_era_high_medieval
+							START_DATE = 1050.1.1
+						}
+					}
+					join_era = culture_era_high_medieval
+				}
+				else_if = {
+					limit = {
+						test_can_complete_era_transition_trigger = {
+							CURRENT_ERA = culture_era_high_medieval
+							NEXT_ERA = culture_era_late_medieval
+							START_DATE = 1200.1.1
+						}
+					}
+					join_era = culture_era_late_medieval
+				}
+			}
+			every_in_list = {
+				list = test_available_innovations
+				save_temporary_scope_as = test_innovation_to_complete
+				root.culture = {
+					add_innovation_progress = {
+						target = scope:test_innovation_to_complete
+						value = 100
+					}
+				}
+			}
+		}
+	}
+
+	ai_potential = {
+		always = no
+	}
+	ai_will_do = {
+		base = 0
+	}
+}

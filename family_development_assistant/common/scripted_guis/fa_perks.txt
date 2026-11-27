@@ -1,0 +1,21 @@
+﻿fa_perk_follow_gui = {
+    scope = character
+    is_shown = { has_variable = fa_perk_follow }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = { fa_perk_toggle_effect = { SETTING = fa_perk_follow } }
+}
+
+fa_perk_continue_education_gui = {
+    scope = character
+    is_shown = { has_variable = fa_perk_continue_education }
+    is_valid = { fa_can_configure_trigger = yes has_variable = fa_perk_follow }
+    effect = { fa_perk_toggle_effect = { SETTING = fa_perk_continue_education } }
+}
+
+fa_perk_convert_gui = {
+    scope = character
+    is_shown = { has_variable = fa_perk_convert }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = { fa_perk_toggle_effect = { SETTING = fa_perk_convert } }
+}
+

@@ -1,0 +1,39 @@
+﻿court_auto_diplomacy_selection_value = {
+    value = diplomacy
+    if = {
+        limit = { scope:court_auto_owner = { var:court_auto_strategy = 1 } is_powerful_vassal_of = scope:court_auto_owner }
+        add = 10000
+    }
+}
+
+court_auto_stewardship_selection_value = {
+    value = stewardship
+    if = {
+        limit = { scope:court_auto_owner = { var:court_auto_strategy = 1 } is_powerful_vassal_of = scope:court_auto_owner }
+        add = 10000
+    }
+}
+
+court_auto_martial_selection_value = {
+    value = martial
+    if = {
+        limit = { scope:court_auto_owner = { var:court_auto_strategy = 1 } is_powerful_vassal_of = scope:court_auto_owner }
+        add = 10000
+    }
+}
+
+court_auto_intrigue_selection_value = {
+    value = intrigue
+    if = {
+        limit = { scope:court_auto_owner = { var:court_auto_strategy = 1 } is_powerful_vassal_of = scope:court_auto_owner }
+        add = 10000
+    }
+}
+
+court_auto_learning_selection_value = {
+    value = learning
+    if = {
+        limit = { scope:court_auto_owner = { var:court_auto_strategy = 1 } is_powerful_vassal_of = scope:court_auto_owner }
+        add = 10000
+    }
+}

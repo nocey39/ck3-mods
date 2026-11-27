@@ -1,0 +1,32 @@
+﻿# Independent realm scope. Guard the optional top_liege link for landless
+# player characters; it is not an eligibility requirement.
+rconq_realm_is_foreign_trigger = {
+	this != scope:attacker
+	NOT = { is_vassal_or_below_of = scope:attacker }
+	trigger_if = {
+		limit = { scope:attacker = { exists = top_liege } }
+		this != scope:attacker.top_liege
+	}
+}
+
+# County scope. Ignore all territory in the attacker's own top-level realm.
+rconq_county_is_foreign_trigger = {
+	exists = holder
+	holder.top_liege = {
+		rconq_realm_is_foreign_trigger = yes
+	}
+}
+
+# County scope in CB war-end / invalidation callbacks. Do not seize neutral
+# third-party territory which changed hands during the war.
+rconq_county_is_enemy_trigger = {
+	rconq_county_is_foreign_trigger = yes
+	# The declaration preview has no live war. In that context show the
+	# region's foreign counties without dereferencing an absent root/war.
+	trigger_if = {
+		limit = { exists = scope:rconq_current_war }
+		holder.top_liege = {
+			is_defender_in_war = scope:rconq_current_war
+		}
+	}
+}

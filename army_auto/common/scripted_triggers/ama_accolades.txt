@@ -1,0 +1,317 @@
+﻿
+ama_acc_available_trigger = {
+    ama_player_trigger = yes
+    has_dlc_feature = accolades
+    highest_held_title_tier >= tier_duchy
+}
+ama_acc_known_type_trigger = {
+    OR = {
+        $TYPE$ = flag:marauder_attribute
+        $TYPE$ = flag:idealist_attribute
+        $TYPE$ = flag:charmer_attribute
+        $TYPE$ = flag:thug_attribute
+        $TYPE$ = flag:disciplinarian_attribute
+        $TYPE$ = flag:fanatic_attribute
+        $TYPE$ = flag:valiant_attribute
+        $TYPE$ = flag:stalwart_attribute
+        $TYPE$ = flag:scoundrel_attribute
+        $TYPE$ = flag:archer_attribute
+        $TYPE$ = flag:skirmisher_attribute
+        $TYPE$ = flag:pike_attribute
+        $TYPE$ = flag:outrider_attribute
+        $TYPE$ = flag:vanguard_attribute
+        $TYPE$ = flag:lancer_attribute
+        $TYPE$ = flag:crossbowmen_attribute
+        $TYPE$ = flag:besieger_attribute
+        $TYPE$ = flag:camelry_attribute
+        $TYPE$ = flag:elephantry_attribute
+        $TYPE$ = flag:horse_archer_attribute
+        $TYPE$ = flag:gunpowder_attribute
+        $TYPE$ = flag:huntsmaster_attribute
+        $TYPE$ = flag:blademaster_attribute
+        $TYPE$ = flag:master_of_revels_attribute
+        $TYPE$ = flag:house_knight_attribute
+        $TYPE$ = flag:politicker_attribute
+        $TYPE$ = flag:tactician_attribute
+        $TYPE$ = flag:reeve_attribute
+        $TYPE$ = flag:manipulator_attribute
+        $TYPE$ = flag:mentor_attribute
+        $TYPE$ = flag:contender_attribute
+    }
+}
+ama_acc_maa_type_trigger = {
+    OR = {
+        $TYPE$ = flag:archer_attribute
+        $TYPE$ = flag:skirmisher_attribute
+        $TYPE$ = flag:pike_attribute
+        $TYPE$ = flag:outrider_attribute
+        $TYPE$ = flag:vanguard_attribute
+        $TYPE$ = flag:lancer_attribute
+        $TYPE$ = flag:crossbowmen_attribute
+        $TYPE$ = flag:besieger_attribute
+        $TYPE$ = flag:camelry_attribute
+        $TYPE$ = flag:elephantry_attribute
+        $TYPE$ = flag:horse_archer_attribute
+        $TYPE$ = flag:gunpowder_attribute
+    }
+}
+ama_acc_culture_trigger = {
+    trigger_if = { limit = { $TYPE$ = flag:vanguard_attribute } culture ?= { OR = { has_innovation = innovation_quilted_armor has_cultural_tradition = tradition_fp1_coastal_warriors has_cultural_tradition = tradition_hird has_cultural_tradition = tradition_futuwaa has_cultural_tradition = tradition_druzhina has_cultural_tradition = tradition_khadga_puja has_cultural_tradition = tradition_garuda_warriors has_cultural_tradition = tradition_himalayan_settlers has_cultural_tradition = tradition_mubarizuns has_cultural_tradition = tradition_burman_royal_army has_cultural_tradition = tradition_mountaineer_ruralism has_innovation = innovation_sarawit has_innovation = innovation_legionnaires has_cultural_parameter = unlock_zhanmadao has_cultural_parameter = unlock_burenjia } } }
+    trigger_if = { limit = { $TYPE$ = flag:lancer_attribute } culture ?= { OR = { has_innovation = innovation_arched_saddle has_cultural_tradition = tradition_caucasian_wolves has_cultural_tradition = tradition_roman_legacy has_innovation = innovation_valets has_cultural_tradition = tradition_ep3_audacious_cadets has_cultural_tradition = tradition_ep3_imperial_tagmata has_cultural_parameter = unlock_maa_cataphract_archers has_innovation = innovation_tiefutu has_cultural_parameter = unlock_maa_black_armor_cavalry } } }
+    trigger_if = { limit = { $TYPE$ = flag:crossbowmen_attribute } culture ?= { OR = { has_innovation = innovation_advanced_bowmaking has_innovation = innovation_repeating_crossbow } } }
+    trigger_if = { limit = { $TYPE$ = flag:besieger_attribute } culture ?= { has_innovation = innovation_catapult } }
+    trigger_if = { limit = { $TYPE$ = flag:camelry_attribute } culture ?= { has_innovation = innovation_war_camels } }
+    trigger_if = { limit = { $TYPE$ = flag:elephantry_attribute } culture ?= { has_innovation = innovation_elephantry } }
+    trigger_if = { limit = { $TYPE$ = flag:horse_archer_attribute } culture ?= { OR = { has_cultural_parameter = unlock_maa_horse_archers has_cultural_parameter = unlock_maa_mangudai has_cultural_parameter = unlock_emishi_horse_archers_units has_cultural_parameter = unlock_mounted_samurai_units has_cultural_parameter = unlock_maa_cataphract_archers } } }
+    trigger_if = { limit = { $TYPE$ = flag:gunpowder_attribute } culture = { OR = { has_innovation = innovation_gunpowder has_innovation = innovation_fire_medicine } } }
+    trigger_if = { limit = { $TYPE$ = flag:huntsmaster_attribute } culture = { NOT = { has_cultural_tradition = tradition_vegetarianism } } }
+    trigger_if = { limit = { $TYPE$ = flag:house_knight_attribute } dynasty = { has_dynasty_perk = kin_legacy_4 } }
+}
+ama_acc_fit_trigger = {
+    OR = {
+        AND = { $TYPE$ = flag:marauder_attribute marauder_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:idealist_attribute idealist_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:charmer_attribute charmer_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:thug_attribute thug_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:disciplinarian_attribute disciplinarian_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:fanatic_attribute fanatic_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:valiant_attribute valiant_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:stalwart_attribute stalwart_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:scoundrel_attribute scoundrel_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:archer_attribute archer_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:skirmisher_attribute skirmisher_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:pike_attribute pike_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:outrider_attribute outrider_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:vanguard_attribute vanguard_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:lancer_attribute lancer_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:crossbowmen_attribute crossbowmen_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:besieger_attribute besieger_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:camelry_attribute camelry_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:elephantry_attribute elephantry_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:horse_archer_attribute horse_archer_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:gunpowder_attribute gunpowder_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:huntsmaster_attribute huntsmaster_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:blademaster_attribute blademaster_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:master_of_revels_attribute master_of_revels_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:house_knight_attribute house_knight_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:politicker_attribute politicker_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:tactician_attribute tactician_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:reeve_attribute reeve_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:manipulator_attribute manipulator_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:mentor_attribute mentor_attribute_trigger = yes }
+        AND = { $TYPE$ = flag:contender_attribute contender_attribute_trigger = yes }
+    }
+}
+ama_acc_has_type_trigger = {
+    OR = {
+        AND = { $TYPE$ = flag:marauder_attribute has_accolade_type = marauder_attribute }
+        AND = { $TYPE$ = flag:idealist_attribute has_accolade_type = idealist_attribute }
+        AND = { $TYPE$ = flag:charmer_attribute has_accolade_type = charmer_attribute }
+        AND = { $TYPE$ = flag:thug_attribute has_accolade_type = thug_attribute }
+        AND = { $TYPE$ = flag:disciplinarian_attribute has_accolade_type = disciplinarian_attribute }
+        AND = { $TYPE$ = flag:fanatic_attribute has_accolade_type = fanatic_attribute }
+        AND = { $TYPE$ = flag:valiant_attribute has_accolade_type = valiant_attribute }
+        AND = { $TYPE$ = flag:stalwart_attribute has_accolade_type = stalwart_attribute }
+        AND = { $TYPE$ = flag:scoundrel_attribute has_accolade_type = scoundrel_attribute }
+        AND = { $TYPE$ = flag:archer_attribute has_accolade_type = archer_attribute }
+        AND = { $TYPE$ = flag:skirmisher_attribute has_accolade_type = skirmisher_attribute }
+        AND = { $TYPE$ = flag:pike_attribute has_accolade_type = pike_attribute }
+        AND = { $TYPE$ = flag:outrider_attribute has_accolade_type = outrider_attribute }
+        AND = { $TYPE$ = flag:vanguard_attribute has_accolade_type = vanguard_attribute }
+        AND = { $TYPE$ = flag:lancer_attribute has_accolade_type = lancer_attribute }
+        AND = { $TYPE$ = flag:crossbowmen_attribute has_accolade_type = crossbowmen_attribute }
+        AND = { $TYPE$ = flag:besieger_attribute has_accolade_type = besieger_attribute }
+        AND = { $TYPE$ = flag:camelry_attribute has_accolade_type = camelry_attribute }
+        AND = { $TYPE$ = flag:elephantry_attribute has_accolade_type = elephantry_attribute }
+        AND = { $TYPE$ = flag:horse_archer_attribute has_accolade_type = horse_archer_attribute }
+        AND = { $TYPE$ = flag:gunpowder_attribute has_accolade_type = gunpowder_attribute }
+        AND = { $TYPE$ = flag:huntsmaster_attribute has_accolade_type = huntsmaster_attribute }
+        AND = { $TYPE$ = flag:blademaster_attribute has_accolade_type = blademaster_attribute }
+        AND = { $TYPE$ = flag:master_of_revels_attribute has_accolade_type = master_of_revels_attribute }
+        AND = { $TYPE$ = flag:house_knight_attribute has_accolade_type = house_knight_attribute }
+        AND = { $TYPE$ = flag:politicker_attribute has_accolade_type = politicker_attribute }
+        AND = { $TYPE$ = flag:tactician_attribute has_accolade_type = tactician_attribute }
+        AND = { $TYPE$ = flag:reeve_attribute has_accolade_type = reeve_attribute }
+        AND = { $TYPE$ = flag:manipulator_attribute has_accolade_type = manipulator_attribute }
+        AND = { $TYPE$ = flag:mentor_attribute has_accolade_type = mentor_attribute }
+        AND = { $TYPE$ = flag:contender_attribute has_accolade_type = contender_attribute }
+    }
+}
+ama_acc_initial_type_trigger = {
+    OR = {
+        AND = { $TYPE$ = flag:marauder_attribute initial_type = accolade_type:marauder_attribute }
+        AND = { $TYPE$ = flag:idealist_attribute initial_type = accolade_type:idealist_attribute }
+        AND = { $TYPE$ = flag:charmer_attribute initial_type = accolade_type:charmer_attribute }
+        AND = { $TYPE$ = flag:thug_attribute initial_type = accolade_type:thug_attribute }
+        AND = { $TYPE$ = flag:disciplinarian_attribute initial_type = accolade_type:disciplinarian_attribute }
+        AND = { $TYPE$ = flag:fanatic_attribute initial_type = accolade_type:fanatic_attribute }
+        AND = { $TYPE$ = flag:valiant_attribute initial_type = accolade_type:valiant_attribute }
+        AND = { $TYPE$ = flag:stalwart_attribute initial_type = accolade_type:stalwart_attribute }
+        AND = { $TYPE$ = flag:scoundrel_attribute initial_type = accolade_type:scoundrel_attribute }
+        AND = { $TYPE$ = flag:archer_attribute initial_type = accolade_type:archer_attribute }
+        AND = { $TYPE$ = flag:skirmisher_attribute initial_type = accolade_type:skirmisher_attribute }
+        AND = { $TYPE$ = flag:pike_attribute initial_type = accolade_type:pike_attribute }
+        AND = { $TYPE$ = flag:outrider_attribute initial_type = accolade_type:outrider_attribute }
+        AND = { $TYPE$ = flag:vanguard_attribute initial_type = accolade_type:vanguard_attribute }
+        AND = { $TYPE$ = flag:lancer_attribute initial_type = accolade_type:lancer_attribute }
+        AND = { $TYPE$ = flag:crossbowmen_attribute initial_type = accolade_type:crossbowmen_attribute }
+        AND = { $TYPE$ = flag:besieger_attribute initial_type = accolade_type:besieger_attribute }
+        AND = { $TYPE$ = flag:camelry_attribute initial_type = accolade_type:camelry_attribute }
+        AND = { $TYPE$ = flag:elephantry_attribute initial_type = accolade_type:elephantry_attribute }
+        AND = { $TYPE$ = flag:horse_archer_attribute initial_type = accolade_type:horse_archer_attribute }
+        AND = { $TYPE$ = flag:gunpowder_attribute initial_type = accolade_type:gunpowder_attribute }
+        AND = { $TYPE$ = flag:huntsmaster_attribute initial_type = accolade_type:huntsmaster_attribute }
+        AND = { $TYPE$ = flag:blademaster_attribute initial_type = accolade_type:blademaster_attribute }
+        AND = { $TYPE$ = flag:master_of_revels_attribute initial_type = accolade_type:master_of_revels_attribute }
+        AND = { $TYPE$ = flag:house_knight_attribute initial_type = accolade_type:house_knight_attribute }
+        AND = { $TYPE$ = flag:politicker_attribute initial_type = accolade_type:politicker_attribute }
+        AND = { $TYPE$ = flag:tactician_attribute initial_type = accolade_type:tactician_attribute }
+        AND = { $TYPE$ = flag:reeve_attribute initial_type = accolade_type:reeve_attribute }
+        AND = { $TYPE$ = flag:manipulator_attribute initial_type = accolade_type:manipulator_attribute }
+        AND = { $TYPE$ = flag:mentor_attribute initial_type = accolade_type:mentor_attribute }
+        AND = { $TYPE$ = flag:contender_attribute initial_type = accolade_type:contender_attribute }
+    }
+}
+ama_acc_type_below_max_trigger = {
+    OR = {
+        AND = { $TYPE$ = flag:marauder_attribute accolade_attribute_level = { type = marauder_attribute level < 3 } }
+        AND = { $TYPE$ = flag:idealist_attribute accolade_attribute_level = { type = idealist_attribute level < 3 } }
+        AND = { $TYPE$ = flag:charmer_attribute accolade_attribute_level = { type = charmer_attribute level < 3 } }
+        AND = { $TYPE$ = flag:thug_attribute accolade_attribute_level = { type = thug_attribute level < 3 } }
+        AND = { $TYPE$ = flag:disciplinarian_attribute accolade_attribute_level = { type = disciplinarian_attribute level < 3 } }
+        AND = { $TYPE$ = flag:fanatic_attribute accolade_attribute_level = { type = fanatic_attribute level < 3 } }
+        AND = { $TYPE$ = flag:valiant_attribute accolade_attribute_level = { type = valiant_attribute level < 3 } }
+        AND = { $TYPE$ = flag:stalwart_attribute accolade_attribute_level = { type = stalwart_attribute level < 3 } }
+        AND = { $TYPE$ = flag:scoundrel_attribute accolade_attribute_level = { type = scoundrel_attribute level < 3 } }
+        AND = { $TYPE$ = flag:archer_attribute accolade_attribute_level = { type = archer_attribute level < 3 } }
+        AND = { $TYPE$ = flag:skirmisher_attribute accolade_attribute_level = { type = skirmisher_attribute level < 3 } }
+        AND = { $TYPE$ = flag:pike_attribute accolade_attribute_level = { type = pike_attribute level < 3 } }
+        AND = { $TYPE$ = flag:outrider_attribute accolade_attribute_level = { type = outrider_attribute level < 3 } }
+        AND = { $TYPE$ = flag:vanguard_attribute accolade_attribute_level = { type = vanguard_attribute level < 3 } }
+        AND = { $TYPE$ = flag:lancer_attribute accolade_attribute_level = { type = lancer_attribute level < 3 } }
+        AND = { $TYPE$ = flag:crossbowmen_attribute accolade_attribute_level = { type = crossbowmen_attribute level < 3 } }
+        AND = { $TYPE$ = flag:besieger_attribute accolade_attribute_level = { type = besieger_attribute level < 3 } }
+        AND = { $TYPE$ = flag:camelry_attribute accolade_attribute_level = { type = camelry_attribute level < 3 } }
+        AND = { $TYPE$ = flag:elephantry_attribute accolade_attribute_level = { type = elephantry_attribute level < 3 } }
+        AND = { $TYPE$ = flag:horse_archer_attribute accolade_attribute_level = { type = horse_archer_attribute level < 3 } }
+        AND = { $TYPE$ = flag:gunpowder_attribute accolade_attribute_level = { type = gunpowder_attribute level < 3 } }
+        AND = { $TYPE$ = flag:huntsmaster_attribute accolade_attribute_level = { type = huntsmaster_attribute level < 3 } }
+        AND = { $TYPE$ = flag:blademaster_attribute accolade_attribute_level = { type = blademaster_attribute level < 3 } }
+        AND = { $TYPE$ = flag:master_of_revels_attribute accolade_attribute_level = { type = master_of_revels_attribute level < 3 } }
+        AND = { $TYPE$ = flag:house_knight_attribute accolade_attribute_level = { type = house_knight_attribute level < 3 } }
+        AND = { $TYPE$ = flag:politicker_attribute accolade_attribute_level = { type = politicker_attribute level < 3 } }
+        AND = { $TYPE$ = flag:tactician_attribute accolade_attribute_level = { type = tactician_attribute level < 3 } }
+        AND = { $TYPE$ = flag:reeve_attribute accolade_attribute_level = { type = reeve_attribute level < 3 } }
+        AND = { $TYPE$ = flag:manipulator_attribute accolade_attribute_level = { type = manipulator_attribute level < 3 } }
+        AND = { $TYPE$ = flag:mentor_attribute accolade_attribute_level = { type = mentor_attribute level < 3 } }
+        AND = { $TYPE$ = flag:contender_attribute accolade_attribute_level = { type = contender_attribute level < 3 } }
+    }
+}
+
+ama_clock_needed_trigger = {
+    OR = {
+        ama_active_trigger = yes
+        AND = { has_variable = ama_acc_enabled ama_acc_available_trigger = yes }
+    }
+}
+
+ama_acc_attribute_assigned_trigger = {
+    OR = {
+        AND = {
+            has_variable = ama_acc_first_1
+            var:ama_acc_first_1 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_second_1
+            var:ama_acc_second_1 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_first_2
+            var:ama_acc_first_2 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_second_2
+            var:ama_acc_second_2 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_first_3
+            var:ama_acc_first_3 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_second_3
+            var:ama_acc_second_3 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_first_4
+            var:ama_acc_first_4 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_second_4
+            var:ama_acc_second_4 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_first_5
+            var:ama_acc_first_5 = $TYPE$
+        }
+        AND = {
+            has_variable = ama_acc_second_5
+            var:ama_acc_second_5 = $TYPE$
+        }
+
+    }
+}
+ama_acc_companion_is_maa_trigger = {
+    OR = {
+        AND = {
+            var:ama_acc_picker = 1
+            has_variable = ama_acc_second_1
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_second_1 }
+        }
+        AND = {
+            var:ama_acc_picker = 6
+            has_variable = ama_acc_first_1
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_first_1 }
+        }
+        AND = {
+            var:ama_acc_picker = 2
+            has_variable = ama_acc_second_2
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_second_2 }
+        }
+        AND = {
+            var:ama_acc_picker = 7
+            has_variable = ama_acc_first_2
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_first_2 }
+        }
+        AND = {
+            var:ama_acc_picker = 3
+            has_variable = ama_acc_second_3
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_second_3 }
+        }
+        AND = {
+            var:ama_acc_picker = 8
+            has_variable = ama_acc_first_3
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_first_3 }
+        }
+        AND = {
+            var:ama_acc_picker = 4
+            has_variable = ama_acc_second_4
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_second_4 }
+        }
+        AND = {
+            var:ama_acc_picker = 9
+            has_variable = ama_acc_first_4
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_first_4 }
+        }
+        AND = {
+            var:ama_acc_picker = 5
+            has_variable = ama_acc_second_5
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_second_5 }
+        }
+        AND = {
+            var:ama_acc_picker = 10
+            has_variable = ama_acc_first_5
+            ama_acc_maa_type_trigger = { TYPE = var:ama_acc_first_5 }
+        }
+
+    }
+}

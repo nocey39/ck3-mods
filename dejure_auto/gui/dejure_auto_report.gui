@@ -1,0 +1,140 @@
+﻿types dejure_auto_report_types {
+    type dejure_auto_report_panel = widget {
+        name = "dejure_auto_report_panel" parentanchor = center size = { 640 720 } layer = middle filter_mouse = all alwaystransparent = no
+        visible = "[And(GetPlayer.MakeScope.Var('dejure_auto_panel_open').IsSet, GetPlayer.MakeScope.Var('dejure_auto_report_open').IsSet)]"
+        using = Window_Background using = Window_Decoration
+        text_single = { position = { 60 20 } size = { 490 34 } autoresize = no align = center|vcenter fontsize = 26 text = "dejure_auto_report_title" }
+        button_close = { position = { 558 24 } size = { 32 32 } shortcut = "close_window" tooltip = "CLOSE_TOOLTIP"
+            onclick = "[GetScriptedGui('dejure_auto_report_close_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        text_multi = { position = { 60 72 } size = { 520 78 } autoresize = no max_width = 520 fontsize = 16 align = left text = "dejure_auto_report_hint" }
+        scrollbox = { name = "dejure_auto_report_scroll" position = { 60 158 } size = { 520 474 }
+            blockoverride "scrollbox_content" { vbox = { spacing = 10
+
+                    text_multi = { text = "dejure_auto_feedback_history_heading" max_width = 490 autoresize = yes fontsize = 19 default_format = "#high" }
+                    text_multi = { text = "dejure_auto_feedback_history_hint" max_width = 490 autoresize = yes fontsize = 15 }
+                    text_multi = { text = "dejure_auto_feedback_summary" max_width = 490 autoresize = yes fontsize = 16
+                        visible = "[GetPlayer.MakeScope.Var('dejure_auto_feedback_checked').IsSet]" }
+                    text_multi = { text = "dejure_auto_feedback_no_history" max_width = 490 autoresize = yes fontsize = 16
+                        visible = "[Not(GetPlayer.MakeScope.Var('dejure_auto_feedback_checked').IsSet)]" }
+                    text_multi = { text = "dejure_auto_feedback_reasons_heading" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    text_multi = { text = "dejure_auto_feedback_reason_scope" max_width = 490 autoresize = yes fontsize = 15 }
+                    text_multi = { text = "dejure_auto_feedback_protected_heading" max_width = 490 autoresize = yes fontsize = 16 }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_feedback_protected')]" spacing = 2
+                        item = { text_single = { size = { 490 24 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 15 } } }
+                    text_multi = { text = "dejure_auto_feedback_funds_heading" max_width = 490 autoresize = yes fontsize = 16 }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_feedback_funds')]" spacing = 2
+                        item = { text_single = { size = { 490 24 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 15 } } }
+                    text_multi = { text = "dejure_auto_feedback_unconfirmed_heading" max_width = 490 autoresize = yes fontsize = 16 }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_feedback_unconfirmed')]" spacing = 2
+                        item = { text_single = { size = { 490 24 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 15 } } }
+                    text_multi = { text = "dejure_auto_feedback_waiting_heading" max_width = 490 autoresize = yes fontsize = 16 }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_feedback_waiting')]" spacing = 2
+                        item = { text_single = { size = { 490 24 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 15 } } }
+                    text_multi = { text = "dejure_auto_feedback_limit_heading" max_width = 490 autoresize = yes fontsize = 16 }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_feedback_limit')]" spacing = 2
+                        item = { text_single = { size = { 490 24 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 15 } } }
+                    text_multi = { text = "dejure_auto_feedback_cap_creation" max_width = 490 autoresize = yes fontsize = 15
+                        visible = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_feedback_creation_cap').GetValue, '(CFixedPoint)1')]" }
+                    text_multi = { text = "dejure_auto_feedback_cap_title" max_width = 490 autoresize = yes fontsize = 15
+                        visible = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_feedback_title_cap').GetValue, '(CFixedPoint)1')]" }
+                    text_multi = { text = "dejure_auto_feedback_cap_organizer" max_width = 490 autoresize = yes fontsize = 15
+                        visible = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('dejure_auto_feedback_organizer_cap').GetValue, '(CFixedPoint)1')]" }
+                    text_multi = { text = "dejure_auto_feedback_caps_note" max_width = 490 autoresize = yes fontsize = 15 }
+                    text_multi = { text = "dejure_auto_title_created_heading" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_title_created_list')]" spacing = 2
+                        item = { text_single = { size = { 490 26 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 16 } } }
+                    text_multi = { text = "dejure_auto_title_granted_heading" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_title_granted_list')]" spacing = 2
+                        item = { text_single = { size = { 490 26 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 16 } } }
+                    text_multi = { text = "dejure_auto_title_waiting_heading" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_title_waiting_list')]" spacing = 2
+                        item = { text_single = { size = { 490 26 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 16 } } }
+                    text_multi = { text = "dejure_auto_title_failed_heading" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_title_failed_list')]" spacing = 2
+                        item = { text_single = { size = { 490 26 } autoresize = no elide = right datacontext = "[Scope.Title]" text = "[Title.GetName]" fontsize = 16 } } }
+                    text_multi = { text = "dejure_auto_report_changed_titles" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_changed_titles')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Title]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Title.GetName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_holder" }
+                            } }
+                    }
+                    text_multi = { text = "dejure_auto_report_changed_people" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_changed_people')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Char]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Character.GetUIName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_liege" }
+                            } }
+                    }
+                    text_multi = { text = "dejure_auto_report_missing" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_missing')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Title]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Title.GetName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_holder" }
+                            } }
+                    }
+                    text_multi = { text = "dejure_auto_report_conflict" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_conflict')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Title]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Title.GetName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_holder" }
+                            } }
+                    }
+                    text_multi = { text = "dejure_auto_report_last_county" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_last_county')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Title]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Title.GetName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_holder" }
+                            } }
+                    }
+                    text_multi = { text = "dejure_auto_report_protected" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_protected')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Title]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Title.GetName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_holder" }
+                            } }
+                    }
+                    text_multi = { text = "dejure_auto_report_pending" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_pending')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Title]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Title.GetName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_holder" }
+                            } }
+                    }
+                    text_multi = { text = "dejure_auto_report_failed" max_width = 490 autoresize = yes fontsize = 18 default_format = "#high" }
+                    vbox = { datamodel = "[GetPlayer.MakeScope.GetList('dejure_auto_report_failed')]" spacing = 2
+                        item = { widget = { size = { 490 44 } datacontext = "[Scope.Title]"
+                                background = { using = Background_Area alpha = 0.3 }
+                                text_single = { position = { 8 2 } size = { 474 20 } autoresize = no elide = right fontsize = 16 align = left|vcenter
+                                    text = "[Title.GetName]" }
+                                text_single = { position = { 8 23 } size = { 474 18 } autoresize = no elide = right fontsize = 14 align = left|vcenter
+                                    text = "dejure_auto_report_current_holder" }
+                            } }
+                    }
+                } }
+        }
+        button_standard = { position = { 180 652 } size = { 280 36 } text = "dejure_auto_report_back"
+            onclick = "[GetScriptedGui('dejure_auto_report_close_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+}

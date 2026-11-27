@@ -1,0 +1,1044 @@
+﻿# Each tier has two mutually exclusive truce policies; only three entries
+# are offered at a time. The native declaration interface is unchanged.
+rconq_empire_conquest = {
+	icon = invasion
+	group = rconq_player_conquest
+	ai = no
+	interface_priority = 103
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = {
+		always = yes
+	}
+	is_great_holy_war = yes
+	target_titles = all
+	target_title_tier = empire
+	target_de_jure_regions_above = yes
+	ignore_effect = change_title_holder
+	use_de_jure_wargoal_only = yes
+	check_all_defenders_for_ticking_war_score = yes
+	allow_hostages = no
+	truce_days = 0
+	allowed_for_character = {
+		is_ai = no
+		NOT = {
+			has_variable = rconq_truces_enabled
+		}
+	}
+	allowed_against_character = {
+		is_independent_ruler = yes
+		is_landed = yes
+		rconq_realm_is_foreign_trigger = yes
+		custom_tooltip = {
+			text = rconq_neighboring_realm_tt
+			scope:attacker = {
+				any_neighboring_and_across_water_top_liege_realm_owner = {
+					this = scope:defender
+				}
+			}
+		}
+	}
+	valid_to_start = {
+		scope:target = {
+			tier = tier_empire
+			any_de_jure_county = {
+				exists = holder
+				holder.top_liege = scope:defender
+			}
+		}
+	}
+	cost = {
+		gold = 0
+		prestige = 0
+		piety = {
+			value = rconq_empire_holy_war_cost
+		}
+	}
+	on_declaration = {
+		on_declared_war = yes
+		rconq_join_regional_defenders_effect = yes
+	}
+	should_invalidate = {
+		NOT = {
+			any_in_list = {
+				list = target_titles
+				any_de_jure_county = {
+					exists = holder
+					holder.top_liege = scope:defender
+				}
+			}
+		}
+	}
+	on_invalidated_desc = rconq_region_invalidated_desc
+	on_invalidated = {
+	}
+	on_victory_desc = {
+		desc = rconq_victory_desc
+	}
+	on_victory = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_victory_effect = yes
+		create_title_and_vassal_change = {
+			type = conquest
+			save_scope_as = rconq_change
+			add_claim_on_loss = yes
+		}
+		every_in_list = {
+			list = target_titles
+			custom_tooltip = CONQUEST_CB_TITLE
+			every_de_jure_county = {
+				limit = {
+					exists = holder
+					NOT = {
+						holder = scope:attacker
+					}
+					NOT = {
+						holder.top_liege = scope:attacker
+					}
+					trigger_if = {
+						limit = {
+							scope:attacker = {
+								exists = top_liege
+							}
+						}
+						NOT = {
+							holder.top_liege = scope:attacker.top_liege
+						}
+					}
+					NOT = {
+						is_in_list = rconq_titles_taken
+					}
+				}
+				add_to_temporary_list = rconq_titles_taken
+			}
+		}
+		every_in_list = {
+			list = rconq_titles_taken
+			change_title_holder = {
+				holder = scope:attacker
+				change = scope:rconq_change
+				take_baronies = yes
+			}
+		}
+		hidden_effect = {
+			resolve_title_and_vassal_change = scope:rconq_change
+		}
+		rconq_peace_victory_effect = yes
+	}
+	on_white_peace_desc = {
+		desc = rconq_white_peace_desc
+	}
+	on_white_peace = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		rconq_peace_white_peace_effect = yes
+	}
+	on_defeat_desc = {
+		desc = rconq_defeat_desc
+	}
+	on_defeat = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_defeat_effect = yes
+		rconq_peace_defeat_effect = yes
+	}
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+	transfer_behavior = transfer
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+	war_name = rconq_empire_war_name
+	cb_name = rconq_empire_cb_name
+}
+rconq_empire_conquest_truce = {
+	icon = invasion
+	group = rconq_player_conquest
+	ai = no
+	interface_priority = 103
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = {
+		always = yes
+	}
+	is_great_holy_war = yes
+	target_titles = all
+	target_title_tier = empire
+	target_de_jure_regions_above = yes
+	ignore_effect = change_title_holder
+	use_de_jure_wargoal_only = yes
+	check_all_defenders_for_ticking_war_score = yes
+	allow_hostages = no
+	allowed_for_character = {
+		is_ai = no
+		has_variable = rconq_truces_enabled
+	}
+	allowed_against_character = {
+		is_independent_ruler = yes
+		is_landed = yes
+		rconq_realm_is_foreign_trigger = yes
+		custom_tooltip = {
+			text = rconq_neighboring_realm_tt
+			scope:attacker = {
+				any_neighboring_and_across_water_top_liege_realm_owner = {
+					this = scope:defender
+				}
+			}
+		}
+	}
+	valid_to_start = {
+		scope:target = {
+			tier = tier_empire
+			any_de_jure_county = {
+				exists = holder
+				holder.top_liege = scope:defender
+			}
+		}
+	}
+	cost = {
+		gold = 0
+		prestige = 0
+		piety = {
+			value = rconq_empire_holy_war_cost
+		}
+	}
+	on_declaration = {
+		on_declared_war = yes
+		rconq_join_regional_defenders_effect = yes
+	}
+	should_invalidate = {
+		NOT = {
+			any_in_list = {
+				list = target_titles
+				any_de_jure_county = {
+					exists = holder
+					holder.top_liege = scope:defender
+				}
+			}
+		}
+	}
+	on_invalidated_desc = rconq_region_invalidated_desc
+	on_invalidated = {
+	}
+	on_victory_desc = {
+		desc = rconq_victory_truce_desc
+	}
+	on_victory = {
+		rconq_secondary_truces_effect = {
+			RESULT = victory
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_victory_effect = yes
+		create_title_and_vassal_change = {
+			type = conquest
+			save_scope_as = rconq_change
+			add_claim_on_loss = yes
+		}
+		every_in_list = {
+			list = target_titles
+			custom_tooltip = CONQUEST_CB_TITLE
+			every_de_jure_county = {
+				limit = {
+					exists = holder
+					NOT = {
+						holder = scope:attacker
+					}
+					NOT = {
+						holder.top_liege = scope:attacker
+					}
+					trigger_if = {
+						limit = {
+							scope:attacker = {
+								exists = top_liege
+							}
+						}
+						NOT = {
+							holder.top_liege = scope:attacker.top_liege
+						}
+					}
+					NOT = {
+						is_in_list = rconq_titles_taken
+					}
+				}
+				add_to_temporary_list = rconq_titles_taken
+			}
+		}
+		every_in_list = {
+			list = rconq_titles_taken
+			change_title_holder = {
+				holder = scope:attacker
+				change = scope:rconq_change
+				take_baronies = yes
+			}
+		}
+		hidden_effect = {
+			resolve_title_and_vassal_change = scope:rconq_change
+		}
+		add_truce_attacker_victory_effect = yes
+	}
+	on_white_peace_desc = {
+		desc = rconq_white_peace_truce_desc
+	}
+	on_white_peace = {
+		rconq_secondary_truces_effect = {
+			RESULT = white_peace
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_truce_white_peace_effect = yes
+	}
+	on_defeat_desc = {
+		desc = rconq_defeat_truce_desc
+	}
+	on_defeat = {
+		rconq_secondary_truces_effect = {
+			RESULT = defeat
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_defeat_effect = yes
+		add_truce_attacker_defeat_effect = yes
+	}
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+	transfer_behavior = transfer
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+	war_name = rconq_empire_war_name
+	cb_name = rconq_empire_cb_name
+}
+rconq_kingdom_conquest = {
+	icon = invasion
+	group = rconq_player_conquest
+	ai = no
+	interface_priority = 102
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = {
+		always = yes
+	}
+	is_great_holy_war = yes
+	target_titles = all
+	target_title_tier = kingdom
+	target_de_jure_regions_above = yes
+	ignore_effect = change_title_holder
+	use_de_jure_wargoal_only = yes
+	check_all_defenders_for_ticking_war_score = yes
+	allow_hostages = no
+	truce_days = 0
+	allowed_for_character = {
+		is_ai = no
+		NOT = {
+			has_variable = rconq_truces_enabled
+		}
+	}
+	allowed_against_character = {
+		is_independent_ruler = yes
+		is_landed = yes
+		rconq_realm_is_foreign_trigger = yes
+		custom_tooltip = {
+			text = rconq_neighboring_realm_tt
+			scope:attacker = {
+				any_neighboring_and_across_water_top_liege_realm_owner = {
+					this = scope:defender
+				}
+			}
+		}
+	}
+	valid_to_start = {
+		scope:target = {
+			tier = tier_kingdom
+			any_de_jure_county = {
+				exists = holder
+				holder.top_liege = scope:defender
+			}
+		}
+	}
+	cost = {
+		gold = 0
+		prestige = 0
+		piety = {
+			value = rconq_kingdom_holy_war_cost
+		}
+	}
+	on_declaration = {
+		on_declared_war = yes
+		rconq_join_regional_defenders_effect = yes
+	}
+	should_invalidate = {
+		NOT = {
+			any_in_list = {
+				list = target_titles
+				any_de_jure_county = {
+					exists = holder
+					holder.top_liege = scope:defender
+				}
+			}
+		}
+	}
+	on_invalidated_desc = rconq_region_invalidated_desc
+	on_invalidated = {
+	}
+	on_victory_desc = {
+		desc = rconq_victory_desc
+	}
+	on_victory = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_victory_effect = yes
+		create_title_and_vassal_change = {
+			type = conquest
+			save_scope_as = rconq_change
+			add_claim_on_loss = yes
+		}
+		every_in_list = {
+			list = target_titles
+			custom_tooltip = CONQUEST_CB_TITLE
+			every_de_jure_county = {
+				limit = {
+					exists = holder
+					NOT = {
+						holder = scope:attacker
+					}
+					NOT = {
+						holder.top_liege = scope:attacker
+					}
+					trigger_if = {
+						limit = {
+							scope:attacker = {
+								exists = top_liege
+							}
+						}
+						NOT = {
+							holder.top_liege = scope:attacker.top_liege
+						}
+					}
+					NOT = {
+						is_in_list = rconq_titles_taken
+					}
+				}
+				add_to_temporary_list = rconq_titles_taken
+			}
+		}
+		every_in_list = {
+			list = rconq_titles_taken
+			change_title_holder = {
+				holder = scope:attacker
+				change = scope:rconq_change
+				take_baronies = yes
+			}
+		}
+		hidden_effect = {
+			resolve_title_and_vassal_change = scope:rconq_change
+		}
+		rconq_peace_victory_effect = yes
+	}
+	on_white_peace_desc = {
+		desc = rconq_white_peace_desc
+	}
+	on_white_peace = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		rconq_peace_white_peace_effect = yes
+	}
+	on_defeat_desc = {
+		desc = rconq_defeat_desc
+	}
+	on_defeat = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_defeat_effect = yes
+		rconq_peace_defeat_effect = yes
+	}
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+	transfer_behavior = transfer
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+	war_name = rconq_kingdom_war_name
+	cb_name = rconq_kingdom_cb_name
+}
+rconq_kingdom_conquest_truce = {
+	icon = invasion
+	group = rconq_player_conquest
+	ai = no
+	interface_priority = 102
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = {
+		always = yes
+	}
+	is_great_holy_war = yes
+	target_titles = all
+	target_title_tier = kingdom
+	target_de_jure_regions_above = yes
+	ignore_effect = change_title_holder
+	use_de_jure_wargoal_only = yes
+	check_all_defenders_for_ticking_war_score = yes
+	allow_hostages = no
+	allowed_for_character = {
+		is_ai = no
+		has_variable = rconq_truces_enabled
+	}
+	allowed_against_character = {
+		is_independent_ruler = yes
+		is_landed = yes
+		rconq_realm_is_foreign_trigger = yes
+		custom_tooltip = {
+			text = rconq_neighboring_realm_tt
+			scope:attacker = {
+				any_neighboring_and_across_water_top_liege_realm_owner = {
+					this = scope:defender
+				}
+			}
+		}
+	}
+	valid_to_start = {
+		scope:target = {
+			tier = tier_kingdom
+			any_de_jure_county = {
+				exists = holder
+				holder.top_liege = scope:defender
+			}
+		}
+	}
+	cost = {
+		gold = 0
+		prestige = 0
+		piety = {
+			value = rconq_kingdom_holy_war_cost
+		}
+	}
+	on_declaration = {
+		on_declared_war = yes
+		rconq_join_regional_defenders_effect = yes
+	}
+	should_invalidate = {
+		NOT = {
+			any_in_list = {
+				list = target_titles
+				any_de_jure_county = {
+					exists = holder
+					holder.top_liege = scope:defender
+				}
+			}
+		}
+	}
+	on_invalidated_desc = rconq_region_invalidated_desc
+	on_invalidated = {
+	}
+	on_victory_desc = {
+		desc = rconq_victory_truce_desc
+	}
+	on_victory = {
+		rconq_secondary_truces_effect = {
+			RESULT = victory
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_victory_effect = yes
+		create_title_and_vassal_change = {
+			type = conquest
+			save_scope_as = rconq_change
+			add_claim_on_loss = yes
+		}
+		every_in_list = {
+			list = target_titles
+			custom_tooltip = CONQUEST_CB_TITLE
+			every_de_jure_county = {
+				limit = {
+					exists = holder
+					NOT = {
+						holder = scope:attacker
+					}
+					NOT = {
+						holder.top_liege = scope:attacker
+					}
+					trigger_if = {
+						limit = {
+							scope:attacker = {
+								exists = top_liege
+							}
+						}
+						NOT = {
+							holder.top_liege = scope:attacker.top_liege
+						}
+					}
+					NOT = {
+						is_in_list = rconq_titles_taken
+					}
+				}
+				add_to_temporary_list = rconq_titles_taken
+			}
+		}
+		every_in_list = {
+			list = rconq_titles_taken
+			change_title_holder = {
+				holder = scope:attacker
+				change = scope:rconq_change
+				take_baronies = yes
+			}
+		}
+		hidden_effect = {
+			resolve_title_and_vassal_change = scope:rconq_change
+		}
+		add_truce_attacker_victory_effect = yes
+	}
+	on_white_peace_desc = {
+		desc = rconq_white_peace_truce_desc
+	}
+	on_white_peace = {
+		rconq_secondary_truces_effect = {
+			RESULT = white_peace
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_truce_white_peace_effect = yes
+	}
+	on_defeat_desc = {
+		desc = rconq_defeat_truce_desc
+	}
+	on_defeat = {
+		rconq_secondary_truces_effect = {
+			RESULT = defeat
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_defeat_effect = yes
+		add_truce_attacker_defeat_effect = yes
+	}
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+	transfer_behavior = transfer
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+	war_name = rconq_kingdom_war_name
+	cb_name = rconq_kingdom_cb_name
+}
+rconq_duchy_conquest = {
+	icon = invasion
+	group = rconq_player_conquest
+	ai = no
+	interface_priority = 101
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = {
+		always = yes
+	}
+	is_great_holy_war = yes
+	target_titles = all
+	target_title_tier = duchy
+	target_de_jure_regions_above = yes
+	ignore_effect = change_title_holder
+	use_de_jure_wargoal_only = yes
+	check_all_defenders_for_ticking_war_score = yes
+	allow_hostages = no
+	truce_days = 0
+	allowed_for_character = {
+		is_ai = no
+		NOT = {
+			has_variable = rconq_truces_enabled
+		}
+	}
+	allowed_against_character = {
+		is_independent_ruler = yes
+		is_landed = yes
+		rconq_realm_is_foreign_trigger = yes
+		custom_tooltip = {
+			text = rconq_neighboring_realm_tt
+			scope:attacker = {
+				any_neighboring_and_across_water_top_liege_realm_owner = {
+					this = scope:defender
+				}
+			}
+		}
+	}
+	valid_to_start = {
+		scope:target = {
+			tier = tier_duchy
+			any_de_jure_county = {
+				exists = holder
+				holder.top_liege = scope:defender
+			}
+		}
+	}
+	cost = {
+		gold = 0
+		prestige = 0
+		piety = {
+			value = rconq_duchy_holy_war_cost
+		}
+	}
+	on_declaration = {
+		on_declared_war = yes
+		rconq_join_regional_defenders_effect = yes
+	}
+	should_invalidate = {
+		NOT = {
+			any_in_list = {
+				list = target_titles
+				any_de_jure_county = {
+					exists = holder
+					holder.top_liege = scope:defender
+				}
+			}
+		}
+	}
+	on_invalidated_desc = rconq_region_invalidated_desc
+	on_invalidated = {
+	}
+	on_victory_desc = {
+		desc = rconq_victory_desc
+	}
+	on_victory = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_victory_effect = yes
+		create_title_and_vassal_change = {
+			type = conquest
+			save_scope_as = rconq_change
+			add_claim_on_loss = yes
+		}
+		every_in_list = {
+			list = target_titles
+			custom_tooltip = CONQUEST_CB_TITLE
+			every_de_jure_county = {
+				limit = {
+					exists = holder
+					NOT = {
+						holder = scope:attacker
+					}
+					NOT = {
+						holder.top_liege = scope:attacker
+					}
+					trigger_if = {
+						limit = {
+							scope:attacker = {
+								exists = top_liege
+							}
+						}
+						NOT = {
+							holder.top_liege = scope:attacker.top_liege
+						}
+					}
+					NOT = {
+						is_in_list = rconq_titles_taken
+					}
+				}
+				add_to_temporary_list = rconq_titles_taken
+			}
+		}
+		every_in_list = {
+			list = rconq_titles_taken
+			change_title_holder = {
+				holder = scope:attacker
+				change = scope:rconq_change
+				take_baronies = yes
+			}
+		}
+		hidden_effect = {
+			resolve_title_and_vassal_change = scope:rconq_change
+		}
+		rconq_peace_victory_effect = yes
+	}
+	on_white_peace_desc = {
+		desc = rconq_white_peace_desc
+	}
+	on_white_peace = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		rconq_peace_white_peace_effect = yes
+	}
+	on_defeat_desc = {
+		desc = rconq_defeat_desc
+	}
+	on_defeat = {
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_defeat_effect = yes
+		rconq_peace_defeat_effect = yes
+	}
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+	transfer_behavior = transfer
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+	war_name = rconq_duchy_war_name
+	cb_name = rconq_duchy_cb_name
+}
+rconq_duchy_conquest_truce = {
+	icon = invasion
+	group = rconq_player_conquest
+	ai = no
+	interface_priority = 101
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = {
+		always = yes
+	}
+	is_great_holy_war = yes
+	target_titles = all
+	target_title_tier = duchy
+	target_de_jure_regions_above = yes
+	ignore_effect = change_title_holder
+	use_de_jure_wargoal_only = yes
+	check_all_defenders_for_ticking_war_score = yes
+	allow_hostages = no
+	allowed_for_character = {
+		is_ai = no
+		has_variable = rconq_truces_enabled
+	}
+	allowed_against_character = {
+		is_independent_ruler = yes
+		is_landed = yes
+		rconq_realm_is_foreign_trigger = yes
+		custom_tooltip = {
+			text = rconq_neighboring_realm_tt
+			scope:attacker = {
+				any_neighboring_and_across_water_top_liege_realm_owner = {
+					this = scope:defender
+				}
+			}
+		}
+	}
+	valid_to_start = {
+		scope:target = {
+			tier = tier_duchy
+			any_de_jure_county = {
+				exists = holder
+				holder.top_liege = scope:defender
+			}
+		}
+	}
+	cost = {
+		gold = 0
+		prestige = 0
+		piety = {
+			value = rconq_duchy_holy_war_cost
+		}
+	}
+	on_declaration = {
+		on_declared_war = yes
+		rconq_join_regional_defenders_effect = yes
+	}
+	should_invalidate = {
+		NOT = {
+			any_in_list = {
+				list = target_titles
+				any_de_jure_county = {
+					exists = holder
+					holder.top_liege = scope:defender
+				}
+			}
+		}
+	}
+	on_invalidated_desc = rconq_region_invalidated_desc
+	on_invalidated = {
+	}
+	on_victory_desc = {
+		desc = rconq_victory_truce_desc
+	}
+	on_victory = {
+		rconq_secondary_truces_effect = {
+			RESULT = victory
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_victory_effect = yes
+		create_title_and_vassal_change = {
+			type = conquest
+			save_scope_as = rconq_change
+			add_claim_on_loss = yes
+		}
+		every_in_list = {
+			list = target_titles
+			custom_tooltip = CONQUEST_CB_TITLE
+			every_de_jure_county = {
+				limit = {
+					exists = holder
+					NOT = {
+						holder = scope:attacker
+					}
+					NOT = {
+						holder.top_liege = scope:attacker
+					}
+					trigger_if = {
+						limit = {
+							scope:attacker = {
+								exists = top_liege
+							}
+						}
+						NOT = {
+							holder.top_liege = scope:attacker.top_liege
+						}
+					}
+					NOT = {
+						is_in_list = rconq_titles_taken
+					}
+				}
+				add_to_temporary_list = rconq_titles_taken
+			}
+		}
+		every_in_list = {
+			list = rconq_titles_taken
+			change_title_holder = {
+				holder = scope:attacker
+				change = scope:rconq_change
+				take_baronies = yes
+			}
+		}
+		hidden_effect = {
+			resolve_title_and_vassal_change = scope:rconq_change
+		}
+		add_truce_attacker_victory_effect = yes
+	}
+	on_white_peace_desc = {
+		desc = rconq_white_peace_truce_desc
+	}
+	on_white_peace = {
+		rconq_secondary_truces_effect = {
+			RESULT = white_peace
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_truce_white_peace_effect = yes
+	}
+	on_defeat_desc = {
+		desc = rconq_defeat_truce_desc
+	}
+	on_defeat = {
+		rconq_secondary_truces_effect = {
+			RESULT = defeat
+		}
+		scope:attacker = {
+			show_pow_release_message_effect = yes
+		}
+		add_legitimacy_attacker_defeat_effect = yes
+		add_truce_attacker_defeat_effect = yes
+	}
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+	transfer_behavior = transfer
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+	war_name = rconq_duchy_war_name
+	cb_name = rconq_duchy_cb_name
+}
+
+# Retained for existing savegame wars only. Never offered for new declarations.
+rconq_region_conquest = {
+	icon = invasion
+	group = rconq_player_conquest
+	ai = no
+	interface_priority = 100
+
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = { always = yes }
+	target_titles = neighbor_land_or_water
+	target_title_tier = all
+	target_de_jure_regions_above = yes
+	use_de_jure_wargoal_only = yes
+	check_all_defenders_for_ticking_war_score = yes
+	allow_hostages = no
+
+	allowed_for_character = {
+		is_ai = no
+		always = no
+	}
+	allowed_against_character = {
+		is_independent_ruler = yes
+		is_landed = yes
+		rconq_realm_is_foreign_trigger = yes
+	}
+
+	valid_to_start = {
+		scope:target = {
+			tier >= tier_duchy
+			tier <= tier_empire
+			is_titular = no
+		}
+	}
+
+	# Explicit zero values, with no religious or prestige cost modifiers.
+	cost = {
+		gold = 0
+		prestige = 0
+		piety = 0
+	}
+
+	on_declaration = {
+		on_declared_war = yes
+		rconq_join_regional_defenders_effect = yes
+	}
+
+	should_invalidate = {
+		trigger_if = {
+			limit = { exists = war }
+			war = { save_temporary_scope_as = rconq_current_war }
+			NOT = {
+				any_in_list = {
+					list = target_titles
+					any_de_jure_county = {
+						rconq_county_is_enemy_trigger = yes
+					}
+				}
+			}
+		}
+		trigger_else = { always = no }
+	}
+	on_invalidated_desc = rconq_invalidated_desc
+	on_invalidated = {}
+
+	on_victory_desc = { desc = rconq_legacy_victory_desc }
+	on_victory = {
+		scope:attacker = { show_pow_release_message_effect = yes }
+		add_legitimacy_attacker_victory_effect = yes
+		# Apply secondary truces before conquest can remove landless participants.
+		rconq_secondary_truces_effect = { RESULT = victory }
+		rconq_take_selected_counties_effect = yes
+		add_truce_attacker_victory_effect = yes
+	}
+
+	on_white_peace_desc = { desc = rconq_legacy_white_peace_desc }
+	on_white_peace = {
+		scope:attacker = { show_pow_release_message_effect = yes }
+		add_truce_white_peace_effect = yes
+		rconq_secondary_truces_effect = { RESULT = white_peace }
+	}
+
+	on_defeat_desc = { desc = rconq_legacy_defeat_desc }
+	on_defeat = {
+		scope:attacker = { show_pow_release_message_effect = yes }
+		add_legitimacy_attacker_defeat_effect = yes
+		add_truce_attacker_defeat_effect = yes
+		rconq_secondary_truces_effect = { RESULT = defeat }
+	}
+
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+	transfer_behavior = transfer
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+
+	war_name = rconq_war_name
+	cb_name = rconq_cb_name
+}

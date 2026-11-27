@@ -1,0 +1,221 @@
+﻿# 文化与信仰机制整合 2.1.1 / CK3 1.21.0.3
+special_doctrine_cfi_integrated = {
+    doctrine_group_type = cfi_integrated_group
+    icon = "special_doctrine_default"
+    divergence = 0
+    is_shown = { always = no }
+    can_pick = { always = no }
+    parameters = {
+		basic_pilgrimage_rewards # doctrine_pilgrimage_encouraged, doctrine_pilgrimage_local_rites, doctrine_pilgrimage_mandatory, doctrine_pilgrimage_mandatory_hajj
+		believes_in_harmony_with_nature_invisible # tenet_sanctity_of_nature
+		better_artifacts # tenet_no_mind
+		better_study_scheme # tenet_pursuit_of_knowledge
+		bonus_holy_war_piety_active # tenet_struggle_submission
+		can_build_megaliths # tenet_megaliths
+		can_go_on_pilgrimage # doctrine_pilgrimage_encouraged, doctrine_pilgrimage_local_rites, doctrine_pilgrimage_mandatory, doctrine_pilgrimage_mandatory_hajj
+		can_use_christian_artifacts # tenet_christian_syncretism
+		can_use_islamic_artifacts # tenet_islamic_syncretism
+		can_use_jewish_artifacts # tenet_jewish_syncretism
+		cannibalism_legal # tenet_ritual_cannibalism
+		chance_to_gain_prowess_during_bear_hunts # tenet_takamin
+		cheaper_holy_wars_active # tenet_armed_pilgrimages
+		children_less_likely_to_be_burdened # tenet_filial_piety
+		clergy_can_fight # doctrine_clerical_function_recruitment, tenet_unrelenting_faith, tenet_warmonger
+		conquest_cb_enabled # tenet_pursuit_of_power, tenet_warmonger, unreformed_faith_doctrine, west_african_unreformed_faith_doctrine
+		decapitation_steals_prestige_as_piety # tenet_cranial_trophies
+		destroying_artifacts_is_pious # tenet_aniconism, tenet_extinction_of_dharma
+		divine_destiny_holy_war_cost_reduction # divine_destiny_doctrine
+		divine_marriage_piety_gain_active # tenet_divine_marriage
+		divine_the_stars_active # tenet_astrology
+		easier_to_convert_culture_in_same_faith_mountains # tenet_cthonic_redoubts
+		easier_to_convert_faith_in_mountains # tenet_cthonic_redoubts
+		efficient_hunt_cornering # tenet_takamin
+		excommunication_active # doctrine_sacraments_central
+		flower_war_cb_active # tenet_human_sacrifice
+		free_wet_nurse_court_position # tenet_sacred_childbirth
+		frequent_bear_sightings # tenet_takamin
+		ghw_no_hof_conversion_buffs_active # tenet_armed_pilgrimages, tenet_struggle_submission
+		gnosticism_cleric_interactions # special_doctrine_is_gnostic_faith, tenet_gnosticism
+		gnosticism_mystic_bonus # special_doctrine_is_gnostic_faith, tenet_gnosticism
+		granting_titles_gives_stress # special_doctrine_is_gnostic_faith, tenet_gnosticism
+		great_holy_wars_active # divine_destiny_doctrine, tenet_armed_pilgrimages, tenet_struggle_submission
+		gruesome_festivals_active # tenet_gruesome_festivals
+		harder_to_convert_faith_away_in_mountains # tenet_cthonic_redoubts
+		healthier_children_active # tenet_sacred_childbirth
+		host_honored_guests_active # tenet_ritual_hospitality
+		human_sacrifice_active # tenet_gruesome_festivals, tenet_human_sacrifice, tenet_sacrificial_ceremonies
+		human_sacrifice_sharing_power_prestige # tenet_gruesome_festivals, tenet_human_sacrifice, tenet_sacrificial_ceremonies
+		inspection_gives_devotion # tenet_benevolent_governance
+		invasion_cb_enabled # tenet_pursuit_of_power, tenet_warmonger
+		killing_bestows_heads # tenet_cranial_trophies
+		killing_buddhists_is_pious # tenet_extinction_of_dharma
+		legalism_reduced_faction_virtues # tenet_legalism
+		less_likely_to_become_infirm # tenet_no_mind
+		literalist_debate_enabled # tenet_literalism
+		meditation_mechanics_active # tenet_anachoresis, tenet_asceticism, tenet_hesychasm, tenet_inner_journey
+		mendicant_preachers_conversion_active # tenet_mendicant_preachers
+		mystic_birthright_active # tenet_mystical_birthright
+		no_epidemic_fulfillment_loss_active # tenet_exaltation_of_pain, tenet_mortification_of_the_flesh
+		no_unfaithfulness_penalty_active # tenet_polyamory
+		parents_get_hooks_on_children # tenet_filial_piety
+		piety_from_childbirth_active # tenet_sacred_childbirth
+		piety_from_feasts_active # tenet_hedonistic, tenet_ritual_celebrations
+		piety_from_festivals_active # tenet_hedonistic, tenet_ritual_celebrations
+		piety_from_gifts_active # tenet_communal_possessions, tenet_philanthropia
+		piety_from_hills_and_mountains_pilgrimages # tenet_mountain_worship
+		piety_from_marrying_lowborn_active # tenet_communal_possessions
+		piety_gain_from_successful_intrigue_schemes # tenet_sacred_shadows
+		pilgrimage_decision_active # tenet_ancestor_worship, tenet_armed_pilgrimages, tenet_esotericism, tenet_mendicant_preachers, tenet_pentarchy, tenet_struggle_submission
+		reduced_stress_from_torture # tenet_exaltation_of_pain
+		reduced_vassal_religion_discontent # special_doctrine_immaterial_harmony, tenet_adaptive
+		reincarnation_events_active # tenet_reincarnation
+		reincarnation_resistance_to_conversion # tenet_dharmic_pacifism, tenet_reincarnation
+		religious_legal_pronouncements_law_cost_reduction # tenet_religious_legal_pronouncements
+		safer_childbirths_active # tenet_sacred_childbirth
+		same_culture_conversion_bonus_active # tenet_communal_identity, tenet_household_gods
+		same_faith_promote_culture_bonus_active # tenet_communal_identity, tenet_household_gods
+		sanctify_artifacts_ancestral # tenet_ancestor_worship, tenet_filial_piety
+		sanctify_artifacts_celestial # tenet_astrology
+		sanctify_artifacts_communal # tenet_communal_identity
+		sanctify_artifacts_debauched # tenet_carnal_exaltation
+		sanctify_artifacts_earth # tenet_cthonic_redoubts, tenet_mountain_worship
+		sanctify_artifacts_knowledge # tenet_pursuit_of_knowledge, tenet_scholasticism
+		sanctify_artifacts_luxurious # tenet_hedonistic
+		sanctify_artifacts_megalithic # tenet_megaliths
+		sanctify_artifacts_natural # tenet_natural_primitivism, tenet_sanctity_of_nature
+		sanctify_artifacts_occult # tenet_esotericism
+		sanctify_artifacts_regal # tenet_pursuit_of_power, tenet_sun_worship
+		sanctify_artifacts_sacrificial # tenet_fp3_fedayeen, tenet_gruesome_festivals, tenet_human_sacrifice, tenet_sacred_destruction, tenet_sacrificial_ceremonies
+		sanctify_artifacts_weapons # tenet_armed_pilgrimages, tenet_miles_christi, tenet_warmonger
+		sanctioned_assassinations # tenet_fp3_fedayeen
+		sanctioned_false_conversion # tenet_false_conversion_sanction, tenet_pastoral_isolation, tenet_pure_land
+		sanctioned_false_conversion_county_resistance # tenet_false_conversion_sanction, tenet_pastoral_isolation, tenet_pure_land
+		scholasticism_is_holy # tenet_alexandrian_catechism
+		seek_indulgences_active # doctrine_sacraments_central
+		select_personal_god_active # tenet_bhakti
+		summer_festivals_active # tenet_sun_worship
+		sway_scheme_better # tenet_harmonious_society
+		sway_scheme_piety # tenet_harmonious_society
+		take_vows_active # doctrine_monasticism_accepted, doctrine_monasticism_encouraged
+		temporal_condemnation_criminal # tenet_religious_legal_pronouncements
+		temporal_condemnation_enabled # tenet_religious_legal_pronouncements
+		tenet_acts_of_apostles_conversion_learning # tenet_acts_of_apostles
+		tenet_acts_of_apostles_head_of_rite_sway # tenet_acts_of_apostles
+		tenet_acts_of_apostles_laamp_missionary_bonus # tenet_acts_of_apostles
+		tenet_acts_of_apostles_legitimacy_from_converts # tenet_acts_of_apostles
+		tenet_acts_of_apostles_piety_from_converts # tenet_acts_of_apostles
+		tenet_adaptive_conversion_resistance # tenet_adaptive, tenet_unrelenting_faith
+		tenet_adaptive_study_rite_bonus # tenet_adaptive
+		tenet_adoptionism_adoption_accepted # tenet_adoptionism
+		tenet_adoptionism_adoption_always_possible # tenet_adoptionism
+		tenet_adoptionism_legitimize_bastards # tenet_adoptionism
+		tenet_adoptionism_legitimize_own_children # tenet_adoptionism
+		tenet_ancestor_worship_renown_on_death # tenet_ancestor_worship
+		tenet_ancestor_worship_seek_ancestral_guidance # tenet_ancestor_worship
+		tenet_apostolic_succession_bishop_legitimacy # tenet_apostolic_succession
+		tenet_apostolic_succession_legitimacy_per_theocratic_vassal # tenet_apostolic_succession
+		tenet_asceticism_inappetetic_bonus # tenet_asceticism
+		tenet_astrology_albino_omen # tenet_astrology
+		tenet_astrology_auspicious_timing # tenet_astrology
+		tenet_astrology_scaly_omen # tenet_astrology
+		tenet_be_fruitful_and_multiply_easy_spouse_romance # tenet_be_fruitful_and_multiply
+		tenet_be_fruitful_and_multiply_health_boost_after_child # tenet_be_fruitful_and_multiply
+		tenet_be_fruitful_and_multiply_low_fertility_divorce # tenet_be_fruitful_and_multiply
+		tenet_carnal_exaltation_clergy_no_continence # tenet_carnal_exaltation
+		tenet_carnal_exaltation_deviancy_virtuous # tenet_carnal_exaltation
+		tenet_carnal_exaltation_sensual_bonus # tenet_carnal_exaltation
+		tenet_carnal_exaltation_sensual_seduction # tenet_carnal_exaltation
+		tenet_celestial_hierarchy_clergy_acceptance # tenet_celestial_hierarchy
+		tenet_celestial_hierarchy_court_aptitude_bonus # tenet_celestial_hierarchy
+		tenet_celestial_hierarchy_religious_relations_bonus # tenet_celestial_hierarchy
+		tenet_christian_syncretism_study_rite_bonus # tenet_christian_syncretism
+		tenet_confession_confess_sins_decision # tenet_confession
+		tenet_confession_priests_secrets # tenet_confession
+		tenet_confession_spiritual_counsel_bonus # tenet_confession
+		tenet_confession_study_scripture_bonus # tenet_confession
+		tenet_divine_liturgy_temple_piety # tenet_divine_liturgy
+		tenet_divine_marriage_incestuous_liege_faction_reluctance # tenet_divine_marriage
+		tenet_dulia_canonization_faith_bonus # tenet_dulia
+		tenet_dulia_cheaper_saint_costs # tenet_dulia
+		tenet_dulia_dynasty_prestige_from_relics # tenet_dulia
+		tenet_dulia_extra_relic_modifier # tenet_dulia
+		tenet_eastern_syncretism_study_rite_bonus # tenet_eastern_syncretism
+		tenet_esotericism_eccentric_bonuses # tenet_esotericism
+		tenet_esotericism_eccentric_education # tenet_esotericism
+		tenet_esotericism_mystic_education # tenet_esotericism
+		tenet_hesychasm_patient_bonus # tenet_hesychasm
+		tenet_hesychasm_prayer_of_the_heart # tenet_hesychasm
+		tenet_hesychasm_spiritual_counsel_bonus # tenet_hesychasm
+		tenet_hyperdulia_female_claims_are_strong # tenet_hyperdulia
+		tenet_inner_journey_humble_pilgrimage_bonus # tenet_inner_journey
+		tenet_islamic_syncretism_study_rite_bonus # tenet_islamic_syncretism
+		tenet_jewish_syncretism_study_rite_bonus # tenet_jewish_syncretism
+		tenet_legalism_sinful_revocation # tenet_legalism
+		tenet_legalism_title_integration # tenet_legalism
+		tenet_literalism_conversion_resistance # tenet_literalism
+		tenet_love_thy_neighbour_county_bonus # tenet_love_thy_neighbour
+		tenet_love_thy_neighbour_hospital_care # tenet_love_thy_neighbour
+		tenet_love_thy_neighbour_hospital_shelter # tenet_love_thy_neighbour
+		tenet_miaphysitism_honest_bonus # tenet_miaphysitism
+		tenet_miles_christi_combat_fulfillment # tenet_miles_christi
+		tenet_miles_christi_holy_weapon_blessing # tenet_miles_christi
+		tenet_miles_christi_white_peace_defender_bonus # tenet_miles_christi
+		tenet_monophysitism_stubborn_bonus # tenet_monophysitism
+		tenet_monophysitism_theologian_bonus # tenet_monophysitism
+		tenet_mortification_scars_are_holy # tenet_mortification_of_the_flesh
+		tenet_mountain_worship_trait_bonuses # tenet_mountain_worship
+		tenet_mystical_birthright_blessed_marks_grave # tenet_mystical_birthright
+		tenet_mystical_birthright_blessed_marks_mild # tenet_mystical_birthright
+		tenet_mystical_birthright_blessed_marks_severe # tenet_mystical_birthright
+		tenet_original_sin_county_conversion_bonus # tenet_original_sin
+		tenet_original_sin_county_conversion_resistance # tenet_original_sin
+		tenet_original_sin_sinners_insight # tenet_original_sin
+		tenet_peace_of_god_at_peace_yearly_effects # tenet_peace_of_god
+		tenet_peace_of_god_cheaper_truce_purchase # tenet_peace_of_god
+		tenet_peace_of_god_clergy_peacemaking # tenet_peace_of_god
+		tenet_peace_of_god_excommunication # tenet_peace_of_god
+		tenet_pentarchy_holy_site_prosperity # tenet_pentarchy
+		tenet_philanthropia_generous_bonus # tenet_philanthropia
+		tenet_philanthropia_high_almoner_court_position # tenet_philanthropia
+		tenet_polyamory_romance_seduction_scheme_bonus # tenet_polyamory
+		tenet_purgatory_absolution_costs_less_prestige # tenet_purgatory
+		tenet_purgatory_excommunication_penance # tenet_purgatory
+		tenet_purgatory_sinful_characters_less_likely_to_rebel # tenet_purgatory
+		tenet_pursuit_of_knowledge_study_scripture_bonus # tenet_pursuit_of_knowledge
+		tenet_ritual_hospitality_court_position_event_discount # tenet_ritual_hospitality
+		tenet_sacred_childbirth_birthing_building_discount # tenet_sacred_childbirth
+		tenet_sacred_childbirth_offer_bedside_support # tenet_sacred_childbirth
+		tenet_sacrificial_ceremonies_blessed_passing # tenet_sacrificial_ceremonies
+		tenet_sanctity_of_nature_preserve_wilderness # tenet_sanctity_of_nature
+		tenet_scholasticism_cheaper_adult_education # tenet_scholasticism
+		tenet_scholasticism_court_scholar # tenet_scholasticism
+		tenet_scholasticism_muslim_hebrew_greek_poi # tenet_scholasticism
+		tenet_scholasticism_study_scripture_bonus # tenet_scholasticism
+		tenet_scholasticism_university_bonus # tenet_scholasticism
+		tenet_simony_ecclesiastical_purchase # tenet_simony
+		tenet_simony_gold_donations # tenet_simony
+		tenet_simony_paid_vows # tenet_simony
+		tenet_simony_venal_head_of_faith # tenet_simony
+		tenet_simony_wealth_fulfillment # tenet_simony
+		tenet_sinitic_syncretism_study_rite_bonus # tenet_sinitic_syncretism
+		tenet_tax_increase_per_piety_level # tenet_simony
+		tenet_transubstantiation_faster_bishop_claims # tenet_transubstantiation
+		tenet_unlocks_t3_withdraw_from_view # tenet_pastoral_isolation
+		tenet_unlocks_t4_bounties_for_whispers # tenet_sacred_shadows
+		tenet_unreformed_syncretism_study_rite_bonus # tenet_unreformed_syncretism
+		torturing_prisoners_grants_piety # tenet_exaltation_of_pain
+		trial_by_sun_active # tenet_sun_worship
+		withering_mind_less_likely # tenet_pursuit_of_knowledge
+    }
+    special_parameters = {
+		divine_marriage_opinion = 10
+		piety_from_long_peace = 1
+		fervor_per_holy_site = 1
+		increased_dynasty_prestige_birth_mult = 1
+		increased_dynasty_prestige_marriage_mult = 1
+		increased_dynasty_prestige_long_reign_mult = 0.5
+		parameter_opinion_override = {
+			pacifist = 10
+		}
+    }
+}

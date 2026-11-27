@@ -1,0 +1,51 @@
+﻿fa_perk_convert_to_current_effect = {
+    if = {
+        limit = { has_lifestyle = diplomacy_lifestyle }
+        fa_perk_transfer_effect = { FROM = martial TO = diplomacy }
+        fa_perk_transfer_effect = { FROM = stewardship TO = diplomacy }
+        fa_perk_transfer_effect = { FROM = intrigue TO = diplomacy }
+        fa_perk_transfer_effect = { FROM = learning TO = diplomacy }
+        fa_perk_transfer_effect = { FROM = wanderer TO = diplomacy }
+    }
+    else_if = {
+        limit = { has_lifestyle = martial_lifestyle }
+        fa_perk_transfer_effect = { FROM = diplomacy TO = martial }
+        fa_perk_transfer_effect = { FROM = stewardship TO = martial }
+        fa_perk_transfer_effect = { FROM = intrigue TO = martial }
+        fa_perk_transfer_effect = { FROM = learning TO = martial }
+        fa_perk_transfer_effect = { FROM = wanderer TO = martial }
+    }
+    else_if = {
+        limit = { has_lifestyle = stewardship_lifestyle }
+        fa_perk_transfer_effect = { FROM = diplomacy TO = stewardship }
+        fa_perk_transfer_effect = { FROM = martial TO = stewardship }
+        fa_perk_transfer_effect = { FROM = intrigue TO = stewardship }
+        fa_perk_transfer_effect = { FROM = learning TO = stewardship }
+        fa_perk_transfer_effect = { FROM = wanderer TO = stewardship }
+    }
+    else_if = {
+        limit = { has_lifestyle = intrigue_lifestyle }
+        fa_perk_transfer_effect = { FROM = diplomacy TO = intrigue }
+        fa_perk_transfer_effect = { FROM = martial TO = intrigue }
+        fa_perk_transfer_effect = { FROM = stewardship TO = intrigue }
+        fa_perk_transfer_effect = { FROM = learning TO = intrigue }
+        fa_perk_transfer_effect = { FROM = wanderer TO = intrigue }
+    }
+    else_if = {
+        limit = { has_lifestyle = learning_lifestyle }
+        fa_perk_transfer_effect = { FROM = diplomacy TO = learning }
+        fa_perk_transfer_effect = { FROM = martial TO = learning }
+        fa_perk_transfer_effect = { FROM = stewardship TO = learning }
+        fa_perk_transfer_effect = { FROM = intrigue TO = learning }
+        fa_perk_transfer_effect = { FROM = wanderer TO = learning }
+    }
+    else_if = {
+        limit = { has_lifestyle = wanderer_lifestyle }
+        fa_perk_transfer_effect = { FROM = diplomacy TO = wanderer }
+        fa_perk_transfer_effect = { FROM = martial TO = wanderer }
+        fa_perk_transfer_effect = { FROM = stewardship TO = wanderer }
+        fa_perk_transfer_effect = { FROM = intrigue TO = wanderer }
+        fa_perk_transfer_effect = { FROM = learning TO = wanderer }
+    }
+}
+

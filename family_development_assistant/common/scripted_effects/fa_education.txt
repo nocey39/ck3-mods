@@ -1,0 +1,123 @@
+﻿fa_choose_initial_focus_effect = {
+    host ?= { save_scope_as = fa_owner }
+    if = {
+        limit = {
+            age = 6
+            scope:fa_owner ?= {
+                fa_can_configure_trigger = yes
+                fa_master_active_trigger = yes
+                has_variable = fa_mode
+                var:fa_mode > 0
+            }
+            fa_managed_child_trigger = yes
+        }
+        if = {
+            limit = { scope:fa_owner.var:fa_mode = 2 }
+            fa_set_focus_from_setting_effect = { SETTING = fa_fixed }
+        }
+        else_if = {
+            limit = { has_trait = bossy }
+            fa_set_focus_from_setting_effect = { SETTING = fa_bossy }
+        }
+        else_if = {
+            limit = { has_trait = pensive }
+            fa_set_focus_from_setting_effect = { SETTING = fa_pensive }
+        }
+        else_if = {
+            limit = { has_trait = curious }
+            fa_set_focus_from_setting_effect = { SETTING = fa_curious }
+        }
+        else_if = {
+            limit = { has_trait = charming }
+            fa_set_focus_from_setting_effect = { SETTING = fa_charming }
+        }
+        else_if = {
+            limit = { has_trait = rowdy }
+            fa_set_focus_from_setting_effect = { SETTING = fa_rowdy }
+        }
+    }
+}
+
+fa_set_focus_from_setting_effect = {
+    if = {
+        limit = { scope:fa_owner.var:$SETTING$ = 1 }
+        set_focus = education_diplomacy
+    }
+    else_if = {
+        limit = { scope:fa_owner.var:$SETTING$ = 2 }
+        set_focus = education_martial
+    }
+    else_if = {
+        limit = { scope:fa_owner.var:$SETTING$ = 3 }
+        set_focus = education_stewardship
+    }
+    else_if = {
+        limit = { scope:fa_owner.var:$SETTING$ = 4 }
+        set_focus = education_intrigue
+    }
+    else_if = {
+        limit = { scope:fa_owner.var:$SETTING$ = 5 }
+        set_focus = education_learning
+    }
+}
+
+fa_check_guardians_effect = {
+    save_scope_as = fa_owner
+    player_heir ?= {
+        if = {
+            limit = { fa_can_receive_guardian_trigger = yes }
+            fa_fill_guardian_effect = yes
+        }
+    }
+    ordered_courtier = {
+        limit = {
+            fa_can_receive_guardian_trigger = yes
+            NOT = { is_player_heir_of = scope:fa_owner }
+        }
+        order_by = age
+        check_range_bounds = no
+        fa_fill_guardian_effect = yes
+    }
+}
+
+fa_fill_guardian_effect = {
+    clear_saved_scope = guardian
+    save_scope_as = ward
+    scope:fa_owner = {
+        ordered_courtier = {
+            limit = {
+                is_courtier_of = scope:fa_owner
+                host = scope:fa_owner
+                fa_can_be_guardian_trigger = yes
+            }
+            order_by = fa_guardian_score
+            max = 1
+            check_range_bounds = no
+            save_scope_as = guardian
+            save_scope_value_as = { name = fa_best_score value = fa_guardian_score }
+        }
+        if = {
+            limit = {
+                fa_can_be_guardian_trigger = yes
+                OR = {
+                    NOT = { exists = scope:guardian }
+                    fa_guardian_score > scope:fa_best_score
+                }
+            }
+            save_scope_as = guardian
+        }
+        if = {
+            limit = { exists = scope:guardian }
+            save_scope_as = puppet_or_actor
+            save_scope_as = recipient
+            save_scope_as = guardian_liege
+            save_scope_as = ward_liege
+            scope:guardian = { save_scope_as = secondary_actor }
+            save_scope_value_as = { name = convert_culture value = no }
+            save_scope_value_as = { name = convert_faith value = no }
+            save_scope_value_as = { name = send_to_university value = no }
+            scope:ward = { add_character_flag = player_educated }
+            educate_child_interaction_effect = yes
+        }
+    }
+}

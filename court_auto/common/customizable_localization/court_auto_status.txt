@@ -1,0 +1,7 @@
+﻿court_auto_status_text = {
+    type = character
+    text = { trigger = { NOT = { has_variable = court_auto_enabled } } localization_key = court_auto_status_off }
+    text = { trigger = { NOR = { has_variable = court_auto_council_enabled has_variable = court_auto_court_enabled has_variable = court_auto_regency_enabled court_auto_tasks_active_trigger = yes } } localization_key = court_auto_status_modules_off }
+    text = { trigger = { has_variable = court_auto_checked } localization_key = court_auto_status_waiting }
+    text = { localization_key = court_auto_status_ready }
+}

@@ -1,0 +1,199 @@
+﻿dejure_auto_direct_advance_effect = {
+    if = {
+        limit = {
+            NOT = {
+                has_variable = dejure_auto_direct_epoch
+            }
+        }
+        set_variable = {
+            name = dejure_auto_direct_epoch
+            value = 0
+        }
+    }
+    change_variable = {
+        name = dejure_auto_direct_epoch
+        add = 1
+    }
+    clear_variable_list = dejure_auto_direct_armed
+    remove_variable = dejure_auto_direct_last_ticket
+    remove_variable = dejure_auto_direct_target
+    clear_variable_list = dejure_auto_pick_armed
+    remove_variable = dejure_auto_pick_current
+}
+dejure_auto_direct_clear_effect = {
+    dejure_auto_direct_advance_effect = yes
+    remove_variable = dejure_auto_direct_open
+    remove_variable = dejure_auto_direct_current
+    clear_variable_list = dejure_auto_direct_realm_counties
+    remove_variable = dejure_auto_pick_active
+}
+dejure_auto_direct_load_cleanup_effect = {
+    remove_variable = dejure_auto_manual_open
+    remove_variable = dejure_auto_activity_probe_enabled
+    remove_variable = dejure_auto_map_probe_open
+    remove_variable = dejure_auto_select_probe_open
+    dejure_auto_manual_flow_clear_effect = yes
+    remove_variable = dejure_auto_color_probe_open
+}
+dejure_auto_direct_apply_effect = {
+    set_variable = {
+        name = dejure_auto_manual_last_county
+        value = scope:dejure_auto_manual_input.county
+    }
+    remove_variable = dejure_auto_manual_last_title
+    set_variable = {
+        name = dejure_auto_manual_last_result
+        value = 6
+    }
+    if = {
+        limit = {
+            dejure_auto_direct_target_available_trigger = yes
+        }
+        set_variable = {
+            name = dejure_auto_manual_last_title
+            value = var:dejure_auto_direct_target
+        }
+        if = {
+            limit = {
+                var:dejure_auto_direct_tier = 1
+            }
+            if = {
+                limit = {
+                    var:dejure_auto_manual_mode = 0
+                }
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 2
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_counties
+                                target = var:dejure_auto_direct_target
+                            }
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 1
+                    }
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_counties
+                        target = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 0
+                    }
+                }
+            }
+            else = {
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 3
+                }
+                if = {
+                    limit = {
+                        is_target_in_variable_list = {
+                            name = dejure_auto_manual_counties
+                            target = var:dejure_auto_direct_target
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 0
+                    }
+                    remove_list_variable = {
+                        name = dejure_auto_manual_counties
+                        target = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 1
+                    }
+                }
+            }
+        }
+        else = {
+            if = {
+                limit = {
+                    var:dejure_auto_manual_mode = 0
+                }
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 2
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            is_target_in_variable_list = {
+                                name = dejure_auto_manual_titles
+                                target = var:dejure_auto_direct_target
+                            }
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 1
+                    }
+                    add_to_variable_list = {
+                        name = dejure_auto_manual_titles
+                        target = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 0
+                    }
+                }
+            }
+            else = {
+                set_variable = {
+                    name = dejure_auto_manual_last_result
+                    value = 3
+                }
+                if = {
+                    limit = {
+                        is_target_in_variable_list = {
+                            name = dejure_auto_manual_titles
+                            target = var:dejure_auto_direct_target
+                        }
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_county
+                        value = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_undo_add
+                        value = 0
+                    }
+                    remove_list_variable = {
+                        name = dejure_auto_manual_titles
+                        target = var:dejure_auto_direct_target
+                    }
+                    set_variable = {
+                        name = dejure_auto_manual_last_result
+                        value = 1
+                    }
+                }
+            }
+        }
+        dejure_auto_manual_prune_effect = yes
+    }
+    set_variable = {
+        name = dejure_auto_direct_last_ticket
+        value = var:dejure_auto_direct_epoch
+    }
+}

@@ -1,0 +1,19 @@
+﻿l_english:
+ dejure_auto_feedback_short:0 "Last: create [GetPlayer.MakeScope.Var('dejure_auto_feedback_created').GetValue|0] | grant [GetPlayer.MakeScope.Var('dejure_auto_feedback_granted').GetValue|0] | organize [GetPlayer.MakeScope.Var('dejure_auto_feedback_organized').GetValue|0]"
+ dejure_auto_feedback_no_history:0 "No execution recorded by this version; older details, if any, remain below."
+ dejure_auto_feedback_history_heading:0 "Last execution · historical results"
+ dejure_auto_feedback_history_hint:0 "Execution history is separate from current protection. Opening settings, editing protection or importing rules does not record an execution."
+ dejure_auto_feedback_summary:0 "Created [GetPlayer.MakeScope.Var('dejure_auto_feedback_created').GetValue|0] · Granted [GetPlayer.MakeScope.Var('dejure_auto_feedback_granted').GetValue|0]\nOrganized [GetPlayer.MakeScope.Var('dejure_auto_feedback_organized').GetValue|0]: transfers [GetPlayer.MakeScope.Var('dejure_auto_feedback_moved').GetValue|0], counties [GetPlayer.MakeScope.Var('dejure_auto_feedback_counties').GetValue|0], higher titles [GetPlayer.MakeScope.Var('dejure_auto_feedback_high').GetValue|0]\nCreation spent: [GetPlayer.MakeScope.Var('dejure_auto_feedback_paid').GetValue|0]."
+ dejure_auto_feedback_reasons_heading:0 "Recorded reasons this pass"
+ dejure_auto_feedback_reason_scope:0 "Each list holds up to 50 unique titles; categories may overlap. A protection candidate has not necessarily passed final grant eligibility. Disabled or non-candidate titles are not failures."
+ dejure_auto_feedback_protected_heading:0 "Candidates excluded by retention: [GetPlayer.MakeScope.Var('dejure_auto_feedback_n_protected').GetValue|0]"
+ dejure_auto_feedback_funds_heading:0 "Insufficient creation funds, including reserve: [GetPlayer.MakeScope.Var('dejure_auto_feedback_n_funds').GetValue|0]"
+ dejure_auto_feedback_waiting_heading:0 "No eligible grant recipient found: [GetPlayer.MakeScope.Var('dejure_auto_feedback_n_waiting').GetValue|0]"
+ dejure_auto_feedback_unconfirmed_heading:0 "Submitted outcome not confirmed: [GetPlayer.MakeScope.Var('dejure_auto_feedback_n_unconfirmed').GetValue|0] (events this pass; later retries do not erase them)"
+ dejure_auto_feedback_limit_heading:0 "Not enough remaining slots for a bundled grant: [GetPlayer.MakeScope.Var('dejure_auto_feedback_n_limit').GetValue|0]"
+ dejure_auto_feedback_cap_creation:0 "The pass creation cap was reached: 5 titles."
+ dejure_auto_feedback_cap_title:0 "The combined creation and grant cap was reached: 20 titles."
+ dejure_auto_feedback_cap_organizer:0 "The pass organization cap was reached: 50 actions."
+ dejure_auto_feedback_caps_note:0 "A reached cap describes confirmed work only; it does not claim more eligible candidates remain. Title details follow."
+
+

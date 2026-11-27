@@ -1,0 +1,4 @@
+﻿dejure_auto_feedback_short_text = { type = character
+    text = { trigger = { has_variable = dejure_auto_feedback_checked } localization_key = dejure_auto_feedback_short }
+    text = { localization_key = dejure_auto_feedback_no_history }
+}

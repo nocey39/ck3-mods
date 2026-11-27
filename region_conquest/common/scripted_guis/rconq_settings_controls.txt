@@ -1,0 +1,34 @@
+﻿rconq_panel_gui = {
+ scope = character
+ is_shown = { is_ai = no has_variable = rconq_panel_open }
+ effect = { remove_variable = rconq_panel_open }
+}
+rconq_toggle_costs_gui = {
+ scope = character
+ is_shown = { has_variable = rconq_costs_enabled }
+ is_valid = { is_ai = no is_alive = yes }
+ effect = {
+  rconq_initialize_settings_effect = yes
+  if = { limit = { has_variable = rconq_costs_enabled } remove_variable = rconq_costs_enabled }
+  else = { set_variable = rconq_costs_enabled }
+ }
+}
+rconq_toggle_truces_gui = {
+ scope = character
+ is_shown = { has_variable = rconq_truces_enabled }
+ is_valid = { is_ai = no is_alive = yes }
+ effect = {
+  rconq_initialize_settings_effect = yes
+  if = { limit = { has_variable = rconq_truces_enabled } remove_variable = rconq_truces_enabled }
+  else = { set_variable = rconq_truces_enabled }
+ }
+}
+rconq_reset_settings_gui = {
+ scope = character
+ is_valid = { is_ai = no is_alive = yes }
+ effect = {
+  rconq_initialize_settings_effect = yes
+  remove_variable = rconq_costs_enabled
+  remove_variable = rconq_truces_enabled
+ }
+}

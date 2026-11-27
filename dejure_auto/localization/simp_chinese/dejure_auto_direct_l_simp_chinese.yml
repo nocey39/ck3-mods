@@ -1,0 +1,8 @@
+﻿l_simp_chinese:
+ dejure_auto_direct_hint:0 "点击直辖领地，按当前模式保存。"
+ dejure_auto_direct_current:0 "当前：[GetPlayer.MakeScope.Var('dejure_auto_direct_current').Province.GetCounty.GetTitle.GetName]"
+ dejure_auto_direct_no_current:0 "请在地图选择一处直辖伯爵领"
+ dejure_auto_direct_confirm:0 "应用当前选择"
+ dejure_auto_direct_resume:0 "继续地图管理"
+ dejure_auto_direct_recover_hint:0 "地图编辑会话已暂停，已有保留名单不变。\n点“继续地图管理”重新进入。"
+ dejure_auto_direct_map_help:0 "在普通地图点选其他直辖伯爵领即可切换手动保留。进入时的已有选择不会自动修改，可点「应用当前选择」。基础首都保护不受影响，本页不分封、不收费。"

@@ -1,0 +1,38 @@
+﻿# Shared native candidate selection and appointment for the generated catalogue.
+court_auto_fill_court_type_effect = {
+    remove_variable = court_auto_no_candidate
+    set_variable = { name = court_auto_attempts value = 0 }
+    while = {
+        limit = {
+            can_employ_court_position_type = $POSITION$
+            NOT = { has_variable = court_auto_no_candidate }
+            var:court_auto_attempts < 100
+        }
+        change_variable = { name = court_auto_attempts add = 1 }
+        remove_variable = court_auto_court_candidate
+        ordered_court_position_candidate = {
+            court_position_type = $POSITION$
+            order_by = aptitude_score:$POSITION$
+            max = 1
+            check_range_bounds = no
+            limit = {
+                NOT = { has_court_position = $POSITION$ }
+                would_be_valid_for_court_position = { court_position = $POSITION$ employer = scope:court_auto_owner }
+            }
+            scope:court_auto_owner = { set_variable = { name = court_auto_court_candidate value = prev } }
+        }
+        if = {
+            limit = { has_variable = court_auto_court_candidate }
+            appoint_court_position = { recipient = var:court_auto_court_candidate court_position = $POSITION$ }
+            if = {
+                limit = { any_court_position_holder = { type = $POSITION$ this = scope:court_auto_owner.var:court_auto_court_candidate } }
+                change_variable = { name = court_auto_last_court add = 1 }
+            }
+            else = { set_variable = court_auto_no_candidate }
+        }
+        else = { set_variable = court_auto_no_candidate }
+    }
+    remove_variable = court_auto_court_candidate
+    remove_variable = court_auto_no_candidate
+    remove_variable = court_auto_attempts
+}

@@ -1,0 +1,2 @@
+﻿gui/dejure_auto_settings.gui = dejure_auto_overlay
+gui/dejure_auto_direct.gui = dejure_auto_direct_overlay

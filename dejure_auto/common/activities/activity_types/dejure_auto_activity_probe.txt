@@ -1,0 +1,56 @@
+﻿dejure_auto_activity_map_probe = {
+    is_shown = {
+        always = no
+    }
+    can_plan = {
+        always = no
+    }
+    can_always_plan = no
+    can_start = {
+        always = no
+    }
+    can_start_showing_failures_only = {
+        always = no
+    }
+    is_valid = {
+        always = no
+    }
+    province_filter = domain
+    ai_province_filter = capital
+    is_location_valid = {
+        province_owner = scope:host
+    }
+    is_single_location = yes
+    planner_type = province
+    cost = {
+        gold = 0
+    }
+    ui_predicted_cost = {
+        gold = 0
+    }
+    ai_will_do = {
+        value = 0
+    }
+    notify_player_can_join_activity = no
+    host_intents = {
+        default = dejure_auto_activity_probe_intent
+        intents = {
+            dejure_auto_activity_probe_intent
+        }
+    }
+    guest_intents = {
+        default = dejure_auto_activity_probe_intent
+        intents = {
+            dejure_auto_activity_probe_intent
+        }
+    }
+    phases = {
+        dejure_auto_activity_probe_phase = {
+            is_predefined = yes
+            location_source = pickable
+        }
+    }
+    activity_planner_widgets = {
+        dejure_auto_activity_probe_reader = "activity_plugin_center"
+    }
+}

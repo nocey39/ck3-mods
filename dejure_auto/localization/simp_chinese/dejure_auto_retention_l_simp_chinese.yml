@@ -1,0 +1,17 @@
+﻿l_simp_chinese:
+ dejure_auto_domain_keep_heading:0 "保留直辖范围"
+ dejure_auto_domain_keep_0:0 "仅首都"
+ dejure_auto_domain_keep_1:0 "首都公国"
+ dejure_auto_domain_keep_2:0 "首都公国＋一个额外公国"
+ dejure_auto_domain_keep_help:0 "基础范围只有仅首都／首都公国，默认首都公国。手动保护与基础范围叠加，统一作用于普通、强制直辖分配和自动分封。仅改变配置，不立即分配领地。"
+ dejure_auto_extra_help:0 "第三档锁定一个含你亲持伯爵领的额外公国：优先已有头衔的区域，再比伯爵领数量与总发展度，同分保留先选。新征服不挤掉锁定项；当地无你的伯爵领、成为首都公国或切换档位才重选。"
+ dejure_auto_extra_disabled:0 "额外公国：未启用"
+ dejure_auto_extra_waiting:0 "额外公国：等待下次检查选择合适区域"
+ dejure_auto_extra_selected:0 "额外公国：[GetPlayer.MakeScope.Var('dejure_auto_extra_duchy').Title.GetName]"
+ rule_dejure_auto_preset_domain_keep:0 "保留直辖范围"
+ setting_dejure_auto_preset_domain_keep_0:0 "仅首都"
+ setting_dejure_auto_preset_domain_keep_1:0 "首都公国"
+ setting_dejure_auto_preset_domain_keep_0_desc:0 "只保留首都伯爵领，其余亲持伯爵领可被自动转出。"
+ setting_dejure_auto_preset_domain_keep_1_desc:0 "保留首都伯爵领与首都公国内的亲持伯爵领。"
+
+

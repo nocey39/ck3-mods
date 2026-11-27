@@ -1,0 +1,41 @@
+﻿# Title scope. Player policy changes do not advance the automatic wage month.
+teq_control_change_salary = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes } }
+  # Step the effective value first, so a boundary never hides excess offset.
+  set_variable = { name = teq_salary_manual_target value = { value = holder.teq_control_salary_fraction add = $STEP$ min = 0 max = 2 } }
+  set_variable = { name = teq_salary_manual_offset value = { value = var:teq_salary_manual_target subtract = var:teq_salary_curve_factor } }
+  remove_variable = teq_salary_manual_target
+  teq_apply_budget = yes
+ }
+} }
+teq_control_change_private = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes } }
+  set_variable = { name = teq_private_fraction value = { value = holder.teq_private_income_fraction add = $STEP$ min = 0 max = 1 } }
+  holder = { teq_ensure_private_split = yes }
+  set_variable = teq_private_rebase_budget
+  teq_apply_budget = yes
+ }
+} }
+teq_control_change_reserve = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes } }
+  teq_change_retained_fraction = { STEP = $STEP$ }
+ }
+} }
+teq_control_salary_reset = { hidden_effect = {
+ if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes } }
+  remove_variable = teq_salary_manual_offset
+  teq_apply_budget = yes
+ }
+} }
+teq_control_salary_up = { hidden_effect = { teq_control_change_salary = { STEP = 0.01 } } }
+teq_control_salary_up_5 = { hidden_effect = { teq_control_change_salary = { STEP = 0.05 } } }
+teq_control_salary_down = { hidden_effect = { teq_control_change_salary = { STEP = -0.01 } } }
+teq_control_salary_down_5 = { hidden_effect = { teq_control_change_salary = { STEP = -0.05 } } }
+teq_control_private_up = { hidden_effect = { teq_control_change_private = { STEP = 0.01 } } }
+teq_control_private_up_5 = { hidden_effect = { teq_control_change_private = { STEP = 0.05 } } }
+teq_control_private_down = { hidden_effect = { teq_control_change_private = { STEP = -0.01 } } }
+teq_control_private_down_5 = { hidden_effect = { teq_control_change_private = { STEP = -0.05 } } }
+teq_control_reserve_up = { hidden_effect = { teq_control_change_reserve = { STEP = 0.01 } } }
+teq_control_reserve_up_5 = { hidden_effect = { teq_control_change_reserve = { STEP = 0.05 } } }
+teq_control_reserve_down = { hidden_effect = { teq_control_change_reserve = { STEP = -0.01 } } }
+teq_control_reserve_down_5 = { hidden_effect = { teq_control_change_reserve = { STEP = -0.05 } } }

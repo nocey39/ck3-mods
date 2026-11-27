@@ -1,0 +1,221 @@
+﻿teq_budget_shared_ui = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes }
+}
+teq_budget_commit = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes }
+ is_valid = { teq_budget_ui_ready = yes }
+ effect = { if = { limit = { teq_budget_ui_ready = yes }
+  primary_title = { teq_apply_budget = yes }
+ } }
+}
+teq_reserve_up = { scope = character is_shown = { teq_budget_ui_ready = yes } is_valid = { teq_budget_ui_ready = yes teq_retained_income_fraction < 1 } effect = { if = { limit = { teq_budget_ui_ready = yes } primary_title = { teq_change_retained_fraction = { STEP = 0.05 } } } } }
+
+teq_reserve_down = { scope = character is_shown = { teq_budget_ui_ready = yes } is_valid = { teq_budget_ui_ready = yes teq_retained_income_fraction > 0 } effect = { if = { limit = { teq_budget_ui_ready = yes } primary_title = { teq_change_retained_fraction = { STEP = -0.05 } } } } }
+
+# Income split controls are manual, free actions on the player's current fiscal title.
+teq_private_up = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction < 1 }
+ effect = {
+  if = {
+   limit = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction < 1 }
+   primary_title = { teq_private_split_stepup = yes }
+  }
+ }
+}
+teq_private_down = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction > 0 }
+ effect = {
+  if = {
+   limit = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction > 0 }
+   primary_title = { teq_private_split_stepdown = yes }
+  }
+ }
+}
+teq_private_reset = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no NOT = { teq_private_income_fraction = 0.05 } }
+ effect = {
+  if = {
+   limit = { teq_budget_ui_ready = yes is_ai = no NOT = { teq_private_income_fraction = 0.05 } }
+   primary_title = { teq_private_split_restoredefault = yes }
+  }
+ }
+}
+
+# Direct controls: left click = 1 percentage point; right click = 5.
+teq_control_development_down = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share > 0 }
+  primary_title = { teq_control_development_down = yes }
+ } }
+}
+teq_control_development_down_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share > 0 }
+  primary_title = { teq_control_development_down_5 = yes }
+ } }
+}
+teq_control_development_up = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share < 1 }
+  primary_title = { teq_control_development_up = yes }
+ } }
+}
+teq_control_development_up_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_development_share < 1 }
+  primary_title = { teq_control_development_up_5 = yes }
+ } }
+}
+teq_control_military_down = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share > 0 }
+  primary_title = { teq_control_military_down = yes }
+ } }
+}
+teq_control_military_down_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share > 0 }
+  primary_title = { teq_control_military_down_5 = yes }
+ } }
+}
+teq_control_military_up = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share < 1 }
+  primary_title = { teq_control_military_up = yes }
+ } }
+}
+teq_control_military_up_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_military_share < 1 }
+  primary_title = { teq_control_military_up_5 = yes }
+ } }
+}
+teq_control_salary_down = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction > 0 }
+  primary_title = { teq_control_salary_down = yes }
+ } }
+}
+teq_control_salary_down_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction > 0 }
+  primary_title = { teq_control_salary_down_5 = yes }
+ } }
+}
+teq_control_salary_up = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction < 2 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction < 2 }
+  primary_title = { teq_control_salary_up = yes }
+ } }
+}
+teq_control_salary_up_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction < 2 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_control_salary_fraction < 2 }
+  primary_title = { teq_control_salary_up_5 = yes }
+ } }
+}
+teq_control_reserve_down = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction > 0 }
+  primary_title = { teq_control_reserve_down = yes }
+ } }
+}
+teq_control_reserve_down_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction > 0 }
+  primary_title = { teq_control_reserve_down_5 = yes }
+ } }
+}
+teq_control_reserve_up = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction < 1 }
+  primary_title = { teq_control_reserve_up = yes }
+ } }
+}
+teq_control_reserve_up_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_retained_income_fraction < 1 }
+  primary_title = { teq_control_reserve_up_5 = yes }
+ } }
+}
+teq_control_private_down = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction > 0 }
+  primary_title = { teq_control_private_down = yes }
+ } }
+}
+teq_control_private_down_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction > 0 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction > 0 }
+  primary_title = { teq_control_private_down_5 = yes }
+ } }
+}
+teq_control_private_up = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction < 1 }
+  primary_title = { teq_control_private_up = yes }
+ } }
+}
+teq_control_private_up_5 = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction < 1 }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no teq_private_income_fraction < 1 }
+  primary_title = { teq_control_private_up_5 = yes }
+ } }
+}
+
+teq_control_salary_reset = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes is_ai = no }
+ is_valid = { teq_budget_ui_ready = yes is_ai = no }
+ effect = { if = { limit = { teq_budget_ui_ready = yes is_ai = no }
+  primary_title = { teq_control_salary_reset = yes }
+ } }
+}

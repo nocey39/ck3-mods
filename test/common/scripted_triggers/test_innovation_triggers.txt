@@ -1,0 +1,11 @@
+﻿# Culture scope. Check transition eligibility before granting innovations.
+# Matches the installed game's era dates and NCulture innovation requirement.
+test_can_complete_era_transition_trigger = {
+	has_cultural_era_or_later = $CURRENT_ERA$
+	NOT = { has_cultural_era_or_later = $NEXT_ERA$ }
+	current_date >= $START_DATE$
+	num_discovered_innovations_in_era = {
+		target = $CURRENT_ERA$
+		value >= define:NCulture|MINIMUM_INNOVATIONS_TO_NEXT_ERA
+	}
+}

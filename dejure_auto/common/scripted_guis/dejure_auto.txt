@@ -1,0 +1,21 @@
+﻿dejure_auto_panel_gui = {
+    scope = character
+    is_shown = { is_ai = no has_variable = dejure_auto_panel_open }
+    effect = { remove_variable = dejure_auto_panel_open }
+}
+dejure_auto_toggle_gui = {
+    scope = character
+    is_shown = { has_variable = dejure_auto_enabled }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = {
+        dejure_auto_initialize_effect = yes
+        if = { limit = { has_variable = dejure_auto_enabled } remove_variable = dejure_auto_enabled }
+        else = { set_variable = dejure_auto_enabled dejure_auto_check_effect = yes }
+        dejure_auto_restart_effect = yes
+    }
+}
+dejure_auto_check_gui = {
+    scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_enabled }
+    effect = { dejure_auto_check_effect = yes }
+}

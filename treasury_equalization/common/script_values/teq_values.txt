@@ -1,0 +1,71 @@
+﻿teq_month_key = { value = current_year multiply = 12 add = current_month }
+teq_quarter_key = { value = teq_month_key subtract = 1 divide = 3 floor = yes }
+teq_local_target_value = {
+ value = 1500
+ if = { limit = { teq_admin_counties_value >= 60 } value = 12000 }
+ else_if = { limit = { teq_admin_counties_value >= 30 } value = 8000 }
+ else_if = { limit = { teq_admin_counties_value >= 15 } value = 5000 }
+ else_if = { limit = { teq_admin_counties_value >= 5 } value = 3000 }
+ if = { limit = { teq_military_region = yes } multiply = 1.5 }
+}
+teq_central_reserve_value = { value = sub_realm_size multiply = 20 add = 2000 max = 15000 }
+# Cached county count, no building traversal. Ordinary development weight is 1 + counties/5, capped at 20.
+teq_base_need_value = { value = teq_admin_counties_value divide = 5 add = 1 max = 20 }
+teq_pressure_value = { value = treasury divide = teq_local_target_value multiply = -1 add = 2 min = 0 max = 2 }
+teq_wealth_value = { value = treasury divide = teq_local_target_value subtract = 1 min = 0 max = 1 }
+teq_development_scale = { value = 0 if = { limit = { has_variable = teq_flow_weight } value = var:teq_flow_weight } }
+teq_wealth_scale = { value = 0 if = { limit = { has_variable = teq_flow_wealth } value = var:teq_flow_wealth } }
+teq_military_scale = { value = teq_wealth_scale multiply = 0.5 }
+# Each county is counted only for its direct holder, never again for higher administrators.
+teq_admin_counties_value = { value = 1 if = { limit = { has_variable = teq_admin_counties } value = var:teq_admin_counties } }
+
+# Internal law percentages are weights. The total envelope tracks disposable monthly income.
+teq_retained_income_fraction = {
+ value = 0.05
+ if = { limit = { primary_title = { has_variable = teq_retained_fraction } }
+  value = primary_title.var:teq_retained_fraction
+ }
+ min = 0 max = 1
+}
+teq_budget_ceiling = { value = 1 subtract = teq_retained_income_fraction multiply = monthly_character_treasury_income min = 0 }
+teq_native_budget_total = { value = treasury_budget_allocation_ministries add = treasury_budget_allocation_military add = treasury_budget_allocation_salaries add = treasury_budget_allocation_cardinal multiply = character_treasury_budget_capacity min = 0 }
+
+# National salary standard per native office/rank unit, not per coin of revenue.
+teq_salary_cost_cap = 0.10
+teq_salary_offset_value = { value = 0 if = { limit = { has_variable = teq_salary_offset } value = var:teq_salary_offset } }
+teq_previous_quarter_key = { value = teq_quarter_key subtract = 1 }
+teq_native_salary_units = { value = character_treasury_budget_capacity multiply = treasury_budget_allocation_salaries divide = treasury_budget_base_rate_salaries }
+teq_native_public_total = {
+ value = 0
+ if = { limit = { treasury_budget_base_rate_ministries > 0 } add = treasury_budget_allocation_ministries }
+ if = { limit = { treasury_budget_base_rate_military > 0 } add = treasury_budget_allocation_military }
+ if = { limit = { treasury_budget_base_rate_cardinal > 0 } add = treasury_budget_allocation_cardinal }
+ multiply = character_treasury_budget_capacity min = 0
+}
+teq_salary_factor_value = {
+ value = 0.5
+ if = { limit = { has_variable = teq_salary_curve_factor } value = var:teq_salary_curve_factor }
+ if = { limit = { has_variable = teq_salary_manual_offset } add = var:teq_salary_manual_offset }
+ min = 0 max = 2
+}
+# Keep the legacy character-scope getter name; it now returns the actual factor.
+teq_salary_tier_value = {
+ value = 0.5
+ if = { limit = { primary_title = { has_variable = teq_salary_curve_factor } } value = primary_title.var:teq_salary_curve_factor }
+ min = 0.5 max = 2
+}
+# Title scope. Equivalent to 0.5 + 1.5*s/(s+20), where s = E/N.
+# Scale E down before adding N; avoid E/N or multiplying a large E by 1.5.
+# The bounded N/denominator ratio and all subsequent operations use native precision.
+teq_salary_curve_target_value = {
+ value = 0.5
+ if = { limit = { var:teq_salary_units > 0 }
+  value = 2
+  subtract = {
+   value = var:teq_salary_units
+   divide = { value = var:teq_total_budget min = 0 multiply = 0.05 add = var:teq_salary_units }
+   multiply = 1.5
+  }
+ }
+ min = 0.5 max = 2
+}

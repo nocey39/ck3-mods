@@ -1,0 +1,2 @@
+﻿# No character interactions. The unify pass uses vanilla ask_for_conversion_interaction
+# (faith) and request_culture_conversion_interaction (culture) directly.

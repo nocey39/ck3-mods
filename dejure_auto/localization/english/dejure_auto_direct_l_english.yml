@@ -1,0 +1,8 @@
+﻿l_english:
+ dejure_auto_direct_hint:0 "Select personal holdings to apply the mode."
+ dejure_auto_direct_current:0 "Current: [GetPlayer.MakeScope.Var('dejure_auto_direct_current').Province.GetCounty.GetTitle.GetName]"
+ dejure_auto_direct_no_current:0 "Select a personal county on the map"
+ dejure_auto_direct_confirm:0 "Apply current selection"
+ dejure_auto_direct_resume:0 "Resume map editing"
+ dejure_auto_direct_recover_hint:0 "Map editing is paused. Retained counties are preserved.\nResume to start a new editing session."
+ dejure_auto_direct_map_help:0 "Click another personal county on the normal map to toggle its manual mark. A selection already present on entry is not edited; use Apply current selection. Base capital protection is unaffected; no grants or charges here."

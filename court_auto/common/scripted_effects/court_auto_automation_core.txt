@@ -1,0 +1,97 @@
+﻿# Standalone automation. No aptitude, council output or salary modifiers.
+# Only vacancies are filled; existing holders are never fired or reassigned.
+court_auto_initialize_effect = {
+    if = {
+        limit = { NOT = { has_variable = court_auto_configured } }
+        set_variable = court_auto_configured
+        set_variable = court_auto_council_enabled
+        set_variable = court_auto_court_enabled
+        set_variable = { name = court_auto_strategy value = 1 }
+        set_variable = { name = court_auto_interval value = 1 }
+        set_variable = { name = court_auto_last_council value = 0 }
+        set_variable = { name = court_auto_last_court value = 0 }
+    }
+    # Normalize legacy half-year/year settings without changing other preferences.
+    court_auto_tasks_initialize_effect = yes
+    court_auto_memory_migrate_effect = yes
+    court_auto_review_initialize_effect = yes
+    if = {
+        limit = { NOT = { var:court_auto_interval = 1 } }
+        set_variable = { name = court_auto_interval value = 1 }
+        court_auto_restart_schedule_effect = yes
+    }
+}
+
+court_auto_check_effect = {
+    if = {
+        limit = { court_auto_automation_active_trigger = yes NOT = { has_variable = court_auto_check_running } }
+        set_variable = court_auto_check_running
+        save_scope_as = court_auto_owner
+        set_variable = { name = court_auto_last_council value = 0 }
+        set_variable = { name = court_auto_last_court value = 0 }
+        set_variable = { name = court_auto_last_tasks value = 0 }
+        if = { limit = { has_variable = court_auto_council_enabled }
+            court_auto_fill_council_effect = yes
+            if = { limit = { var:court_auto_council_replace = 1 } court_auto_replace_council_effect = yes }
+        }
+        if = { limit = { has_variable = court_auto_court_enabled }
+            court_auto_fill_court_effect = yes
+            if = { limit = { var:court_auto_court_replace = 1 } court_auto_replace_court_effect = yes }
+        }
+        set_variable = { name = court_auto_review_elapsed value = 0 }
+        if = {
+            limit = { NOT = { has_variable = court_auto_skip_tasks_once } }
+            court_auto_tasks_check_effect = yes
+            if = { limit = { has_variable = court_auto_memory_enabled } court_auto_memory_check_effect = yes }
+        }
+        remove_variable = court_auto_skip_tasks_once
+        court_auto_regency_check_effect = yes
+        set_variable = court_auto_checked
+        remove_variable = court_auto_check_running
+    }
+}
+
+# A generation ticket invalidates old delayed checks after a setting changes.
+# Exactly one delayed chain is maintained for each active player character.
+court_auto_schedule_effect = {
+    court_auto_regency_schedule_effect = yes
+    if = {
+        limit = { court_auto_automation_active_trigger = yes NOT = { has_variable = court_auto_pending } }
+        if = { limit = { NOT = { has_variable = court_auto_generation } } set_variable = { name = court_auto_generation value = 0 } }
+        change_variable = { name = court_auto_generation add = 1 }
+        set_variable = court_auto_pending
+        save_scope_value_as = { name = court_auto_ticket value = var:court_auto_generation }
+        set_variable = { name = court_auto_interval value = 1 }
+        trigger_event = { on_action = court_auto_scheduled_check months = 1 }
+    }
+}
+court_auto_restart_schedule_effect = {
+    remove_variable = court_auto_pending
+    if = { limit = { NOT = { has_variable = court_auto_generation } } set_variable = { name = court_auto_generation value = 0 } }
+    change_variable = { name = court_auto_generation add = 1 }
+    court_auto_schedule_effect = yes
+}
+
+court_auto_inherit_settings_effect = {
+    court_auto_initialize_effect = yes
+    remove_variable = court_auto_panel_open
+    remove_variable = court_auto_enabled
+    remove_variable = court_auto_council_enabled
+    remove_variable = court_auto_court_enabled
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_enabled } } set_variable = court_auto_enabled }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_council_enabled } } set_variable = court_auto_council_enabled }
+    if = { limit = { scope:previous_player_character = { has_variable = court_auto_court_enabled } } set_variable = court_auto_court_enabled }
+    set_variable = { name = court_auto_strategy value = scope:previous_player_character.var:court_auto_strategy }
+    set_variable = { name = court_auto_interval value = 1 }
+    remove_variable = court_auto_checked
+    set_variable = { name = court_auto_last_council value = 0 }
+    set_variable = { name = court_auto_last_court value = 0 }
+    # Wait for the base game's succession and council inheritance to finish.
+    court_auto_tasks_inherit_effect = yes
+    court_auto_memory_inherit_effect = yes
+    court_auto_review_inherit_effect = yes
+    court_auto_regency_inherit_effect = yes
+    court_auto_restart_schedule_effect = yes
+    save_scope_value_as = { name = court_auto_succession_ticket value = var:court_auto_generation }
+    trigger_event = { on_action = court_auto_succession_check days = 1 }
+}

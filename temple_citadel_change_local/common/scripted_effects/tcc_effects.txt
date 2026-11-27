@@ -1,0 +1,120 @@
+﻿# District scope. Remove only marked secondary buildings from other districts.
+tcc_remove_mandala_secondary_buildings_effect = {
+    ordered_district_building = {
+        include_inactive = yes
+        order_by = 0
+        check_range_bounds = no
+        limit = {
+            is_primary_building = no
+            has_building_flag = mandala_capital_building
+        }
+        building_type = { save_scope_as = tcc_building_type }
+        building_district = { remove_building = scope:tcc_building_type }
+    }
+    clear_saved_scope = tcc_building_type
+}
+
+tcc_reform_marked_district_effect = {
+    if = {
+        limit = { tcc_district_has_mandala_primary_trigger = yes }
+        remove_district = yes
+    }
+    else = { tcc_remove_mandala_secondary_buildings_effect = yes }
+}
+
+# Province scope. Remove the Mandala buildings before converting the holding.
+tcc_reform_province_effect = {
+    if = {
+        limit = { tcc_has_mandala_capital_trigger = yes }
+        if = {
+            limit = { province_has_district = mandala_capital_01_district }
+            remove_district_type = mandala_capital_01_district
+        }
+        else = {
+            great_district ?= {
+                if = {
+                    limit = { tcc_mandala_great_district_trigger = yes }
+                    remove_district = yes
+                }
+                else = { tcc_remove_mandala_secondary_buildings_effect = yes }
+            }
+        }
+        ordered_built_regular_district = {
+            include_inactive = yes
+            order_by = 0
+            check_range_bounds = no
+            limit = { tcc_district_has_mandala_building_trigger = yes }
+            tcc_reform_marked_district_effect = yes
+        }
+        holding_district ?= { tcc_remove_mandala_secondary_buildings_effect = yes }
+        special_district ?= { tcc_reform_marked_district_effect = yes }
+        duchy_capital_district ?= { tcc_reform_marked_district_effect = yes }
+        resource_district ?= { tcc_reform_marked_district_effect = yes }
+        entrepot_district ?= { tcc_reform_marked_district_effect = yes }
+        trade_post_district ?= { tcc_reform_marked_district_effect = yes }
+    }
+    if = {
+        limit = { has_holding_type = temple_citadel_holding }
+        set_holding_type = castle_holding
+    }
+    if = {
+        limit = {
+            tcc_has_mandala_capital_trigger = no
+            is_target_in_global_variable_list = { name = mandala_poi_list target = this }
+        }
+        remove_list_global_variable = { name = mandala_poi_list target = this }
+    }
+}
+
+# The same ownership check gates the decision and the conversion.
+tcc_reform_realm_effect = {
+    save_scope_as = tcc_realm_ruler
+    every_sub_realm_county = {
+        every_county_province = {
+            limit = { tcc_realm_province_has_target_trigger = yes }
+            tcc_reform_province_effect = yes
+        }
+    }
+    clear_saved_scope = tcc_realm_ruler
+}
+
+# Snapshot government tags before the holding conversion can change them.
+tcc_snapshot_ruler_effect = {
+    if = {
+        limit = { government_has_flag = government_is_mandala }
+        add_to_list = tcc_mandala_rulers
+    }
+    else = { add_to_list = tcc_wanua_rulers }
+}
+
+tcc_reform_world_effect = {
+    every_ruler = {
+        limit = { tcc_reformable_ruler_trigger = yes }
+        tcc_snapshot_ruler_effect = yes
+    }
+    # The native ruler iterator starts at county tier.
+    every_barony = {
+        limit = {
+            holder ?= {
+                highest_held_title_tier = tier_barony
+                primary_title = prev
+                tcc_reformable_ruler_trigger = yes
+            }
+        }
+        holder = { tcc_snapshot_ruler_effect = yes }
+    }
+    every_province = {
+        limit = { tcc_has_target_province_trigger = yes }
+        tcc_reform_province_effect = yes
+    }
+    every_in_list = {
+        list = tcc_mandala_rulers
+        limit = { is_alive = yes is_landed = yes }
+        change_government = feudal_government
+    }
+    every_in_list = {
+        list = tcc_wanua_rulers
+        limit = { is_alive = yes is_landed = yes }
+        change_government = tribal_government
+    }
+}

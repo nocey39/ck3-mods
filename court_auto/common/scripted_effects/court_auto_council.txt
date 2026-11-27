@@ -1,0 +1,213 @@
+﻿# Select the highest skill/seat pair across still-empty seats on each pass.
+# A powerful-vassal bonus is applied to selection only, never to character stats.
+# Repeat after each appointment, so a person cannot occupy two council seats.
+court_auto_fill_council_effect = {
+    while = {
+        count = 9
+        remove_variable = court_auto_council_candidate
+        remove_variable = court_auto_council_seat
+        set_variable = { name = court_auto_council_score value = -1 }
+        every_courtier = { limit = { court_auto_council_candidate_trigger = yes } court_auto_evaluate_council_candidate_effect = yes }
+        every_vassal = { limit = { court_auto_council_candidate_trigger = yes } court_auto_evaluate_council_candidate_effect = yes }
+        if = {
+            limit = { has_variable = court_auto_council_candidate }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:chancellor NOT = { exists = cp:councillor_chancellor } }
+                assign_councillor_type = { type = councillor_chancellor target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:councillor_chancellor ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:steward NOT = { exists = cp:councillor_steward } }
+                assign_councillor_type = { type = councillor_steward target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:councillor_steward ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:marshal NOT = { exists = cp:councillor_marshal } }
+                assign_councillor_type = { type = councillor_marshal target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:councillor_marshal ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:spymaster NOT = { exists = cp:councillor_spymaster } }
+                assign_councillor_type = { type = councillor_spymaster target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:councillor_spymaster ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:court_chaplain NOT = { exists = cp:councillor_court_chaplain } }
+                assign_councillor_type = { type = councillor_court_chaplain target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:councillor_court_chaplain ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:minister_personnel NOT = { exists = cp:minister_personnel } }
+                assign_councillor_type = { type = minister_personnel target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:minister_personnel ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:minister_justice NOT = { exists = cp:minister_justice } }
+                assign_councillor_type = { type = minister_justice target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:minister_justice ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:minister_works NOT = { exists = cp:minister_works } }
+                assign_councillor_type = { type = minister_works target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:minister_works ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+            if = {
+                limit = { var:court_auto_council_seat = flag:minister_grand_marshal NOT = { exists = cp:minister_grand_marshal } }
+                assign_councillor_type = { type = minister_grand_marshal target = var:court_auto_council_candidate remove_existing_councillor = no }
+                if = { limit = { cp:minister_grand_marshal ?= var:court_auto_council_candidate } change_variable = { name = court_auto_last_council add = 1 } }
+            }
+
+        }
+    }
+    remove_variable = court_auto_council_candidate
+    remove_variable = court_auto_council_seat
+    remove_variable = court_auto_council_score
+}
+
+court_auto_evaluate_council_candidate_effect = {
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:councillor_chancellor }  }
+            valid_for_council_position = councillor_chancellor
+        }
+        if = {
+            limit = { court_auto_diplomacy_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:chancellor }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_diplomacy_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:councillor_steward }  }
+            valid_for_council_position = councillor_steward
+        }
+        if = {
+            limit = { court_auto_stewardship_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:steward }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_stewardship_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:councillor_marshal }  }
+            valid_for_council_position = councillor_marshal
+        }
+        if = {
+            limit = { court_auto_martial_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:marshal }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_martial_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:councillor_spymaster }  }
+            valid_for_council_position = councillor_spymaster
+        }
+        if = {
+            limit = { court_auto_intrigue_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:spymaster }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_intrigue_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:councillor_court_chaplain } can_appoint_own_court_chaplain_trigger = yes }
+            valid_for_council_position = councillor_court_chaplain
+        }
+        if = {
+            limit = { court_auto_learning_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:court_chaplain }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_learning_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:minister_personnel } tgp_has_access_to_ministry_trigger = yes }
+            valid_for_council_position = minister_personnel
+        }
+        if = {
+            limit = { court_auto_diplomacy_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:minister_personnel }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_diplomacy_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:minister_justice } tgp_has_access_to_ministry_trigger = yes }
+            valid_for_council_position = minister_justice
+        }
+        if = {
+            limit = { court_auto_learning_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:minister_justice }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_learning_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:minister_works } tgp_has_access_to_ministry_trigger = yes }
+            valid_for_council_position = minister_works
+        }
+        if = {
+            limit = { court_auto_stewardship_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:minister_works }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_stewardship_selection_value }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            scope:court_auto_owner = { NOT = { exists = cp:minister_grand_marshal } tgp_has_access_to_ministry_trigger = yes }
+            valid_for_council_position = minister_grand_marshal
+        }
+        if = {
+            limit = { court_auto_martial_selection_value > scope:court_auto_owner.var:court_auto_council_score }
+            scope:court_auto_owner = {
+                set_variable = { name = court_auto_council_candidate value = prev }
+                set_variable = { name = court_auto_council_seat value = flag:minister_grand_marshal }
+                set_variable = { name = court_auto_council_score value = prev.court_auto_martial_selection_value }
+            }
+        }
+    }
+
+}

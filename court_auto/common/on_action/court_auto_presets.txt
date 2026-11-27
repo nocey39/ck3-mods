@@ -1,0 +1,16 @@
+﻿on_game_start = { on_actions = { court_auto_preset_mark_new_game } }
+court_auto_preset_mark_new_game = {
+    trigger = { NOT = { has_global_variable = game_has_started }
+        NOT = { has_global_variable = court_auto_preset_world_initialized } }
+    effect = { set_global_variable = court_auto_preset_new_game }
+}
+on_game_start_after_lobby = { on_actions = { court_auto_preset_after_lobby } }
+court_auto_preset_after_lobby = {
+    trigger = { has_global_variable = court_auto_preset_new_game
+        NOT = { has_global_variable = court_auto_preset_world_initialized } }
+    effect = {
+        every_player = { limit = { is_ai = no is_alive = yes } court_auto_preset_new_player_effect = yes }
+        set_global_variable = court_auto_preset_world_initialized
+        remove_global_variable = court_auto_preset_new_game
+    }
+}

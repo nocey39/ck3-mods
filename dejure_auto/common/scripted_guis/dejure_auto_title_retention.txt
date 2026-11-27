@@ -1,0 +1,72 @@
+﻿dejure_auto_direct_tier_1_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+            if = { limit = { NOT = { var:dejure_auto_direct_tier = 1 } } dejure_auto_direct_advance_effect = yes }
+            set_variable = { name = dejure_auto_direct_tier value = 1 }
+            dejure_auto_direct_realm_refresh_effect = yes
+            dejure_auto_direct_target_refresh_effect = yes
+        } }
+}
+dejure_auto_direct_tier_2_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+            if = { limit = { NOT = { var:dejure_auto_direct_tier = 2 } } dejure_auto_direct_advance_effect = yes }
+            set_variable = { name = dejure_auto_direct_tier value = 2 }
+            dejure_auto_direct_realm_refresh_effect = yes
+            dejure_auto_direct_target_refresh_effect = yes
+        } }
+}
+dejure_auto_direct_tier_3_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+            if = { limit = { NOT = { var:dejure_auto_direct_tier = 3 } } dejure_auto_direct_advance_effect = yes }
+            set_variable = { name = dejure_auto_direct_tier value = 3 }
+            dejure_auto_direct_realm_refresh_effect = yes
+            dejure_auto_direct_target_refresh_effect = yes
+        } }
+}
+dejure_auto_direct_tier_4_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open }
+            if = { limit = { NOT = { var:dejure_auto_direct_tier = 4 } } dejure_auto_direct_advance_effect = yes }
+            set_variable = { name = dejure_auto_direct_tier value = 4 }
+            dejure_auto_direct_realm_refresh_effect = yes
+            dejure_auto_direct_target_refresh_effect = yes
+        } }
+}
+dejure_auto_direct_available_gui = { scope = character is_shown = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open exists = scope:dejure_auto_direct_reply_ticket var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            exists = county county = { tier = tier_county dejure_auto_map_county_trigger = yes exists = holder }
+            OR = {
+                AND = { root = { var:dejure_auto_direct_tier = 1 } province_owner = root county = { holder = root } }
+                AND = { root = { var:dejure_auto_direct_tier >= 2 var:dejure_auto_direct_tier <= 4 }
+                    county.holder = { OR = { this = root is_vassal_or_below_of = root } } }
+            }
+        }
+        var:dejure_auto_direct_current = scope:dejure_auto_manual_input dejure_auto_direct_target_available_trigger = yes } }
+dejure_auto_direct_marked_gui = { scope = character is_shown = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open exists = scope:dejure_auto_direct_reply_ticket var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            exists = county county = { tier = tier_county dejure_auto_map_county_trigger = yes exists = holder }
+            OR = {
+                AND = { root = { var:dejure_auto_direct_tier = 1 } province_owner = root county = { holder = root } }
+                AND = { root = { var:dejure_auto_direct_tier >= 2 var:dejure_auto_direct_tier <= 4 }
+                    county.holder = { OR = { this = root is_vassal_or_below_of = root } } }
+            }
+        }
+        var:dejure_auto_direct_current = scope:dejure_auto_manual_input dejure_auto_direct_target_available_trigger = yes OR = {
+            AND = { var:dejure_auto_direct_tier = 1 is_target_in_variable_list = { name = dejure_auto_manual_counties target = var:dejure_auto_direct_target } }
+            AND = { var:dejure_auto_direct_tier >= 2 is_target_in_variable_list = { name = dejure_auto_manual_titles target = var:dejure_auto_direct_target } }
+        } } }
+dejure_auto_direct_base_gui = { scope = character is_shown = { is_ai = no is_alive = yes is_landed = yes has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open exists = scope:dejure_auto_direct_reply_ticket var:dejure_auto_direct_epoch = scope:dejure_auto_direct_reply_ticket exists = scope:dejure_auto_manual_input
+        scope:dejure_auto_manual_input = {
+            exists = county county = { tier = tier_county dejure_auto_map_county_trigger = yes exists = holder }
+            OR = {
+                AND = { root = { var:dejure_auto_direct_tier = 1 } province_owner = root county = { holder = root } }
+                AND = { root = { var:dejure_auto_direct_tier >= 2 var:dejure_auto_direct_tier <= 4 }
+                    county.holder = { OR = { this = root is_vassal_or_below_of = root } } }
+            }
+        }
+        var:dejure_auto_direct_current = scope:dejure_auto_manual_input dejure_auto_direct_target_available_trigger = yes
+        save_temporary_scope_as = dejure_auto_owner
+        var:dejure_auto_direct_target = { dejure_auto_base_retained_trigger = yes }
+    } }

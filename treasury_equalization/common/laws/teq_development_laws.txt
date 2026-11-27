@@ -1,0 +1,231 @@
+﻿teq_development_0 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 21
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.00 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_5 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 22
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.05 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_10 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 23
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.10 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_15 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 24
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.15 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_20 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 25
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.20 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_25 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 26
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.25 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_30 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 27
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ modifier = { treasury_ministry_budget_allocation = 0.30 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_35 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 28
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.35 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_40 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 29
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.40 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_45 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 30
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.45 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_50 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 31
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.50 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_55 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 32
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.55 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_60 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 33
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.60 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_65 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 34
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.65 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_70 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 35
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.70 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_75 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 36
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.75 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_80 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 37
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.80 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_85 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 38
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.85 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_90 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 39
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.90 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_95 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 40
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 0.95 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}
+teq_development_100 = {
+ law_group_type = budget_allocation_ministry_law
+ index = 41
+ shown_in_encyclopedia = no
+ can_keep = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ can_have = { teq_ruler_valid = yes NOT = { tgp_has_access_to_ministry_trigger = yes } }
+ should_start_with = { always = no }
+ modifier = { treasury_ministry_budget_allocation = 1.00 }
+ pass_cost = { prestige = { add = change_admin_budget_law_prestige_cost } }
+ ai_will_do = { value = 0 }
+}

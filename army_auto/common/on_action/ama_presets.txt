@@ -1,0 +1,24 @@
+﻿# Additive hooks: the native game_has_started marker is read, never changed.
+on_game_start = { on_actions = { ama_preset_mark_new_game } }
+ama_preset_mark_new_game = {
+    trigger = {
+        NOT = { has_global_variable = game_has_started }
+        NOT = { has_global_variable = ama_preset_world_initialized }
+    }
+    effect = { set_global_variable = ama_preset_new_game }
+}
+on_game_start_after_lobby = { on_actions = { ama_preset_after_lobby } }
+ama_preset_after_lobby = {
+    trigger = {
+        has_global_variable = ama_preset_new_game
+        NOT = { has_global_variable = ama_preset_world_initialized }
+    }
+    effect = {
+        every_player = {
+            limit = { is_ai = no is_alive = yes }
+            ama_preset_new_player_effect = yes
+        }
+        set_global_variable = ama_preset_world_initialized
+        remove_global_variable = ama_preset_new_game
+    }
+}

@@ -1,0 +1,377 @@
+﻿fa_panel_gui = {
+    scope = character
+    effect = { remove_variable = fa_panel_open }
+}
+
+fa_master_gui = {
+    scope = character
+    is_shown = { fa_master_active_trigger = yes }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = { fa_toggle_master_effect = yes }
+}
+
+fa_check_now_gui = {
+    scope = character
+    is_valid = {
+        OR = {
+            fa_guardian_active_trigger = yes
+            AND = { fa_perk_active_trigger = yes is_adult = yes }
+            fa_marriage_active_trigger = yes
+        }
+    }
+    effect = { fa_check_enabled_modules_effect = yes }
+}
+
+fa_guardians_enabled_gui = {
+    scope = character
+    is_shown = { has_variable = fa_guardians_enabled }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { has_variable = fa_guardians_enabled }
+            remove_variable = fa_guardians_enabled
+            fa_invalidate_guardian_schedule_effect = yes
+        }
+        else = {
+            set_variable = fa_guardians_enabled
+            if = {
+                limit = { fa_guardian_active_trigger = yes }
+                fa_check_guardians_effect = yes
+                fa_schedule_guardian_check_effect = yes
+            }
+        }
+    }
+}
+
+fa_include_heir_gui = {
+    scope = character
+    is_shown = { has_variable = fa_include_heir }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { has_variable = fa_include_heir }
+            remove_variable = fa_include_heir
+        }
+        else = {
+            set_variable = fa_include_heir
+            if = {
+                limit = { fa_guardian_active_trigger = yes }
+                fa_check_guardians_effect = yes
+                fa_schedule_guardian_check_effect = yes
+            }
+        }
+    }
+}
+
+fa_marriage_enabled_gui = {
+    scope = character
+    is_shown = { has_variable = fa_marriage_enabled }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { has_variable = fa_marriage_enabled }
+            remove_variable = fa_marriage_enabled
+            fa_marriage_invalidate_effect = yes
+        }
+        else = {
+            set_variable = fa_marriage_enabled
+            fa_marriage_check_effect = yes
+            fa_marriage_schedule_effect = yes
+        }
+    }
+}
+
+fa_marriage_scope_self_gui = {
+    scope = character
+    is_shown = { has_variable = fa_marriage_scope_self }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { has_variable = fa_marriage_scope_self }
+            remove_variable = fa_marriage_scope_self
+            if = {
+                limit = { fa_marriage_has_scope_trigger = no }
+                fa_marriage_invalidate_effect = yes
+            }
+        }
+        else = {
+            set_variable = fa_marriage_scope_self
+            fa_marriage_schedule_effect = yes
+        }
+    }
+}
+
+fa_marriage_scope_children_gui = {
+    scope = character
+    is_shown = { has_variable = fa_marriage_scope_children }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { has_variable = fa_marriage_scope_children }
+            remove_variable = fa_marriage_scope_children
+            if = {
+                limit = { fa_marriage_has_scope_trigger = no }
+                fa_marriage_invalidate_effect = yes
+            }
+        }
+        else = {
+            set_variable = fa_marriage_scope_children
+            fa_marriage_schedule_effect = yes
+        }
+    }
+}
+
+fa_marriage_scope_relatives_gui = {
+    scope = character
+    is_shown = { has_variable = fa_marriage_scope_relatives }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { has_variable = fa_marriage_scope_relatives }
+            remove_variable = fa_marriage_scope_relatives
+            if = {
+                limit = { fa_marriage_has_scope_trigger = no }
+                fa_marriage_invalidate_effect = yes
+            }
+        }
+        else = {
+            set_variable = fa_marriage_scope_relatives
+            fa_marriage_schedule_effect = yes
+        }
+    }
+}
+
+fa_marriage_review_gui = {
+    scope = character
+    is_valid = {
+        fa_marriage_active_trigger = yes
+        save_temporary_scope_as = fa_marriage_owner
+        any_in_list = {
+            variable = fa_marriage_review_queue
+            fa_marriage_reviewable_trigger = yes
+        }
+    }
+    effect = { fa_marriage_review_next_effect = yes }
+}
+
+fa_mode_1_gui = {
+    scope = character
+    is_shown = { var:fa_mode = 1 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_mode = 1 }
+            set_variable = { name = fa_mode value = 0 }
+        }
+        else = { set_variable = { name = fa_mode value = 1 } }
+    }
+}
+
+fa_mode_2_gui = {
+    scope = character
+    is_shown = { var:fa_mode = 2 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_mode = 2 }
+            set_variable = { name = fa_mode value = 0 }
+        }
+        else = { set_variable = { name = fa_mode value = 2 } }
+    }
+}
+
+fa_fixed_1_gui = {
+    scope = character
+    is_shown = { var:fa_fixed = 1 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_fixed = 1 }
+            set_variable = { name = fa_fixed value = 0 }
+        }
+        else = { set_variable = { name = fa_fixed value = 1 } }
+    }
+}
+
+fa_fixed_2_gui = {
+    scope = character
+    is_shown = { var:fa_fixed = 2 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_fixed = 2 }
+            set_variable = { name = fa_fixed value = 0 }
+        }
+        else = { set_variable = { name = fa_fixed value = 2 } }
+    }
+}
+
+fa_fixed_3_gui = {
+    scope = character
+    is_shown = { var:fa_fixed = 3 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_fixed = 3 }
+            set_variable = { name = fa_fixed value = 0 }
+        }
+        else = { set_variable = { name = fa_fixed value = 3 } }
+    }
+}
+
+fa_fixed_4_gui = {
+    scope = character
+    is_shown = { var:fa_fixed = 4 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_fixed = 4 }
+            set_variable = { name = fa_fixed value = 0 }
+        }
+        else = { set_variable = { name = fa_fixed value = 4 } }
+    }
+}
+
+fa_fixed_5_gui = {
+    scope = character
+    is_shown = { var:fa_fixed = 5 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_fixed = 5 }
+            set_variable = { name = fa_fixed value = 0 }
+        }
+        else = { set_variable = { name = fa_fixed value = 5 } }
+    }
+}
+
+fa_bossy_2_gui = {
+    scope = character
+    is_shown = { var:fa_bossy = 2 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_bossy = 2 }
+            set_variable = { name = fa_bossy value = 0 }
+        }
+        else = { set_variable = { name = fa_bossy value = 2 } }
+    }
+}
+
+fa_bossy_3_gui = {
+    scope = character
+    is_shown = { var:fa_bossy = 3 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_bossy = 3 }
+            set_variable = { name = fa_bossy value = 0 }
+        }
+        else = { set_variable = { name = fa_bossy value = 3 } }
+    }
+}
+
+fa_pensive_3_gui = {
+    scope = character
+    is_shown = { var:fa_pensive = 3 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_pensive = 3 }
+            set_variable = { name = fa_pensive value = 0 }
+        }
+        else = { set_variable = { name = fa_pensive value = 3 } }
+    }
+}
+
+fa_pensive_5_gui = {
+    scope = character
+    is_shown = { var:fa_pensive = 5 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_pensive = 5 }
+            set_variable = { name = fa_pensive value = 0 }
+        }
+        else = { set_variable = { name = fa_pensive value = 5 } }
+    }
+}
+
+fa_curious_1_gui = {
+    scope = character
+    is_shown = { var:fa_curious = 1 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_curious = 1 }
+            set_variable = { name = fa_curious value = 0 }
+        }
+        else = { set_variable = { name = fa_curious value = 1 } }
+    }
+}
+
+fa_curious_5_gui = {
+    scope = character
+    is_shown = { var:fa_curious = 5 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_curious = 5 }
+            set_variable = { name = fa_curious value = 0 }
+        }
+        else = { set_variable = { name = fa_curious value = 5 } }
+    }
+}
+
+fa_charming_1_gui = {
+    scope = character
+    is_shown = { var:fa_charming = 1 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_charming = 1 }
+            set_variable = { name = fa_charming value = 0 }
+        }
+        else = { set_variable = { name = fa_charming value = 1 } }
+    }
+}
+
+fa_charming_4_gui = {
+    scope = character
+    is_shown = { var:fa_charming = 4 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_charming = 4 }
+            set_variable = { name = fa_charming value = 0 }
+        }
+        else = { set_variable = { name = fa_charming value = 4 } }
+    }
+}
+
+fa_rowdy_2_gui = {
+    scope = character
+    is_shown = { var:fa_rowdy = 2 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_rowdy = 2 }
+            set_variable = { name = fa_rowdy value = 0 }
+        }
+        else = { set_variable = { name = fa_rowdy value = 2 } }
+    }
+}
+
+fa_rowdy_4_gui = {
+    scope = character
+    is_shown = { var:fa_rowdy = 4 }
+    is_valid = { fa_can_configure_trigger = yes }
+    effect = {
+        if = {
+            limit = { var:fa_rowdy = 4 }
+            set_variable = { name = fa_rowdy value = 0 }
+        }
+        else = { set_variable = { name = fa_rowdy value = 4 } }
+    }
+}
+

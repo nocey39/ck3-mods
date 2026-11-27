@@ -1,0 +1,305 @@
+﻿ama_player_trigger = { is_ai = no is_alive = yes is_ruler = yes }
+ama_active_trigger = {
+    ama_player_trigger = yes has_variable = ama_enabled
+    OR = {
+        var:ama_create_enabled = 1 var:ama_expand_enabled = 1
+        AND = { var:ama_title_expand_enabled = 1 ama_title_expand_available_trigger = yes }
+        AND = { var:ama_title_create_enabled = 1 ama_title_create_available_trigger = yes }
+    }
+}
+ama_regular_trigger = {
+    is_regular_maa_regiment = yes is_personal_maa_regiment = yes
+    is_event_maa_regiment = no is_hired_maa_regiment = no is_title_maa_regiment = no
+}
+# The native `character_men_at_arms_expense_<currency>_relative` triggers log
+# "Unsupported cost category type" in 1.20.1.2 once a title MAA with treasury
+# upkeep exists, and the failing leg reads as false, stopping every expansion.
+# Gold and treasury therefore compare the documented monthly absolute expense
+# with the documented monthly income; prestige keeps the native ratio because
+# the game exposes no monthly prestige income trigger.
+ama_upkeep_ok_trigger = {
+    OR = {
+        NOT = { government_allows = use_maa_maintenance }
+        var:ama_upkeep_percent = 0
+        AND = {
+            OR = {
+                monthly_character_men_at_arms_expense_gold <= 0
+                monthly_character_men_at_arms_expense_gold < ama_upkeep_budget_gold_value
+            }
+            OR = {
+                monthly_character_men_at_arms_expense_prestige <= 0
+                character_men_at_arms_expense_prestige_relative < ama_upkeep_limit_value
+            }
+            OR = {
+                monthly_character_men_at_arms_expense_treasury <= 0
+                monthly_character_men_at_arms_expense_treasury < ama_upkeep_budget_treasury_value
+            }
+        }
+    }
+}
+ama_affordable_trigger = {
+    OR = { var:ama_pay_gold <= 0 gold >= ama_needed_gold_value }
+    OR = { var:ama_pay_treasury <= 0 treasury >= ama_needed_treasury_value }
+    OR = { var:ama_pay_prestige <= 0 prestige >= ama_needed_prestige_value }
+    OR = { var:ama_pay_piety <= 0 piety >= ama_needed_piety_value }
+    OR = { var:ama_pay_barter_goods <= 0 barter_goods >= ama_needed_barter_goods_value }
+}
+ama_can_check_trigger = {
+    NOT = { has_variable = ama_rt_pending }
+    ama_active_trigger = yes
+    NOT = { has_variable = ama_tx_pending }
+    NOT = { has_variable = ama_size_pending }
+    NOT = { has_variable = ama_repl_pending }
+}
+ama_title_capacity_safe_trigger = {
+    ama_title_owned_trigger = yes
+    tier >= tier_county
+    ama_tc_cap_value >= 0
+    ama_rule_owned_count_value < ama_tc_cap_value
+}
+ama_title_create_available_trigger = { always = yes }
+# A fresh request-scoped GUI size grant is required by the commit effect.
+ama_title_expand_available_trigger = { always = yes }
+ama_title_owned_trigger = {
+    exists = holder
+    holder = scope:ama_owner
+}
+ama_title_regular_trigger = {
+    is_title_maa_regiment = yes
+    is_event_maa_regiment = no
+    is_hired_maa_regiment = no
+}
+ama_title_expandable_trigger = {
+    ama_title_expand_available_trigger = yes
+    ama_title_regular_trigger = yes
+    ama_size_not_blocked_trigger = yes
+    exists = regiment_owning_title
+    exists = regiment_controlling_title
+    regiment_owning_title = regiment_controlling_title
+    regiment_owning_title = { ama_title_owned_trigger = yes }
+    can_upgrade_maa = yes
+    is_raised = no
+    is_maa_in_combat = no
+}
+ama_rule_actor_trigger = { ama_player_trigger = yes has_variable = ama_panel_open }
+ama_rule_title_candidate_trigger = { OR = {
+        any_owned_title_maa_regiment = { }
+        can_create_title_maa = abudrar
+        can_create_title_maa = accolade_maa_skirmishers
+        can_create_title_maa = akritai
+        can_create_title_maa = goedendag
+        can_create_title_maa = guanch_vaulter
+        can_create_title_maa = guinea_warrior
+        can_create_title_maa = horn_warrior
+        can_create_title_maa = light_footmen
+        can_create_title_maa = pesilat_warriors
+        can_create_title_maa = shomer
+        can_create_title_maa = accolade_maa_archers
+        can_create_title_maa = accolade_maa_crossbowers
+        can_create_title_maa = archers_of_the_nile
+        can_create_title_maa = ballistrai
+        can_create_title_maa = bowmen
+        can_create_title_maa = bush_hunter
+        can_create_title_maa = crossbowmen
+        can_create_title_maa = gakgung_archers
+        can_create_title_maa = longbowmen
+        can_create_title_maa = maturkan_warriors
+        can_create_title_maa = metsanvartija
+        can_create_title_maa = paiks
+        can_create_title_maa = rocket_carts
+        can_create_title_maa = shenbigong
+        can_create_title_maa = vigmen
+        can_create_title_maa = accolade_maa_pikes
+        can_create_title_maa = bondi
+        can_create_title_maa = landsknecht
+        can_create_title_maa = picchieri
+        can_create_title_maa = pikemen_unit
+        can_create_title_maa = schiltron
+        can_create_title_maa = skoutatoi
+        can_create_title_maa = warrior_monks
+        can_create_title_maa = zupin_warrior
+        can_create_title_maa = accolade_maa_vanguards
+        can_create_title_maa = armored_footmen
+        can_create_title_maa = ayyar
+        can_create_title_maa = burenjia
+        can_create_title_maa = druzhina
+        can_create_title_maa = garudas
+        can_create_title_maa = handpicked_faithful
+        can_create_title_maa = house_guard
+        can_create_title_maa = huscarl
+        can_create_title_maa = khandayat
+        can_create_title_maa = mountaineer
+        can_create_title_maa = mubarizun
+        can_create_title_maa = palace_guards
+        can_create_title_maa = praetorian
+        can_create_title_maa = samurai
+        can_create_title_maa = sarawit
+        can_create_title_maa = varangian_guards
+        can_create_title_maa = varangian_veterans
+        can_create_title_maa = zbrojnosh
+        can_create_title_maa = zhanmadao_infantry
+        can_create_title_maa = accolade_maa_outriders
+        can_create_title_maa = ayrudzi
+        can_create_title_maa = caballero
+        can_create_title_maa = chasseur
+        can_create_title_maa = hobelar
+        can_create_title_maa = hussar
+        can_create_title_maa = light_horsemen
+        can_create_title_maa = mulaththamun
+        can_create_title_maa = sahel_horsemen
+        can_create_title_maa = steppe_raiders
+        can_create_title_maa = tawashi
+        can_create_title_maa = teulu
+        can_create_title_maa = accolade_maa_lancers
+can_create_title_maa = condottieri
+        can_create_title_maa = armored_horsemen
+        can_create_title_maa = black_armor_cavalry
+        can_create_title_maa = cataphract
+        can_create_title_maa = cataphract_archers
+        can_create_title_maa = conrois
+        can_create_title_maa = gendarme
+        can_create_title_maa = monaspa
+        can_create_title_maa = nomad_lancers
+        can_create_title_maa = tarkhan
+        can_create_title_maa = tiefutu
+        can_create_title_maa = accolade_maa_horse_archers
+        can_create_title_maa = asawira
+        can_create_title_maa = emishi_horse_archers
+        can_create_title_maa = heavy_horse_archers
+        can_create_title_maa = horse_archers
+        can_create_title_maa = japanese_horse_archers
+        can_create_title_maa = kheshig
+        can_create_title_maa = mangudai
+        can_create_title_maa = accolade_maa_cameliers
+        can_create_title_maa = camel_rider
+        can_create_title_maa = accolade_maa_elephantiers
+        can_create_title_maa = ballista_elephant
+        can_create_title_maa = war_elephant
+        can_create_title_maa = ballista
+        can_create_title_maa = bombard
+        can_create_title_maa = cannon
+        can_create_title_maa = cloud_ladder
+        can_create_title_maa = mangonel
+        can_create_title_maa = onager
+        can_create_title_maa = siege_tower
+        can_create_title_maa = torch_bearers
+        can_create_title_maa = trebuchet
+        can_create_title_maa = accolade_maa_handgunners
+        can_create_title_maa = fire_lancers
+        can_create_title_maa = handgunners
+    } }
+
+# Regiment scope. PREV in the owner block is the candidate regiment.
+ama_size_not_blocked_trigger = {
+    scope:ama_owner = { NOT = { is_target_in_variable_list = { name = ama_size_blocked target = prev } } }
+}
+ama_size_receive_trigger = {
+    ama_active_trigger = yes
+    has_variable = ama_size_pending
+    NOT = { has_variable = ama_tx_pending }
+    exists = var:ama_size_unit exists = var:ama_candidate_regiment
+    exists = scope:ama_size_object exists = scope:ama_size_current
+    exists = scope:ama_size_max exists = scope:ama_size_response_ticket
+    scope:ama_size_response_ticket = var:ama_size_ticket
+    scope:ama_size_object = var:ama_size_unit
+    scope:ama_size_object = var:ama_candidate_regiment
+    var:ama_candidate_mode = 2
+    var:ama_candidate = var:ama_size_type
+    var:ama_candidate_source = var:ama_size_source
+    var:ama_candidate_category = var:ama_size_category
+    OR = {
+        var:ama_size_source = 0
+        AND = { exists = var:ama_size_title exists = var:ama_candidate_title
+            var:ama_size_title = var:ama_candidate_title }
+    }
+}
+# This grant exists only inside the receive effect. A previous cap snapshot
+# or direct call to the commit effect cannot authorize an upgrade.
+ama_size_grant_trigger = {
+    has_variable = ama_size_authorized
+    exists = scope:ama_size_object exists = scope:ama_size_current
+    exists = scope:ama_size_max exists = scope:ama_size_response_ticket
+    scope:ama_size_response_ticket = var:ama_size_ticket
+    scope:ama_size_object = var:ama_candidate_regiment
+    scope:ama_size_object = var:ama_size_unit
+    scope:ama_size_current = scope:ama_size_object.maa_size
+    scope:ama_size_max > 0
+    scope:ama_size_object.ama_size_next_level_value <= scope:ama_size_max
+}
+ama_pick_aux_better_trigger = { OR = {
+        var:ama_pick_quality > var:ama_pick_best_quality
+        AND = { var:ama_pick_quality = var:ama_pick_best_quality OR = {
+                var:ama_pick_siege > var:ama_pick_best_siege
+                AND = { var:ama_pick_siege = var:ama_pick_best_siege OR = {
+                        var:ama_pick_pursuit > var:ama_pick_best_pursuit
+                        AND = { var:ama_pick_pursuit = var:ama_pick_best_pursuit var:ama_pick_screen > var:ama_pick_best_screen }
+                    } }
+            } }
+    } }
+ama_pick_better_trigger = { OR = {
+        var:ama_pick_best_score < 0
+        AND = { NOT = { var:ama_strategy = 2 } var:ama_pick_score > var:ama_pick_best_score }
+        AND = { NOT = { var:ama_strategy = 2 } var:ama_pick_score = var:ama_pick_best_score ama_pick_aux_better_trigger = yes }
+        AND = { var:ama_strategy = 2 OR = {
+                var:ama_pick_cost < var:ama_pick_best_cost
+                AND = { var:ama_pick_cost = var:ama_pick_best_cost var:ama_pick_upkeep < var:ama_pick_best_upkeep }
+                AND = { var:ama_pick_cost = var:ama_pick_best_cost var:ama_pick_upkeep = var:ama_pick_best_upkeep ama_pick_aux_better_trigger = yes }
+            } }
+    } }
+ama_repl_allowed_trigger = {
+    ama_player_trigger = yes var:ama_replace_enabled = 1 is_at_war = no
+    NOT = { has_variable = ama_tx_pending } NOT = { has_variable = ama_size_pending }
+}
+# Regiment scope; source and pool are frozen on the actor.
+ama_repl_member_trigger = { OR = {
+        AND = { ama_regular_trigger = yes regiment_owner = scope:ama_repl_actor
+            scope:ama_repl_actor = { var:ama_repl_source = 0 } }
+        AND = { ama_title_regular_trigger = yes exists = regiment_owning_title exists = regiment_controlling_title
+            regiment_owning_title = regiment_controlling_title
+            regiment_owning_title = scope:ama_repl_actor.var:ama_repl_title
+            regiment_owning_title = { holder = scope:ama_repl_actor }
+            scope:ama_repl_actor = { var:ama_repl_source = 1 }
+        }
+    } }
+ama_repl_old_valid_trigger = {
+    ama_repl_member_trigger = yes is_raised = no is_maa_in_combat = no maa_size > 0
+}
+# Scope validity may outlive removal; verify list membership instead.
+ama_repl_retired_trigger = { OR = {
+        AND = { var:ama_repl_source = 0 NOT = { any_maa_regiment = { this = scope:ama_repl_actor.var:ama_repl_old } } }
+        AND = { var:ama_repl_source = 1 exists = var:ama_repl_title var:ama_repl_title = {
+                NOT = { any_owned_title_maa_regiment = { this = scope:ama_repl_actor.var:ama_repl_old } }
+            } }
+    } }
+ama_repl_improvement_trigger = {
+    var:ama_pick_best_type > 0 var:ama_pick_best_type != var:ama_repl_meta_type
+    ama_repl_new_quality_value >= ama_repl_quality_threshold_value
+    ama_repl_new_siege_tier_value >= var:ama_repl_meta_siege_tier
+    OR = {
+        var:ama_strategy = 1
+        AND = { var:ama_strategy = 0 var:ama_pick_best_score >= ama_repl_value_threshold_value }
+        AND = { var:ama_strategy = 2 var:ama_pick_best_cost <= var:ama_repl_meta_cost }
+    }
+}
+ama_repl_live_trigger = {
+    ama_repl_allowed_trigger = yes has_variable = ama_repl_pending
+    exists = var:ama_repl_old exists = var:ama_repl_new
+    var:ama_repl_old = { ama_repl_old_valid_trigger = yes maa_size = scope:ama_repl_actor.var:ama_repl_old_size }
+    var:ama_repl_new = { ama_repl_member_trigger = yes is_raised = no is_maa_in_combat = no maa_size = 1 }
+    OR = {
+        AND = { var:ama_repl_source = 0 var:ama_create_enabled = 1 maa_regiments_count <= ama_repl_personal_ceiling_value }
+        AND = { var:ama_repl_source = 1 var:ama_title_create_enabled = 1 exists = var:ama_repl_title
+            var:ama_repl_title = { holder = scope:ama_repl_actor ama_tc_cap_value >= 0 ama_rule_owned_count_value <= ama_repl_title_ceiling_value }
+        }
+    }
+}
+ama_direct_retired_trigger = {
+    OR = {
+        AND = { var:ama_tx_source = 0
+            NOT = { any_maa_regiment = { this = scope:ama_owner.var:ama_tx_regiment } } }
+        AND = { var:ama_tx_source = 1 exists = var:ama_tx_title
+            var:ama_tx_title = {
+                NOT = { any_owned_title_maa_regiment = { this = scope:ama_owner.var:ama_tx_regiment } }
+            } }
+    }
+}

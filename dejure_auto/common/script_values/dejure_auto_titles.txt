@@ -1,0 +1,18 @@
+﻿dejure_auto_create_duchy_cost_value = {
+    value = 150 multiply = var:dejure_auto_title_fee divide = 100
+}
+dejure_auto_create_kingdom_cost_value = {
+    value = 300 multiply = var:dejure_auto_title_fee divide = 100
+}
+dejure_auto_create_empire_cost_value = {
+    value = 600 multiply = var:dejure_auto_title_fee divide = 100
+}
+dejure_auto_person_rank_value = {
+    value = stewardship min = 0 max = 100
+    if = { limit = { scope:dejure_auto_owner = { government_has_flag = government_has_merit } }
+        add = { value = merit_level multiply = 1000 } }
+}
+dejure_auto_local_strength_value = {
+    value = 0
+    every_sub_realm_county = { limit = { dejure_auto_map_county_trigger = yes } add = 1 }
+}

@@ -1,0 +1,51 @@
+﻿court_auto_council_replace_0_gui = {
+    scope = character
+    is_shown = { var:court_auto_council_replace = 0 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_council_replace value = 0 } }
+}
+court_auto_council_replace_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_council_replace = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_council_replace value = 1 } }
+}
+court_auto_court_replace_0_gui = {
+    scope = character
+    is_shown = { var:court_auto_court_replace = 0 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_court_replace value = 0 } }
+}
+court_auto_court_replace_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_court_replace = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_court_replace value = 1 } }
+}
+court_auto_review_interval_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_review_interval = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes
+        set_variable = { name = court_auto_review_interval value = 1 }
+        set_variable = { name = court_auto_review_elapsed value = 0 }
+    }
+}
+court_auto_review_interval_6_gui = {
+    scope = character
+    is_shown = { var:court_auto_review_interval = 6 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes
+        set_variable = { name = court_auto_review_interval value = 6 }
+        set_variable = { name = court_auto_review_elapsed value = 0 }
+    }
+}
+court_auto_review_interval_12_gui = {
+    scope = character
+    is_shown = { var:court_auto_review_interval = 12 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes
+        set_variable = { name = court_auto_review_interval value = 12 }
+        set_variable = { name = court_auto_review_elapsed value = 0 }
+    }
+}

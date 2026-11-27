@@ -1,0 +1,154 @@
+﻿dau_has_unlocked_external_slot_trigger = {
+    OR = {
+        AND = {
+            is_domicile_type = camp
+            OR = {
+                AND = {
+                    has_domicile_building = camp_main_01
+                    free_external_domicile_building_slots > 5
+                }
+                AND = {
+                    has_domicile_building = camp_main_02
+                    free_external_domicile_building_slots > 3
+                }
+                AND = {
+                    has_domicile_building = camp_main_03
+                    free_external_domicile_building_slots > 1
+                }
+                AND = {
+                    has_domicile_building = camp_main_04
+                    free_external_domicile_building_slots > 0
+                }
+            }
+        }
+        AND = {
+            is_domicile_type = east_asian_estate
+            OR = {
+                AND = {
+                    has_domicile_building = east_asian_estate_main_01
+                    free_external_domicile_building_slots > 12
+                }
+                AND = {
+                    has_domicile_building = east_asian_estate_main_02
+                    free_external_domicile_building_slots > 9
+                }
+                AND = {
+                    has_domicile_building = east_asian_estate_main_03
+                    free_external_domicile_building_slots > 6
+                }
+                AND = {
+                    has_domicile_building = east_asian_estate_main_04
+                    free_external_domicile_building_slots > 3
+                }
+                AND = {
+                    has_domicile_building = east_asian_estate_main_05
+                    free_external_domicile_building_slots > 0
+                }
+            }
+        }
+        AND = {
+            is_domicile_type = ecclesiastical_domicile
+            OR = {
+                AND = {
+                    has_domicile_building = ecclesiastical_domicile_main_01
+                    free_external_domicile_building_slots > 0
+                }
+                AND = {
+                    has_domicile_building = ecclesiastical_domicile_main_02
+                    free_external_domicile_building_slots > 0
+                }
+                AND = {
+                    has_domicile_building = ecclesiastical_domicile_main_03
+                    free_external_domicile_building_slots > 0
+                }
+                AND = {
+                    has_domicile_building = ecclesiastical_domicile_main_04
+                    free_external_domicile_building_slots > 0
+                }
+            }
+        }
+        AND = {
+            is_domicile_type = estate
+            OR = {
+                AND = {
+                    has_domicile_building = estate_main_01
+                    free_external_domicile_building_slots > 8
+                }
+                AND = {
+                    has_domicile_building = estate_main_02
+                    free_external_domicile_building_slots > 6
+                }
+                AND = {
+                    has_domicile_building = estate_main_03
+                    free_external_domicile_building_slots > 4
+                }
+                AND = {
+                    has_domicile_building = estate_main_04
+                    free_external_domicile_building_slots > 2
+                }
+                AND = {
+                    has_domicile_building = estate_main_05
+                    free_external_domicile_building_slots > 0
+                }
+            }
+        }
+        AND = {
+            is_domicile_type = japanese_manor
+            OR = {
+                AND = {
+                    has_domicile_building = japanese_manor_main_01
+                    free_external_domicile_building_slots > 9
+                }
+                AND = {
+                    has_domicile_building = japanese_manor_main_02
+                    free_external_domicile_building_slots > 7
+                }
+                AND = {
+                    has_domicile_building = japanese_manor_main_03
+                    free_external_domicile_building_slots > 5
+                }
+                AND = {
+                    has_domicile_building = japanese_manor_main_04
+                    free_external_domicile_building_slots > 3
+                }
+                AND = {
+                    has_domicile_building = japanese_manor_main_05
+                    free_external_domicile_building_slots > 1
+                }
+                AND = {
+                    has_domicile_building = japanese_manor_main_06
+                    free_external_domicile_building_slots > 0
+                }
+            }
+        }
+        AND = {
+            is_domicile_type = yurt
+            OR = {
+                AND = {
+                    has_domicile_building = yurt_main_01
+                    free_external_domicile_building_slots > 5
+                }
+                AND = {
+                    has_domicile_building = yurt_main_02
+                    free_external_domicile_building_slots > 4
+                }
+                AND = {
+                    has_domicile_building = yurt_main_03
+                    free_external_domicile_building_slots > 3
+                }
+                AND = {
+                    has_domicile_building = yurt_main_04
+                    free_external_domicile_building_slots > 2
+                }
+                AND = {
+                    has_domicile_building = yurt_main_05
+                    free_external_domicile_building_slots > 1
+                }
+                AND = {
+                    has_domicile_building = yurt_main_06
+                    free_external_domicile_building_slots > 0
+                }
+            }
+        }
+    }
+}

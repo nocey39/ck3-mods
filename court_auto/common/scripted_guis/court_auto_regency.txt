@@ -1,0 +1,15 @@
+﻿court_auto_toggle_regency_gui = {
+    scope = character
+    is_shown = { has_variable = court_auto_regency_enabled }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = {
+            limit = { has_variable = court_auto_regency_enabled }
+            remove_variable = court_auto_regency_enabled
+        }
+        else = { set_variable = court_auto_regency_enabled }
+        court_auto_regency_check_effect = yes
+        court_auto_restart_schedule_effect = yes
+    }
+}

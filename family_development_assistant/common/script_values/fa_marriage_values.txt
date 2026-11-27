@@ -1,0 +1,20 @@
+﻿fa_genetic_fertility_estimate = {
+    value = fertility
+    min = 0
+}
+
+fa_marriage_turn_priority = {
+    value = 0
+    if = {
+        limit = { has_variable = fa_marriage_last_scan }
+        subtract = var:fa_marriage_last_scan
+    }
+    else_if = {
+        limit = { is_player_heir_of = scope:fa_marriage_owner }
+        add = 2
+    }
+    else_if = {
+        limit = { this = scope:fa_marriage_owner }
+        add = 1
+    }
+}

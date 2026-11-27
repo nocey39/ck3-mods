@@ -1,0 +1,37 @@
+﻿# Character scope. Each operation is guarded and safe to repeat.
+cfi_enable_culture_effect = {
+    culture = {
+        if = {
+            limit = { NOT = { has_cultural_tradition = tradition_cfi_integrated } }
+            add_culture_tradition = tradition_cfi_integrated
+        }
+    }
+}
+
+cfi_disable_culture_effect = {
+    culture = {
+        if = {
+            limit = { has_cultural_tradition = tradition_cfi_integrated }
+            remove_culture_tradition = tradition_cfi_integrated
+        }
+    }
+}
+
+# 1.20 uses rites. Only change the actor's current rite, not the parent faith.
+cfi_enable_religion_effect = {
+    rite = {
+        if = {
+            limit = { NOT = { rite_has_doctrine = special_doctrine_cfi_integrated } }
+            add_rite_doctrine = special_doctrine_cfi_integrated
+        }
+    }
+}
+
+cfi_disable_religion_effect = {
+    rite = {
+        if = {
+            limit = { rite_has_doctrine = special_doctrine_cfi_integrated }
+            remove_rite_doctrine = special_doctrine_cfi_integrated
+        }
+    }
+}

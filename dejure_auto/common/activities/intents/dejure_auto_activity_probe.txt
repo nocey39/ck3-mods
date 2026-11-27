@@ -1,0 +1,6 @@
+﻿dejure_auto_activity_probe_intent = {
+    icon = reduce_stress_intent
+    is_shown = { always = yes }
+    is_valid = { always = yes }
+    ai_will_do = { value = 0 }
+}

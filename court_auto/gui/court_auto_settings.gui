@@ -1,0 +1,118 @@
+widget = { name = "court_auto_overlay" size = { 100% 100% } layer = middle visible = "[Not(IsObserver)]" court_auto_settings_panel = {} }
+types court_auto_types {
+    type court_auto_checkbox = button_checkbox_label {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "checkbox" { checked = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+    type court_auto_option = button_standard {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "button_standard_current" { visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 } align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+    }
+    type court_auto_settings_panel = widget {
+        name = "court_auto_settings_panel" parentanchor = center size = { 640 720 } layer = middle filter_mouse = all alwaystransparent = no
+        datacontext = "[GetPlayer]" datacontext = "[GetScriptedGui('court_auto_panel_gui')]"
+        visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        using = Window_Background using = Window_Decoration
+        text_single = { parentanchor = top|left position = { 110 20 } size = { 420 32 } autoresize = no align = center|vcenter text = "court_auto_panel_title" fontsize = 26 default_format = "#high" }
+        button_close = { name = "court_auto_close" parentanchor = top|left position = { 558 24 } size = { 32 32 } shortcut = "close_window" tooltip = "CLOSE_TOOLTIP"
+            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        widget = { name = "court_auto_fixed_overview" parentanchor = top|left position = { 48 68 } size = { 504 104 } background = { using = Background_Area alpha = 0.35 }
+            court_auto_checkbox = { position = { 12 4 } size = { 328 34 } datacontext = "[GetScriptedGui('court_auto_toggle_master_gui')]" tooltip = "court_auto_enabled_help" blockoverride "text" { text = "court_auto_enabled_label" fontsize = 16 } }
+
+            button_primary = { name = "court_auto_check_now" position = { 348 4 } size = { 144 36 } text = "court_auto_check_now" tooltip = "court_auto_check_help"
+                datacontext = "[GetScriptedGui('court_auto_check_gui')]"
+                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 } align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+            }
+            text_multi = { name = "court_auto_fixed_status" position = { 12 46 } size = { 480 52 } max_width = 480 autoresize = no
+                text = "court_auto_ui_overview" fontsize = 16 align = left tooltip = "court_auto_check_help" }
+        }
+        scrollbox = { name = "court_auto_settings_scroll" parentanchor = top|left position = { 48 184 } size = { 544 510 }
+            blockoverride "scrollbox_margins" { margin_top = 0 margin_bottom = 0 margin_left = 0 margin_right = 0 }
+            blockoverride "scrollbox_background" {} blockoverride "scrollbox_background_fade" {}
+            blockoverride "scrollbox_content" {
+                vbox = { name = "court_auto_settings_body" minimumsize = { 504 0 } layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 12
+
+                    widget = { name = "court_auto_apply_game_rules" size = { 504 34 }
+                        button_standard = { name = "court_auto_apply_game_rules_button" position = { 0 0 } size = { 504 34 }
+                            text = "court_auto_preset_restore_label" tooltip = "court_auto_preset_restore_help"
+                            datacontext = "[GetScriptedGui('court_auto_preset_restore_gui')]"
+                            enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 } align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                        }
+                    }
+                    widget = { name = "court_auto_appointment_settings" size = { 504 244 }
+                        text_single = { position = { 0 0 } size = { 504 24 } autoresize = no align = left|vcenter text = "court_auto_ui_appointments" fontsize = 18 default_format = "#high"  }
+                        text_single = { position = { 0 32 } size = { 104 36 } autoresize = no align = left|vcenter text = "court_auto_ui_modules" fontsize = 16   }
+                        court_auto_checkbox = { position = { 108 33 } size = { 184 34 } datacontext = "[GetScriptedGui('court_auto_toggle_council_gui')]" tooltip = "court_auto_council_help" blockoverride "text" { text = "court_auto_ui_council" fontsize = 16 } }
+                        court_auto_checkbox = { position = { 304 33 } size = { 196 34 } datacontext = "[GetScriptedGui('court_auto_toggle_court_gui')]" tooltip = "court_auto_court_help" blockoverride "text" { text = "court_auto_ui_court" fontsize = 16 } }
+                        text_single = { position = { 0 78 } size = { 100 34 } autoresize = no align = left|vcenter text = "court_auto_review_council" fontsize = 16  tooltip = "court_auto_review_council_help" }
+                        court_auto_option = { position = { 108 78 } size = { 184 34 } datacontext = "[GetScriptedGui('court_auto_council_replace_0_gui')]" text = "court_auto_review_mode_0" tooltip = "court_auto_review_council_help" }
+                        court_auto_option = { position = { 304 78 } size = { 200 34 } datacontext = "[GetScriptedGui('court_auto_council_replace_1_gui')]" text = "court_auto_review_mode_1" tooltip = "court_auto_review_council_help" }
+                        text_single = { position = { 0 122 } size = { 100 34 } autoresize = no align = left|vcenter text = "court_auto_review_court" fontsize = 16  tooltip = "court_auto_review_court_help" }
+                        court_auto_option = { position = { 108 122 } size = { 184 34 } datacontext = "[GetScriptedGui('court_auto_court_replace_0_gui')]" text = "court_auto_review_mode_0" tooltip = "court_auto_review_court_help" }
+                        court_auto_option = { position = { 304 122 } size = { 200 34 } datacontext = "[GetScriptedGui('court_auto_court_replace_1_gui')]" text = "court_auto_review_mode_1" tooltip = "court_auto_review_court_help" }
+                        text_single = { position = { 0 168 } size = { 504 22 } autoresize = no align = left|vcenter text = "court_auto_ui_strategy" fontsize = 16  tooltip = "court_auto_council_note" }
+                        court_auto_option = { position = { 0 198 } size = { 244 34 } datacontext = "[GetScriptedGui('court_auto_strategy_1_gui')]" text = "court_auto_strategy_1" tooltip = "court_auto_strategy_1_help" }
+                        court_auto_option = { position = { 260 198 } size = { 244 34 } datacontext = "[GetScriptedGui('court_auto_strategy_0_gui')]" text = "court_auto_strategy_0" tooltip = "court_auto_strategy_0_help" }
+                    }
+                    widget = { name = "court_auto_schedule" size = { 504 96 }
+                        text_single = { position = { 0 0 } size = { 504 24 } autoresize = no align = left|vcenter text = "court_auto_review_frequency" fontsize = 18 default_format = "#high" tooltip = "court_auto_review_interval_help" }
+                        court_auto_option = { position = { 0 30 } size = { 160 34 } datacontext = "[GetScriptedGui('court_auto_review_interval_1_gui')]" text = "court_auto_interval_1" tooltip = "court_auto_review_interval_help" }
+                        court_auto_option = { position = { 172 30 } size = { 160 34 } datacontext = "[GetScriptedGui('court_auto_review_interval_6_gui')]" text = "court_auto_interval_6" tooltip = "court_auto_review_interval_help" }
+                        court_auto_option = { position = { 344 30 } size = { 160 34 } datacontext = "[GetScriptedGui('court_auto_review_interval_12_gui')]" text = "court_auto_interval_12" tooltip = "court_auto_review_interval_help" }
+                        text_single = { position = { 0 70 } size = { 504 24 } autoresize = no align = left|vcenter text = "court_auto_review_tasks_note" fontsize = 15  tooltip = "court_auto_review_interval_help" }
+                    }
+                    widget = { name = "court_auto_regency_settings" size = { 504 100 }
+                        text_single = { position = { 0 0 } size = { 504 24 } autoresize = no align = left|vcenter text = "court_auto_regency_heading" fontsize = 18 default_format = "#high" }
+                        court_auto_checkbox = { position = { 0 30 } size = { 504 34 } datacontext = "[GetScriptedGui('court_auto_toggle_regency_gui')]" tooltip = "court_auto_regency_help" blockoverride "text" { text = "court_auto_regency_label" fontsize = 16 } }
+                        text_single = { position = { 0 70 } size = { 504 24 } autoresize = no align = left|vcenter text = "court_auto_regency_note" fontsize = 15 tooltip = "court_auto_regency_help" }
+                    }
+                    widget = { name = "court_auto_task_settings" size = { 504 212 }
+                        text_single = { position = { 0 0 } size = { 504 24 } autoresize = no align = left|vcenter text = "court_auto_tasks_heading" fontsize = 18 default_format = "#high" tooltip = "court_auto_tasks_help" }
+                        text_single = { position = { 0 34 } size = { 140 34 } autoresize = no align = left|vcenter text = "court_auto_task_conversion_label" fontsize = 16  tooltip = "court_auto_task_conversion_help" }
+                        court_auto_option = { position = { 144 34 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_conversion_1_gui')]" text = "court_auto_task_scope_1" tooltip = "court_auto_task_conversion_help" }
+                        court_auto_option = { position = { 264 34 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_conversion_2_gui')]" text = "court_auto_task_scope_2" tooltip = "court_auto_task_conversion_help" }
+                        court_auto_option = { position = { 384 34 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_conversion_3_gui')]" text = "court_auto_task_scope_3" tooltip = "court_auto_task_conversion_help" }
+                        text_single = { position = { 0 78 } size = { 140 34 } autoresize = no align = left|vcenter text = "court_auto_task_culture_label" fontsize = 16  tooltip = "court_auto_task_culture_help" }
+                        court_auto_option = { position = { 144 78 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_culture_1_gui')]" text = "court_auto_task_scope_1" tooltip = "court_auto_task_culture_help" }
+                        court_auto_option = { position = { 264 78 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_culture_2_gui')]" text = "court_auto_task_scope_2" tooltip = "court_auto_task_culture_help" }
+                        court_auto_option = { position = { 384 78 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_culture_3_gui')]" text = "court_auto_task_scope_3" tooltip = "court_auto_task_culture_help" }
+                        text_single = { position = { 0 122 } size = { 140 34 } autoresize = no align = left|vcenter text = "court_auto_task_control_label" fontsize = 16  tooltip = "court_auto_task_control_help" }
+                        court_auto_option = { position = { 144 122 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_control_1_gui')]" text = "court_auto_task_scope_1" tooltip = "court_auto_task_control_help" }
+                        court_auto_option = { position = { 264 122 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_control_2_gui')]" text = "court_auto_task_scope_2" tooltip = "court_auto_task_control_help" }
+                        court_auto_option = { position = { 384 122 } size = { 112 34 } datacontext = "[GetScriptedGui('court_auto_task_control_3_gui')]" text = "court_auto_task_scope_3" tooltip = "court_auto_task_control_help" }
+                        court_auto_checkbox = { position = { 0 166 } size = { 496 34 } datacontext = "[GetScriptedGui('court_auto_toggle_memory_gui')]" tooltip = "court_auto_memory_help" blockoverride "text" { text = "court_auto_memory_label" fontsize = 16 } }
+                    }
+                    vbox = { name = "court_auto_rules" minimumsize = { 504 0 } layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 6
+                        widget = { name = "court_auto_rules_heading" size = { 504 60 }
+                            button_standard = { name = "court_auto_rules_toggle" size = { 504 32 }
+                                text = "[SelectLocalization(GetVariableSystem.Exists('court_auto_ui_rules'), 'court_auto_ui_rules_open', 'court_auto_ui_rules_closed')]"
+                                onclick = "[GetVariableSystem.Toggle('court_auto_ui_rules')]" tooltip = "court_auto_ui_rules_help"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 10 0 } align = center|nobaseline fontsize = 17 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 12 36 } size = { 480 24 } autoresize = no align = left|vcenter text = "court_auto_ui_summary" fontsize = 15  tooltip = "court_auto_rules_note" }
+
+                        }
+                        widget = { name = "court_auto_rules_details" size = { 504 430 }
+                            visible = "[GetVariableSystem.Exists('court_auto_ui_rules')]"
+                            background = { using = Background_Area alpha = 0.35 }
+                            text_single = { position = { 12 10 } size = { 480 24 } autoresize = no align = left|vcenter text = "court_auto_council_label" fontsize = 18 default_format = "#high"  }
+                            text_multi = { position = { 12 42 } size = { 480 72 } max_width = 480 autoresize = no text = "court_auto_council_scope_note" fontsize = 16 align = left  }
+                            text_single = { position = { 12 122 } size = { 480 24 } autoresize = no align = left|vcenter text = "court_auto_court_label" fontsize = 18 default_format = "#high"  }
+                            text_multi = { position = { 12 154 } size = { 480 104 } max_width = 480 autoresize = no text = "court_auto_court_note" fontsize = 16 align = left  }
+                            text_single = { position = { 12 266 } size = { 480 24 } autoresize = no align = left|vcenter text = "court_auto_rules_label" fontsize = 18 default_format = "#high"  }
+                            text_multi = { position = { 12 298 } size = { 480 120 } max_width = 480 autoresize = no text = "court_auto_rules_note" fontsize = 16 align = left  }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

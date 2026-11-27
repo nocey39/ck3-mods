@@ -1,0 +1,85 @@
+﻿court_auto_panel_gui = {
+    scope = character
+    is_shown = { is_ai = no has_variable = court_auto_panel_open }
+    effect = { remove_variable = court_auto_panel_open }
+}
+court_auto_check_gui = {
+    scope = character
+    is_valid = { court_auto_automation_active_trigger = yes }
+    effect = { court_auto_tasks_clear_exhausted_effect = yes court_auto_check_effect = yes }
+}
+
+court_auto_toggle_master_gui = {
+    scope = character
+    is_shown = { has_variable = court_auto_enabled }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = {
+            limit = { has_variable = court_auto_enabled }
+            remove_variable = court_auto_enabled
+            court_auto_memory_reset_observations_effect = yes
+        }
+        else = { set_variable = court_auto_enabled set_variable = court_auto_skip_tasks_once court_auto_check_effect = yes }
+        court_auto_restart_schedule_effect = yes
+    }
+}
+
+court_auto_toggle_council_gui = {
+    scope = character
+    is_shown = { has_variable = court_auto_council_enabled }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { has_variable = court_auto_council_enabled } remove_variable = court_auto_council_enabled }
+        else = { set_variable = court_auto_council_enabled set_variable = court_auto_skip_tasks_once court_auto_check_effect = yes }
+        court_auto_restart_schedule_effect = yes
+    }
+}
+
+court_auto_toggle_court_gui = {
+    scope = character
+    is_shown = { has_variable = court_auto_court_enabled }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { has_variable = court_auto_court_enabled } remove_variable = court_auto_court_enabled }
+        else = { set_variable = court_auto_court_enabled set_variable = court_auto_skip_tasks_once court_auto_check_effect = yes }
+        court_auto_restart_schedule_effect = yes
+    }
+}
+
+court_auto_strategy_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_strategy = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_strategy value = 1 } court_auto_restart_schedule_effect = yes }
+}
+
+court_auto_strategy_0_gui = {
+    scope = character
+    is_shown = { var:court_auto_strategy = 0 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_strategy value = 0 } court_auto_restart_schedule_effect = yes }
+}
+
+court_auto_interval_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_interval = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_interval value = 1 } court_auto_restart_schedule_effect = yes }
+}
+
+court_auto_interval_6_gui = {
+    scope = character
+    is_shown = { var:court_auto_interval = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_interval value = 1 } court_auto_restart_schedule_effect = yes }
+}
+
+court_auto_interval_12_gui = {
+    scope = character
+    is_shown = { var:court_auto_interval = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = { court_auto_initialize_effect = yes set_variable = { name = court_auto_interval value = 1 } court_auto_restart_schedule_effect = yes }
+}

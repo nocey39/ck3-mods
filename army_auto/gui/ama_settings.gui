@@ -1,0 +1,1012 @@
+﻿widget = { name = "ama_overlay" size = { 100% 100% } layer = middle
+    visible = "[Not(IsObserver)]" ama_settings_panel = {}
+
+    vbox = { size = { 1 1 } alwaystransparent = yes
+        datamodel = "[GetPlayer.MakeScope.GetList('ama_acc_requests_0')]"
+        item = { ama_acc_request_widget = {} }
+    }
+    vbox = { size = { 1 1 } alwaystransparent = yes
+        datamodel = "[GetPlayer.MakeScope.GetList('ama_acc_requests_1')]"
+        item = { ama_acc_request_widget = {} }
+    }
+    widget = { size = { 1 1 } alwaystransparent = yes
+        state = { name = "ama_acc_failed_to_open"
+            trigger_when = "[GetVariableSystem.Exists('ama_acc_auto_view')]"
+            duration = 1.5
+            on_finish = "[CloseGameView('accolade_view')]"
+            on_finish = "[GetVariableSystem.Clear('ama_acc_auto_view')]"
+        }
+    }
+    vbox = { size = { 1 1 } alwaystransparent = yes
+        datamodel = "[GetPlayer.MakeScope.GetList('ama_size_requests_0')]"
+        item = { ama_size_request = {} }
+    }
+    vbox = { size = { 1 1 } alwaystransparent = yes
+        datamodel = "[GetPlayer.MakeScope.GetList('ama_size_requests_1')]"
+        item = { ama_size_request = {} }
+    }
+
+    widget = { name = "ama_repl_host" size = { 1 1 } alwaystransparent = yes
+        state = { name = "ama_repl_sample_0" trigger_when = "[And(And(GetPlayer.MakeScope.Var('ama_repl_pending').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_repl_phase').GetValue, '(CFixedPoint)0')), GetPlayer.MakeScope.Var('ama_repl_new').Regiment.IsValid)]" duration = 0.1
+            on_finish = "[GetScriptedGui('ama_repl_receive_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_repl_object', GetPlayer.MakeScope.Var('ama_repl_new').Regiment.MakeScope).AddScope('ama_repl_current', MakeScopeValue(IntToFixedPoint(GetPlayer.MakeScope.Var('ama_repl_new').Regiment.GetMAAChunkCount))).AddScope('ama_repl_max', MakeScopeValue(IntToFixedPoint(GetPlayer.MakeScope.Var('ama_repl_new').Regiment.CalcMaxMAAChunkCount))).AddScope('ama_repl_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('ama_repl_ticket').GetValue)).End)]" }
+        state = { name = "ama_repl_expire_0" trigger_when = "[And(GetPlayer.MakeScope.Var('ama_repl_pending').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_repl_phase').GetValue, '(CFixedPoint)0'))]" duration = 2
+            on_finish = "[GetScriptedGui('ama_repl_timeout_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_repl_timeout_phase', MakeScopeValue('(CFixedPoint)0')).End)]" }
+        state = { name = "ama_repl_sample_1" trigger_when = "[And(And(GetPlayer.MakeScope.Var('ama_repl_pending').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_repl_phase').GetValue, '(CFixedPoint)1')), GetPlayer.MakeScope.Var('ama_repl_new').Regiment.IsValid)]" duration = 0.1
+            on_finish = "[GetScriptedGui('ama_repl_receive_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_repl_object', GetPlayer.MakeScope.Var('ama_repl_new').Regiment.MakeScope).AddScope('ama_repl_current', MakeScopeValue(IntToFixedPoint(GetPlayer.MakeScope.Var('ama_repl_new').Regiment.GetMAAChunkCount))).AddScope('ama_repl_max', MakeScopeValue(IntToFixedPoint(GetPlayer.MakeScope.Var('ama_repl_new').Regiment.CalcMaxMAAChunkCount))).AddScope('ama_repl_reply_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('ama_repl_ticket').GetValue)).End)]" }
+        state = { name = "ama_repl_expire_1" trigger_when = "[And(GetPlayer.MakeScope.Var('ama_repl_pending').IsSet, EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_repl_phase').GetValue, '(CFixedPoint)1'))]" duration = 2
+            on_finish = "[GetScriptedGui('ama_repl_timeout_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_repl_timeout_phase', MakeScopeValue('(CFixedPoint)1')).End)]" }
+    }
+
+}
+types ama_types {
+    # Each request item owns the immutable ticket used by both callbacks.
+    type ama_size_request = widget {
+        size = { 1 1 } alwaystransparent = yes
+        widget = { size = { 1 1 } alwaystransparent = yes
+            state = { name = "ama_size_sample"
+                trigger_when = "[GetPlayer.MakeScope.Var('ama_size_unit').Regiment.IsValid]"
+                alpha = 1 duration = 0.2
+                on_finish = "[GetScriptedGui('ama_size_receive_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_size_object', GetPlayer.MakeScope.Var('ama_size_unit').Regiment.MakeScope).AddScope('ama_size_current', MakeScopeValue(IntToFixedPoint(GetPlayer.MakeScope.Var('ama_size_unit').Regiment.GetMAAChunkCount))).AddScope('ama_size_max', MakeScopeValue(IntToFixedPoint(GetPlayer.MakeScope.Var('ama_size_unit').Regiment.CalcMaxMAAChunkCount))).AddScope('ama_size_response_ticket', MakeScopeValue(Scope.GetValue)).End)]"
+            }
+        }
+        widget = { size = { 1 1 } alwaystransparent = yes
+            state = { name = "ama_size_expire"
+                trigger_on_create = yes
+                alpha = 1 duration = 2.5
+                on_finish = "[GetScriptedGui('ama_size_timeout_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_size_timeout_ticket', MakeScopeValue(Scope.GetValue)).End)]"
+            }
+        }
+    }
+
+    type ama_acc_request_widget = widget { size = { 1 1 } alwaystransparent = yes
+        widget = { size = { 1 1 } alwaystransparent = yes
+            state = { name = "ama_acc_add_attribute"
+                trigger_when = "[And3(And(GetPlayer.MakeScope.Var('ama_acc_target').Accolade.IsValid, GetScriptedGui('ama_acc_complete_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_acc_reply', GetPlayer.MakeScope.Var('ama_acc_target').Accolade.MakeScope).End)), EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_request').GetValue, '(CFixedPoint)1'), IsValidCommand(GetPlayer.MakeScope.Var('ama_acc_target').Accolade.MakeAddAccoladeTypeCommand(GetAccoladeType(Select_CString(GetPlayer.MakeScope.Var('ama_acc_target_type').IsSet, GetPlayer.MakeScope.Var('ama_acc_target_type').GetFlagKey, 'valiant_attribute')))))]"
+                duration = 0.1
+                on_finish = "[PostCommand(GetPlayer.MakeScope.Var('ama_acc_target').Accolade.MakeAddAccoladeTypeCommand(GetAccoladeType(Select_CString(GetPlayer.MakeScope.Var('ama_acc_target_type').IsSet, GetPlayer.MakeScope.Var('ama_acc_target_type').GetFlagKey, 'valiant_attribute'))))]"
+                on_finish = "[GetScriptedGui('ama_acc_complete_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_acc_reply', GetPlayer.MakeScope.Var('ama_acc_target').Accolade.MakeScope).End)]"
+            }
+        }
+        widget = { size = { 1 1 } alwaystransparent = yes
+            state = { name = "ama_acc_open_view"
+                trigger_when = "[And3(And(GetPlayer.MakeScope.Var('ama_acc_target').Accolade.IsValid, GetScriptedGui('ama_acc_complete_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_acc_reply', GetPlayer.MakeScope.Var('ama_acc_target').Accolade.MakeScope).End)), EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_request').GetValue, '(CFixedPoint)2'), And(Not(GetVariableSystem.Exists('ama_acc_auto_view')), Not(GetVariableSystem.Exists('ama_acc_silent_view'))))]"
+                duration = 0.1
+                on_finish = "[GetVariableSystem.Set('ama_acc_silent_view', 'true')]"
+                on_finish = "[GetVariableSystem.Set('ama_acc_auto_view', 'true')]"
+                on_finish = "[OpenGameViewData('accolade_view', GetPlayer.MakeScope.Var('ama_acc_target').Accolade.GetID)]"
+            }
+        }
+    }
+    type ama_acc_catalog_option = button_standard {
+        size = { 162 32 }
+        datacontext = "[GetAccoladeType(Scope.GetFlagKey)]"
+        text = "[AccoladeType.GetNameNoTooltip]"
+        tooltip = "ama_acc_attribute_tt"
+        enabled = "[GetScriptedGui('ama_acc_pick_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_choice', MakeScopeFlag(Scope.GetFlagKey)).End)]"
+        onclick = "[GetScriptedGui('ama_acc_pick_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_choice', MakeScopeFlag(Scope.GetFlagKey)).End)]"
+        tooltip_when_disabled = "ama_acc_attribute_blocked_tt"
+    }
+    type ama_acc_assigned_option = button_standard {
+        size = { 162 32 }
+        datacontext = "[GetAccoladeType(Scope.GetFlagKey)]"
+        text = "[AccoladeType.GetNameNoTooltip]"
+        tooltip = "ama_acc_attribute_tt"
+        enabled = no
+        tooltip_when_disabled = "ama_acc_attribute_tt"
+    }
+    type ama_checkbox = button_checkbox_label {
+        onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        blockoverride "checkbox" { checked = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+    type ama_option = button_standard {
+        blockoverride "button_standard_current" { visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    }
+    type ama_settings_panel = widget {
+        name = "ama_settings_panel" parentanchor = center size = { 640 760 } layer = middle
+        filter_mouse = all alwaystransparent = no
+        datacontext = "[GetPlayer]" datacontext = "[GetScriptedGui('ama_panel_gui')]"
+        visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        using = Window_Background using = Window_Decoration
+        text_single = { position = { 92 20 } size = { 456 34 }
+            autoresize = no align = center|vcenter text = "ama_panel_title" fontsize = 26 default_format = "#high" tooltip = "ama_notes" }
+        button_close = { name = "ama_close" position = { 558 24 } size = { 32 32 }
+            shortcut = "close_window" tooltip = "CLOSE_TOOLTIP"
+            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        widget = { name = "ama_fixed_overview" position = { 48 68 } size = { 504 136 }
+            background = { using = Background_Area alpha = 0.35 }
+            text_single = { position = { 12 4 } size = { 88 34 }
+                autoresize = no align = left|vcenter text = "ama_personal_row_label" fontsize = 16 tooltip = "ama_personal_row_help" }
+            ama_checkbox = { name = "ama_create_enable" position = { 112 4 } size = { 100 34 }
+                datacontext = "[GetScriptedGui('ama_create_toggle_gui')]" tooltip = "ama_create_help"
+                blockoverride "text" { text = "ama_create_label" fontsize = 16 } }
+            ama_checkbox = { name = "ama_expand_enable" position = { 224 4 } size = { 100 34 }
+                datacontext = "[GetScriptedGui('ama_expand_toggle_gui')]" tooltip = "ama_expand_help"
+                blockoverride "text" { text = "ama_expand_label" fontsize = 16 } }
+            button_primary = { name = "ama_check_gui_button" position = { 348 4 } size = { 144 36 }
+                datacontext = "[GetScriptedGui('ama_check_gui')]" text = "ama_check_now" tooltip = "ama_check_help"
+                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+            }
+            widget = { name = "ama_title_modes_row" position = { 0 42 } size = { 504 34 }
+                datacontext = "[GetScriptedGui('ama_titles_available_gui')]"
+                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text_single = { position = { 12 0 } size = { 88 34 }
+                    autoresize = no align = left|vcenter text = "ama_title_row_label" fontsize = 16 tooltip = "ama_titles_help" }
+                ama_checkbox = { name = "ama_title_create_enable" position = { 112 0 } size = { 100 34 }
+                    datacontext = "[GetScriptedGui('ama_title_create_toggle_gui')]" tooltip = "ama_title_create_help"
+                    blockoverride "text" { text = "ama_title_create_label" fontsize = 16 } }
+                ama_checkbox = { name = "ama_title_expand_enable" position = { 224 0 } size = { 100 34 }
+                    datacontext = "[GetScriptedGui('ama_title_expand_toggle_gui')]" tooltip = "ama_title_expand_help"
+                    blockoverride "text" { text = "ama_title_expand_label" fontsize = 16 } }
+            }
+            text_multi = { position = { 12 82 } size = { 480 48 } max_width = 480
+                autoresize = no align = left text = "ama_status_display" fontsize = 16 tooltip = "ama_status_help" }
+        }
+        widget = { name = "ama_acc_picker_page" position = { 48 216 } size = { 544 518 }
+            visible = "[GetPlayer.MakeScope.Var('ama_acc_picker').IsSet]"
+            text_single = { size = { 218 34 } autoresize = no align = left|vcenter
+                text = "ama_acc_picker_title" fontsize = 18 default_format = "#high" }
+            button_standard = { name = "ama_acc_clear_choice" position = { 226 0 } size = { 135 34 } text = "ama_acc_none"
+                onclick = "[GetScriptedGui('ama_acc_clear_pick_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+            button_standard = { name = "ama_acc_picker_back" position = { 370 0 } size = { 134 34 } text = "BACK_LABEL"
+                onclick = "[GetScriptedGui('ama_acc_cancel_pick_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+            scrollbox = { name = "ama_acc_catalog_scroll" position = { 0 45 } size = { 544 473 }
+                blockoverride "scrollbox_margins" { margin_top = 0 margin_bottom = 0 margin_left = 0 margin_right = 0 }
+                blockoverride "scrollbox_background" {}
+                blockoverride "scrollbox_background_fade" {}
+                blockoverride "scrollbox_content" {
+                    vbox = { minimumsize = { 504 0 } layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 12
+                        vbox = { name = "ama_acc_group_assigned" minimumsize = { 504 0 }
+                            layoutpolicy_vertical = preferred spacing = 4
+                            visible = "[DataModelHasItems(GetPlayer.MakeScope.GetList('ama_acc_options_assigned'))]"
+                            text_single = { size = { 504 26 } autoresize = no align = left|vcenter
+                                text = "ama_acc_group_assigned" fontsize = 16 default_format = "#high" }
+                            fixedgridbox = { name = "ama_acc_choices_assigned" layoutpolicy_horizontal = expanding
+                                flipdirection = yes datamodel_wrap = 3 addcolumn = 168 addrow = 34
+                                datamodel = "[GetPlayer.MakeScope.GetList('ama_acc_options_assigned')]"
+                                item = { ama_acc_assigned_option = {} }
+                            }
+                        }
+                        vbox = { name = "ama_acc_group_common" minimumsize = { 504 0 }
+                            layoutpolicy_vertical = preferred spacing = 4
+                            visible = "[DataModelHasItems(GetPlayer.MakeScope.GetList('ama_acc_options_common'))]"
+                            text_single = { size = { 504 26 } autoresize = no align = left|vcenter
+                                text = "ama_acc_group_common" fontsize = 16 default_format = "#high" }
+                            fixedgridbox = { name = "ama_acc_choices_common" layoutpolicy_horizontal = expanding
+                                flipdirection = yes datamodel_wrap = 3 addcolumn = 168 addrow = 34
+                                datamodel = "[GetPlayer.MakeScope.GetList('ama_acc_options_common')]"
+                                item = { ama_acc_catalog_option = {} }
+                            }
+                        }
+                        vbox = { name = "ama_acc_group_skilled" minimumsize = { 504 0 }
+                            layoutpolicy_vertical = preferred spacing = 4
+                            visible = "[DataModelHasItems(GetPlayer.MakeScope.GetList('ama_acc_options_skilled'))]"
+                            text_single = { size = { 504 26 } autoresize = no align = left|vcenter
+                                text = "ama_acc_group_skilled" fontsize = 16 default_format = "#high" }
+                            fixedgridbox = { name = "ama_acc_choices_skilled" layoutpolicy_horizontal = expanding
+                                flipdirection = yes datamodel_wrap = 3 addcolumn = 168 addrow = 34
+                                datamodel = "[GetPlayer.MakeScope.GetList('ama_acc_options_skilled')]"
+                                item = { ama_acc_catalog_option = {} }
+                            }
+                        }
+                        vbox = { name = "ama_acc_group_maa" minimumsize = { 504 0 }
+                            layoutpolicy_vertical = preferred spacing = 4
+                            visible = "[DataModelHasItems(GetPlayer.MakeScope.GetList('ama_acc_options_maa'))]"
+                            text_single = { size = { 504 26 } autoresize = no align = left|vcenter
+                                text = "ama_acc_group_maa" fontsize = 16 default_format = "#high" }
+                            fixedgridbox = { name = "ama_acc_choices_maa" layoutpolicy_horizontal = expanding
+                                flipdirection = yes datamodel_wrap = 3 addcolumn = 168 addrow = 34
+                                datamodel = "[GetPlayer.MakeScope.GetList('ama_acc_options_maa')]"
+                                item = { ama_acc_catalog_option = {} }
+                            }
+                        }
+                        vbox = { name = "ama_acc_group_eminent" minimumsize = { 504 0 }
+                            layoutpolicy_vertical = preferred spacing = 4
+                            visible = "[DataModelHasItems(GetPlayer.MakeScope.GetList('ama_acc_options_eminent'))]"
+                            text_single = { size = { 504 26 } autoresize = no align = left|vcenter
+                                text = "ama_acc_group_eminent" fontsize = 16 default_format = "#high" }
+                            fixedgridbox = { name = "ama_acc_choices_eminent" layoutpolicy_horizontal = expanding
+                                flipdirection = yes datamodel_wrap = 3 addcolumn = 168 addrow = 34
+                                datamodel = "[GetPlayer.MakeScope.GetList('ama_acc_options_eminent')]"
+                                item = { ama_acc_catalog_option = {} }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        scrollbox = { name = "ama_settings_scroll" position = { 48 216 } size = { 544 518 }
+            visible = "[Not(GetPlayer.MakeScope.Var('ama_acc_picker').IsSet)]"
+            blockoverride "scrollbox_margins" { margin_top = 0 margin_bottom = 0 margin_left = 0 margin_right = 0 }
+            blockoverride "scrollbox_background" {} blockoverride "scrollbox_background_fade" {}
+            blockoverride "scrollbox_content" {
+                vbox = { name = "ama_settings_body" minimumsize = { 504 0 }
+                    layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 12
+
+                    widget = { name = "ama_acc_heading" size = { 504 34 }
+                        visible = "[GetScriptedGui('ama_acc_tab_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        button_standard = { size = { 504 34 }
+                            text = "[SelectLocalization(GetScriptedGui('ama_acc_tab_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End), 'ama_acc_open', 'ama_acc_closed')]"
+                            onclick = "[GetScriptedGui('ama_acc_tab_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                    }
+                    vbox = { name = "ama_acc_settings" minimumsize = { 504 0 } spacing = 5
+                        layoutpolicy_vertical = preferred ignoreinvisible = yes
+                        visible = "[And(GetScriptedGui('ama_acc_tab_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), GetScriptedGui('ama_acc_tab_gui').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                        widget = { size = { 504 38 }
+                            ama_checkbox = { position = { 4 1 } size = { 224 36 }
+                                datacontext = "[GetScriptedGui('ama_acc_toggle_gui')]"
+                                tooltip = "ama_acc_help"
+                                blockoverride "text" { text = "ama_acc_enable" fontsize = 16 }
+                            }
+                            button_standard = { position = { 344 1 } size = { 160 36 } text = "ama_acc_check" tooltip = "ama_acc_check_tt"
+                                enabled = "[GetScriptedGui('ama_acc_check_gui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('ama_acc_check_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                        }
+                        text_multi = { size = { 504 43 } max_width = 504 text = "ama_acc_help"
+                            align = left fontsize = 15 autoresize = no }
+
+                        widget = { name = "ama_acc_row_1" size = { 504 34 }
+                            text_single = { position = { 0 0 } size = { 24 34 } raw_text = "1" align = center|vcenter }
+                            button_standard = { position = { 30 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_first_1').IsSet, GetPlayer.MakeScope.Var('ama_acc_first_1').GetFlagKey, 'ama_acc_first'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)1')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)1')]"
+                            }
+                            button_standard = { position = { 190 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_second_1').IsSet, GetPlayer.MakeScope.Var('ama_acc_second_1').GetFlagKey, 'ama_acc_second'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)6')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)6')]"
+                            }
+                            text_single = { position = { 352 0 } size = { 152 34 }
+                                text = "[Localize(Concatenate('ama_acc_state_', IntToString(FixedPointToInt(GetPlayer.MakeScope.Var('ama_acc_state_1').GetValueWithDefault('(CFixedPoint)0')))))]"
+                                align = center|vcenter fontsize = 14 autoresize = no }
+                        }
+
+                        widget = { name = "ama_acc_row_2" size = { 504 34 }
+                            text_single = { position = { 0 0 } size = { 24 34 } raw_text = "2" align = center|vcenter }
+                            button_standard = { position = { 30 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_first_2').IsSet, GetPlayer.MakeScope.Var('ama_acc_first_2').GetFlagKey, 'ama_acc_first'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)2')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)2')]"
+                            }
+                            button_standard = { position = { 190 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_second_2').IsSet, GetPlayer.MakeScope.Var('ama_acc_second_2').GetFlagKey, 'ama_acc_second'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)7')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)7')]"
+                            }
+                            text_single = { position = { 352 0 } size = { 152 34 }
+                                text = "[Localize(Concatenate('ama_acc_state_', IntToString(FixedPointToInt(GetPlayer.MakeScope.Var('ama_acc_state_2').GetValueWithDefault('(CFixedPoint)0')))))]"
+                                align = center|vcenter fontsize = 14 autoresize = no }
+                        }
+
+                        widget = { name = "ama_acc_row_3" size = { 504 34 }
+                            text_single = { position = { 0 0 } size = { 24 34 } raw_text = "3" align = center|vcenter }
+                            button_standard = { position = { 30 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_first_3').IsSet, GetPlayer.MakeScope.Var('ama_acc_first_3').GetFlagKey, 'ama_acc_first'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)3')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)3')]"
+                            }
+                            button_standard = { position = { 190 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_second_3').IsSet, GetPlayer.MakeScope.Var('ama_acc_second_3').GetFlagKey, 'ama_acc_second'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)8')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)8')]"
+                            }
+                            text_single = { position = { 352 0 } size = { 152 34 }
+                                text = "[Localize(Concatenate('ama_acc_state_', IntToString(FixedPointToInt(GetPlayer.MakeScope.Var('ama_acc_state_3').GetValueWithDefault('(CFixedPoint)0')))))]"
+                                align = center|vcenter fontsize = 14 autoresize = no }
+                        }
+
+                        widget = { name = "ama_acc_row_4" size = { 504 34 }
+                            text_single = { position = { 0 0 } size = { 24 34 } raw_text = "4" align = center|vcenter }
+                            button_standard = { position = { 30 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_first_4').IsSet, GetPlayer.MakeScope.Var('ama_acc_first_4').GetFlagKey, 'ama_acc_first'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)4')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)4')]"
+                            }
+                            button_standard = { position = { 190 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_second_4').IsSet, GetPlayer.MakeScope.Var('ama_acc_second_4').GetFlagKey, 'ama_acc_second'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)9')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)9')]"
+                            }
+                            text_single = { position = { 352 0 } size = { 152 34 }
+                                text = "[Localize(Concatenate('ama_acc_state_', IntToString(FixedPointToInt(GetPlayer.MakeScope.Var('ama_acc_state_4').GetValueWithDefault('(CFixedPoint)0')))))]"
+                                align = center|vcenter fontsize = 14 autoresize = no }
+                        }
+
+                        widget = { name = "ama_acc_row_5" size = { 504 34 }
+                            text_single = { position = { 0 0 } size = { 24 34 } raw_text = "5" align = center|vcenter }
+                            button_standard = { position = { 30 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_first_5').IsSet, GetPlayer.MakeScope.Var('ama_acc_first_5').GetFlagKey, 'ama_acc_first'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)5')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)5')]"
+                            }
+                            button_standard = { position = { 190 0 } size = { 153 34 }
+                                text = "[Localize(Select_CString(GetPlayer.MakeScope.Var('ama_acc_second_5').IsSet, GetPlayer.MakeScope.Var('ama_acc_second_5').GetFlagKey, 'ama_acc_second'))]"
+                                onclick = "[GetScriptedGui('ama_acc_edit_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('ama_column', MakeScopeValue('(CFixedPoint)10')).End)]"
+                                down = "[EqualTo_CFixedPoint(GetPlayer.MakeScope.Var('ama_acc_picker').GetValueWithDefault('(CFixedPoint)0'), '(CFixedPoint)10')]"
+                            }
+                            text_single = { position = { 352 0 } size = { 152 34 }
+                                text = "[Localize(Concatenate('ama_acc_state_', IntToString(FixedPointToInt(GetPlayer.MakeScope.Var('ama_acc_state_5').GetValueWithDefault('(CFixedPoint)0')))))]"
+                                align = center|vcenter fontsize = 14 autoresize = no }
+                        }
+
+
+                    }
+                    widget = { name = "ama_size_receipt" size = { 504 24 }
+                        visible = "[GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('ama_size_last_state').GetValue, '(CFixedPoint)4')]"
+                        text_multi = { position = { 0 0 } size = { 504 24 } max_width = 504
+                            autoresize = no align = left text = "ama_size_receipt" fontsize = 15 tooltip = "ama_size_detail" }
+                    }
+                    widget = { name = "ama_apply_game_rules" size = { 504 34 }
+                        button_standard = { name = "ama_apply_rules_gui_button" position = { 0 0 } size = { 504 34 }
+                            datacontext = "[GetScriptedGui('ama_apply_rules_gui')]" text = "ama_apply_rules_label" tooltip = "ama_apply_rules_help"
+                            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                    align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                        }
+                    }
+                    widget = { name = "ama_repl_receipt" size = { 504 28 }
+                        visible = "[GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('ama_repl_last_state').GetValue, '(CFixedPoint)0')]"
+                        text_multi = { position = { 0 0 } size = { 504 28 } max_width = 504
+                            autoresize = no align = left text = "ama_repl_receipt" fontsize = 15 tooltip = "ama_replace_help" }
+                    }
+                    widget = { name = "ama_create_disabled_hint" size = { 504 44 }
+                        datacontext = "[GetScriptedGui('ama_any_create_gui')]"
+                        visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                        text_multi = { position = { 0 0 } size = { 504 44 } max_width = 504
+                            autoresize = no align = left text = "ama_create_disabled_hint" fontsize = 16 tooltip = "ama_expand_help" }
+                    }
+                    vbox = { name = "ama_targets" minimumsize = { 504 0 }
+                        layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 4
+                        datacontext = "[GetScriptedGui('ama_any_manage_gui')]"
+                        visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        widget = { name = "ama_targets_heading" size = { 504 28 }
+                            text_single = { position = { 0 0 } size = { 504 28 }
+                                autoresize = no align = left|vcenter text = "ama_targets_label" fontsize = 18 default_format = "#high" }
+                        }
+                        widget = { name = "ama_plan_summary" size = { 504 24 }
+                            text_multi = { position = { 0 0 } size = { 504 24 } max_width = 504
+                                autoresize = no align = left text = "ama_plan_summary" fontsize = 15 tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_targets_columns" size = { 504 24 }
+                            text_single = { position = { 12 0 } size = { 172 24 }
+                                autoresize = no align = left|vcenter text = "ama_category_column" fontsize = 15 }
+                            text_single = { position = { 194 0 } size = { 160 24 }
+                                autoresize = no align = center|vcenter text = "ama_ratio_column" fontsize = 15 tooltip = "ama_targets_help" }
+                            text_single = { position = { 366 0 } size = { 126 24 }
+                                autoresize = no align = center|vcenter text = "ama_plan_column" fontsize = 15 tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_archer_cavalry_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_archer_cavalry_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_archer_cavalry" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_archer_cavalry_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_archer_cavalry_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_archer_cavalry" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_archer_cavalry_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_archer_cavalry_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_archer_cavalry" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_archers_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_archers_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_archers" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_archers_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_archers_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_archers" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_archers_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_archers_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_archers" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_camel_cavalry_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_camel_cavalry_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_camel_cavalry" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_camel_cavalry_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_camel_cavalry_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_camel_cavalry" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_camel_cavalry_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_camel_cavalry_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_camel_cavalry" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_elephant_cavalry_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_elephant_cavalry_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_elephant_cavalry" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_elephant_cavalry_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_elephant_cavalry_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_elephant_cavalry" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_elephant_cavalry_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_elephant_cavalry_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_elephant_cavalry" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_gunpowder_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_gunpowder_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_gunpowder" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_gunpowder_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_gunpowder_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_gunpowder" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_gunpowder_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_gunpowder_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_gunpowder" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_heavy_cavalry_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_heavy_cavalry_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_heavy_cavalry" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_heavy_cavalry_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_heavy_cavalry_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_heavy_cavalry" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_heavy_cavalry_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_heavy_cavalry_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_heavy_cavalry" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_heavy_infantry_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_heavy_infantry_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_heavy_infantry" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_heavy_infantry_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_heavy_infantry_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_heavy_infantry" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_heavy_infantry_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_heavy_infantry_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_heavy_infantry" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_light_cavalry_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_light_cavalry_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_light_cavalry" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_light_cavalry_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_light_cavalry_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_light_cavalry" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_light_cavalry_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_light_cavalry_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_light_cavalry" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_pikemen_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_pikemen_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_pikemen" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_pikemen_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_pikemen_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_pikemen" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_pikemen_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_pikemen_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_pikemen" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_siege_weapon_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_siege_weapon_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_siege_weapon" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_siege_weapon_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_siege_weapon_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_siege_weapon" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_siege_weapon_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_siege_weapon_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_siege_weapon" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_target_skirmishers_row" size = { 504 42 }
+                            datacontext = "[GetScriptedGui('ama_add_skirmishers_gui')]"
+                            visible = "[Not(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text_single = { position = { 12 0 } size = { 172 42 }
+                                autoresize = no align = left|vcenter text = "ama_category_skirmishers" fontsize = 16 tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_skirmishers_minus_gui_button" position = { 194 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_skirmishers_minus_gui')]" text = "ama_minus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 236 4 } size = { 76 34 }
+                                autoresize = no align = center|vcenter text = "ama_target_value_skirmishers" fontsize = 18 default_format = "#high" tooltip = "ama_targets_help" }
+                            button_standard = { name = "ama_target_skirmishers_plus_gui_button" position = { 320 4 } size = { 34 34 }
+                                datacontext = "[GetScriptedGui('ama_target_skirmishers_plus_gui')]" text = "ama_plus" tooltip = "ama_target_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 366 4 } size = { 126 34 }
+                                autoresize = no align = center|vcenter text = "ama_plan_value_skirmishers" fontsize = 16 default_format = "#high" tooltip = "ama_plan_help" }
+                        }
+                        widget = { name = "ama_categories_heading" size = { 504 34 }
+                            button_standard = { name = "ama_categories_toggle_gui_button" position = { 0 0 } size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_categories_toggle_gui')]" text = "[SelectLocalization(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End), 'ama_categories_open', 'ama_categories_closed')]" tooltip = "ama_categories_help"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                        }
+                        vbox = { name = "ama_categories_details" minimumsize = { 504 0 }
+                            layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 4
+                            datacontext = "[GetScriptedGui('ama_categories_toggle_gui')]"
+                            visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            widget = { name = "ama_add_archer_cavalry_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_archer_cavalry_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_archer_cavalry_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_archer_cavalry_gui')]" text = "ama_add_label_archer_cavalry" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_archers_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_archers_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_archers_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_archers_gui')]" text = "ama_add_label_archers" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_camel_cavalry_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_camel_cavalry_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_camel_cavalry_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_camel_cavalry_gui')]" text = "ama_add_label_camel_cavalry" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_elephant_cavalry_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_elephant_cavalry_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_elephant_cavalry_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_elephant_cavalry_gui')]" text = "ama_add_label_elephant_cavalry" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_gunpowder_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_gunpowder_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_gunpowder_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_gunpowder_gui')]" text = "ama_add_label_gunpowder" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_heavy_cavalry_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_heavy_cavalry_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_heavy_cavalry_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_heavy_cavalry_gui')]" text = "ama_add_label_heavy_cavalry" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_heavy_infantry_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_heavy_infantry_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_heavy_infantry_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_heavy_infantry_gui')]" text = "ama_add_label_heavy_infantry" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_light_cavalry_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_light_cavalry_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_light_cavalry_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_light_cavalry_gui')]" text = "ama_add_label_light_cavalry" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_pikemen_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_pikemen_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_pikemen_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_pikemen_gui')]" text = "ama_add_label_pikemen" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_siege_weapon_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_siege_weapon_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_siege_weapon_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_siege_weapon_gui')]" text = "ama_add_label_siege_weapon" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                            widget = { name = "ama_add_skirmishers_row" size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_add_skirmishers_gui')]"
+                                visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_standard = { name = "ama_add_skirmishers_gui_button" position = { 0 0 } size = { 504 34 }
+                                    datacontext = "[GetScriptedGui('ama_add_skirmishers_gui')]" text = "ama_add_label_skirmishers" tooltip = "ama_add_help"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                            }
+                        }
+                    }
+                    widget = { name = "ama_strategy" size = { 504 112 }
+                        datacontext = "[GetScriptedGui('ama_any_create_gui')]"
+                        visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        text_single = { position = { 0 0 } size = { 504 28 }
+                            autoresize = no align = left|vcenter text = "ama_strategy_label" fontsize = 18 default_format = "#high" }
+                        ama_option = { name = "ama_strategy_2_gui_button" position = { 0 34 } size = { 160 34 }
+                            datacontext = "[GetScriptedGui('ama_strategy_2_gui')]" text = "ama_strategy_2" tooltip = "ama_strategy_help"
+                            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                    align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                        }
+                        ama_option = { name = "ama_strategy_0_gui_button" position = { 172 34 } size = { 160 34 }
+                            datacontext = "[GetScriptedGui('ama_strategy_0_gui')]" text = "ama_strategy_0" tooltip = "ama_strategy_help"
+                            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                    align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                        }
+                        ama_option = { name = "ama_strategy_1_gui_button" position = { 344 34 } size = { 160 34 }
+                            datacontext = "[GetScriptedGui('ama_strategy_1_gui')]" text = "ama_strategy_1" tooltip = "ama_strategy_help"
+                            onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                    align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                        }
+                        ama_checkbox = { name = "ama_replace_enable" position = { 0 76 } size = { 504 34 }
+                            datacontext = "[GetScriptedGui('ama_replace_toggle_gui')]" tooltip = "ama_replace_help"
+                            blockoverride "text" { text = "ama_replace_label" fontsize = 16 } }
+                    }
+                    widget = { name = "ama_fees" size = { 504 116 }
+                        text_single = { position = { 0 0 } size = { 504 28 }
+                            autoresize = no align = left|vcenter text = "ama_fees_label" fontsize = 18 default_format = "#high" }
+                        widget = { name = "ama_cost_row" position = { 0 30 } size = { 504 42 }
+                            text_single = { position = { 12 0 } size = { 274 42 }
+                                autoresize = no align = left|vcenter text = "ama_cost_label" fontsize = 16 tooltip = "ama_cost_help" }
+                            button_standard = { name = "ama_cost_minus_gui_button" position = { 292 4 } size = { 40 34 }
+                                datacontext = "[GetScriptedGui('ama_cost_minus_gui')]" text = "ama_minus" tooltip = "ama_percent_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 340 4 } size = { 96 34 }
+                                autoresize = no align = center|vcenter text = "[GetPlayer.MakeScope.Var('ama_fee_percent').GetValue|0]%" fontsize = 18 default_format = "#high" tooltip = "ama_cost_help" }
+                            button_standard = { name = "ama_cost_plus_gui_button" position = { 444 4 } size = { 40 34 }
+                                datacontext = "[GetScriptedGui('ama_cost_plus_gui')]" text = "ama_plus" tooltip = "ama_percent_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                        }
+                        widget = { name = "ama_upkeep_row" position = { 0 72 } size = { 504 42 }
+                            text_single = { position = { 12 0 } size = { 274 42 }
+                                autoresize = no align = left|vcenter text = "ama_upkeep_label" fontsize = 16 tooltip = "ama_upkeep_help" }
+                            button_standard = { name = "ama_upkeep_minus_gui_button" position = { 292 4 } size = { 40 34 }
+                                datacontext = "[GetScriptedGui('ama_upkeep_minus_gui')]" text = "ama_minus" tooltip = "ama_percent_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 340 4 } size = { 96 34 }
+                                autoresize = no align = center|vcenter text = "[GetPlayer.MakeScope.Var('ama_upkeep_percent').GetValue|0]%" fontsize = 18 default_format = "#high" tooltip = "ama_upkeep_help" }
+                            button_standard = { name = "ama_upkeep_plus_gui_button" position = { 444 4 } size = { 40 34 }
+                                datacontext = "[GetScriptedGui('ama_upkeep_plus_gui')]" text = "ama_plus" tooltip = "ama_percent_step"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                        }
+                    }
+                    vbox = { name = "ama_budget" minimumsize = { 504 0 }
+                        layoutpolicy_vertical = preferred ignoreinvisible = yes spacing = 6
+                        widget = { name = "ama_budget_heading" size = { 504 34 }
+                            button_standard = { name = "ama_reserves_toggle_gui_button" position = { 0 0 } size = { 504 34 }
+                                datacontext = "[GetScriptedGui('ama_reserves_toggle_gui')]" text = "[SelectLocalization(ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End), 'ama_budget_open', 'ama_budget_closed')]" tooltip = "ama_budget_help"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                        }
+                        widget = { name = "ama_budget_details" size = { 504 270 }
+                            datacontext = "[GetScriptedGui('ama_reserves_toggle_gui')]"
+                            visible = "[ScriptedGui.IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            background = { using = Background_Area alpha = 0.35 }
+                            text_single = { position = { 12 4 } size = { 156 42 }
+                                autoresize = no align = left|vcenter text = "ama_wallet_label" fontsize = 16 tooltip = "ama_wallet_help" }
+                            button_standard = { name = "ama_wallet_prev_gui_button" position = { 176 8 } size = { 40 34 }
+                                datacontext = "[GetScriptedGui('ama_wallet_prev_gui')]" text = "ama_previous" tooltip = "ama_wallet_help"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 224 8 } size = { 212 34 }
+                                autoresize = no align = center|vcenter text = "[GetPlayer.Custom('ama_wallet_name')]" fontsize = 16 default_format = "#high" tooltip = "ama_wallet_help" }
+                            button_standard = { name = "ama_wallet_next_gui_button" position = { 444 8 } size = { 40 34 }
+                                datacontext = "[GetScriptedGui('ama_wallet_next_gui')]" text = "ama_next" tooltip = "ama_wallet_help"
+                                onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                        align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                            }
+                            text_single = { position = { 12 42 } size = { 480 22 }
+                                autoresize = no align = left|vcenter text = "ama_reserves_label" fontsize = 15 tooltip = "ama_reserves_help" }
+                            widget = { name = "ama_reserve_gold_row" position = { 0 64 } size = { 504 40 }
+                                text_single = { position = { 12 0 } size = { 140 40 }
+                                    autoresize = no align = left|vcenter text = "ama_currency_gold" fontsize = 16 tooltip = "ama_reserves_help" }
+                                text_single = { position = { 152 0 } size = { 128 40 }
+                                    autoresize = no align = right|vcenter text = "[GetPlayer.MakeScope.Var('ama_reserve_gold').GetValue|0]" fontsize = 18 default_format = "#high" tooltip = "ama_reserves_help" }
+                                button_standard = { name = "ama_reserve_gold_minus_gui_button" position = { 292 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_gold_minus_gui')]" text = "ama_minus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                button_standard = { name = "ama_reserve_gold_plus_gui_button" position = { 340 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_gold_plus_gui')]" text = "ama_plus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                text_single = { position = { 390 0 } size = { 96 40 }
+                                    autoresize = no align = center|vcenter text = "ama_reserve_step_label" fontsize = 15 }
+                            }
+                            widget = { name = "ama_reserve_treasury_row" position = { 0 104 } size = { 504 40 }
+                                text_single = { position = { 12 0 } size = { 140 40 }
+                                    autoresize = no align = left|vcenter text = "ama_currency_treasury" fontsize = 16 tooltip = "ama_reserves_help" }
+                                text_single = { position = { 152 0 } size = { 128 40 }
+                                    autoresize = no align = right|vcenter text = "[GetPlayer.MakeScope.Var('ama_reserve_treasury').GetValue|0]" fontsize = 18 default_format = "#high" tooltip = "ama_reserves_help" }
+                                button_standard = { name = "ama_reserve_treasury_minus_gui_button" position = { 292 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_treasury_minus_gui')]" text = "ama_minus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                button_standard = { name = "ama_reserve_treasury_plus_gui_button" position = { 340 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_treasury_plus_gui')]" text = "ama_plus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                text_single = { position = { 390 0 } size = { 96 40 }
+                                    autoresize = no align = center|vcenter text = "ama_reserve_step_label" fontsize = 15 }
+                            }
+                            widget = { name = "ama_reserve_prestige_row" position = { 0 144 } size = { 504 40 }
+                                text_single = { position = { 12 0 } size = { 140 40 }
+                                    autoresize = no align = left|vcenter text = "ama_currency_prestige" fontsize = 16 tooltip = "ama_reserves_help" }
+                                text_single = { position = { 152 0 } size = { 128 40 }
+                                    autoresize = no align = right|vcenter text = "[GetPlayer.MakeScope.Var('ama_reserve_prestige').GetValue|0]" fontsize = 18 default_format = "#high" tooltip = "ama_reserves_help" }
+                                button_standard = { name = "ama_reserve_prestige_minus_gui_button" position = { 292 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_prestige_minus_gui')]" text = "ama_minus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                button_standard = { name = "ama_reserve_prestige_plus_gui_button" position = { 340 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_prestige_plus_gui')]" text = "ama_plus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                text_single = { position = { 390 0 } size = { 96 40 }
+                                    autoresize = no align = center|vcenter text = "ama_reserve_step_label" fontsize = 15 }
+                            }
+                            widget = { name = "ama_reserve_piety_row" position = { 0 184 } size = { 504 40 }
+                                text_single = { position = { 12 0 } size = { 140 40 }
+                                    autoresize = no align = left|vcenter text = "ama_currency_piety" fontsize = 16 tooltip = "ama_reserves_help" }
+                                text_single = { position = { 152 0 } size = { 128 40 }
+                                    autoresize = no align = right|vcenter text = "[GetPlayer.MakeScope.Var('ama_reserve_piety').GetValue|0]" fontsize = 18 default_format = "#high" tooltip = "ama_reserves_help" }
+                                button_standard = { name = "ama_reserve_piety_minus_gui_button" position = { 292 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_piety_minus_gui')]" text = "ama_minus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                button_standard = { name = "ama_reserve_piety_plus_gui_button" position = { 340 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_piety_plus_gui')]" text = "ama_plus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                text_single = { position = { 390 0 } size = { 96 40 }
+                                    autoresize = no align = center|vcenter text = "ama_reserve_step_label" fontsize = 15 }
+                            }
+                            widget = { name = "ama_reserve_barter_goods_row" position = { 0 224 } size = { 504 40 }
+                                text_single = { position = { 12 0 } size = { 140 40 }
+                                    autoresize = no align = left|vcenter text = "ama_currency_barter_goods" fontsize = 16 tooltip = "ama_reserves_help" }
+                                text_single = { position = { 152 0 } size = { 128 40 }
+                                    autoresize = no align = right|vcenter text = "[GetPlayer.MakeScope.Var('ama_reserve_barter_goods').GetValue|0]" fontsize = 18 default_format = "#high" tooltip = "ama_reserves_help" }
+                                button_standard = { name = "ama_reserve_barter_goods_minus_gui_button" position = { 292 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_barter_goods_minus_gui')]" text = "ama_minus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                button_standard = { name = "ama_reserve_barter_goods_plus_gui_button" position = { 340 3 } size = { 40 34 }
+                                    datacontext = "[GetScriptedGui('ama_reserve_barter_goods_plus_gui')]" text = "ama_plus" tooltip = "ama_reserve_step"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[ScriptedGui.IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    buttonText = { text_single = { size = { 100% 100% } autoresize = no margin = { 8 0 }
+                                            align = center|nobaseline fontsize = 16 default_format = "#clickable" alwaystransparent = yes } }
+                                }
+                                text_single = { position = { 390 0 } size = { 96 40 }
+                                    autoresize = no align = center|vcenter text = "ama_reserve_step_label" fontsize = 15 }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

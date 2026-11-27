@@ -1,0 +1,12 @@
+﻿# Append a private handler; do not override the base-game effect or triggers.
+on_player_character_change = { on_actions = { rconq_player_change } }
+rconq_player_change = {
+ trigger = { is_ai = no is_alive = yes }
+ effect = {
+  remove_variable = rconq_panel_open
+  if = {
+   limit = { exists = scope:previous_player_character scope:previous_player_character = { is_alive = no has_variable = rconq_configured } }
+   rconq_inherit_settings_effect = yes
+  }
+ }
+}

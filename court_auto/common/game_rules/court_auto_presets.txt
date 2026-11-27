@@ -1,0 +1,141 @@
+﻿court_auto_preset_enabled = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_enabled_0
+    court_auto_preset_enabled_0 = {
+
+    }
+    court_auto_preset_enabled_1 = {
+
+    }
+}
+court_auto_preset_council = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_council_1
+    court_auto_preset_council_0 = {
+
+    }
+    court_auto_preset_council_1 = {
+
+    }
+}
+court_auto_preset_court = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_court_1
+    court_auto_preset_court_0 = {
+
+    }
+    court_auto_preset_court_1 = {
+
+    }
+}
+court_auto_preset_strategy = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_strategy_1
+    court_auto_preset_strategy_0 = {
+
+    }
+    court_auto_preset_strategy_1 = {
+
+    }
+}
+court_auto_preset_council_replace = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_council_replace_0
+    court_auto_preset_council_replace_0 = {
+
+    }
+    court_auto_preset_council_replace_1 = {
+
+    }
+}
+court_auto_preset_court_replace = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_court_replace_0
+    court_auto_preset_court_replace_0 = {
+
+    }
+    court_auto_preset_court_replace_1 = {
+
+    }
+}
+court_auto_preset_review_interval = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_review_interval_1
+    court_auto_preset_review_interval_1 = {
+
+    }
+    court_auto_preset_review_interval_6 = {
+
+    }
+    court_auto_preset_review_interval_12 = {
+
+    }
+}
+court_auto_preset_conversion = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_conversion_0
+    court_auto_preset_conversion_0 = {
+
+    }
+    court_auto_preset_conversion_1 = {
+
+    }
+    court_auto_preset_conversion_2 = {
+
+    }
+    court_auto_preset_conversion_3 = {
+
+    }
+}
+court_auto_preset_culture = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_culture_0
+    court_auto_preset_culture_0 = {
+
+    }
+    court_auto_preset_culture_1 = {
+
+    }
+    court_auto_preset_culture_2 = {
+
+    }
+    court_auto_preset_culture_3 = {
+
+    }
+}
+court_auto_preset_control = {
+    categories = {
+        court_auto_presets
+    }
+    default = court_auto_preset_control_0
+    court_auto_preset_control_0 = {
+
+    }
+    court_auto_preset_control_1 = {
+
+    }
+    court_auto_preset_control_2 = {
+
+    }
+    court_auto_preset_control_3 = {
+
+    }
+}

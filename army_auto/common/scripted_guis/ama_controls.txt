@@ -1,0 +1,384 @@
+﻿ama_panel_gui = {
+    scope = character
+    is_shown = { has_variable = ama_panel_open }
+    effect = {
+        remove_variable = ama_acc_picker
+        remove_variable = ama_panel_open
+    }
+}
+ama_toggle_gui = {
+    scope = character is_shown = { has_variable = ama_enabled } is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            ama_initialize_effect = yes
+            if = { limit = { OR = { var:ama_create_enabled = 1 var:ama_expand_enabled = 1 } }
+                set_variable = { name = ama_create_enabled value = 0 }
+                set_variable = { name = ama_expand_enabled value = 0 }
+            }
+            else = {
+                set_variable = { name = ama_create_enabled value = 1 }
+                set_variable = { name = ama_expand_enabled value = 1 }
+            }
+            ama_refresh_modes_effect = yes
+            if = { limit = { ama_active_trigger = yes } ama_begin_effect = yes }
+            ama_restart_effect = yes
+        } }
+}
+ama_check_gui = { scope = character is_valid = { ama_can_check_trigger = yes } effect = { ama_begin_effect = yes } }
+ama_reserves_toggle_gui = {
+    scope = character is_shown = { has_variable = ama_reserves_open } is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            if = { limit = { has_variable = ama_reserves_open } remove_variable = ama_reserves_open }
+            else = { set_variable = ama_reserves_open }
+        } }
+}
+ama_categories_toggle_gui = {
+    scope = character is_shown = { has_variable = ama_categories_open } is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            if = { limit = { has_variable = ama_categories_open } remove_variable = ama_categories_open }
+            else = { set_variable = ama_categories_open }
+        } }
+}
+ama_titles_available_gui = {
+    scope = character
+    is_shown = { OR = { var:ama_title_enabled = 1 var:ama_titles_available = 1 } }
+    effect = { }
+}
+ama_any_create_gui = {
+    scope = character is_shown = { OR = {
+            var:ama_create_enabled = 1
+            AND = { var:ama_title_create_enabled = 1 ama_title_create_available_trigger = yes }
+        } }
+    effect = { }
+}
+ama_titles_toggle_gui = {
+    scope = character is_shown = { var:ama_title_enabled = 1 } is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            ama_initialize_effect = yes
+            if = { limit = { var:ama_title_enabled = 1 }
+                set_variable = { name = ama_title_create_enabled value = 0 }
+                set_variable = { name = ama_title_expand_enabled value = 0 }
+            }
+            else = {
+                set_variable = { name = ama_title_create_enabled value = 0 }
+                set_variable = { name = ama_title_expand_enabled value = 1 }
+            }
+            ama_refresh_modes_effect = yes
+            ama_restart_effect = yes
+        } }
+}
+ama_create_toggle_gui = {
+    scope = character is_shown = { var:ama_create_enabled = 1 } is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            ama_initialize_effect = yes
+            if = { limit = { var:ama_create_enabled = 1 } set_variable = { name = ama_create_enabled value = 0 } }
+            else = { set_variable = { name = ama_create_enabled value = 1 } }
+            ama_refresh_modes_effect = yes
+            ama_restart_effect = yes
+            if = { limit = { var:ama_create_enabled = 1 } ama_begin_effect = yes }
+        } }
+}
+ama_expand_toggle_gui = {
+    scope = character is_shown = { var:ama_expand_enabled = 1 } is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            ama_initialize_effect = yes
+            if = { limit = { var:ama_expand_enabled = 1 } set_variable = { name = ama_expand_enabled value = 0 } }
+            else = { set_variable = { name = ama_expand_enabled value = 1 } }
+            ama_refresh_modes_effect = yes
+            ama_restart_effect = yes
+            if = { limit = { var:ama_expand_enabled = 1 } ama_begin_effect = yes }
+        } }
+}
+ama_title_create_toggle_gui = {
+    scope = character is_shown = { var:ama_title_create_enabled = 1 } is_valid = { ama_player_trigger = yes OR = { var:ama_title_create_enabled = 1 ama_title_create_available_trigger = yes } }
+    effect = { if = { limit = { ama_player_trigger = yes OR = { var:ama_title_create_enabled = 1 ama_title_create_available_trigger = yes } }
+            ama_initialize_effect = yes
+            if = { limit = { var:ama_title_create_enabled = 1 } set_variable = { name = ama_title_create_enabled value = 0 } }
+            else = { set_variable = { name = ama_title_create_enabled value = 1 } }
+            ama_refresh_modes_effect = yes
+            ama_restart_effect = yes
+            if = { limit = { var:ama_title_create_enabled = 1 } ama_begin_effect = yes }
+        } }
+}
+ama_title_expand_toggle_gui = {
+    scope = character is_shown = { var:ama_title_expand_enabled = 1 } is_valid = { ama_player_trigger = yes OR = { var:ama_title_expand_enabled = 1 ama_title_expand_available_trigger = yes } }
+    effect = { if = { limit = { ama_player_trigger = yes OR = { var:ama_title_expand_enabled = 1 ama_title_expand_available_trigger = yes } }
+            ama_initialize_effect = yes
+            if = { limit = { var:ama_title_expand_enabled = 1 } set_variable = { name = ama_title_expand_enabled value = 0 } }
+            else = { set_variable = { name = ama_title_expand_enabled value = 1 } }
+            ama_refresh_modes_effect = yes
+            ama_restart_effect = yes
+            if = { limit = { var:ama_title_expand_enabled = 1 } ama_begin_effect = yes }
+        } }
+}
+ama_add_archer_cavalry_gui = {
+    scope = character is_shown = { var:ama_target_archer_cavalry = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_archer_cavalry = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_archer_cavalry = 0 }
+            set_variable = { name = ama_target_archer_cavalry value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_archers_gui = {
+    scope = character is_shown = { var:ama_target_archers = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_archers = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_archers = 0 }
+            set_variable = { name = ama_target_archers value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_camel_cavalry_gui = {
+    scope = character is_shown = { var:ama_target_camel_cavalry = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_camel_cavalry = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_camel_cavalry = 0 }
+            set_variable = { name = ama_target_camel_cavalry value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_elephant_cavalry_gui = {
+    scope = character is_shown = { var:ama_target_elephant_cavalry = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_elephant_cavalry = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_elephant_cavalry = 0 }
+            set_variable = { name = ama_target_elephant_cavalry value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_gunpowder_gui = {
+    scope = character is_shown = { var:ama_target_gunpowder = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_gunpowder = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_gunpowder = 0 }
+            set_variable = { name = ama_target_gunpowder value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_heavy_cavalry_gui = {
+    scope = character is_shown = { var:ama_target_heavy_cavalry = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_heavy_cavalry = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_heavy_cavalry = 0 }
+            set_variable = { name = ama_target_heavy_cavalry value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_heavy_infantry_gui = {
+    scope = character is_shown = { var:ama_target_heavy_infantry = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_heavy_infantry = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_heavy_infantry = 0 }
+            set_variable = { name = ama_target_heavy_infantry value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_light_cavalry_gui = {
+    scope = character is_shown = { var:ama_target_light_cavalry = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_light_cavalry = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_light_cavalry = 0 }
+            set_variable = { name = ama_target_light_cavalry value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_pikemen_gui = {
+    scope = character is_shown = { var:ama_target_pikemen = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_pikemen = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_pikemen = 0 }
+            set_variable = { name = ama_target_pikemen value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_siege_weapon_gui = {
+    scope = character is_shown = { var:ama_target_siege_weapon = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_siege_weapon = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_siege_weapon = 0 }
+            set_variable = { name = ama_target_siege_weapon value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_add_skirmishers_gui = {
+    scope = character is_shown = { var:ama_target_skirmishers = 0 }
+    is_valid = { ama_player_trigger = yes var:ama_target_skirmishers = 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_skirmishers = 0 }
+            set_variable = { name = ama_target_skirmishers value = 1 }
+            ama_recalculate_plan_effect = yes
+        } }
+}
+ama_strategy_0_gui = { scope = character is_shown = { var:ama_strategy = 0 }
+    is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes } set_variable = { name = ama_strategy value = 0 } } }
+}
+ama_strategy_1_gui = { scope = character is_shown = { var:ama_strategy = 1 }
+    is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes } set_variable = { name = ama_strategy value = 1 } } }
+}
+ama_strategy_2_gui = { scope = character is_shown = { var:ama_strategy = 2 }
+    is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes } set_variable = { name = ama_strategy value = 2 } } }
+}
+ama_cost_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_fee_percent > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_fee_percent > 0 } change_variable = { name = ama_fee_percent subtract = 10 }  } }
+}
+ama_cost_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_fee_percent < 100 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_fee_percent < 100 } change_variable = { name = ama_fee_percent add = 10 }  } }
+}
+ama_upkeep_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_upkeep_percent > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_upkeep_percent > 0 } change_variable = { name = ama_upkeep_percent subtract = 10 }  } }
+}
+ama_upkeep_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_upkeep_percent < 100 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_upkeep_percent < 100 } change_variable = { name = ama_upkeep_percent add = 10 }  } }
+}
+ama_target_archer_cavalry_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_archer_cavalry > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_archer_cavalry > 0 } change_variable = { name = ama_target_archer_cavalry subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_archer_cavalry_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_archer_cavalry < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_archer_cavalry < 10 } change_variable = { name = ama_target_archer_cavalry add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_archers_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_archers > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_archers > 0 } change_variable = { name = ama_target_archers subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_archers_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_archers < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_archers < 10 } change_variable = { name = ama_target_archers add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_camel_cavalry_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_camel_cavalry > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_camel_cavalry > 0 } change_variable = { name = ama_target_camel_cavalry subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_camel_cavalry_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_camel_cavalry < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_camel_cavalry < 10 } change_variable = { name = ama_target_camel_cavalry add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_elephant_cavalry_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_elephant_cavalry > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_elephant_cavalry > 0 } change_variable = { name = ama_target_elephant_cavalry subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_elephant_cavalry_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_elephant_cavalry < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_elephant_cavalry < 10 } change_variable = { name = ama_target_elephant_cavalry add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_gunpowder_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_gunpowder > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_gunpowder > 0 } change_variable = { name = ama_target_gunpowder subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_gunpowder_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_gunpowder < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_gunpowder < 10 } change_variable = { name = ama_target_gunpowder add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_heavy_cavalry_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_heavy_cavalry > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_heavy_cavalry > 0 } change_variable = { name = ama_target_heavy_cavalry subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_heavy_cavalry_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_heavy_cavalry < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_heavy_cavalry < 10 } change_variable = { name = ama_target_heavy_cavalry add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_heavy_infantry_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_heavy_infantry > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_heavy_infantry > 0 } change_variable = { name = ama_target_heavy_infantry subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_heavy_infantry_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_heavy_infantry < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_heavy_infantry < 10 } change_variable = { name = ama_target_heavy_infantry add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_light_cavalry_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_light_cavalry > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_light_cavalry > 0 } change_variable = { name = ama_target_light_cavalry subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_light_cavalry_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_light_cavalry < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_light_cavalry < 10 } change_variable = { name = ama_target_light_cavalry add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_pikemen_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_pikemen > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_pikemen > 0 } change_variable = { name = ama_target_pikemen subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_pikemen_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_pikemen < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_pikemen < 10 } change_variable = { name = ama_target_pikemen add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_siege_weapon_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_siege_weapon > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_siege_weapon > 0 } change_variable = { name = ama_target_siege_weapon subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_siege_weapon_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_siege_weapon < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_siege_weapon < 10 } change_variable = { name = ama_target_siege_weapon add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_skirmishers_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_skirmishers > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_skirmishers > 0 } change_variable = { name = ama_target_skirmishers subtract = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_target_skirmishers_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_target_skirmishers < 10 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_target_skirmishers < 10 } change_variable = { name = ama_target_skirmishers add = 1 } ama_recalculate_plan_effect = yes } }
+}
+ama_reserve_gold_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_gold > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_gold > 0 } change_variable = { name = ama_reserve_gold subtract = 100 }  } }
+}
+ama_reserve_gold_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_gold < 1000000 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_gold < 1000000 } change_variable = { name = ama_reserve_gold add = 100 }  } }
+}
+ama_reserve_treasury_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_treasury > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_treasury > 0 } change_variable = { name = ama_reserve_treasury subtract = 100 }  } }
+}
+ama_reserve_treasury_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_treasury < 1000000 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_treasury < 1000000 } change_variable = { name = ama_reserve_treasury add = 100 }  } }
+}
+ama_reserve_prestige_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_prestige > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_prestige > 0 } change_variable = { name = ama_reserve_prestige subtract = 100 }  } }
+}
+ama_reserve_prestige_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_prestige < 1000000 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_prestige < 1000000 } change_variable = { name = ama_reserve_prestige add = 100 }  } }
+}
+ama_reserve_piety_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_piety > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_piety > 0 } change_variable = { name = ama_reserve_piety subtract = 100 }  } }
+}
+ama_reserve_piety_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_piety < 1000000 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_piety < 1000000 } change_variable = { name = ama_reserve_piety add = 100 }  } }
+}
+ama_reserve_barter_goods_minus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_barter_goods > 0 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_barter_goods > 0 } change_variable = { name = ama_reserve_barter_goods subtract = 100 }  } }
+}
+ama_reserve_barter_goods_plus_gui = { scope = character is_valid = { ama_player_trigger = yes var:ama_reserve_barter_goods < 1000000 }
+    effect = { if = { limit = { ama_player_trigger = yes var:ama_reserve_barter_goods < 1000000 } change_variable = { name = ama_reserve_barter_goods add = 100 }  } }
+}
+ama_wallet_prev_gui = { scope = character is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            if = { limit = { var:ama_wallet = 0 } set_variable = { name = ama_wallet value = 4 } }
+            else = { change_variable = { name = ama_wallet subtract = 1 } }
+        } }
+}
+ama_wallet_next_gui = { scope = character is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            if = { limit = { var:ama_wallet = 4 } set_variable = { name = ama_wallet value = 0 } }
+            else = { change_variable = { name = ama_wallet add = 1 } }
+        } }
+}
+ama_rule_toggle_gui = { scope = character
+    is_shown = { has_variable = ama_rule_show }
+    is_valid = { ama_rule_actor_trigger = yes }
+    effect = { if = { limit = { ama_rule_actor_trigger = yes }
+            if = { limit = { has_variable = ama_rule_show } remove_variable = ama_rule_show }
+            else = { ama_rule_refresh_effect = yes set_variable = ama_rule_show }
+        } } }
+ama_rule_refresh_gui = { scope = character
+    is_valid = { ama_rule_actor_trigger = yes has_variable = ama_rule_show }
+    effect = { if = { limit = { ama_rule_actor_trigger = yes has_variable = ama_rule_show }
+            ama_rule_refresh_effect = yes
+        } } }
+
+ama_size_receive_gui = {
+    scope = character
+    saved_scopes = { ama_size_object ama_size_current ama_size_max ama_size_response_ticket }
+    is_valid = { ama_size_receive_trigger = yes }
+    effect = { ama_size_receive_effect = yes }
+}
+ama_size_timeout_gui = {
+    scope = character saved_scopes = { ama_size_timeout_ticket }
+    is_valid = {
+        ama_player_trigger = yes
+        has_variable = ama_size_pending
+        exists = scope:ama_size_timeout_ticket
+        scope:ama_size_timeout_ticket = var:ama_size_ticket
+    }
+    effect = { ama_size_timeout_effect = yes }
+}
+ama_any_manage_gui = {
+    scope = character is_shown = { OR = {
+            var:ama_create_enabled = 1 var:ama_expand_enabled = 1 var:ama_title_expand_enabled = 1
+            AND = { var:ama_title_create_enabled = 1 ama_title_create_available_trigger = yes }
+        } }
+    effect = { }
+}
+ama_replace_toggle_gui = { scope = character is_shown = { var:ama_replace_enabled = 1 }
+    is_valid = { ama_player_trigger = yes }
+    effect = { if = { limit = { ama_player_trigger = yes }
+            if = { limit = { var:ama_replace_enabled = 1 } set_variable = { name = ama_replace_enabled value = 0 } }
+            else = { set_variable = { name = ama_replace_enabled value = 1 } }
+        } }
+}
+ama_repl_receive_gui = { scope = character
+    saved_scopes = { ama_repl_object ama_repl_current ama_repl_max ama_repl_reply_ticket }
+    is_valid = { has_variable = ama_repl_pending }
+    effect = { ama_repl_receive_effect = yes }
+}
+ama_repl_timeout_gui = { scope = character saved_scopes = { ama_repl_timeout_phase }
+    is_valid = { has_variable = ama_repl_pending }
+    effect = { if = { limit = { has_variable = ama_repl_pending scope:ama_repl_timeout_phase = var:ama_repl_phase } ama_repl_abort_effect = yes } }
+}

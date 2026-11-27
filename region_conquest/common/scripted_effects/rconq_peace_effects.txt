@@ -1,0 +1,401 @@
+# Based on the installed 1.21.0.3 native war-end helpers. Preserve opinion,
+# house-feud and hostage-description effects; omit only truce creation.
+# Private definitions: no global scripted-effect or script-value override.
+
+rconq_peace_victory_effect = {
+	scope:attacker = { # Vassal Stance opinion effect
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = glory_hound
+				}
+			}
+			custom_tooltip = glory_hound_approves_war_victory
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = glory_hound
+					add_opinion = {
+						target = scope:attacker
+						modifier = glory_hound_approves_war_victory_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = zealot
+				}
+				scope:defender = {
+					faith = scope:attacker.faith
+					government_has_flag = government_is_theocracy
+				}
+			}
+			custom_tooltip = zealot_disapproves_war_victory
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = zealot
+					add_opinion = {
+						target = scope:attacker
+						modifier = zealot_disapproves_war_victory_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				government_has_flag = government_is_clan
+				house ?= { has_house_unity_stage = antagonistic }
+				any_vassal = {
+					house ?= scope:attacker.house
+				}
+			}
+			custom_tooltip = antagonistic_house_approves_war_victory
+			hidden_effect = {
+				every_vassal = {
+					limit = {
+						house ?= scope:attacker.house
+					}
+					add_opinion = {
+						target = scope:attacker
+						modifier = antagonistic_house_approves_war_victory_opinion
+					}
+				}
+			}
+		}
+	}
+	scope:defender ?= { # Vassal Stance opinion effect
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = glory_hound
+				}
+			}
+			custom_tooltip = glory_hound_disapproves_war_defeat_defender
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = glory_hound
+					add_opinion = {
+						target = scope:defender
+						modifier = glory_hound_disapproves_war_defeat_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = zealot
+				}
+				scope:attacker = {
+					faith = scope:defender.faith
+					government_has_flag = government_is_theocracy
+				}
+			}
+			custom_tooltip = zealot_approves_war_victory_defender
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = zealot
+					add_opinion = {
+						target = scope:defender
+						modifier = zealot_approves_war_victory_defender_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				government_has_flag = government_is_clan
+				house ?= { has_house_unity_stage = antagonistic }
+				any_vassal = {
+					house ?= scope:defender.house
+				}
+			}
+			custom_tooltip = antagonistic_house_disapproves_war_defeat_defender
+			hidden_effect = {
+				every_vassal = {
+					limit = {
+						house ?= scope:defender.house
+					}
+					add_opinion = {
+						target = scope:defender
+						modifier = antagonistic_house_disapproves_war_defeat_opinion
+					}
+				}
+			}
+		}
+	}
+	# Feud
+	scope:attacker.house ?= {
+		change_house_relation_feud_score_effect = {
+			TARGET = scope:defender.house
+			REASON = war
+			VALUE = house_feud_medium_counter_value
+		}
+	}
+	# Tooltips for hostage exchange, handled here as it's shared between casus belli
+	bp2_hostage_war_end_tooltip_effect = yes
+}
+
+rconq_peace_white_peace_effect = {
+	scope:attacker = { # Vassal Stance opinion effect
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = glory_hound
+				}
+			}
+			custom_tooltip = glory_hound_disapproves_war_white_peace
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = glory_hound
+					add_opinion = {
+						target = scope:attacker
+						modifier = glory_hound_disapproves_war_white_peace_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = zealot
+				}
+				scope:defender = {
+					faith = scope:attacker.faith
+					government_has_flag = government_is_theocracy
+				}
+			}
+			custom_tooltip = zealot_approves_war_white_peace
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = zealot
+					add_opinion = {
+						target = scope:attacker
+						modifier = zealot_approves_war_white_peace_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				government_has_flag = government_is_clan
+				house ?= { has_house_unity_stage = antagonistic }
+				any_vassal = {
+					house ?= scope:attacker.house
+				}
+			}
+			custom_tooltip = antagonistic_house_disapproves_war_white_peace
+			hidden_effect = {
+				every_vassal = {
+					limit = {
+						house ?= scope:attacker.house
+					}
+					add_opinion = {
+						target = scope:attacker
+						modifier = antagonistic_house_disapproves_war_white_peace_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_active_accolade = {
+					accolade_parameter = accolade_champions_white_peace
+				}
+			}
+			add_prestige = accolade_white_peace_prestige_value
+		}
+	}
+	scope:defender = { # Vassal Stance opinion effect
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = glory_hound
+				}
+			}
+			custom_tooltip = glory_hound_disapproves_war_white_peace_defender
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = glory_hound
+					add_opinion = {
+						target = scope:defender
+						modifier = glory_hound_disapproves_war_white_peace_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = zealot
+				}
+				scope:attacker = {
+					faith = scope:defender.faith
+					government_has_flag = government_is_theocracy
+				}
+			}
+			custom_tooltip = zealot_disapproves_war_white_peace_defender
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = zealot
+					add_opinion = {
+						target = scope:defender
+						modifier = zealot_disapproves_war_white_peace_defender_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				government_has_flag = government_is_clan
+				house ?= { has_house_unity_stage = antagonistic }
+				any_vassal = {
+					house ?= scope:defender.house
+				}
+			}
+			custom_tooltip = antagonistic_house_disapproves_war_white_peace_defender
+			hidden_effect = {
+				every_vassal = {
+					limit = {
+						house ?= scope:defender.house
+					}
+					add_opinion = {
+						target = scope:defender
+						modifier = antagonistic_house_disapproves_war_white_peace_opinion
+					}
+				}
+			}
+		}
+	}
+	scope:attacker = {
+		if = {
+			limit = {
+				house_has_feud_relation_with_trigger = { TARGET = scope:defender }
+			}
+			house = {
+				every_house_member = {
+					limit = { is_ai = no }
+					send_interface_message = {
+						type = house_feud_white_peace_message
+						left_icon = scope:attacker
+						right_icon = scope:defender
+						title = msg_house_feud_white_peace
+						desc = msg_house_feud_white_peace_desc
+					}
+				}
+			}
+			scope:defender.house = {
+				every_house_member = {
+					limit = { is_ai = no }
+					send_interface_message = {
+						type = house_feud_white_peace_message
+						left_icon = scope:defender
+						right_icon = scope:attacker
+						title = msg_house_feud_white_peace
+						desc = msg_house_feud_white_peace_desc
+					}
+				}
+			}
+		}
+	}
+	# Tooltips for hostage exchange, handled here as it's shared between casus belli
+	bp2_hostage_war_end_tooltip_effect = yes
+}
+
+rconq_peace_defeat_effect = {
+	scope:attacker = { # Vassal Stance opinion effect
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = glory_hound
+				}
+			}
+			custom_tooltip = glory_hound_disapproves_war_defeat
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = glory_hound
+					add_opinion = {
+						target = scope:attacker
+						modifier = glory_hound_disapproves_war_defeat_opinion
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				government_has_flag = government_is_clan
+				house ?= { has_house_unity_stage = antagonistic }
+				any_vassal = {
+					house ?= scope:attacker.house
+				}
+			}
+			custom_tooltip = antagonistic_house_disapproves_war_defeat
+			hidden_effect = {
+				every_vassal = {
+					limit = {
+						house ?= scope:attacker.house
+					}
+					add_opinion = {
+						target = scope:attacker
+						modifier = antagonistic_house_disapproves_war_defeat_opinion
+					}
+				}
+			}
+		}
+	}
+	scope:defender = {
+		if = {
+			limit = {
+				any_vassal = {
+					vassal_stance = zealot
+				}
+				scope:attacker = {
+					faith = scope:defender.faith
+					government_has_flag = government_is_theocracy
+				}
+			}
+			custom_tooltip = zealot_approves_war_defeat_defender
+			hidden_effect = {
+				every_vassal = {
+					vassal_stance = zealot
+					add_opinion = {
+						target = scope:defender
+						modifier = zealot_approves_war_victory_defender_opinion
+					}
+				}
+			}
+		}
+		# Feud
+		house ?= {
+			change_house_relation_feud_score_effect = {
+				TARGET = scope:attacker.house
+				REASON = war
+				VALUE = house_feud_medium_counter_value
+			}
+		}
+		if = {
+			limit = {
+				government_has_flag = government_is_clan
+				house ?= { has_house_unity_stage = antagonistic }
+				any_vassal = {
+					house ?= scope:defender.house
+				}
+			}
+			custom_tooltip = antagonistic_house_approves_war_victory_defensive
+			hidden_effect = {
+				every_vassal = {
+					limit = {
+						house ?= scope:defender.house
+					}
+					add_opinion = {
+						target = scope:defender
+						modifier = antagonistic_house_approves_war_victory_defensive_opinion
+					}
+				}
+			}
+		}
+	}
+	# Tooltips for hostage exchange, handled here as it's shared between casus belli
+	bp2_hostage_war_end_tooltip_effect = yes
+}

@@ -1,0 +1,37 @@
+﻿on_game_start_after_lobby = {
+    on_actions = {
+        dejure_auto_direct_after_lobby
+    }
+}
+dejure_auto_direct_after_lobby = {
+    effect = {
+        every_player = {
+            limit = {
+                is_ai = no
+                is_alive = yes
+                OR = {
+                    has_variable = dejure_auto_manual_open
+                    has_variable = dejure_auto_direct_open
+                    has_variable = dejure_auto_select_probe_open
+                    has_variable = dejure_auto_activity_probe_enabled
+                    has_variable = dejure_auto_color_probe_open
+                }
+            }
+            dejure_auto_direct_load_cleanup_effect = yes
+        }
+    }
+}
+on_player_character_change = {
+    on_actions = {
+        dejure_auto_direct_player_change
+    }
+}
+dejure_auto_direct_player_change = {
+    trigger = {
+        is_ai = no
+        is_alive = yes
+    }
+    effect = {
+        dejure_auto_direct_load_cleanup_effect = yes
+    }
+}

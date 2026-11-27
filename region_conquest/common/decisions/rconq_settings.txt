@@ -1,0 +1,8 @@
+﻿rconq_settings_decision = {
+ picture = { reference = "gfx/interface/illustrations/decisions/decision_realm.dds" }
+ decision_group_type = rconq_configuration
+ is_shown = { is_ai = no }
+ is_valid = { is_alive = yes }
+ effect = { hidden_effect = { rconq_initialize_settings_effect = yes set_variable = rconq_panel_open } }
+ ai_check_interval = 0
+}

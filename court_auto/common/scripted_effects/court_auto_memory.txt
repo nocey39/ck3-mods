@@ -1,0 +1,339 @@
+﻿# Only the existing personnel review calls the memory observer.
+court_auto_memory_migrate_effect = {
+    if = {
+        limit = { has_variable = court_auto_task_control_fallback }
+        set_variable = court_auto_memory_enabled
+        if = {
+            limit = { NOT = { has_variable = court_auto_memory_marshal } }
+            set_variable = { name = court_auto_memory_marshal value = flag:task_train_commanders }
+        }
+        remove_variable = court_auto_task_control_fallback
+    }
+}
+
+court_auto_memory_reset_observations_effect = {
+    remove_variable = court_auto_memory_chancellor_worker
+    remove_variable = court_auto_memory_marshal_worker
+    remove_variable = court_auto_memory_spymaster_worker
+    remove_variable = court_auto_memory_chaplain_worker
+    remove_variable = court_auto_memory_grand_marshal_worker
+}
+
+court_auto_memory_inherit_effect = {
+    court_auto_memory_reset_observations_effect = yes
+    remove_variable = court_auto_memory_enabled
+    if = {
+        limit = { scope:previous_player_character = {
+            OR = { has_variable = court_auto_memory_enabled has_variable = court_auto_task_control_fallback }
+        } }
+        set_variable = court_auto_memory_enabled
+    }
+    remove_variable = court_auto_memory_chancellor
+    if = {
+        limit = { scope:previous_player_character = { has_variable = court_auto_memory_chancellor } }
+        set_variable = { name = court_auto_memory_chancellor value = scope:previous_player_character.var:court_auto_memory_chancellor }
+    }
+    remove_variable = court_auto_memory_marshal
+    if = {
+        limit = { scope:previous_player_character = { has_variable = court_auto_memory_marshal } }
+        set_variable = { name = court_auto_memory_marshal value = scope:previous_player_character.var:court_auto_memory_marshal }
+    }
+    else_if = {
+        limit = { scope:previous_player_character = { has_variable = court_auto_task_control_fallback } }
+        set_variable = { name = court_auto_memory_marshal value = flag:task_train_commanders }
+    }
+    remove_variable = court_auto_memory_spymaster
+    if = {
+        limit = { scope:previous_player_character = { has_variable = court_auto_memory_spymaster } }
+        set_variable = { name = court_auto_memory_spymaster value = scope:previous_player_character.var:court_auto_memory_spymaster }
+    }
+    remove_variable = court_auto_memory_chaplain
+    if = {
+        limit = { scope:previous_player_character = { has_variable = court_auto_memory_chaplain } }
+        set_variable = { name = court_auto_memory_chaplain value = scope:previous_player_character.var:court_auto_memory_chaplain }
+    }
+    remove_variable = court_auto_memory_grand_marshal
+    if = {
+        limit = { scope:previous_player_character = { has_variable = court_auto_memory_grand_marshal } }
+        set_variable = { name = court_auto_memory_grand_marshal value = scope:previous_player_character.var:court_auto_memory_grand_marshal }
+    }
+}
+
+court_auto_memory_check_effect = {
+    save_scope_as = councillor_liege
+    # Continuation has first refusal. If it found no further county, the
+    # completed task may still be selected in the native council.
+    if = {
+        limit = {
+            OR = { var:court_auto_task_conversion_scope = 0 has_variable = court_auto_task_conversion_exhausted scope:court_auto_task_conversion_no_next ?= yes }
+            cp:councillor_court_chaplain ?= { is_performing_council_task = task_conversion }
+        }
+        cp:councillor_court_chaplain = {
+            save_scope_as = court_auto_task_worker
+            if = {
+                limit = { court_auto_task_conversion_finished_trigger = yes }
+                scope:court_auto_owner = { remove_variable = court_auto_memory_chaplain_worker }
+                start_default_task = yes
+            }
+        }
+    }
+    if = {
+        limit = {
+            OR = { var:court_auto_task_culture_scope = 0 has_variable = court_auto_task_culture_exhausted scope:court_auto_task_culture_no_next ?= yes }
+            cp:councillor_steward ?= { is_performing_council_task = task_promote_culture }
+        }
+        cp:councillor_steward = {
+            save_scope_as = court_auto_task_worker
+            if = {
+                limit = { court_auto_task_culture_finished_trigger = yes }
+                start_default_task = yes
+            }
+        }
+    }
+    if = {
+        limit = {
+            OR = { var:court_auto_task_control_scope = 0 has_variable = court_auto_task_control_exhausted scope:court_auto_task_control_no_next ?= yes }
+            cp:councillor_marshal ?= { is_performing_council_task = task_increase_control }
+        }
+        cp:councillor_marshal = {
+            save_scope_as = court_auto_task_worker
+            if = {
+                limit = { court_auto_task_control_finished_trigger = yes }
+                scope:court_auto_owner = { remove_variable = court_auto_memory_marshal_worker }
+                start_default_task = yes
+            }
+        }
+    }
+    court_auto_memory_check_chancellor_effect = yes
+    court_auto_memory_check_marshal_effect = yes
+    court_auto_memory_check_spymaster_effect = yes
+    court_auto_memory_check_chaplain_effect = yes
+    court_auto_memory_check_grand_marshal_effect = yes
+}
+
+# A default seen after observed standing work by the same councillor is
+# treated as the player's new choice. A new councillor, observed temporary
+# work, or a previously unavailable task starts a new observation instead.
+court_auto_memory_restore_effect = {
+    if = {
+        limit = {
+            var:$OBSERVATION$ ?= scope:court_auto_memory_worker
+            scope:court_auto_memory_had_temporary = no
+            scope:court_auto_memory_worker = { is_performing_council_task = $DEFAULT$ }
+        }
+        remove_variable = $MEMORY$
+        remove_variable = $OBSERVATION$
+    }
+    else = {
+        scope:court_auto_memory_worker = { set_council_task = { task_type = $TASK$ } }
+        if = {
+            limit = { scope:court_auto_memory_worker = { is_performing_council_task = $TASK$ } }
+            set_variable = { name = $OBSERVATION$ value = scope:court_auto_memory_worker }
+            change_variable = { name = court_auto_last_tasks add = 1 }
+        }
+        else = { remove_variable = $OBSERVATION$ }
+    }
+}
+
+court_auto_memory_check_chancellor_effect = {
+    if = {
+        limit = { cp:councillor_chancellor ?= { is_alive = yes } }
+        cp:councillor_chancellor = { save_scope_as = court_auto_memory_worker save_scope_as = councillor }
+        save_scope_value_as = { name = court_auto_memory_had_temporary value = no }
+        if = {
+            limit = {
+                scope:court_auto_memory_worker = { is_performing_council_task = task_domestic_affairs }
+            }
+            set_variable = { name = court_auto_memory_chancellor value = flag:task_domestic_affairs }
+            set_variable = { name = court_auto_memory_chancellor_worker value = scope:court_auto_memory_worker }
+        }
+        else_if = {
+            limit = { scope:court_auto_memory_worker = {
+                OR = { is_performing_council_task = task_foreign_affairs NOT = { exists = council_task } }
+            } }
+            if = {
+                limit = {
+                    var:court_auto_memory_chancellor ?= flag:task_domestic_affairs
+                    scope:court_auto_memory_worker = { is_council_task_valid = { task_type = task_domestic_affairs } }
+                }
+                court_auto_memory_restore_effect = {
+                    TASK = task_domestic_affairs DEFAULT = task_foreign_affairs
+                    MEMORY = court_auto_memory_chancellor OBSERVATION = court_auto_memory_chancellor_worker
+                }
+            }
+            else = { remove_variable = court_auto_memory_chancellor_worker }
+        }
+        else = { remove_variable = court_auto_memory_chancellor_worker }
+    }
+    else = { remove_variable = court_auto_memory_chancellor_worker }
+}
+
+court_auto_memory_check_marshal_effect = {
+    if = {
+        limit = { cp:councillor_marshal ?= { is_alive = yes } }
+        cp:councillor_marshal = { save_scope_as = court_auto_memory_worker save_scope_as = councillor }
+        save_scope_value_as = { name = court_auto_memory_had_temporary value = no }
+        if = {
+            limit = { has_variable = court_auto_task_control_target }
+            save_scope_value_as = { name = court_auto_memory_had_temporary value = yes }
+        }
+        if = {
+            limit = {
+                tgp_has_access_to_ministry_trigger = no
+                scope:court_auto_memory_worker = { is_performing_council_task = task_train_commanders }
+            }
+            set_variable = { name = court_auto_memory_marshal value = flag:task_train_commanders }
+            set_variable = { name = court_auto_memory_marshal_worker value = scope:court_auto_memory_worker }
+            remove_variable = court_auto_task_control_target
+        }
+        else_if = {
+            limit = {
+                has_dlc_feature = royal_court court_grandeur_current_level >= 3
+                scope:court_auto_memory_worker = { is_performing_council_task = task_manage_guards }
+            }
+            set_variable = { name = court_auto_memory_marshal value = flag:task_manage_guards }
+            set_variable = { name = court_auto_memory_marshal_worker value = scope:court_auto_memory_worker }
+            remove_variable = court_auto_task_control_target
+        }
+        else_if = {
+            limit = { scope:court_auto_memory_worker = {
+                OR = { is_performing_council_task = task_organize_levies NOT = { exists = council_task } }
+            } }
+            if = {
+                limit = {
+                    var:court_auto_memory_marshal ?= flag:task_train_commanders
+                    tgp_has_access_to_ministry_trigger = no
+                    scope:court_auto_memory_worker = { is_council_task_valid = { task_type = task_train_commanders } }
+                }
+                court_auto_memory_restore_effect = {
+                    TASK = task_train_commanders DEFAULT = task_organize_levies
+                    MEMORY = court_auto_memory_marshal OBSERVATION = court_auto_memory_marshal_worker
+                }
+            }
+            else_if = {
+                limit = {
+                    var:court_auto_memory_marshal ?= flag:task_manage_guards
+                    has_dlc_feature = royal_court court_grandeur_current_level >= 3
+                    scope:court_auto_memory_worker = { is_council_task_valid = { task_type = task_manage_guards } }
+                }
+                court_auto_memory_restore_effect = {
+                    TASK = task_manage_guards DEFAULT = task_organize_levies
+                    MEMORY = court_auto_memory_marshal OBSERVATION = court_auto_memory_marshal_worker
+                }
+            }
+            else = { remove_variable = court_auto_memory_marshal_worker }
+            remove_variable = court_auto_task_control_target
+        }
+        else = { remove_variable = court_auto_memory_marshal_worker }
+    }
+    else = { remove_variable = court_auto_memory_marshal_worker }
+}
+
+court_auto_memory_check_spymaster_effect = {
+    if = {
+        limit = { cp:councillor_spymaster ?= { is_alive = yes } }
+        cp:councillor_spymaster = { save_scope_as = court_auto_memory_worker save_scope_as = councillor }
+        save_scope_value_as = { name = court_auto_memory_had_temporary value = no }
+        if = {
+            limit = {
+                scope:court_auto_memory_worker = { is_performing_council_task = task_support_schemes }
+            }
+            set_variable = { name = court_auto_memory_spymaster value = flag:task_support_schemes }
+            set_variable = { name = court_auto_memory_spymaster_worker value = scope:court_auto_memory_worker }
+        }
+        else_if = {
+            limit = { scope:court_auto_memory_worker = {
+                OR = { is_performing_council_task = task_disrupt_schemes NOT = { exists = council_task } }
+            } }
+            if = {
+                limit = {
+                    var:court_auto_memory_spymaster ?= flag:task_support_schemes
+                    scope:court_auto_memory_worker = { is_council_task_valid = { task_type = task_support_schemes } }
+                }
+                court_auto_memory_restore_effect = {
+                    TASK = task_support_schemes DEFAULT = task_disrupt_schemes
+                    MEMORY = court_auto_memory_spymaster OBSERVATION = court_auto_memory_spymaster_worker
+                }
+            }
+            else = { remove_variable = court_auto_memory_spymaster_worker }
+        }
+        else = { remove_variable = court_auto_memory_spymaster_worker }
+    }
+    else = { remove_variable = court_auto_memory_spymaster_worker }
+}
+
+court_auto_memory_check_chaplain_effect = {
+    if = {
+        limit = { cp:councillor_court_chaplain ?= { is_alive = yes } }
+        cp:councillor_court_chaplain = { save_scope_as = court_auto_memory_worker save_scope_as = councillor }
+        save_scope_value_as = { name = court_auto_memory_had_temporary value = no }
+        if = {
+            limit = { has_variable = court_auto_task_conversion_target }
+            save_scope_value_as = { name = court_auto_memory_had_temporary value = yes }
+        }
+        if = {
+            limit = {
+                tgp_has_access_to_ministry_trigger = yes
+                scope:court_auto_memory_worker = { is_performing_council_task = task_culture_minister }
+            }
+            set_variable = { name = court_auto_memory_chaplain value = flag:task_culture_minister }
+            set_variable = { name = court_auto_memory_chaplain_worker value = scope:court_auto_memory_worker }
+            remove_variable = court_auto_task_conversion_target
+        }
+        else_if = {
+            limit = { scope:court_auto_memory_worker = {
+                OR = { is_performing_council_task = task_religious_relations NOT = { exists = council_task } }
+            } }
+            if = {
+                limit = {
+                    var:court_auto_memory_chaplain ?= flag:task_culture_minister
+                    tgp_has_access_to_ministry_trigger = yes
+                    scope:court_auto_memory_worker = { is_council_task_valid = { task_type = task_culture_minister } }
+                }
+                court_auto_memory_restore_effect = {
+                    TASK = task_culture_minister DEFAULT = task_religious_relations
+                    MEMORY = court_auto_memory_chaplain OBSERVATION = court_auto_memory_chaplain_worker
+                }
+            }
+            else = { remove_variable = court_auto_memory_chaplain_worker }
+            remove_variable = court_auto_task_conversion_target
+        }
+        else = { remove_variable = court_auto_memory_chaplain_worker }
+    }
+    else = { remove_variable = court_auto_memory_chaplain_worker }
+}
+
+court_auto_memory_check_grand_marshal_effect = {
+    if = {
+        limit = { cp:minister_grand_marshal ?= { is_alive = yes } }
+        cp:minister_grand_marshal = { save_scope_as = court_auto_memory_worker save_scope_as = councillor }
+        save_scope_value_as = { name = court_auto_memory_had_temporary value = no }
+        if = {
+            limit = {
+                tgp_has_access_to_ministry_trigger = yes
+                scope:court_auto_memory_worker = { is_performing_council_task = task_train_commanders_grand_marshal }
+            }
+            set_variable = { name = court_auto_memory_grand_marshal value = flag:task_train_commanders_grand_marshal }
+            set_variable = { name = court_auto_memory_grand_marshal_worker value = scope:court_auto_memory_worker }
+        }
+        else_if = {
+            limit = { scope:court_auto_memory_worker = {
+                OR = { is_performing_council_task = task_lead_troops NOT = { exists = council_task } }
+            } }
+            if = {
+                limit = {
+                    var:court_auto_memory_grand_marshal ?= flag:task_train_commanders_grand_marshal
+                    tgp_has_access_to_ministry_trigger = yes
+                    scope:court_auto_memory_worker = { is_council_task_valid = { task_type = task_train_commanders_grand_marshal } }
+                }
+                court_auto_memory_restore_effect = {
+                    TASK = task_train_commanders_grand_marshal DEFAULT = task_lead_troops
+                    MEMORY = court_auto_memory_grand_marshal OBSERVATION = court_auto_memory_grand_marshal_worker
+                }
+            }
+            else = { remove_variable = court_auto_memory_grand_marshal_worker }
+        }
+        else = { remove_variable = court_auto_memory_grand_marshal_worker }
+    }
+    else = { remove_variable = court_auto_memory_grand_marshal_worker }
+}

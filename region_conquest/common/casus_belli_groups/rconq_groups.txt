@@ -1,0 +1,7 @@
+﻿# Do not inherit the vanilla conquest/invasion groups' theocracy and
+# government restrictions. CB eligibility is solely human player control.
+rconq_player_conquest = {
+	allowed_for_character = {
+		is_ai = no
+	}
+}

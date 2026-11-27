@@ -1,0 +1,168 @@
+﻿dejure_auto_color_probe_open_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } } }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } } }
+            if = { limit = { NOT = { has_variable = dejure_auto_color_probe_epoch } }
+                set_variable = { name = dejure_auto_color_probe_epoch value = 0 } }
+            change_variable = { name = dejure_auto_color_probe_epoch add = 1 }
+            set_variable = dejure_auto_color_probe_open
+            remove_variable = dejure_auto_color_probe_last_1
+            set_variable = { name = dejure_auto_color_probe_seen_1 value = 0 }
+            remove_variable = dejure_auto_color_probe_last_2
+            set_variable = { name = dejure_auto_color_probe_seen_2 value = 0 }
+            remove_variable = dejure_auto_color_probe_last_3
+            set_variable = { name = dejure_auto_color_probe_seen_3 value = 0 }
+            remove_variable = dejure_auto_color_probe_last_4
+            set_variable = { name = dejure_auto_color_probe_seen_4 value = 0 }
+            remove_variable = dejure_auto_panel_open
+        } }
+}
+dejure_auto_color_probe_back_gui = { scope = character effect = {
+        remove_variable = dejure_auto_color_probe_open
+        set_variable = dejure_auto_panel_open
+    } }
+
+dejure_auto_color_probe_receive_1_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes
+        has_variable = dejure_auto_color_probe_open
+        NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+        exists = scope:dejure_auto_color_probe_ticket
+        var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+        exists = scope:dejure_auto_color_probe_county
+        scope:dejure_auto_color_probe_county = {
+            tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+        }
+    }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes
+                has_variable = dejure_auto_color_probe_open
+                NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+                exists = scope:dejure_auto_color_probe_ticket
+                var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+                exists = scope:dejure_auto_color_probe_county
+                scope:dejure_auto_color_probe_county = {
+                    tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+                }
+
+                NOT = { var:dejure_auto_color_probe_last_1 = scope:dejure_auto_color_probe_county } }
+            set_variable = { name = dejure_auto_color_probe_last_1 value = scope:dejure_auto_color_probe_county }
+            change_variable = { name = dejure_auto_color_probe_seen_1 add = 1 }
+        } }
+}
+
+dejure_auto_color_probe_receive_2_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes
+        has_variable = dejure_auto_color_probe_open
+        NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+        exists = scope:dejure_auto_color_probe_ticket
+        var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+        exists = scope:dejure_auto_color_probe_county
+        scope:dejure_auto_color_probe_county = {
+            tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+        }
+        exists = scope:dejure_auto_color_probe_province
+        scope:dejure_auto_color_probe_province = {
+            province_owner = root county = scope:dejure_auto_color_probe_county
+        }
+    }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes
+                has_variable = dejure_auto_color_probe_open
+                NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+                exists = scope:dejure_auto_color_probe_ticket
+                var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+                exists = scope:dejure_auto_color_probe_county
+                scope:dejure_auto_color_probe_county = {
+                    tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+                }
+                exists = scope:dejure_auto_color_probe_province
+                scope:dejure_auto_color_probe_province = {
+                    province_owner = root county = scope:dejure_auto_color_probe_county
+                }
+
+                NOT = { var:dejure_auto_color_probe_last_2 = scope:dejure_auto_color_probe_county } }
+            set_variable = { name = dejure_auto_color_probe_last_2 value = scope:dejure_auto_color_probe_county }
+            change_variable = { name = dejure_auto_color_probe_seen_2 add = 1 }
+        } }
+}
+
+dejure_auto_color_probe_receive_3_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes
+        has_variable = dejure_auto_color_probe_open
+        NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+        exists = scope:dejure_auto_color_probe_ticket
+        var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+        exists = scope:dejure_auto_color_probe_county
+        scope:dejure_auto_color_probe_county = {
+            tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+        }
+        exists = scope:dejure_auto_color_probe_province
+        scope:dejure_auto_color_probe_province = {
+            province_owner = root county = scope:dejure_auto_color_probe_county
+        }
+        exists = scope:dejure_auto_color_probe_barony
+        scope:dejure_auto_color_probe_barony = { tier = tier_barony holder = root }
+        scope:dejure_auto_color_probe_province = { barony = scope:dejure_auto_color_probe_barony }
+    }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes
+                has_variable = dejure_auto_color_probe_open
+                NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+                exists = scope:dejure_auto_color_probe_ticket
+                var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+                exists = scope:dejure_auto_color_probe_county
+                scope:dejure_auto_color_probe_county = {
+                    tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+                }
+                exists = scope:dejure_auto_color_probe_province
+                scope:dejure_auto_color_probe_province = {
+                    province_owner = root county = scope:dejure_auto_color_probe_county
+                }
+                exists = scope:dejure_auto_color_probe_barony
+                scope:dejure_auto_color_probe_barony = { tier = tier_barony holder = root }
+                scope:dejure_auto_color_probe_province = { barony = scope:dejure_auto_color_probe_barony }
+
+                NOT = { var:dejure_auto_color_probe_last_3 = scope:dejure_auto_color_probe_county } }
+            set_variable = { name = dejure_auto_color_probe_last_3 value = scope:dejure_auto_color_probe_county }
+            change_variable = { name = dejure_auto_color_probe_seen_3 add = 1 }
+        } }
+}
+
+dejure_auto_color_probe_receive_4_gui = { scope = character
+    is_valid = { is_ai = no is_alive = yes is_landed = yes
+        has_variable = dejure_auto_color_probe_open
+        NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+        exists = scope:dejure_auto_color_probe_ticket
+        var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+        exists = scope:dejure_auto_color_probe_county
+        scope:dejure_auto_color_probe_county = {
+            tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+        }
+        exists = scope:dejure_auto_color_probe_province
+        scope:dejure_auto_color_probe_province = {
+            province_owner = root county = scope:dejure_auto_color_probe_county
+        }
+        exists = scope:dejure_auto_color_probe_barony
+        scope:dejure_auto_color_probe_barony = { tier = tier_barony holder = root }
+        scope:dejure_auto_color_probe_province = { barony = scope:dejure_auto_color_probe_barony }
+    }
+    effect = { if = { limit = { is_ai = no is_alive = yes is_landed = yes
+                has_variable = dejure_auto_color_probe_open
+                NOT = { OR = { has_variable = dejure_auto_manual_open has_variable = dejure_auto_direct_open } }
+                exists = scope:dejure_auto_color_probe_ticket
+                var:dejure_auto_color_probe_epoch = scope:dejure_auto_color_probe_ticket
+                exists = scope:dejure_auto_color_probe_county
+                scope:dejure_auto_color_probe_county = {
+                    tier = tier_county holder = root dejure_auto_map_county_trigger = yes
+                }
+                exists = scope:dejure_auto_color_probe_province
+                scope:dejure_auto_color_probe_province = {
+                    province_owner = root county = scope:dejure_auto_color_probe_county
+                }
+                exists = scope:dejure_auto_color_probe_barony
+                scope:dejure_auto_color_probe_barony = { tier = tier_barony holder = root }
+                scope:dejure_auto_color_probe_province = { barony = scope:dejure_auto_color_probe_barony }
+
+                NOT = { var:dejure_auto_color_probe_last_4 = scope:dejure_auto_color_probe_county } }
+            set_variable = { name = dejure_auto_color_probe_last_4 value = scope:dejure_auto_color_probe_county }
+            change_variable = { name = dejure_auto_color_probe_seen_4 add = 1 }
+        } }
+}
+
+dejure_auto_color_probe_abort_gui = { scope = character effect = { remove_variable = dejure_auto_color_probe_open } }

@@ -1,0 +1,127 @@
+﻿court_auto_tasks_active_trigger = { OR = {
+        AND = { has_variable = court_auto_task_conversion_scope var:court_auto_task_conversion_scope > 0 }
+        AND = { has_variable = court_auto_task_culture_scope var:court_auto_task_culture_scope > 0 }
+        AND = { has_variable = court_auto_task_control_scope var:court_auto_task_control_scope > 0 }
+    } }
+# Conditions from the installed native task_conversion; evaluated in councillor scope.
+court_auto_task_conversion_eligible_trigger = {
+    is_alive = yes
+    has_council_position = councillor_court_chaplain
+    trigger_if = {
+        limit = {
+            is_ruler = yes
+            government_has_flag = government_is_theocracy
+            rite != scope:councillor_liege.rite
+            scope:councillor_liege.rite = {
+                rite_has_doctrine = doctrine_theocracy_temporal
+            }
+        }
+        custom_tooltip = {
+            text = task_conversion.tt.forbidden.theocratic_off_rite_chaplain
+            scope:councillor_liege = {
+                has_theological_agent_puppet_trigger = yes
+            }
+        }
+    }
+    scope:county = {
+        task_conversion_valid_county_trigger = yes
+    }
+}
+court_auto_task_conversion_county_completed_trigger = { OR = {
+        AND = { OR = {
+                scope:court_auto_owner = { tgp_has_access_to_ministry_trigger = yes }
+                faith = scope:court_auto_owner.faith
+                scope:court_auto_task_worker.faith = scope:court_auto_owner.faith
+            } rite = scope:court_auto_owner.rite }
+        AND = { NOT = { OR = {
+                    scope:court_auto_owner = { tgp_has_access_to_ministry_trigger = yes }
+                    faith = scope:court_auto_owner.faith
+                    scope:court_auto_task_worker.faith = scope:court_auto_owner.faith
+                } } rite = scope:court_auto_task_worker.rite }
+    } }
+court_auto_task_conversion_finished_trigger = {
+    councillor_task_target = { county = { court_auto_task_conversion_county_completed_trigger = yes } }
+}
+# 1.5.0: Duchy/Kingdom modes remember the de jure duchy or kingdom of the
+# active county and keep later targets inside it. No highlight (scope 0) means
+# the task is not continued at all.
+court_auto_task_conversion_in_scope_trigger = {
+    OR = {
+        NOT = { scope:court_auto_owner = { var:court_auto_task_conversion_scope > 1 } }
+        scope:court_auto_owner = { NOT = { has_variable = court_auto_task_conversion_anchor } }
+        this = scope:court_auto_owner.var:court_auto_task_conversion_anchor
+        de_jure_liege = { this = scope:court_auto_owner.var:court_auto_task_conversion_anchor }
+        de_jure_liege = { de_jure_liege = { this = scope:court_auto_owner.var:court_auto_task_conversion_anchor } }
+    }
+}
+# Conditions from the installed native task_promote_culture; evaluated in councillor scope.
+court_auto_task_culture_eligible_trigger = {
+    is_alive = yes
+    has_council_position = councillor_steward
+    tgp_natural_disaster_councillor_available_for_task_trigger = yes
+    scope:county = {
+        is_landless_type_title = no
+        culture != scope:councillor_liege.culture
+        trigger_if = {
+            limit = {
+                scope:councillor_liege = {
+                    has_variable = hold_court_8130_culture_block
+                }
+            }
+            custom_tooltip = {
+                text = hold_court_8130_conversion_tt
+                culture != scope:councillor_liege.var:hold_court_8130_culture_block
+            }
+        }
+    }
+}
+court_auto_task_culture_county_completed_trigger = { culture = scope:court_auto_owner.culture }
+court_auto_task_culture_finished_trigger = {
+    councillor_task_target = { county = { court_auto_task_culture_county_completed_trigger = yes } }
+}
+# 1.5.0: Duchy/Kingdom modes remember the de jure duchy or kingdom of the
+# active county and keep later targets inside it. No highlight (scope 0) means
+# the task is not continued at all.
+court_auto_task_culture_in_scope_trigger = {
+    OR = {
+        NOT = { scope:court_auto_owner = { var:court_auto_task_culture_scope > 1 } }
+        scope:court_auto_owner = { NOT = { has_variable = court_auto_task_culture_anchor } }
+        this = scope:court_auto_owner.var:court_auto_task_culture_anchor
+        de_jure_liege = { this = scope:court_auto_owner.var:court_auto_task_culture_anchor }
+        de_jure_liege = { de_jure_liege = { this = scope:court_auto_owner.var:court_auto_task_culture_anchor } }
+    }
+}
+# Conditions from the installed native task_increase_control; evaluated in councillor scope.
+court_auto_task_control_eligible_trigger = {
+    is_alive = yes
+    has_council_position = councillor_marshal
+    scope:county = {
+        is_landless_type_title = no
+        custom_description = {
+            text = potential_county_control_task_trigger
+            OR = {
+                has_county_corruption_trigger = yes
+                county_control < county_control_baseline
+            }
+        }
+    }
+}
+court_auto_task_control_county_completed_trigger = {
+    county_control >= county_control_baseline
+    NOT = { has_county_corruption_trigger = yes }
+}
+court_auto_task_control_finished_trigger = {
+    councillor_task_target = { county = { court_auto_task_control_county_completed_trigger = yes } }
+}
+# 1.5.0: Duchy/Kingdom modes remember the de jure duchy or kingdom of the
+# active county and keep later targets inside it. No highlight (scope 0) means
+# the task is not continued at all.
+court_auto_task_control_in_scope_trigger = {
+    OR = {
+        NOT = { scope:court_auto_owner = { var:court_auto_task_control_scope > 1 } }
+        scope:court_auto_owner = { NOT = { has_variable = court_auto_task_control_anchor } }
+        this = scope:court_auto_owner.var:court_auto_task_control_anchor
+        de_jure_liege = { this = scope:court_auto_owner.var:court_auto_task_control_anchor }
+        de_jure_liege = { de_jure_liege = { this = scope:court_auto_owner.var:court_auto_task_control_anchor } }
+    }
+}

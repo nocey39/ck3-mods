@@ -1,0 +1,246 @@
+﻿ama_preset_enabled = { categories = { ama_presets } default = ama_preset_enabled_0
+    ama_preset_enabled_0 = { }
+    ama_preset_enabled_1 = { }
+}
+ama_preset_strategy = { categories = { ama_presets } default = ama_preset_strategy_0
+    ama_preset_strategy_0 = { }
+    ama_preset_strategy_1 = { }
+    ama_preset_strategy_2 = { }
+}
+ama_preset_fee_percent = { categories = { ama_presets } default = ama_preset_fee_percent_100
+    ama_preset_fee_percent_0 = { }
+    ama_preset_fee_percent_10 = { }
+    ama_preset_fee_percent_20 = { }
+    ama_preset_fee_percent_30 = { }
+    ama_preset_fee_percent_40 = { }
+    ama_preset_fee_percent_50 = { }
+    ama_preset_fee_percent_60 = { }
+    ama_preset_fee_percent_70 = { }
+    ama_preset_fee_percent_80 = { }
+    ama_preset_fee_percent_90 = { }
+    ama_preset_fee_percent_100 = { }
+}
+ama_preset_wallet = { categories = { ama_presets } default = ama_preset_wallet_0
+    ama_preset_wallet_0 = { }
+    ama_preset_wallet_1 = { }
+    ama_preset_wallet_2 = { }
+    ama_preset_wallet_3 = { }
+    ama_preset_wallet_4 = { }
+}
+ama_preset_upkeep_percent = { categories = { ama_presets } default = ama_preset_upkeep_percent_50
+    ama_preset_upkeep_percent_0 = { }
+    ama_preset_upkeep_percent_10 = { }
+    ama_preset_upkeep_percent_20 = { }
+    ama_preset_upkeep_percent_30 = { }
+    ama_preset_upkeep_percent_40 = { }
+    ama_preset_upkeep_percent_50 = { }
+    ama_preset_upkeep_percent_60 = { }
+    ama_preset_upkeep_percent_70 = { }
+    ama_preset_upkeep_percent_80 = { }
+    ama_preset_upkeep_percent_90 = { }
+    ama_preset_upkeep_percent_100 = { }
+}
+ama_preset_target_archer_cavalry = { categories = { ama_presets } default = ama_preset_target_archer_cavalry_0
+    ama_preset_target_archer_cavalry_0 = { }
+    ama_preset_target_archer_cavalry_1 = { }
+    ama_preset_target_archer_cavalry_2 = { }
+    ama_preset_target_archer_cavalry_3 = { }
+    ama_preset_target_archer_cavalry_4 = { }
+    ama_preset_target_archer_cavalry_5 = { }
+    ama_preset_target_archer_cavalry_6 = { }
+    ama_preset_target_archer_cavalry_7 = { }
+    ama_preset_target_archer_cavalry_8 = { }
+    ama_preset_target_archer_cavalry_9 = { }
+    ama_preset_target_archer_cavalry_10 = { }
+}
+ama_preset_target_archers = { categories = { ama_presets } default = ama_preset_target_archers_0
+    ama_preset_target_archers_0 = { }
+    ama_preset_target_archers_1 = { }
+    ama_preset_target_archers_2 = { }
+    ama_preset_target_archers_3 = { }
+    ama_preset_target_archers_4 = { }
+    ama_preset_target_archers_5 = { }
+    ama_preset_target_archers_6 = { }
+    ama_preset_target_archers_7 = { }
+    ama_preset_target_archers_8 = { }
+    ama_preset_target_archers_9 = { }
+    ama_preset_target_archers_10 = { }
+}
+ama_preset_target_camel_cavalry = { categories = { ama_presets } default = ama_preset_target_camel_cavalry_0
+    ama_preset_target_camel_cavalry_0 = { }
+    ama_preset_target_camel_cavalry_1 = { }
+    ama_preset_target_camel_cavalry_2 = { }
+    ama_preset_target_camel_cavalry_3 = { }
+    ama_preset_target_camel_cavalry_4 = { }
+    ama_preset_target_camel_cavalry_5 = { }
+    ama_preset_target_camel_cavalry_6 = { }
+    ama_preset_target_camel_cavalry_7 = { }
+    ama_preset_target_camel_cavalry_8 = { }
+    ama_preset_target_camel_cavalry_9 = { }
+    ama_preset_target_camel_cavalry_10 = { }
+}
+ama_preset_target_elephant_cavalry = { categories = { ama_presets } default = ama_preset_target_elephant_cavalry_0
+    ama_preset_target_elephant_cavalry_0 = { }
+    ama_preset_target_elephant_cavalry_1 = { }
+    ama_preset_target_elephant_cavalry_2 = { }
+    ama_preset_target_elephant_cavalry_3 = { }
+    ama_preset_target_elephant_cavalry_4 = { }
+    ama_preset_target_elephant_cavalry_5 = { }
+    ama_preset_target_elephant_cavalry_6 = { }
+    ama_preset_target_elephant_cavalry_7 = { }
+    ama_preset_target_elephant_cavalry_8 = { }
+    ama_preset_target_elephant_cavalry_9 = { }
+    ama_preset_target_elephant_cavalry_10 = { }
+}
+ama_preset_target_gunpowder = { categories = { ama_presets } default = ama_preset_target_gunpowder_0
+    ama_preset_target_gunpowder_0 = { }
+    ama_preset_target_gunpowder_1 = { }
+    ama_preset_target_gunpowder_2 = { }
+    ama_preset_target_gunpowder_3 = { }
+    ama_preset_target_gunpowder_4 = { }
+    ama_preset_target_gunpowder_5 = { }
+    ama_preset_target_gunpowder_6 = { }
+    ama_preset_target_gunpowder_7 = { }
+    ama_preset_target_gunpowder_8 = { }
+    ama_preset_target_gunpowder_9 = { }
+    ama_preset_target_gunpowder_10 = { }
+}
+ama_preset_target_heavy_cavalry = { categories = { ama_presets } default = ama_preset_target_heavy_cavalry_0
+    ama_preset_target_heavy_cavalry_0 = { }
+    ama_preset_target_heavy_cavalry_1 = { }
+    ama_preset_target_heavy_cavalry_2 = { }
+    ama_preset_target_heavy_cavalry_3 = { }
+    ama_preset_target_heavy_cavalry_4 = { }
+    ama_preset_target_heavy_cavalry_5 = { }
+    ama_preset_target_heavy_cavalry_6 = { }
+    ama_preset_target_heavy_cavalry_7 = { }
+    ama_preset_target_heavy_cavalry_8 = { }
+    ama_preset_target_heavy_cavalry_9 = { }
+    ama_preset_target_heavy_cavalry_10 = { }
+}
+ama_preset_target_heavy_infantry = { categories = { ama_presets } default = ama_preset_target_heavy_infantry_0
+    ama_preset_target_heavy_infantry_0 = { }
+    ama_preset_target_heavy_infantry_1 = { }
+    ama_preset_target_heavy_infantry_2 = { }
+    ama_preset_target_heavy_infantry_3 = { }
+    ama_preset_target_heavy_infantry_4 = { }
+    ama_preset_target_heavy_infantry_5 = { }
+    ama_preset_target_heavy_infantry_6 = { }
+    ama_preset_target_heavy_infantry_7 = { }
+    ama_preset_target_heavy_infantry_8 = { }
+    ama_preset_target_heavy_infantry_9 = { }
+    ama_preset_target_heavy_infantry_10 = { }
+}
+ama_preset_target_light_cavalry = { categories = { ama_presets } default = ama_preset_target_light_cavalry_0
+    ama_preset_target_light_cavalry_0 = { }
+    ama_preset_target_light_cavalry_1 = { }
+    ama_preset_target_light_cavalry_2 = { }
+    ama_preset_target_light_cavalry_3 = { }
+    ama_preset_target_light_cavalry_4 = { }
+    ama_preset_target_light_cavalry_5 = { }
+    ama_preset_target_light_cavalry_6 = { }
+    ama_preset_target_light_cavalry_7 = { }
+    ama_preset_target_light_cavalry_8 = { }
+    ama_preset_target_light_cavalry_9 = { }
+    ama_preset_target_light_cavalry_10 = { }
+}
+ama_preset_target_pikemen = { categories = { ama_presets } default = ama_preset_target_pikemen_0
+    ama_preset_target_pikemen_0 = { }
+    ama_preset_target_pikemen_1 = { }
+    ama_preset_target_pikemen_2 = { }
+    ama_preset_target_pikemen_3 = { }
+    ama_preset_target_pikemen_4 = { }
+    ama_preset_target_pikemen_5 = { }
+    ama_preset_target_pikemen_6 = { }
+    ama_preset_target_pikemen_7 = { }
+    ama_preset_target_pikemen_8 = { }
+    ama_preset_target_pikemen_9 = { }
+    ama_preset_target_pikemen_10 = { }
+}
+ama_preset_target_siege_weapon = { categories = { ama_presets } default = ama_preset_target_siege_weapon_0
+    ama_preset_target_siege_weapon_0 = { }
+    ama_preset_target_siege_weapon_1 = { }
+    ama_preset_target_siege_weapon_2 = { }
+    ama_preset_target_siege_weapon_3 = { }
+    ama_preset_target_siege_weapon_4 = { }
+    ama_preset_target_siege_weapon_5 = { }
+    ama_preset_target_siege_weapon_6 = { }
+    ama_preset_target_siege_weapon_7 = { }
+    ama_preset_target_siege_weapon_8 = { }
+    ama_preset_target_siege_weapon_9 = { }
+    ama_preset_target_siege_weapon_10 = { }
+}
+ama_preset_target_skirmishers = { categories = { ama_presets } default = ama_preset_target_skirmishers_0
+    ama_preset_target_skirmishers_0 = { }
+    ama_preset_target_skirmishers_1 = { }
+    ama_preset_target_skirmishers_2 = { }
+    ama_preset_target_skirmishers_3 = { }
+    ama_preset_target_skirmishers_4 = { }
+    ama_preset_target_skirmishers_5 = { }
+    ama_preset_target_skirmishers_6 = { }
+    ama_preset_target_skirmishers_7 = { }
+    ama_preset_target_skirmishers_8 = { }
+    ama_preset_target_skirmishers_9 = { }
+    ama_preset_target_skirmishers_10 = { }
+}
+ama_preset_reserve_gold = { categories = { ama_presets } default = ama_preset_reserve_gold_500
+    ama_preset_reserve_gold_0 = { }
+    ama_preset_reserve_gold_100 = { }
+    ama_preset_reserve_gold_500 = { }
+    ama_preset_reserve_gold_1000 = { }
+    ama_preset_reserve_gold_2000 = { }
+    ama_preset_reserve_gold_5000 = { }
+    ama_preset_reserve_gold_10000 = { }
+}
+ama_preset_reserve_treasury = { categories = { ama_presets } default = ama_preset_reserve_treasury_500
+    ama_preset_reserve_treasury_0 = { }
+    ama_preset_reserve_treasury_100 = { }
+    ama_preset_reserve_treasury_500 = { }
+    ama_preset_reserve_treasury_1000 = { }
+    ama_preset_reserve_treasury_2000 = { }
+    ama_preset_reserve_treasury_5000 = { }
+    ama_preset_reserve_treasury_10000 = { }
+}
+ama_preset_reserve_prestige = { categories = { ama_presets } default = ama_preset_reserve_prestige_0
+    ama_preset_reserve_prestige_0 = { }
+    ama_preset_reserve_prestige_100 = { }
+    ama_preset_reserve_prestige_500 = { }
+    ama_preset_reserve_prestige_1000 = { }
+    ama_preset_reserve_prestige_2000 = { }
+    ama_preset_reserve_prestige_5000 = { }
+    ama_preset_reserve_prestige_10000 = { }
+}
+ama_preset_reserve_piety = { categories = { ama_presets } default = ama_preset_reserve_piety_0
+    ama_preset_reserve_piety_0 = { }
+    ama_preset_reserve_piety_100 = { }
+    ama_preset_reserve_piety_500 = { }
+    ama_preset_reserve_piety_1000 = { }
+    ama_preset_reserve_piety_2000 = { }
+    ama_preset_reserve_piety_5000 = { }
+    ama_preset_reserve_piety_10000 = { }
+}
+ama_preset_reserve_barter_goods = { categories = { ama_presets } default = ama_preset_reserve_barter_goods_0
+    ama_preset_reserve_barter_goods_0 = { }
+    ama_preset_reserve_barter_goods_100 = { }
+    ama_preset_reserve_barter_goods_500 = { }
+    ama_preset_reserve_barter_goods_1000 = { }
+    ama_preset_reserve_barter_goods_2000 = { }
+    ama_preset_reserve_barter_goods_5000 = { }
+    ama_preset_reserve_barter_goods_10000 = { }
+}
+ama_preset_expand_enabled = { categories = { ama_presets } default = ama_preset_expand_enabled_1
+    ama_preset_expand_enabled_1 = { }
+    ama_preset_expand_enabled_2 = { }
+}
+ama_preset_title_create_mode = { categories = { ama_presets } default = ama_preset_title_create_mode_1
+    ama_preset_title_create_mode_1 = { }
+    ama_preset_title_create_mode_2 = { }
+}
+ama_preset_title_expand_mode = { categories = { ama_presets } default = ama_preset_title_expand_mode_1
+    ama_preset_title_expand_mode_1 = { }
+    ama_preset_title_expand_mode_2 = { }
+}
+ama_preset_replace_enabled = { categories = { ama_presets } default = ama_preset_replace_enabled_0
+    ama_preset_replace_enabled_0 = { }
+    ama_preset_replace_enabled_1 = { }
+}

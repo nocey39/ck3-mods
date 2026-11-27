@@ -1,0 +1,3 @@
+﻿dau_automation = {
+    sort_order = 20
+}

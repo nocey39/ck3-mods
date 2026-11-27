@@ -1,0 +1,12 @@
+﻿dejure_auto_status_text = {
+    type = character
+    text = { trigger = { NOT = { has_variable = dejure_auto_enabled } } localization_key = dejure_auto_status_off }
+    text = { trigger = { has_variable = dejure_auto_checked } localization_key = dejure_auto_status_waiting }
+    text = { localization_key = dejure_auto_status_ready }
+}
+
+dejure_auto_rules_text = {
+    type = character
+    text = { trigger = { var:dejure_auto_mode = 1 } localization_key = dejure_auto_force_rules }
+    text = { localization_key = dejure_auto_rules }
+}

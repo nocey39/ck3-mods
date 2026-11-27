@@ -1,0 +1,606 @@
+dejure_auto_preset_apply_effect = {
+    if = {
+        limit = {
+            is_ai = no
+            is_alive = yes
+            OR = {
+                has_game_rule = dejure_auto_preset_enabled_0
+                has_game_rule = dejure_auto_preset_enabled_1
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_mode_0
+                has_game_rule = dejure_auto_preset_mode_1
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_county_1
+                has_game_rule = dejure_auto_preset_tier_county_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_duchy_1
+                has_game_rule = dejure_auto_preset_tier_duchy_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_kingdom_1
+                has_game_rule = dejure_auto_preset_tier_kingdom_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_empire_1
+                has_game_rule = dejure_auto_preset_tier_empire_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_distribute_domain_0
+                has_game_rule = dejure_auto_preset_distribute_domain_1
+            }
+        }
+        dejure_auto_initialize_effect = yes
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_enabled_0
+            }
+            remove_variable = dejure_auto_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_enabled_1
+            }
+            set_variable = dejure_auto_enabled
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_mode_0
+            }
+            set_variable = {
+                name = dejure_auto_mode
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_mode_1
+            }
+            set_variable = {
+                name = dejure_auto_mode
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_county_1
+            }
+            set_variable = {
+                name = dejure_auto_tier_county
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_county_0
+            }
+            set_variable = {
+                name = dejure_auto_tier_county
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_duchy_1
+            }
+            set_variable = {
+                name = dejure_auto_tier_duchy
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_duchy_0
+            }
+            set_variable = {
+                name = dejure_auto_tier_duchy
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_kingdom_1
+            }
+            set_variable = {
+                name = dejure_auto_tier_kingdom
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_kingdom_0
+            }
+            set_variable = {
+                name = dejure_auto_tier_kingdom
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_empire_1
+            }
+            set_variable = {
+                name = dejure_auto_tier_empire
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_tier_empire_0
+            }
+            set_variable = {
+                name = dejure_auto_tier_empire
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_distribute_domain_0
+            }
+            set_variable = {
+                name = dejure_auto_distribute_domain
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_distribute_domain_1
+            }
+            set_variable = {
+                name = dejure_auto_distribute_domain
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_create_duchy_0
+            }
+            set_variable = {
+                name = dejure_auto_create_duchy
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_create_duchy_1
+            }
+            set_variable = {
+                name = dejure_auto_create_duchy
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_create_kingdom_0
+            }
+            set_variable = {
+                name = dejure_auto_create_kingdom
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_create_kingdom_1
+            }
+            set_variable = {
+                name = dejure_auto_create_kingdom
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_create_empire_0
+            }
+            set_variable = {
+                name = dejure_auto_create_empire
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_create_empire_1
+            }
+            set_variable = {
+                name = dejure_auto_create_empire
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_county_0
+            }
+            set_variable = {
+                name = dejure_auto_grant_county
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_county_1
+            }
+            set_variable = {
+                name = dejure_auto_grant_county
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_duchy_0
+            }
+            set_variable = {
+                name = dejure_auto_grant_duchy
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_duchy_1
+            }
+            set_variable = {
+                name = dejure_auto_grant_duchy
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_kingdom_0
+            }
+            set_variable = {
+                name = dejure_auto_grant_kingdom
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_kingdom_1
+            }
+            set_variable = {
+                name = dejure_auto_grant_kingdom
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_empire_0
+            }
+            set_variable = {
+                name = dejure_auto_grant_empire
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_grant_empire_1
+            }
+            set_variable = {
+                name = dejure_auto_grant_empire
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_direct_0
+            }
+            set_variable = {
+                name = dejure_auto_people_direct
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_direct_1
+            }
+            set_variable = {
+                name = dejure_auto_people_direct
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_house_0
+            }
+            set_variable = {
+                name = dejure_auto_people_house
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_house_1
+            }
+            set_variable = {
+                name = dejure_auto_people_house
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_dynasty_0
+            }
+            set_variable = {
+                name = dejure_auto_people_dynasty
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_dynasty_1
+            }
+            set_variable = {
+                name = dejure_auto_people_dynasty
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_noble_0
+            }
+            set_variable = {
+                name = dejure_auto_people_noble
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_noble_1
+            }
+            set_variable = {
+                name = dejure_auto_people_noble
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_lowborn_0
+            }
+            set_variable = {
+                name = dejure_auto_people_lowborn
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_lowborn_1
+            }
+            set_variable = {
+                name = dejure_auto_people_lowborn
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_culture_0
+            }
+            set_variable = {
+                name = dejure_auto_people_culture
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_culture_1
+            }
+            set_variable = {
+                name = dejure_auto_people_culture
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_faith_0
+            }
+            set_variable = {
+                name = dejure_auto_people_faith
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_people_faith_1
+            }
+            set_variable = {
+                name = dejure_auto_people_faith
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_0
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_10
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 10
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_25
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 25
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_50
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 50
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_75
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 75
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_100
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 100
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_150
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 150
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_fee_200
+            }
+            set_variable = {
+                name = dejure_auto_title_fee
+                value = 200
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_reserve_0
+            }
+            set_variable = {
+                name = dejure_auto_title_reserve
+                value = 0
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_reserve_100
+            }
+            set_variable = {
+                name = dejure_auto_title_reserve
+                value = 100
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_reserve_500
+            }
+            set_variable = {
+                name = dejure_auto_title_reserve
+                value = 500
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_reserve_1000
+            }
+            set_variable = {
+                name = dejure_auto_title_reserve
+                value = 1000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_reserve_2000
+            }
+            set_variable = {
+                name = dejure_auto_title_reserve
+                value = 2000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_reserve_5000
+            }
+            set_variable = {
+                name = dejure_auto_title_reserve
+                value = 5000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_title_reserve_10000
+            }
+            set_variable = {
+                name = dejure_auto_title_reserve
+                value = 10000
+            }
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_domain_keep_0
+            }
+            set_variable = {
+                name = dejure_auto_domain_keep
+                value = 0
+            }
+            remove_variable = dejure_auto_core_duchy
+        }
+        if = {
+            limit = {
+                has_game_rule = dejure_auto_preset_domain_keep_1
+            }
+            set_variable = {
+                name = dejure_auto_domain_keep
+                value = 1
+            }
+            remove_variable = dejure_auto_core_duchy
+        }
+        dejure_auto_restart_effect = yes
+    }
+}
+dejure_auto_preset_new_player_effect = {
+    if = {
+        limit = {
+            is_ai = no
+            is_alive = yes
+            NOT = {
+                has_variable = dejure_auto_preset_player_initialized
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_enabled_0
+                has_game_rule = dejure_auto_preset_enabled_1
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_mode_0
+                has_game_rule = dejure_auto_preset_mode_1
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_county_1
+                has_game_rule = dejure_auto_preset_tier_county_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_duchy_1
+                has_game_rule = dejure_auto_preset_tier_duchy_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_kingdom_1
+                has_game_rule = dejure_auto_preset_tier_kingdom_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_tier_empire_1
+                has_game_rule = dejure_auto_preset_tier_empire_0
+            }
+            OR = {
+                has_game_rule = dejure_auto_preset_distribute_domain_0
+                has_game_rule = dejure_auto_preset_distribute_domain_1
+            }
+        }
+        set_variable = dejure_auto_preset_player_initialized
+        dejure_auto_preset_apply_effect = yes
+    }
+}

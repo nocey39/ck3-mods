@@ -1,0 +1,12 @@
+﻿l_simp_chinese:
+ unlock_all_dynasty_legacies:0 "获得所有宗族传承"
+ unlock_all_dynasty_legacies_desc:0 "补齐你宗族缺失的传承，并在后续事件中选择相关特质。你可以稍后回到决议补选。\n\n宗族威望余额会保持原值。游戏会把退回的威望计入宗族辉煌。"
+ unlock_all_dynasty_legacies_tooltip:0 "解锁已拥有 DLC 的传承。完整版有 24 条路线、120 项传承。只要还有缺失的等级或待选特质，决议就会保留。"
+ unlock_all_dynasty_legacies_confirm:0 "全部解锁"
+ adl_unlock_effect_tt:0 "补齐可解锁的传承并打开待选特质。宗族威望余额保持原值，退回的威望计入宗族辉煌。"
+ adl_choose_trait_desc:0 "请选择这项传承对应的特质。已有选择会保留，也可以稍后从决议继续。"
+ adl_choose_later:0 "稍后选择"
+ adl_renown_recovery:0 "清除旧版传承扣费造成的负威望"
+ adl_renown_recovery_desc:0 "如果旧版模组让宗族威望变成负数，可用这项决议将余额一次性恢复到零。要找回原有余额，需读取点击前的存档。补回的威望会计入宗族辉煌。"
+ adl_renown_recovery_tooltip:0 "将负威望一次性恢复到零，补回量计入宗族辉煌。"
+ adl_renown_recovery_confirm:0 "清除负威望"

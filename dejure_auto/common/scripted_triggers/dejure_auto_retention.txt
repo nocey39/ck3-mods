@@ -1,0 +1,43 @@
+﻿dejure_auto_base_retained_trigger = {
+    OR = {
+        AND = {
+            tier = tier_county
+            this = scope:dejure_auto_owner.capital_county
+        }
+        AND = {
+            tier = tier_county
+            scope:dejure_auto_owner = {
+                var:dejure_auto_domain_keep = 1
+            }
+            exists = scope:dejure_auto_owner.var:dejure_auto_core_duchy
+            any_this_title_or_de_jure_above = {
+                this = scope:dejure_auto_owner.var:dejure_auto_core_duchy
+            }
+        }
+        AND = {
+            tier = tier_duchy
+            scope:dejure_auto_owner = {
+                var:dejure_auto_domain_keep = 1
+            }
+            exists = scope:dejure_auto_owner.var:dejure_auto_core_duchy
+            this = scope:dejure_auto_owner.var:dejure_auto_core_duchy
+        }
+    }
+}
+dejure_auto_domain_retained_trigger = {
+    OR = {
+        dejure_auto_base_retained_trigger = yes
+        AND = {
+            tier = tier_county
+            holder = scope:dejure_auto_owner
+            save_temporary_scope_as = dejure_auto_manual_test
+            scope:dejure_auto_owner = {
+                is_target_in_variable_list = {
+                    name = dejure_auto_manual_counties
+                    target = scope:dejure_auto_manual_test
+                }
+            }
+        }
+        dejure_auto_manual_title_retained_trigger = yes
+    }
+}

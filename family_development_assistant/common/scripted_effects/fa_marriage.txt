@@ -1,0 +1,153 @@
+﻿fa_marriage_scan_next_effect = {
+    save_scope_as = fa_marriage_owner
+    if = {
+        limit = { has_variable = fa_marriage_scope_self }
+        add_to_temporary_list = fa_marriage_scan_targets
+    }
+    if = {
+        limit = { has_variable = fa_marriage_scope_children }
+        every_child = { add_to_temporary_list = fa_marriage_scan_targets }
+    }
+    if = {
+        limit = { has_variable = fa_marriage_scope_relatives }
+        every_courtier = {
+            limit = {
+                is_close_family_of = scope:fa_marriage_owner
+                NOT = { is_child_of = scope:fa_marriage_owner }
+            }
+            add_to_temporary_list = fa_marriage_scan_targets
+        }
+    }
+    ordered_in_list = {
+        list = fa_marriage_scan_targets
+        limit = {
+            fa_marriage_subject_trigger = yes
+            fa_marriage_selected_subject_trigger = yes
+            NOT = { has_variable = fa_marriage_proposal_pending }
+        }
+        order_by = fa_marriage_turn_priority
+        max = 1
+        check_range_bounds = no
+        fa_marriage_find_match_effect = yes
+    }
+}
+
+fa_marriage_find_match_effect = {
+    save_scope_as = fa_marriage_subject
+    remove_variable = fa_marriage_recommendation
+    scope:fa_marriage_owner = {
+        remove_list_variable = { name = fa_marriage_review_queue target = scope:fa_marriage_subject }
+        if = {
+            limit = { NOT = { has_variable = fa_marriage_scan_sequence } }
+            set_variable = { name = fa_marriage_scan_sequence value = 0 }
+        }
+        change_variable = { name = fa_marriage_scan_sequence add = 1 }
+    }
+    set_variable = { name = fa_marriage_last_scan value = scope:fa_marriage_owner.var:fa_marriage_scan_sequence }
+    clear_saved_scope = fa_marriage_best_match
+    add_to_list = fa_marriage_ancestors
+    every_ancestor = { add_to_list = fa_marriage_ancestors }
+    ordered_opposite_sex_spouse_candidate = {
+        limit = { fa_marriage_candidate_trigger = yes }
+        order_by = fa_genetic_pair_score
+        max = 1
+        check_range_bounds = no
+        save_scope_as = fa_marriage_best_match
+    }
+    remove_from_list = fa_marriage_ancestors
+    every_ancestor = { remove_from_list = fa_marriage_ancestors }
+    if = {
+        limit = { exists = scope:fa_marriage_best_match }
+        fa_marriage_offer_match_effect = yes
+    }
+}
+
+fa_marriage_offer_match_effect = {
+    if = {
+        limit = {
+            NOR = {
+                this = scope:fa_marriage_owner
+                is_player_heir_of = scope:fa_marriage_owner
+            }
+            # The script API cannot supply a matrilineal option.
+            scope:fa_marriage_best_match = { fa_marriage_can_auto_send_trigger = yes }
+        }
+        run_interaction = {
+            interaction = arrange_marriage_interaction
+            redirect = no
+            actor = scope:fa_marriage_owner
+            recipient = scope:fa_marriage_best_match.matchmaker
+            secondary_actor = scope:fa_marriage_subject
+            secondary_recipient = scope:fa_marriage_best_match
+            send_threshold = accept
+        }
+        set_variable = { name = fa_marriage_last_candidate value = scope:fa_marriage_best_match days = 180 }
+        set_variable = { name = fa_marriage_proposal_pending value = yes days = 60 }
+        scope:fa_marriage_best_match = {
+            set_variable = { name = fa_marriage_proposal_pending value = yes days = 60 }
+        }
+    }
+    else = {
+        set_variable = { name = fa_marriage_recommendation value = scope:fa_marriage_best_match }
+        scope:fa_marriage_owner = {
+            add_to_variable_list = { name = fa_marriage_review_queue target = scope:fa_marriage_subject }
+        }
+    }
+}
+
+fa_marriage_review_next_effect = {
+    save_scope_as = fa_marriage_owner
+    clear_saved_scope = fa_marriage_review_subject
+    clear_saved_scope = fa_marriage_review_candidate
+    ordered_in_list = {
+        variable = fa_marriage_review_queue
+        limit = { fa_marriage_reviewable_trigger = yes }
+        order_by = fa_marriage_turn_priority
+        max = 1
+        check_range_bounds = no
+        save_scope_as = fa_marriage_review_subject
+        var:fa_marriage_recommendation = { save_scope_as = fa_marriage_review_candidate }
+    }
+    if = {
+        limit = { exists = scope:fa_marriage_review_subject }
+        remove_list_variable = { name = fa_marriage_review_queue target = scope:fa_marriage_review_subject }
+        open_interaction_window = {
+            interaction = arrange_marriage_interaction
+            redirect = no
+            actor = scope:fa_marriage_owner
+            recipient = scope:fa_marriage_review_candidate.matchmaker
+            secondary_actor = scope:fa_marriage_review_subject
+            secondary_recipient = scope:fa_marriage_review_candidate
+        }
+        remove_variable = fa_panel_open
+    }
+}
+
+fa_marriage_check_effect = {
+    if = {
+        limit = { fa_marriage_active_trigger = yes }
+        fa_marriage_scan_next_effect = yes
+    }
+}
+
+fa_marriage_invalidate_effect = {
+    remove_variable = fa_marriage_check_pending
+    if = {
+        limit = { NOT = { has_variable = fa_marriage_generation } }
+        set_variable = { name = fa_marriage_generation value = 0 }
+    }
+    change_variable = { name = fa_marriage_generation add = 1 }
+}
+
+fa_marriage_schedule_effect = {
+    if = {
+        limit = {
+            fa_marriage_active_trigger = yes
+            NOT = { has_variable = fa_marriage_check_pending }
+        }
+        fa_marriage_invalidate_effect = yes
+        set_variable = { name = fa_marriage_check_pending value = yes days = 45 }
+        save_scope_value_as = { name = fa_marriage_ticket value = var:fa_marriage_generation }
+        trigger_event = { on_action = fa_marriage_scheduled_check months = 1 }
+    }
+}

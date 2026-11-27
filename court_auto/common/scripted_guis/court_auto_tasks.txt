@@ -1,0 +1,162 @@
+﻿court_auto_task_conversion_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_conversion_scope = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_conversion_scope = 1 }
+            set_variable = { name = court_auto_task_conversion_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_conversion_scope value = 1 } }
+        remove_variable = court_auto_task_conversion_anchor
+        remove_variable = court_auto_task_conversion_exhausted
+        remove_variable = court_auto_task_conversion_worker
+        remove_variable = court_auto_task_conversion_target
+        remove_variable = court_auto_task_conversion_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_conversion_2_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_conversion_scope = 2 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_conversion_scope = 2 }
+            set_variable = { name = court_auto_task_conversion_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_conversion_scope value = 2 } }
+        remove_variable = court_auto_task_conversion_anchor
+        remove_variable = court_auto_task_conversion_exhausted
+        remove_variable = court_auto_task_conversion_worker
+        remove_variable = court_auto_task_conversion_target
+        remove_variable = court_auto_task_conversion_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_conversion_3_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_conversion_scope = 3 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_conversion_scope = 3 }
+            set_variable = { name = court_auto_task_conversion_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_conversion_scope value = 3 } }
+        remove_variable = court_auto_task_conversion_anchor
+        remove_variable = court_auto_task_conversion_exhausted
+        remove_variable = court_auto_task_conversion_worker
+        remove_variable = court_auto_task_conversion_target
+        remove_variable = court_auto_task_conversion_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_culture_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_culture_scope = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_culture_scope = 1 }
+            set_variable = { name = court_auto_task_culture_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_culture_scope value = 1 } }
+        remove_variable = court_auto_task_culture_anchor
+        remove_variable = court_auto_task_culture_exhausted
+        remove_variable = court_auto_task_culture_worker
+        remove_variable = court_auto_task_culture_target
+        remove_variable = court_auto_task_culture_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_culture_2_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_culture_scope = 2 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_culture_scope = 2 }
+            set_variable = { name = court_auto_task_culture_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_culture_scope value = 2 } }
+        remove_variable = court_auto_task_culture_anchor
+        remove_variable = court_auto_task_culture_exhausted
+        remove_variable = court_auto_task_culture_worker
+        remove_variable = court_auto_task_culture_target
+        remove_variable = court_auto_task_culture_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_culture_3_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_culture_scope = 3 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_culture_scope = 3 }
+            set_variable = { name = court_auto_task_culture_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_culture_scope value = 3 } }
+        remove_variable = court_auto_task_culture_anchor
+        remove_variable = court_auto_task_culture_exhausted
+        remove_variable = court_auto_task_culture_worker
+        remove_variable = court_auto_task_culture_target
+        remove_variable = court_auto_task_culture_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_control_1_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_control_scope = 1 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_control_scope = 1 }
+            set_variable = { name = court_auto_task_control_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_control_scope value = 1 } }
+        remove_variable = court_auto_task_control_anchor
+        remove_variable = court_auto_task_control_exhausted
+        remove_variable = court_auto_task_control_worker
+        remove_variable = court_auto_task_control_target
+        remove_variable = court_auto_task_control_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_control_2_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_control_scope = 2 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_control_scope = 2 }
+            set_variable = { name = court_auto_task_control_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_control_scope value = 2 } }
+        remove_variable = court_auto_task_control_anchor
+        remove_variable = court_auto_task_control_exhausted
+        remove_variable = court_auto_task_control_worker
+        remove_variable = court_auto_task_control_target
+        remove_variable = court_auto_task_control_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}
+court_auto_task_control_3_gui = {
+    scope = character
+    is_shown = { var:court_auto_task_control_scope = 3 }
+    is_valid = { is_ai = no is_alive = yes }
+    effect = {
+        court_auto_initialize_effect = yes
+        if = { limit = { var:court_auto_task_control_scope = 3 }
+            set_variable = { name = court_auto_task_control_scope value = 0 }
+        }
+        else = { set_variable = { name = court_auto_task_control_scope value = 3 } }
+        remove_variable = court_auto_task_control_anchor
+        remove_variable = court_auto_task_control_exhausted
+        remove_variable = court_auto_task_control_worker
+        remove_variable = court_auto_task_control_target
+        remove_variable = court_auto_task_control_manual
+        court_auto_restart_schedule_effect = yes
+    }
+}

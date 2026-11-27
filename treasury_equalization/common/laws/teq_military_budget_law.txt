@@ -1,0 +1,11 @@
+﻿# A neutral starting weight for the engine's military budget category.
+teq_military_budget_basis = {
+ law_group_type = budget_allocation_military_law
+ index = 21
+ shown_in_encyclopedia = no
+ can_have = { teq_military_budget_uses_basis = yes }
+ can_keep = { teq_military_budget_uses_basis = yes }
+ should_start_with = { always = no }
+ modifier = { treasury_military_budget_allocation = 0.20 }
+ ai_will_do = { value = 0 }
+}

@@ -1,0 +1,14 @@
+﻿dejure_auto_domain_keep_0_gui = { scope = character
+    is_shown = { var:dejure_auto_domain_keep = 0 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        set_variable = { name = dejure_auto_domain_keep value = 0 }
+        remove_variable = dejure_auto_core_duchy }
+}
+dejure_auto_domain_keep_1_gui = { scope = character
+    is_shown = { var:dejure_auto_domain_keep = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        set_variable = { name = dejure_auto_domain_keep value = 1 }
+        remove_variable = dejure_auto_core_duchy }
+}

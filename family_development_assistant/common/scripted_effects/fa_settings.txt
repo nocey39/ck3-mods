@@ -1,0 +1,112 @@
+﻿fa_initialize_settings_effect = {
+    if = {
+        limit = { NOT = { has_variable = fa_mode } }
+        set_variable = { name = fa_mode value = 0 }
+        set_variable = { name = fa_fixed value = 0 }
+        set_variable = { name = fa_bossy value = 0 }
+        set_variable = { name = fa_pensive value = 0 }
+        set_variable = { name = fa_curious value = 0 }
+        set_variable = { name = fa_charming value = 0 }
+        set_variable = { name = fa_rowdy value = 0 }
+    }
+    if = {
+        limit = { NOT = { has_variable = fa_master_enabled } }
+        if = {
+            limit = { fa_master_active_trigger = yes }
+            set_variable = { name = fa_master_enabled value = 1 }
+        }
+        else = { set_variable = { name = fa_master_enabled value = 0 } }
+    }
+}
+
+fa_inherit_settings_effect = {
+    if = {
+        limit = { scope:previous_player_character = { fa_master_active_trigger = yes } }
+        set_variable = { name = fa_master_enabled value = 1 }
+    }
+    else = { set_variable = { name = fa_master_enabled value = 0 } }
+    set_variable = { name = fa_mode value = scope:previous_player_character.var:fa_mode }
+    set_variable = { name = fa_fixed value = scope:previous_player_character.var:fa_fixed }
+    set_variable = { name = fa_bossy value = scope:previous_player_character.var:fa_bossy }
+    set_variable = { name = fa_pensive value = scope:previous_player_character.var:fa_pensive }
+    set_variable = { name = fa_curious value = scope:previous_player_character.var:fa_curious }
+    set_variable = { name = fa_charming value = scope:previous_player_character.var:fa_charming }
+    set_variable = { name = fa_rowdy value = scope:previous_player_character.var:fa_rowdy }
+    remove_variable = fa_guardians_enabled
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_guardians_enabled } }
+        set_variable = fa_guardians_enabled
+    }
+    remove_variable = fa_include_heir
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_include_heir } }
+        set_variable = fa_include_heir
+    }
+    remove_variable = fa_perk_follow
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_perk_follow } }
+        set_variable = fa_perk_follow
+    }
+    remove_variable = fa_perk_continue_education
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_perk_continue_education } }
+        set_variable = fa_perk_continue_education
+    }
+    remove_variable = fa_perk_convert
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_perk_convert } }
+        set_variable = fa_perk_convert
+    }
+    remove_variable = fa_marriage_enabled
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_marriage_enabled } }
+        set_variable = fa_marriage_enabled
+    }
+    remove_variable = fa_marriage_scope_self
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_marriage_scope_self } }
+        set_variable = fa_marriage_scope_self
+    }
+    remove_variable = fa_marriage_scope_children
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_marriage_scope_children } }
+        set_variable = fa_marriage_scope_children
+    }
+    remove_variable = fa_marriage_scope_relatives
+    if = {
+        limit = { scope:previous_player_character = { has_variable = fa_marriage_scope_relatives } }
+        set_variable = fa_marriage_scope_relatives
+    }
+}
+
+fa_check_enabled_modules_effect = {
+    if = {
+        limit = { fa_guardian_active_trigger = yes }
+        fa_check_guardians_effect = yes
+        remove_variable = fa_guardian_check_pending
+        fa_schedule_guardian_check_effect = yes
+    }
+    if = {
+        limit = { fa_perk_active_trigger = yes }
+        fa_perk_check_effect = yes
+        fa_perk_schedule_effect = yes
+    }
+    fa_marriage_check_effect = yes
+    fa_marriage_schedule_effect = yes
+}
+
+fa_toggle_master_effect = {
+    fa_initialize_settings_effect = yes
+    if = {
+        limit = { fa_master_active_trigger = yes }
+        set_variable = { name = fa_master_enabled value = 0 }
+        fa_invalidate_guardian_schedule_effect = yes
+        fa_perk_invalidate_schedule_effect = yes
+        fa_marriage_invalidate_effect = yes
+    }
+    else = {
+        set_variable = { name = fa_master_enabled value = 1 }
+        fa_check_enabled_modules_effect = yes
+    }
+}
+

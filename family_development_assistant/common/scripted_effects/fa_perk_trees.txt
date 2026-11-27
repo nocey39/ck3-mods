@@ -1,0 +1,1672 @@
+﻿# Generated from the vanilla CK3 1.21.0.3 lifestyle perk graph.
+fa_perk_spend_focus_effect = {
+    if = {
+        limit = { has_focus = diplomacy_foreign_affairs_focus diplomacy_lifestyle_perk_points > 0 }
+        fa_perk_tree_foreign_affairs_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_diplomacy_trigger = yes
+                fa_perk_tree_foreign_affairs_complete_trigger = yes
+                diplomacy_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_majesty_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_majesty_complete_trigger = yes
+                    diplomacy_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_family_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = diplomacy_majesty_focus diplomacy_lifestyle_perk_points > 0 }
+        fa_perk_tree_majesty_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_diplomacy_trigger = yes
+                fa_perk_tree_majesty_complete_trigger = yes
+                diplomacy_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_foreign_affairs_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_foreign_affairs_complete_trigger = yes
+                    diplomacy_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_family_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = diplomacy_family_focus diplomacy_lifestyle_perk_points > 0 }
+        fa_perk_tree_family_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_diplomacy_trigger = yes
+                fa_perk_tree_family_complete_trigger = yes
+                diplomacy_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_foreign_affairs_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_foreign_affairs_complete_trigger = yes
+                    diplomacy_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_majesty_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = intrigue_skulduggery_focus intrigue_lifestyle_perk_points > 0 }
+        fa_perk_tree_skulduggery_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_intrigue_trigger = yes
+                fa_perk_tree_skulduggery_complete_trigger = yes
+                intrigue_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_temptation_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_temptation_complete_trigger = yes
+                    intrigue_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_intimidation_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = intrigue_temptation_focus intrigue_lifestyle_perk_points > 0 }
+        fa_perk_tree_temptation_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_intrigue_trigger = yes
+                fa_perk_tree_temptation_complete_trigger = yes
+                intrigue_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_skulduggery_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_skulduggery_complete_trigger = yes
+                    intrigue_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_intimidation_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = intrigue_intimidation_focus intrigue_lifestyle_perk_points > 0 }
+        fa_perk_tree_intimidation_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_intrigue_trigger = yes
+                fa_perk_tree_intimidation_complete_trigger = yes
+                intrigue_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_skulduggery_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_skulduggery_complete_trigger = yes
+                    intrigue_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_temptation_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = learning_medicine_focus learning_lifestyle_perk_points > 0 }
+        fa_perk_tree_medicine_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_learning_trigger = yes
+                fa_perk_tree_medicine_complete_trigger = yes
+                learning_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_scholarship_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_scholarship_complete_trigger = yes
+                    learning_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_theology_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = learning_scholarship_focus learning_lifestyle_perk_points > 0 }
+        fa_perk_tree_scholarship_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_learning_trigger = yes
+                fa_perk_tree_scholarship_complete_trigger = yes
+                learning_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_medicine_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_medicine_complete_trigger = yes
+                    learning_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_theology_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = learning_theology_focus learning_lifestyle_perk_points > 0 }
+        fa_perk_tree_theology_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_learning_trigger = yes
+                fa_perk_tree_theology_complete_trigger = yes
+                learning_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_medicine_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_medicine_complete_trigger = yes
+                    learning_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_scholarship_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = martial_strategy_focus martial_lifestyle_perk_points > 0 }
+        fa_perk_tree_strategy_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_martial_trigger = yes
+                fa_perk_tree_strategy_complete_trigger = yes
+                martial_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_authority_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_authority_complete_trigger = yes
+                    martial_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_chivalry_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = martial_authority_focus martial_lifestyle_perk_points > 0 }
+        fa_perk_tree_authority_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_martial_trigger = yes
+                fa_perk_tree_authority_complete_trigger = yes
+                martial_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_strategy_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_strategy_complete_trigger = yes
+                    martial_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_chivalry_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = martial_chivalry_focus martial_lifestyle_perk_points > 0 }
+        fa_perk_tree_chivalry_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_martial_trigger = yes
+                fa_perk_tree_chivalry_complete_trigger = yes
+                martial_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_strategy_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_strategy_complete_trigger = yes
+                    martial_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_authority_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = stewardship_wealth_focus stewardship_lifestyle_perk_points > 0 }
+        fa_perk_tree_wealth_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_stewardship_trigger = yes
+                fa_perk_tree_wealth_complete_trigger = yes
+                stewardship_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_domain_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_domain_complete_trigger = yes
+                    stewardship_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_duty_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = stewardship_domain_focus stewardship_lifestyle_perk_points > 0 }
+        fa_perk_tree_domain_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_stewardship_trigger = yes
+                fa_perk_tree_domain_complete_trigger = yes
+                stewardship_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_wealth_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_wealth_complete_trigger = yes
+                    stewardship_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_duty_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = stewardship_duty_focus stewardship_lifestyle_perk_points > 0 }
+        fa_perk_tree_duty_effect = yes
+        if = {
+            limit = {
+                has_variable = fa_perk_continue_education
+                has_education_stewardship_trigger = yes
+                fa_perk_tree_duty_complete_trigger = yes
+                stewardship_lifestyle_perk_points > 0
+            }
+            fa_perk_tree_wealth_effect = yes
+            if = {
+                limit = {
+                    fa_perk_tree_wealth_complete_trigger = yes
+                    stewardship_lifestyle_perk_points > 0
+                }
+                fa_perk_tree_domain_effect = yes
+            }
+        }
+    }
+    else_if = {
+        limit = { has_focus = wanderer_internal_affairs_focus wanderer_lifestyle_perk_points > 0 }
+        fa_perk_tree_surveyor_effect = yes
+    }
+    else_if = {
+        limit = { has_focus = wanderer_journey_focus wanderer_lifestyle_perk_points > 0 }
+        fa_perk_tree_wayfarer_effect = yes
+    }
+    else_if = {
+        limit = { has_focus = wanderer_destination_focus wanderer_lifestyle_perk_points > 0 }
+        fa_perk_tree_voyager_effect = yes
+    }
+}
+
+fa_perk_tree_foreign_affairs_effect = {
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = thoughtful_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = thoughtful_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = ducal_conquest_perk }
+            has_perk = thoughtful_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = ducal_conquest_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = adaptive_traditions_perk }
+            has_perk = thoughtful_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = adaptive_traditions_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = defensive_negotiations_perk }
+            has_perk = thoughtful_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = defensive_negotiations_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = forced_vassalage_perk }
+            has_perk = ducal_conquest_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = forced_vassalage_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = flexible_truces_perk }
+            has_perk = adaptive_traditions_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = flexible_truces_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = embassies_perk }
+            has_perk = defensive_negotiations_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = embassies_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = accomplished_forger_perk }
+            has_perk = forced_vassalage_perk
+            has_perk = flexible_truces_perk
+            has_perk = embassies_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = accomplished_forger_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = diplomat_perk }
+            has_perk = accomplished_forger_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = diplomat_perk }
+    }
+}
+
+fa_perk_tree_majesty_effect = {
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = benevolent_intent_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = benevolent_intent_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = firm_hand_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = firm_hand_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = inspiring_rule_perk }
+            has_perk = benevolent_intent_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = inspiring_rule_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = praetorian_guard_perk }
+            has_perk = firm_hand_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = praetorian_guard_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = true_ruler_perk }
+            has_perk = inspiring_rule_perk
+            has_perk = praetorian_guard_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = true_ruler_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = writing_history_perk }
+            has_perk = true_ruler_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = writing_history_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = a_life_of_glory_perk }
+            has_perk = writing_history_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = a_life_of_glory_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = dignitas_perk }
+            has_perk = writing_history_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = dignitas_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = august_perk }
+            has_perk = a_life_of_glory_perk
+            has_perk = dignitas_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = august_perk }
+    }
+}
+
+fa_perk_tree_family_effect = {
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = befriend_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = befriend_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = familial_familiar_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = familial_familiar_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = confidants_perk }
+            has_perk = befriend_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = confidants_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = groomed_to_rule_perk }
+            has_perk = familial_familiar_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = groomed_to_rule_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = flatterer_perk }
+            has_perk = confidants_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = flatterer_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = thicker_than_water_perk }
+            has_perk = groomed_to_rule_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = thicker_than_water_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = friendly_counsel_perk }
+            has_perk = flatterer_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = friendly_counsel_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = sound_foundations_perk }
+            has_perk = thicker_than_water_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = sound_foundations_perk }
+    }
+    if = {
+        limit = {
+            diplomacy_lifestyle_perk_points > 0
+            NOT = { has_perk = family_man_perk }
+            has_perk = sound_foundations_perk
+            has_perk = friendly_counsel_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = diplomacy PERK = family_man_perk }
+    }
+}
+
+fa_perk_tree_skulduggery_effect = {
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = truth_is_relative_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = truth_is_relative_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = digging_for_dirt_perk }
+            has_perk = truth_is_relative_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = digging_for_dirt_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = court_of_shadows_perk }
+            has_perk = truth_is_relative_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = court_of_shadows_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = swift_execution_perk }
+            has_perk = truth_is_relative_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = swift_execution_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = kidnapper_perk }
+            has_perk = digging_for_dirt_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = kidnapper_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = prepared_for_anything_perk }
+            has_perk = court_of_shadows_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = prepared_for_anything_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = a_job_done_right_perk }
+            has_perk = swift_execution_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = a_job_done_right_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = twice_schemed_perk }
+            has_perk = kidnapper_perk
+            has_perk = prepared_for_anything_perk
+            has_perk = a_job_done_right_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = twice_schemed_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = schemer_perk }
+            has_perk = twice_schemed_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = schemer_perk }
+    }
+}
+
+fa_perk_tree_temptation_effect = {
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = like_weed_in_a_garden_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = like_weed_in_a_garden_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = enticing_opportunity_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = enticing_opportunity_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = unshackled_lust_perk }
+            has_perk = like_weed_in_a_garden_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = unshackled_lust_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = home_advantage_perk }
+            has_perk = enticing_opportunity_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = home_advantage_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = subtle_desire_perk }
+            has_perk = unshackled_lust_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = subtle_desire_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = graceful_recovery_perk }
+            has_perk = home_advantage_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = graceful_recovery_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = mortal_adoration_perk }
+            has_perk = subtle_desire_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = mortal_adoration_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = smooth_operator_perk }
+            has_perk = graceful_recovery_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = smooth_operator_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = seducer_perk }
+            has_perk = mortal_adoration_perk
+            has_perk = smooth_operator_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = seducer_perk }
+    }
+}
+
+fa_perk_tree_intimidation_effect = {
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = dark_insights_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = dark_insights_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = dreadful_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = dreadful_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = divine_retribution_perk }
+            has_perk = dark_insights_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = divine_retribution_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = thriving_in_chaos_perk }
+            has_perk = dreadful_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = thriving_in_chaos_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = malice_implicit_perk }
+            has_perk = divine_retribution_perk
+            has_perk = thriving_in_chaos_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = malice_implicit_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = fear_tax_perk }
+            has_perk = malice_implicit_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = fear_tax_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = forever_infamous_perk }
+            has_perk = fear_tax_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = forever_infamous_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = prison_feudal_complex_perk }
+            has_perk = fear_tax_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = prison_feudal_complex_perk }
+    }
+    if = {
+        limit = {
+            intrigue_lifestyle_perk_points > 0
+            NOT = { has_perk = torturer_perk }
+            has_perk = forever_infamous_perk
+            has_perk = prison_feudal_complex_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = intrigue PERK = torturer_perk }
+    }
+}
+
+fa_perk_tree_medicine_effect = {
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = anatomical_studies_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = anatomical_studies_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = carefree_perk }
+            has_perk = anatomical_studies_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = carefree_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = restraint_perk }
+            has_perk = anatomical_studies_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = restraint_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = wash_your_hands_perk }
+            has_perk = anatomical_studies_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = wash_your_hands_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = mental_resilience_perk }
+            has_perk = carefree_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = mental_resilience_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = know_thyself_perk }
+            has_perk = restraint_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = know_thyself_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = iron_constitution_perk }
+            has_perk = wash_your_hands_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = iron_constitution_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = healthy_perk }
+            has_perk = mental_resilience_perk
+            has_perk = know_thyself_perk
+            has_perk = iron_constitution_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = healthy_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = whole_of_body_perk }
+            has_perk = healthy_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = whole_of_body_perk }
+    }
+}
+
+fa_perk_tree_scholarship_effect = {
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = pedagogy_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = pedagogy_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = open_minded_perk }
+            has_perk = pedagogy_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = open_minded_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = planned_cultivation_perk }
+            has_perk = pedagogy_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = planned_cultivation_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = apostate_perk }
+            has_perk = open_minded_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = apostate_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = scientific_perk }
+            has_perk = planned_cultivation_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = scientific_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = scholarly_circles_perk }
+            has_perk = scientific_perk
+            has_perk = apostate_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = scholarly_circles_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = sanctioned_loopholes_perk }
+            has_perk = scholarly_circles_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = sanctioned_loopholes_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = learn_on_the_job_perk }
+            has_perk = scholarly_circles_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = learn_on_the_job_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = erudite_perk }
+            has_perk = learn_on_the_job_perk
+            has_perk = sanctioned_loopholes_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = erudite_perk }
+    }
+}
+
+fa_perk_tree_theology_effect = {
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = faithful_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = faithful_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = zealous_proselytizer_perk }
+            has_perk = faithful_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = zealous_proselytizer_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = clerical_justifications_perk }
+            has_perk = faithful_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = clerical_justifications_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = religious_icon_perk }
+            has_perk = zealous_proselytizer_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = religious_icon_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = church_and_state_perk }
+            has_perk = clerical_justifications_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = church_and_state_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = prophet_perk }
+            has_perk = religious_icon_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = prophet_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = radiant_perk }
+            has_perk = church_and_state_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = radiant_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = defender_of_the_faith_perk }
+            has_perk = radiant_perk
+            has_perk = prophet_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = defender_of_the_faith_perk }
+    }
+    if = {
+        limit = {
+            learning_lifestyle_perk_points > 0
+            NOT = { has_perk = theologian_perk }
+            has_perk = defender_of_the_faith_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = learning PERK = theologian_perk }
+    }
+}
+
+fa_perk_tree_strategy_effect = {
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = bellum_justum_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = bellum_justum_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = parthian_tactics_perk }
+            has_perk = bellum_justum_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = parthian_tactics_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = organized_retreat_perk }
+            has_perk = bellum_justum_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = organized_retreat_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = engineered_for_destruction_perk }
+            has_perk = bellum_justum_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = engineered_for_destruction_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = envelopment_perk }
+            has_perk = parthian_tactics_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = envelopment_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = hit_and_run_perk }
+            has_perk = organized_retreat_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = hit_and_run_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = living_off_the_land_perk }
+            has_perk = engineered_for_destruction_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = living_off_the_land_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = sappers_perk }
+            has_perk = envelopment_perk
+            has_perk = hit_and_run_perk
+            has_perk = living_off_the_land_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = sappers_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = strategist_perk }
+            has_perk = sappers_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = strategist_perk }
+    }
+}
+
+fa_perk_tree_authority_effect = {
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = serve_the_crown_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = serve_the_crown_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = a_mans_home_perk }
+            has_perk = serve_the_crown_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = a_mans_home_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = strict_organization_perk }
+            has_perk = serve_the_crown_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = strict_organization_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = enduring_hardships_perk }
+            has_perk = a_mans_home_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = enduring_hardships_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = hard_rule_perk }
+            has_perk = strict_organization_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = hard_rule_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = prepared_conscription_perk }
+            has_perk = enduring_hardships_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = prepared_conscription_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = soldiers_of_lesser_fortune_perk }
+            has_perk = hard_rule_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = soldiers_of_lesser_fortune_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = absolute_control_perk }
+            has_perk = soldiers_of_lesser_fortune_perk
+            has_perk = prepared_conscription_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = absolute_control_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = overseer_perk }
+            has_perk = absolute_control_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = overseer_perk }
+    }
+}
+
+fa_perk_tree_chivalry_effect = {
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = stalwart_leader_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = stalwart_leader_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = courtship_perk }
+            has_perk = stalwart_leader_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = courtship_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = chivalric_dominance_perk }
+            has_perk = stalwart_leader_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = chivalric_dominance_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = promising_prospects_perk }
+            has_perk = courtship_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = promising_prospects_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = never_back_down_perk }
+            has_perk = chivalric_dominance_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = never_back_down_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = loyalty_and_respect_perk }
+            has_perk = promising_prospects_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = loyalty_and_respect_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = kingsguard_perk }
+            has_perk = never_back_down_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = kingsguard_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = peacemaker_perk }
+            has_perk = loyalty_and_respect_perk
+            has_perk = kingsguard_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = peacemaker_perk }
+    }
+    if = {
+        limit = {
+            martial_lifestyle_perk_points > 0
+            NOT = { has_perk = gallant_perk }
+            has_perk = peacemaker_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = martial PERK = gallant_perk }
+    }
+}
+
+fa_perk_tree_wealth_effect = {
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = golden_obligations_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = golden_obligations_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = heregeld_perk }
+            has_perk = golden_obligations_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = heregeld_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = war_profiteer_perk }
+            has_perk = golden_obligations_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = war_profiteer_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = it_is_my_domain_perk }
+            has_perk = golden_obligations_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = it_is_my_domain_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = detailed_ledgers_perk }
+            has_perk = heregeld_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = detailed_ledgers_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = fearful_troops_perk }
+            has_perk = war_profiteer_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = fearful_troops_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = golden_aplomb_perk }
+            has_perk = it_is_my_domain_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = golden_aplomb_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = at_any_cost_perk }
+            has_perk = detailed_ledgers_perk
+            has_perk = fearful_troops_perk
+            has_perk = golden_aplomb_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = at_any_cost_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = avaricious_perk }
+            has_perk = at_any_cost_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = avaricious_perk }
+    }
+}
+
+fa_perk_tree_domain_effect = {
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = organized_muster_rolls_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = organized_muster_rolls_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = cutting_corners_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = cutting_corners_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = tax_man_perk }
+            has_perk = organized_muster_rolls_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = tax_man_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = professional_workforce_perk }
+            has_perk = cutting_corners_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = professional_workforce_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = defensive_measures_perk }
+            has_perk = tax_man_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = defensive_measures_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = centralization_perk }
+            has_perk = professional_workforce_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = centralization_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = popular_figurehead_perk }
+            has_perk = defensive_measures_perk
+            has_perk = centralization_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = popular_figurehead_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = divided_attention_perk }
+            has_perk = popular_figurehead_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = divided_attention_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = architect_perk }
+            has_perk = divided_attention_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = architect_perk }
+    }
+}
+
+fa_perk_tree_duty_effect = {
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = meritocracy_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = meritocracy_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = chains_of_loyalty_perk }
+            has_perk = meritocracy_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = chains_of_loyalty_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = large_levies_perk }
+            has_perk = meritocracy_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = large_levies_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = likable_perk }
+            has_perk = chains_of_loyalty_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = likable_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = soon_forgiven_perk }
+            has_perk = large_levies_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = soon_forgiven_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = positions_of_power_perk }
+            has_perk = likable_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = positions_of_power_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = toe_the_line_perk }
+            has_perk = soon_forgiven_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = toe_the_line_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = honored_to_serve_perk }
+            has_perk = toe_the_line_perk
+            has_perk = positions_of_power_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = honored_to_serve_perk }
+    }
+    if = {
+        limit = {
+            stewardship_lifestyle_perk_points > 0
+            NOT = { has_perk = administrator_perk }
+            has_perk = honored_to_serve_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = stewardship PERK = administrator_perk }
+    }
+}
+
+fa_perk_tree_surveyor_effect = {
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = mustering_the_troops_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = mustering_the_troops_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = local_inspection_perk }
+            has_perk = mustering_the_troops_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = local_inspection_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = know_your_land_know_your_people_perk }
+            has_perk = local_inspection_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = know_your_land_know_your_people_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = no_stone_unturned_perk }
+            has_perk = local_inspection_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = no_stone_unturned_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = travel_logs_perk }
+            has_perk = local_inspection_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = travel_logs_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = local_arbitration_perk }
+            has_perk = know_your_land_know_your_people_perk
+            has_perk = no_stone_unturned_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = local_arbitration_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = realm_charts_perk }
+            has_perk = no_stone_unturned_perk
+            has_perk = travel_logs_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = realm_charts_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = personal_touch_perk }
+            has_perk = local_arbitration_perk
+            has_perk = realm_charts_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = personal_touch_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = surveyor_perk }
+            has_perk = personal_touch_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = surveyor_perk }
+    }
+}
+
+fa_perk_tree_wayfarer_effect = {
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = well_prepared_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = well_prepared_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = roaming_perk }
+            has_perk = well_prepared_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = roaming_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = far_and_wide_perk }
+            has_perk = roaming_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = far_and_wide_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = just_one_more_hill_perk }
+            has_perk = roaming_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = just_one_more_hill_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = of_the_people_perk }
+            has_perk = far_and_wide_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = of_the_people_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = travel_companion_perk }
+            has_perk = just_one_more_hill_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = travel_companion_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = local_hero_perk }
+            has_perk = of_the_people_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = local_hero_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = the_home_away_from_home_perk }
+            has_perk = travel_companion_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = the_home_away_from_home_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = wayfarer_perk }
+            has_perk = local_hero_perk
+            has_perk = the_home_away_from_home_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = wayfarer_perk }
+    }
+}
+
+fa_perk_tree_voyager_effect = {
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = power_at_home_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = power_at_home_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = mercenary_contacts_perk }
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = mercenary_contacts_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = journey_perk }
+            has_perk = power_at_home_perk
+            has_perk = mercenary_contacts_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = journey_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = been_there_done_that_perk }
+            has_perk = journey_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = been_there_done_that_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = finally_there_perk }
+            has_perk = journey_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = finally_there_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = souvenirs_aplenty_perk }
+            has_perk = been_there_done_that_perk
+            has_perk = finally_there_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = souvenirs_aplenty_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = gracious_host_impeccable_guest_perk }
+            has_perk = souvenirs_aplenty_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = gracious_host_impeccable_guest_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = journey_planner_perk }
+            has_perk = souvenirs_aplenty_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = journey_planner_perk }
+    }
+    if = {
+        limit = {
+            wanderer_lifestyle_perk_points > 0
+            NOT = { has_perk = voyager_perk }
+            has_perk = gracious_host_impeccable_guest_perk
+            has_perk = journey_planner_perk
+        }
+        fa_perk_buy_effect = { LIFESTYLE = wanderer PERK = voyager_perk }
+    }
+}
+

@@ -1,0 +1,54 @@
+﻿widget = { name = "dejure_auto_color_probe_overlay" size = { 100% 100% } layer = middle alwaystransparent = yes
+    state = { name = "dejure_auto_color_probe_cleanup_map" trigger_when = "[And(GetVariableSystem.Exists('dejure_auto_color_probe_tinted'), And(Not(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet), And(CanChangeMapMode, IsMapMode('plan_great_project_barony'))))]"
+        on_start = "[SetMapMode('realms')]" on_start = "[GetVariableSystem.Clear('dejure_auto_color_probe_tinted')]" }
+    state = { name = "dejure_auto_color_probe_cleanup_flag" trigger_when = "[And(GetVariableSystem.Exists('dejure_auto_color_probe_tinted'), And(Not(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet), Or(Not(CanChangeMapMode), Not(IsMapMode('plan_great_project_barony')))))]"
+        on_start = "[GetVariableSystem.Clear('dejure_auto_color_probe_tinted')]" }
+    state = { name = "dejure_auto_color_probe_formal_started" trigger_when = "[And(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet, Or(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, GetPlayer.MakeScope.Var('dejure_auto_direct_open').IsSet))]"
+        on_start = "[GetScriptedGui('dejure_auto_color_probe_abort_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+    widget = { size = { 100% 100% } alwaystransparent = yes
+        visible = "[And(Not(IsObserver), And(GetPlayer.IsValid, And(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet, Not(Or(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, GetPlayer.MakeScope.Var('dejure_auto_direct_open').IsSet)))))]"
+        flowcontainer = { datacontext = "[GetPlayer]" datamodel = "[Character.GetTitles]" size = { 1 1 } alwaystransparent = yes
+            item = { widget = { size = { 1 1 } alwaystransparent = yes state = { name = "dejure_auto_color_probe_watch_1" trigger_when = "[And(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet, And(Not(Or(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, GetPlayer.MakeScope.Var('dejure_auto_direct_open').IsSet)), And(Title.IsCounty, Title.IsSelected)))]"
+                        on_start = "[GetScriptedGui('dejure_auto_color_probe_receive_1_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_color_probe_county', Title.MakeScope).AddScope('dejure_auto_color_probe_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_color_probe_epoch').GetValue)).End)]" }
+                    state = { name = "dejure_auto_color_probe_watch_2" trigger_when = "[And(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet, And(Not(Or(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, GetPlayer.MakeScope.Var('dejure_auto_direct_open').IsSet)), And(Title.IsCounty, Title.GetCountyData.GetCapital.GetHolding.IsSelected)))]"
+                        on_start = "[GetScriptedGui('dejure_auto_color_probe_receive_2_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_color_probe_county', Title.MakeScope).AddScope('dejure_auto_color_probe_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_color_probe_epoch').GetValue)).AddScope('dejure_auto_color_probe_province', Title.GetCountyData.GetCapital.MakeScope).End)]" }
+                    state = { name = "dejure_auto_color_probe_watch_3" trigger_when = "[And(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet, And(Not(Or(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, GetPlayer.MakeScope.Var('dejure_auto_direct_open').IsSet)), And(Title.IsBarony, Title.GetProvince.GetHolding.IsSelected)))]"
+                        on_start = "[GetScriptedGui('dejure_auto_color_probe_receive_3_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_color_probe_county', Title.GetProvince.GetCounty.GetTitle.MakeScope).AddScope('dejure_auto_color_probe_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_color_probe_epoch').GetValue)).AddScope('dejure_auto_color_probe_province', Title.GetProvince.MakeScope).AddScope('dejure_auto_color_probe_barony', Title.MakeScope).End)]" }
+                    state = { name = "dejure_auto_color_probe_watch_4" trigger_when = "[And(GetPlayer.MakeScope.Var('dejure_auto_color_probe_open').IsSet, And(Not(Or(GetPlayer.MakeScope.Var('dejure_auto_manual_open').IsSet, GetPlayer.MakeScope.Var('dejure_auto_direct_open').IsSet)), And(Title.IsBarony, Title.IsSelected)))]"
+                        on_start = "[GetScriptedGui('dejure_auto_color_probe_receive_4_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('dejure_auto_color_probe_county', Title.GetProvince.GetCounty.GetTitle.MakeScope).AddScope('dejure_auto_color_probe_ticket', MakeScopeValue(GetPlayer.MakeScope.Var('dejure_auto_color_probe_epoch').GetValue)).AddScope('dejure_auto_color_probe_province', Title.GetProvince.MakeScope).AddScope('dejure_auto_color_probe_barony', Title.MakeScope).End)]" }
+                } } }
+        widget = { parentanchor = top|right position = { -30 160 } size = { 420 382 } using = Window_Background using = Window_Decoration
+            alwaystransparent = no filter_mouse = all
+            text_single = { position = { 40 20 } size = { 340 28 } autoresize = no align = left|vcenter fontsize = 20 text = "dejure_auto_color_probe_title" }
+            text_multi = { position = { 40 58 } size = { 340 44 } max_width = 340 autoresize = no align = top|left fontsize = 16 text = "dejure_auto_color_probe_instructions" }
+            button_standard = { name = "dejure_auto_color_probe_try" position = { 40 112 } size = { 166 30 } text = "dejure_auto_color_probe_try"
+                enabled = "[CanChangeMapMode]"
+                onclick = "[GetVariableSystem.Set('dejure_auto_color_probe_tinted', 'true')]"
+                onclick = "[SetMapMode('plan_great_project_barony')]" }
+            button_standard = { name = "dejure_auto_color_probe_restore" position = { 214 112 } size = { 166 30 } text = "dejure_auto_color_probe_restore" enabled = "[CanChangeMapMode]" onclick = "[SetMapMode('realms')]" onclick = "[GetVariableSystem.Clear('dejure_auto_color_probe_tinted')]" }
+            text_single = { position = { 40 152 } size = { 340 24 } autoresize = no align = left|vcenter fontsize = 15
+                visible = "[IsMapMode('plan_great_project_barony')]" text = "dejure_auto_color_probe_active" }
+            text_single = { position = { 40 152 } size = { 340 24 } autoresize = no align = left|vcenter fontsize = 15
+                visible = "[Not(IsMapMode('plan_great_project_barony'))]" text = "dejure_auto_color_probe_inactive" }
+            text_single = { position = { 40 186 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_1').IsSet]" text = "dejure_auto_color_probe_result_1" tooltip = "dejure_auto_color_probe_help" }
+            text_single = { position = { 40 186 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[Not(GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_1').IsSet)]" text = "dejure_auto_color_probe_waiting_1" tooltip = "dejure_auto_color_probe_help" }
+            text_single = { position = { 40 218 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_2').IsSet]" text = "dejure_auto_color_probe_result_2" tooltip = "dejure_auto_color_probe_help" }
+            text_single = { position = { 40 218 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[Not(GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_2').IsSet)]" text = "dejure_auto_color_probe_waiting_2" tooltip = "dejure_auto_color_probe_help" }
+            text_single = { position = { 40 250 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_3').IsSet]" text = "dejure_auto_color_probe_result_3" tooltip = "dejure_auto_color_probe_help" }
+            text_single = { position = { 40 250 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[Not(GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_3').IsSet)]" text = "dejure_auto_color_probe_waiting_3" tooltip = "dejure_auto_color_probe_help" }
+            text_single = { position = { 40 282 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_4').IsSet]" text = "dejure_auto_color_probe_result_4" tooltip = "dejure_auto_color_probe_help" }
+            text_single = { position = { 40 282 } size = { 340 24 } autoresize = no align = left|vcenter
+                elide = right fontsize = 16 visible = "[Not(GetPlayer.MakeScope.Var('dejure_auto_color_probe_last_4').IsSet)]" text = "dejure_auto_color_probe_waiting_4" tooltip = "dejure_auto_color_probe_help" }
+
+            button_standard = { name = "dejure_auto_color_probe_done" position = { 40 332 } size = { 340 30 } text = "dejure_auto_color_probe_done"
+                onclick = "[GetScriptedGui('dejure_auto_color_probe_back_gui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+        }
+    }
+}

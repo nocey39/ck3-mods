@@ -1,0 +1,47 @@
+﻿dejure_auto_mode_0_gui = {
+    scope = character is_shown = { var:dejure_auto_mode = 0 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes set_variable = { name = dejure_auto_mode value = 0 } }
+}
+
+dejure_auto_mode_1_gui = {
+    scope = character is_shown = { var:dejure_auto_mode = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes set_variable = { name = dejure_auto_mode value = 1 } }
+}
+
+dejure_auto_tier_county_gui = {
+    scope = character is_shown = { var:dejure_auto_tier_county = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_tier_county = 1 } set_variable = { name = dejure_auto_tier_county value = 0 } }
+        else = { set_variable = { name = dejure_auto_tier_county value = 1 } }
+    }
+}
+
+dejure_auto_tier_duchy_gui = {
+    scope = character is_shown = { var:dejure_auto_tier_duchy = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_tier_duchy = 1 } set_variable = { name = dejure_auto_tier_duchy value = 0 } }
+        else = { set_variable = { name = dejure_auto_tier_duchy value = 1 } }
+    }
+}
+
+dejure_auto_tier_kingdom_gui = {
+    scope = character is_shown = { var:dejure_auto_tier_kingdom = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_tier_kingdom = 1 } set_variable = { name = dejure_auto_tier_kingdom value = 0 } }
+        else = { set_variable = { name = dejure_auto_tier_kingdom value = 1 } }
+    }
+}
+
+dejure_auto_tier_empire_gui = {
+    scope = character is_shown = { var:dejure_auto_tier_empire = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_tier_empire = 1 } set_variable = { name = dejure_auto_tier_empire value = 0 } }
+        else = { set_variable = { name = dejure_auto_tier_empire value = 1 } }
+    }
+}

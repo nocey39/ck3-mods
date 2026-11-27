@@ -1,0 +1,19 @@
+﻿namespace = childhood_education
+
+# Run before vanilla's default selection, including on the day of the sixth birthday.
+childhood_education.9001 = {
+    id_override_priority = 1
+    hidden = yes
+
+    immediate = {
+        add_character_flag = natural_education_progression
+        if = {
+            limit = { has_education_focus_trigger = no }
+            fa_choose_initial_focus_effect = yes
+            if = {
+                limit = { has_education_focus_trigger = no }
+                set_default_education = yes
+            }
+        }
+    }
+}

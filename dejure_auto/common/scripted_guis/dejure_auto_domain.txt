@@ -1,0 +1,8 @@
+﻿dejure_auto_distribute_domain_gui = {
+    scope = character is_shown = { var:dejure_auto_distribute_domain = 1 }
+    is_valid = { is_ai = no is_alive = yes is_landed = yes }
+    effect = { dejure_auto_initialize_effect = yes
+        if = { limit = { var:dejure_auto_distribute_domain = 1 } set_variable = { name = dejure_auto_distribute_domain value = 0 } }
+        else = { set_variable = { name = dejure_auto_distribute_domain value = 1 } }
+    }
+}

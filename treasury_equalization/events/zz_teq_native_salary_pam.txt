@@ -1,0 +1,27 @@
+﻿# Native budget reenactments immediately reapply TEQ fixed salary rules. Ineligible rulers retain vanilla behavior.
+namespace = pam_theocratic_budget_events
+
+pam_theocratic_budget_events.0001 = {
+	id_override_priority = 10
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		or = {
+			is_independent_ruler = yes
+			top_superior ?= this
+		}
+		has_treasury = yes
+		government_has_mechanic = theocracy
+		OR = {
+			treasury_months_since_budget_enact_date >= 12 # yearly (might have had a manual enacting recently)
+			monthly_character_treasury_balance < -50 # do it anyway if they have a big deficit
+		}
+	}
+
+	immediate = {
+		teq_prepare_native_budget = yes
+		enact_treasury_budgets_no_costs = yes
+		teq_reassert_salary = yes
+	}
+}

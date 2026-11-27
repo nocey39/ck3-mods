@@ -1,0 +1,10 @@
+﻿# Character-scope UI getters. The title owns the manual adjustment.
+teq_control_salary_fraction = {
+ value = 0.5
+ if = { limit = { exists = primary_title } value = primary_title.teq_salary_factor_value }
+ min = 0 max = 2
+}
+teq_control_salary_adjustment = {
+ value = 0
+ if = { limit = { exists = primary_title primary_title = { has_variable = teq_salary_manual_offset } } value = primary_title.var:teq_salary_manual_offset }
+}

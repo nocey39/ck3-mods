@@ -1,0 +1,115 @@
+﻿# Rebased on CK3 1.21.0.3. Only the Family Business hook is moved outside the court-owner check.
+general_aptitude_bonus_exclude_other_court_position = {
+	if = {
+		limit = {
+			exists = liege_or_court_owner  # don't know why but ?= doesn't work in this case.
+		}
+		# to reduce scoping
+		liege_or_court_owner = {
+			if = {
+				limit = {
+					has_perk = meritocracy_perk
+					NOT = { government_has_flag = government_uses_landless_lifestyle_perks }
+				}
+				add = {
+					value = 10
+					desc = liege_has_meritocracy_perk
+				}
+			}
+			if = {
+				limit = {
+					government_has_flag = government_is_landless_adventurer
+				}
+				if = {
+					limit = { has_perk = soon_forgiven_perk }
+					add = {
+						value = 10
+						desc = court_position_soon_forgiven_perk
+					}
+				}
+				if = {
+					limit = {
+						has_perk = positions_of_power_perk
+						prev = { any_relation = { type = friend } }
+					}
+					add = {
+						value = 5
+						desc = court_position_positions_of_power_perk_friend
+					}
+				}
+				if = {
+					limit = {
+						has_perk = positions_of_power_perk
+						prev = { any_relation = { type = lover } }
+					}
+					add = {
+						value = 5
+						desc = court_position_positions_of_power_perk_lover
+					}
+				}
+				if = {
+					limit = {
+						has_perk = positions_of_power_perk
+						prev = { is_married = yes }
+					}
+					add = {
+						value = 10
+						desc = court_position_positions_of_power_perk_marriage
+					}
+				}
+				if = {
+					limit = {
+						has_perk = likable_perk
+						has_relation_best_friend = prev
+					}
+					add = {
+						value = 30
+						desc = court_position_best_friend
+					}
+				}
+				else_if = {
+					limit = {
+						has_perk = likable_perk
+						has_relation_friend = prev
+					}
+					add = {
+						value = 15
+						desc = court_position_friend
+					}
+				}
+			}
+		}
+		if = {
+			limit = { employer ?= { has_perk = gracious_host_impeccable_guest_perk } }
+			add = court_position_aptitude_boon_voyager_trait
+		}
+		if = {
+			limit = { has_character_flag = travelling_friend }
+			add = court_position_aptitude_traveling_friends_value
+		}
+		if = {
+			limit = { has_trait = eunuch }
+			add = court_position_aptitude_eunuch_tradition_value
+		}
+
+		# PAM Celestial Hierarchy Tenet
+		if = {
+			limit = {
+				liege_or_court_owner.rite ?= { rite_has_parameter = tenet_celestial_hierarchy_court_aptitude_bonus }
+				faith = liege_or_court_owner.faith
+			}
+			add = {
+				value = piety_level
+				multiply = 3
+				min = 2
+				desc = court_position_tenet_celestial_hierarchy
+			}
+		}
+		if = {
+			limit = { employer ?= { government_has_flag = government_is_merchant } }
+			add = merchant_inspiring_rule_court_position_aptitude_value
+		}
+	}
+	# Evaluate the shared value even when only employer is available.
+	add = court_position_aptitude_family_business_value
+}

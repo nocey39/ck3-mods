@@ -1,0 +1,33 @@
+﻿difficulty = {
+	
+	categories = {
+		difficulty ai
+	}
+	
+	default = normal_difficulty
+
+	normal_difficulty = {
+	apply_modifier = player:cheat_modifier
+	
+	}
+	
+	hard_difficulty = {
+		apply_modifier = ai:hard_difficulty
+		apply_modifier = player:hard_difficulty_player
+	}
+
+	very_hard_difficulty = {
+		apply_modifier = ai:very_hard_difficulty
+		apply_modifier = player:very_hard_difficulty_player
+	}
+	
+	easy_difficulty = {
+		apply_modifier = player:easy_difficulty
+		flag = blocks_achievements
+	}
+	
+	very_easy_difficulty = {
+		apply_modifier = player:very_easy_difficulty
+		flag = blocks_achievements
+	}
+}

@@ -1,0 +1,17 @@
+﻿# Additive hooks. Missing native game_has_started is read only, never modified.
+on_game_start = { on_actions = { dejure_auto_preset_mark_new_game } }
+dejure_auto_preset_mark_new_game = {
+    trigger = { NOT = { has_global_variable = game_has_started }
+        NOT = { has_global_variable = dejure_auto_preset_world_initialized } }
+    effect = { set_global_variable = dejure_auto_preset_new_game }
+}
+on_game_start_after_lobby = { on_actions = { dejure_auto_preset_after_lobby } }
+dejure_auto_preset_after_lobby = {
+    trigger = { has_global_variable = dejure_auto_preset_new_game
+        NOT = { has_global_variable = dejure_auto_preset_world_initialized } }
+    effect = {
+        every_player = { limit = { is_ai = no is_alive = yes } dejure_auto_preset_new_player_effect = yes }
+        set_global_variable = dejure_auto_preset_world_initialized
+        remove_global_variable = dejure_auto_preset_new_game
+    }
+}

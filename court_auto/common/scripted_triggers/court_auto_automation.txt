@@ -1,0 +1,12 @@
+﻿court_auto_automation_active_trigger = {
+    is_ai = no
+    is_alive = yes
+    has_variable = court_auto_enabled
+    OR = { has_variable = court_auto_council_enabled has_variable = court_auto_court_enabled has_variable = court_auto_regency_enabled has_variable = court_auto_memory_enabled court_auto_tasks_active_trigger = yes }
+}
+court_auto_council_candidate_trigger = {
+    is_alive = yes
+    NOT = { this = scope:court_auto_owner }
+    NOT = { is_councillor_of = scope:court_auto_owner }
+    liege = scope:court_auto_owner
+}

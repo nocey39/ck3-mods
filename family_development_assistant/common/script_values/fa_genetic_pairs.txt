@@ -1,0 +1,147 @@
+﻿# Pair estimates, derived from vanilla's inheritance chances. These are ranking values.
+fa_genetic_intellect_positive = {
+    value = 0.008
+    if = { limit = { has_trait = intellect_good scope:fa_marriage_subject = { has_trait = intellect_good } } value = 0.8 }
+    else_if = { limit = { OR = { AND = { has_trait = intellect_good scope:fa_marriage_subject = { has_inactive_trait = intellect_good } } AND = { has_inactive_trait = intellect_good scope:fa_marriage_subject = { has_trait = intellect_good } } } } value = 0.5 }
+    else_if = { limit = { OR = { has_trait = intellect_good scope:fa_marriage_subject = { has_trait = intellect_good } } } value = 0.25 }
+    else_if = { limit = { has_inactive_trait = intellect_good scope:fa_marriage_subject = { has_inactive_trait = intellect_good } } value = 0.1 }
+    else_if = { limit = { OR = { has_inactive_trait = intellect_good scope:fa_marriage_subject = { has_inactive_trait = intellect_good } } } value = 0.02 }
+}
+
+fa_genetic_intellect_top = {
+    value = 0.0005
+    if = { limit = { has_trait = intellect_good_3 scope:fa_marriage_subject = { has_trait = intellect_good_3 } } value = 0.8 }
+    else_if = { limit = { OR = { AND = { has_trait = intellect_good_3 scope:fa_marriage_subject = { OR = { has_trait = intellect_good_2 has_inactive_trait = intellect_good_3 } } } AND = { OR = { has_trait = intellect_good_2 has_inactive_trait = intellect_good_3 } scope:fa_marriage_subject = { has_trait = intellect_good_3 } } } } value = 0.5 }
+    else_if = { limit = { OR = { has_trait = intellect_good_3 scope:fa_marriage_subject = { has_trait = intellect_good_3 } } } value = 0.25 }
+    else_if = { limit = { has_trait = intellect_good_2 scope:fa_marriage_subject = { has_trait = intellect_good_2 } scope:fa_marriage_subject.dynasty ?= { has_dynasty_perk = blood_legacy_2 } } value = 0.64 }
+    else_if = { limit = { has_trait = intellect_good_2 scope:fa_marriage_subject = { has_trait = intellect_good_2 } } value = 0.4 }
+    else_if = { limit = { OR = { AND = { has_trait = intellect_good_2 scope:fa_marriage_subject = { has_inactive_trait = intellect_good_3 } } AND = { has_inactive_trait = intellect_good_3 scope:fa_marriage_subject = { has_trait = intellect_good_2 } } } } value = 0.1 }
+    else_if = { limit = { OR = { AND = { has_trait = intellect_good_2 scope:fa_marriage_subject = { has_trait = intellect_good_1 } } AND = { has_trait = intellect_good_1 scope:fa_marriage_subject = { has_trait = intellect_good_2 } } } } value = 0.025 }
+    else_if = { limit = { has_inactive_trait = intellect_good_3 scope:fa_marriage_subject = { has_inactive_trait = intellect_good_3 } } value = 0.1 }
+    else_if = { limit = { OR = { has_inactive_trait = intellect_good_3 scope:fa_marriage_subject = { has_inactive_trait = intellect_good_3 } } } value = 0.02 }
+}
+
+fa_genetic_intellect_below_top = {
+    value = fa_genetic_intellect_positive
+    subtract = fa_genetic_intellect_top
+    min = 0
+}
+
+fa_genetic_physique_positive = {
+    value = 0.009
+    if = { limit = { has_trait = physique_good scope:fa_marriage_subject = { has_trait = physique_good } } value = 0.8 }
+    else_if = { limit = { OR = { AND = { has_trait = physique_good scope:fa_marriage_subject = { has_inactive_trait = physique_good } } AND = { has_inactive_trait = physique_good scope:fa_marriage_subject = { has_trait = physique_good } } } } value = 0.5 }
+    else_if = { limit = { OR = { has_trait = physique_good scope:fa_marriage_subject = { has_trait = physique_good } } } value = 0.25 }
+    else_if = { limit = { has_inactive_trait = physique_good scope:fa_marriage_subject = { has_inactive_trait = physique_good } } value = 0.1 }
+    else_if = { limit = { OR = { has_inactive_trait = physique_good scope:fa_marriage_subject = { has_inactive_trait = physique_good } } } value = 0.02 }
+}
+
+fa_genetic_physique_top = {
+    value = 0.0015
+    if = { limit = { has_trait = physique_good_3 scope:fa_marriage_subject = { has_trait = physique_good_3 } } value = 0.8 }
+    else_if = { limit = { OR = { AND = { has_trait = physique_good_3 scope:fa_marriage_subject = { OR = { has_trait = physique_good_2 has_inactive_trait = physique_good_3 } } } AND = { OR = { has_trait = physique_good_2 has_inactive_trait = physique_good_3 } scope:fa_marriage_subject = { has_trait = physique_good_3 } } } } value = 0.5 }
+    else_if = { limit = { OR = { has_trait = physique_good_3 scope:fa_marriage_subject = { has_trait = physique_good_3 } } } value = 0.25 }
+    else_if = { limit = { has_trait = physique_good_2 scope:fa_marriage_subject = { has_trait = physique_good_2 } scope:fa_marriage_subject.dynasty ?= { has_dynasty_perk = blood_legacy_2 } } value = 0.64 }
+    else_if = { limit = { has_trait = physique_good_2 scope:fa_marriage_subject = { has_trait = physique_good_2 } } value = 0.4 }
+    else_if = { limit = { OR = { AND = { has_trait = physique_good_2 scope:fa_marriage_subject = { has_inactive_trait = physique_good_3 } } AND = { has_inactive_trait = physique_good_3 scope:fa_marriage_subject = { has_trait = physique_good_2 } } } } value = 0.1 }
+    else_if = { limit = { OR = { AND = { has_trait = physique_good_2 scope:fa_marriage_subject = { has_trait = physique_good_1 } } AND = { has_trait = physique_good_1 scope:fa_marriage_subject = { has_trait = physique_good_2 } } } } value = 0.025 }
+    else_if = { limit = { has_inactive_trait = physique_good_3 scope:fa_marriage_subject = { has_inactive_trait = physique_good_3 } } value = 0.1 }
+    else_if = { limit = { OR = { has_inactive_trait = physique_good_3 scope:fa_marriage_subject = { has_inactive_trait = physique_good_3 } } } value = 0.02 }
+}
+
+fa_genetic_physique_below_top = {
+    value = fa_genetic_physique_positive
+    subtract = fa_genetic_physique_top
+    min = 0
+}
+
+fa_genetic_beauty_positive = {
+    value = 0.009
+    if = { limit = { has_trait = beauty_good scope:fa_marriage_subject = { has_trait = beauty_good } } value = 0.8 }
+    else_if = { limit = { OR = { AND = { has_trait = beauty_good scope:fa_marriage_subject = { has_inactive_trait = beauty_good } } AND = { has_inactive_trait = beauty_good scope:fa_marriage_subject = { has_trait = beauty_good } } } } value = 0.5 }
+    else_if = { limit = { OR = { has_trait = beauty_good scope:fa_marriage_subject = { has_trait = beauty_good } } } value = 0.25 }
+    else_if = { limit = { has_inactive_trait = beauty_good scope:fa_marriage_subject = { has_inactive_trait = beauty_good } } value = 0.1 }
+    else_if = { limit = { OR = { has_inactive_trait = beauty_good scope:fa_marriage_subject = { has_inactive_trait = beauty_good } } } value = 0.02 }
+}
+
+fa_genetic_beauty_top = {
+    value = 0.0015
+    if = { limit = { has_trait = beauty_good_3 scope:fa_marriage_subject = { has_trait = beauty_good_3 } } value = 0.8 }
+    else_if = { limit = { OR = { AND = { has_trait = beauty_good_3 scope:fa_marriage_subject = { OR = { has_trait = beauty_good_2 has_inactive_trait = beauty_good_3 } } } AND = { OR = { has_trait = beauty_good_2 has_inactive_trait = beauty_good_3 } scope:fa_marriage_subject = { has_trait = beauty_good_3 } } } } value = 0.5 }
+    else_if = { limit = { OR = { has_trait = beauty_good_3 scope:fa_marriage_subject = { has_trait = beauty_good_3 } } } value = 0.25 }
+    else_if = { limit = { has_trait = beauty_good_2 scope:fa_marriage_subject = { has_trait = beauty_good_2 } scope:fa_marriage_subject.dynasty ?= { has_dynasty_perk = blood_legacy_2 } } value = 0.64 }
+    else_if = { limit = { has_trait = beauty_good_2 scope:fa_marriage_subject = { has_trait = beauty_good_2 } } value = 0.4 }
+    else_if = { limit = { OR = { AND = { has_trait = beauty_good_2 scope:fa_marriage_subject = { has_inactive_trait = beauty_good_3 } } AND = { has_inactive_trait = beauty_good_3 scope:fa_marriage_subject = { has_trait = beauty_good_2 } } } } value = 0.1 }
+    else_if = { limit = { OR = { AND = { has_trait = beauty_good_2 scope:fa_marriage_subject = { has_trait = beauty_good_1 } } AND = { has_trait = beauty_good_1 scope:fa_marriage_subject = { has_trait = beauty_good_2 } } } } value = 0.025 }
+    else_if = { limit = { has_inactive_trait = beauty_good_3 scope:fa_marriage_subject = { has_inactive_trait = beauty_good_3 } } value = 0.1 }
+    else_if = { limit = { OR = { has_inactive_trait = beauty_good_3 scope:fa_marriage_subject = { has_inactive_trait = beauty_good_3 } } } value = 0.02 }
+}
+
+fa_genetic_beauty_below_top = {
+    value = fa_genetic_beauty_positive
+    subtract = fa_genetic_beauty_top
+    min = 0
+}
+
+fa_genetic_fecund = {
+    value = 0
+    if = { limit = { has_trait = fecund scope:fa_marriage_subject = { has_trait = fecund } } value = 0.8 }
+    else_if = { limit = { OR = { AND = { has_trait = fecund scope:fa_marriage_subject = { has_inactive_trait = fecund } } AND = { has_inactive_trait = fecund scope:fa_marriage_subject = { has_trait = fecund } } } } value = 0.5 }
+    else_if = { limit = { OR = { has_trait = fecund scope:fa_marriage_subject = { has_trait = fecund } } } value = 0.25 }
+    else_if = { limit = { has_inactive_trait = fecund scope:fa_marriage_subject = { has_inactive_trait = fecund } } value = 0.1 }
+    else_if = { limit = { OR = { has_inactive_trait = fecund scope:fa_marriage_subject = { has_inactive_trait = fecund } } } value = 0.02 }
+}
+
+fa_genetic_pure_blooded = {
+    value = 0
+    if = { limit = { has_trait = pure_blooded scope:fa_marriage_subject = { has_trait = pure_blooded } } value = 0.75 }
+    else_if = { limit = { OR = { has_trait = pure_blooded scope:fa_marriage_subject = { has_trait = pure_blooded } } } value = 0.15 }
+}
+
+fa_genetic_pair_score = {
+    value = 0
+    if = {
+        limit = { scope:fa_marriage_subject.dynasty ?= { has_dynasty_modifier = strong_blood } }
+        add = {
+        value = fa_genetic_intellect_top
+        multiply = fa_genetic_physique_top
+        multiply = fa_genetic_beauty_top
+        multiply = fa_genetic_pure_blooded
+        multiply = fa_genetic_fecund
+            multiply = 250
+        }
+        add = {
+        value = fa_genetic_intellect_top
+        multiply = fa_genetic_physique_top
+        multiply = fa_genetic_beauty_top
+            multiply = 60
+        }
+    }
+    else = {
+        add = {
+        value = fa_genetic_intellect_positive
+        multiply = fa_genetic_physique_positive
+        multiply = fa_genetic_beauty_positive
+            subtract = {
+        value = fa_genetic_intellect_below_top
+        multiply = fa_genetic_physique_below_top
+        multiply = fa_genetic_beauty_below_top
+            }
+            multiply = 600
+        }
+    }
+    # Scores still distinguish pairs when reaching all of the current targets is unlikely.
+    add = { value = fa_genetic_intellect_positive multiply = 2 }
+    add = { value = fa_genetic_physique_positive multiply = 2 }
+    add = { value = fa_genetic_beauty_positive multiply = 2 }
+    add = { value = fa_genetic_intellect_top multiply = 2 }
+    add = { value = fa_genetic_physique_top multiply = 2 }
+    add = { value = fa_genetic_beauty_top multiply = 2 }
+    add = { value = fa_genetic_pure_blooded multiply = 3 }
+    add = { value = fa_genetic_fecund multiply = 2 }
+    multiply = {
+        value = fa_genetic_fertility_estimate
+        add = scope:fa_marriage_subject.fa_genetic_fertility_estimate
+        divide = 2
+    }
+}

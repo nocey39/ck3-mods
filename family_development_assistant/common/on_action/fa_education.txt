@@ -1,0 +1,74 @@
+﻿on_player_character_change = { on_actions = { fa_player_change } }
+quarterly_playable_pulse = { on_actions = { fa_recover_guardian_schedule } }
+
+fa_player_change = {
+    trigger = { fa_can_configure_trigger = yes }
+    effect = {
+        remove_variable = fa_panel_open
+        if = {
+            limit = {
+                exists = scope:previous_player_character
+                scope:previous_player_character = {
+                    is_alive = no
+                    has_variable = fa_mode
+                }
+            }
+            fa_inherit_settings_effect = yes
+        }
+        fa_invalidate_guardian_schedule_effect = yes
+        if = {
+            limit = { fa_guardian_active_trigger = yes }
+            save_scope_value_as = { name = fa_guardian_ticket value = var:fa_guardian_generation }
+            trigger_event = { on_action = fa_succession_guardian_check days = 1 }
+        }
+        if = {
+            limit = { OR = { fa_perk_active_trigger = yes has_variable = fa_perk_pending } }
+            fa_perk_invalidate_schedule_effect = yes
+            if = {
+                limit = { fa_perk_active_trigger = yes }
+                save_scope_value_as = { name = fa_perk_ticket value = var:fa_perk_generation }
+                trigger_event = { on_action = fa_perk_after_succession days = 1 }
+            }
+        }
+        fa_marriage_schedule_effect = yes
+    }
+}
+
+fa_succession_guardian_check = {
+    trigger = {
+        fa_guardian_active_trigger = yes
+        scope:fa_guardian_ticket = var:fa_guardian_generation
+    }
+    effect = {
+        fa_check_guardians_effect = yes
+        fa_schedule_guardian_check_effect = yes
+    }
+}
+
+fa_scheduled_guardian_check = {
+    effect = {
+        if = {
+            limit = {
+                has_variable = fa_guardian_check_pending
+                scope:fa_guardian_ticket = var:fa_guardian_generation
+            }
+            remove_variable = fa_guardian_check_pending
+            if = {
+                limit = { fa_guardian_active_trigger = yes }
+                fa_check_guardians_effect = yes
+                fa_schedule_guardian_check_effect = yes
+            }
+        }
+    }
+}
+
+fa_recover_guardian_schedule = {
+    trigger = {
+        fa_guardian_active_trigger = yes
+        NOT = { has_variable = fa_guardian_check_pending }
+    }
+    effect = {
+        fa_check_guardians_effect = yes
+        fa_schedule_guardian_check_effect = yes
+    }
+}
