@@ -21,7 +21,7 @@
 | region_conquest | 0.3.1 | 3813240200 |
 | temple_citadel_change_local | 2.1.1 | 3700123247 |
 | test | 1.21 | 3700121015 |
-| treasury_equalization | 0.7.5 | 3839551460 |
+| treasury_equalization | 0.7.6 | 3839551460 |
 
 国库统筹在另一台电脑继续排查时，请先阅读[故障机 Codex 交接](docs/treasury_equalization_handoff.md)。
 

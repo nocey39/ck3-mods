@@ -9,9 +9,9 @@ teq_allocation_salary = { hide_effects = yes }
 
 # Keep the old modifier key inert: the native government controls gold/treasury splitting.
 teq_public_collection = { hide_effects = yes }
-# Marker modifiers only: 100% public tax collection is applied strictly in the five native
-# treasury-vassal obligation contracts (zz_teq_vassal_tax_contracts.txt) so tributaries
-# and non-treasury vassals are never affected by vassal_tax_contribution_add/mult.
+# O(1) active marker toggled strictly together with teq_refund_paused and TEQ flow
+# modifiers only when the full fiscal chain is registered and the center is ready.
+# Contracts check this marker directly without per-tick chain/list traversal.
 teq_public_tax = { hide_effects = yes }
 
 teq_central_tax = { hide_effects = yes }
