@@ -1,4 +1,5 @@
 ﻿test_complete_available_innovations_decision = {
+	decision_group_type = test_cheat_decisions
 	ai_check_interval = 0
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_culture.dds"

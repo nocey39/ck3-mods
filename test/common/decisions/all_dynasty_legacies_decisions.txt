@@ -8,7 +8,7 @@ unlock_all_dynasty_legacies = {
 		reference = "gfx/interface/illustrations/decisions/decision_dynasty_house.dds"
 	}
 
-	decision_group_type = major
+	decision_group_type = test_cheat_decisions
 	sort_order = 1000
 
 	title = unlock_all_dynasty_legacies
@@ -46,7 +46,7 @@ unlock_all_dynasty_legacies = {
 
 adl_renown_recovery = {
 	picture = { reference = "gfx/interface/illustrations/decisions/decision_dynasty_house.dds" }
-	decision_group_type = major
+	decision_group_type = test_cheat_decisions
 	sort_order = 1001
 	title = adl_renown_recovery
 	desc = adl_renown_recovery_desc

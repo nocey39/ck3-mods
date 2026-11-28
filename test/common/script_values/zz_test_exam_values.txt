@@ -1,0 +1,527 @@
+# [test] CK3 1.21.0.3 家族科举高分修正覆盖（仅覆盖 3 个科举计分 script_value）
+
+imperial_examination_entry_value = {
+	value = 0
+	if = {
+		limit = { is_alive = yes }
+		# Merit
+		if = {
+			limit = { merit_level >= 7 }
+			add = 20
+		}
+		else_if = {
+			limit = { merit_level >= 5 }
+			add = 15
+		}
+		else_if = {
+			limit = { merit_level >= 3 }
+			add = 9
+		}
+		else_if = {
+			limit = { merit_level >= 1 }
+			add = 6
+		}
+		#Confucian Education trait
+		if = {
+			limit = { has_trait = confucian_education }
+			if = {
+				limit = {
+					has_trait_xp = {
+						trait = confucian_education
+						#value >= 100 #Max
+						value >= trait_max_value
+					}
+				}
+				add = 20
+			}
+			else_if = {
+				limit = {
+					has_trait_xp = {
+						trait = confucian_education
+						#value >= 80 #Fourth level
+						value >= trait_fourth_of_five_level_value
+					}
+				}
+				add = 15
+			}
+			else_if = {
+				limit = {
+					has_trait_xp = {
+						trait = confucian_education
+						#value >= 60 #Third level
+						value >= trait_third_of_five_level_value
+					}
+				}
+				add = 12
+			}
+			else_if = {
+				limit = {
+					has_trait_xp = {
+						trait = confucian_education
+						#value >= 40 #Second level
+						value >= trait_second_of_five_level_value
+					}
+				}
+				add = 9
+			}
+			else_if = {
+				limit = {
+					has_trait_xp = {
+						trait = confucian_education
+						#value >= 20 #First level
+						value >= trait_first_of_five_level_value
+					}
+				}
+				add = 6
+			}
+			else = { add = 3 } #Zero level
+		}
+		
+		if = {
+			limit = {
+				involved_activity ?= { has_activity_type = activity_imperial_examination }
+			}
+			#Learning focused exams
+			if = {
+				limit = { 
+					involved_activity ?= { activity_is_learning_focus_trigger = yes }
+				}
+				add = learning
+				if = {
+					limit = { has_trait = education_learning_1 }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = education_learning_2 }
+					add = 6
+				}
+				if = {
+					limit = { has_trait = education_learning_3 }
+					add = 9
+				}
+				if = {
+					limit = { has_trait = education_learning_4 }
+					add = 12
+				}
+				if = {
+					limit = { has_trait = education_learning_5 }
+					add = 15
+				}
+				if = {
+					limit = { has_trait = shrewd }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = lifestyle_mystic }
+					add = 3
+				}
+				if = {
+					limit = { 
+						has_trait_xp = {
+							trait = lifestyle_mystic 
+							value >= trait_second_level
+						}
+					}
+					add = 3
+				}
+				if = {
+					limit = { 
+						has_trait_xp = {
+							trait = lifestyle_mystic 
+							value >= trait_third_level
+						}
+					}
+					add = 3
+				}
+				if = {
+					limit = { has_trait = lifestyle_physician }
+					add = 3
+				}
+				if = {
+					limit = { 
+						has_trait_xp = {
+							trait = lifestyle_physician 
+							value >= trait_second_level
+						}
+					}
+					add = 3
+				}
+				if = {
+					limit = { 
+						has_trait_xp = {
+							trait = lifestyle_physician 
+							value >= trait_third_level
+						}
+					}
+					add = 3
+				}
+				if = {
+					limit = { has_trait = whole_of_body }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = theologian }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = erudite }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = lifestyle_poet }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = journaller }
+					add = 3
+				}
+			}
+			#Martial focused exams
+			if = {
+				limit = { 
+					involved_activity ?= { activity_is_martial_focus_trigger = yes }
+				}
+				add = martial
+				if = {
+					limit = { has_trait = education_martial_1 }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = education_martial_2 }
+					add = 6
+				}
+				if = {
+					limit = { has_trait = education_martial_3 }
+					add = 9
+				}
+				if = {
+					limit = { has_trait = education_martial_4 }
+					add = 12
+				}
+				if = {
+					limit = { has_trait = education_martial_5 }
+					add = 15
+				}
+				if = {
+					limit = { has_trait = strategist }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = overseer }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = gallant }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = logistician }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = military_engineer }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = unyielding_defender }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = forder }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = flexible_leader }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = desert_warrior }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = reaver }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = reckless }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = holy_warrior }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = open_terrain_expert }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = rough_terrain_expert }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = forest_fighter }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = cautious_leader }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = organizer }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = winter_soldier }
+					add = 3
+				}
+			}
+			#Stewardship focused exams
+			if = {
+				limit = { 
+					involved_activity ?= { activity_is_stewardship_focus_trigger = yes }
+				}
+				add = stewardship
+				if = {
+					limit = { has_trait = education_stewardship_1 }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = education_stewardship_2 }
+					add = 6
+				}
+				if = {
+					limit = { has_trait = education_stewardship_3 }
+					add = 9
+				}
+				if = {
+					limit = { has_trait = education_stewardship_4 }
+					add = 12
+				}
+				if = {
+					limit = { has_trait = education_stewardship_5 }
+					add = 15
+				}
+				if = {
+					limit = { has_trait = architect }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = administrator }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = avaricious }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = lifestyle_gardener }
+					add = 3
+				}
+				if = {
+					limit = { has_trait = governor }
+					add = 3
+				}
+			}
+		}
+		else = {
+			add = learning
+			add = martial
+			add = stewardship
+		}
+		
+		# Bonus from House Aspirations
+		if = {
+			limit = {
+				exists = house
+			}
+			house = {
+				if = {
+					limit = { has_house_aspiration_parameter = examination_success_bonus }
+					add = 10
+				}
+			}
+		}
+		
+		# Bonus from domicile buildings
+		if = {
+			limit = { exists = house.house_head.domicile }
+			house.house_head.domicile = {
+				# Archive - Multiplier
+				if = {
+					limit = { has_domicile_parameter = estate_examination_start_score_bonus_4 }
+					multiply = {
+						value = 1
+						add = estate_examination_start_score_bonus_4_value
+					}
+				}
+				else_if = {
+					limit = { has_domicile_parameter = estate_examination_start_score_bonus_3 }
+					multiply = {
+						value = 1
+						add = estate_examination_start_score_bonus_3_value
+					}
+				}
+				else_if = {
+					limit = { has_domicile_parameter = estate_examination_start_score_bonus_2 }
+					multiply = {
+						value = 1
+						add = estate_examination_start_score_bonus_2_value
+					}
+				}
+				else_if = {
+					limit = { has_domicile_parameter = estate_examination_start_score_bonus_1 }
+					multiply = {
+						value = 1
+						add = estate_examination_start_score_bonus_1_value
+					}
+				}
+			}
+		}
+
+		#Malus for not taking the Local Exam.
+		if = {
+			limit = {
+				involved_activity ?= { has_activity_type = activity_imperial_examination }
+				NOT = { has_character_flag = passed_provincial_exam }
+			}
+			divide = 3
+		}
+
+		#Malus for not knowing the activity language
+		if = {
+			limit = {
+				exists = scope:host.culture
+				NOT = { knows_language_of_culture = scope:host.culture }
+			}
+			divide = 5
+		}
+
+		# [test] 家族科举高分修正：乡试/会试/殿试基础与总分 +500
+		if = {
+			limit = {
+				house ?= { has_house_modifier = test_house_exam_mastery_modifier }
+			}
+			add = 500
+		}
+	}
+	min = 0
+	ceiling = yes
+}
+
+temporary_exam_score_value = {
+	value = 0
+	if = {
+		limit = { has_variable = temporary_exam_score }
+		add = var:temporary_exam_score
+	}
+	# [test] 家族科举高分修正：淘汰轮排序分 +500，防止族人在中间轮被末位淘汰
+	if = {
+		limit = {
+			house ?= { has_house_modifier = test_house_exam_mastery_modifier }
+		}
+		add = 500
+	}
+}
+
+child_examination_success_chance_value = {
+	value = 0
+	# EXAM TYPE
+	add = {
+		value = learning
+		multiply = 1.2
+		ceiling = yes
+		max = 30
+		desc = learning_modifier
+	}
+	# A Confucian Education will improve your chances
+	add = {
+		if = {
+			limit = { has_trait = confucian_education }
+			add = 5
+		}
+		desc = confucian_education_modifier
+	}
+	# Having a Tutor will improve your chances
+	add = {
+		if = {
+			limit = { employs_court_position = court_tutor_court_position }
+			add = 15
+		}
+		desc = tutor_modifier
+	}
+	# Having lost a parent will improve your chances
+	add = {
+		if = {
+			limit = {
+				any_parent = {
+					is_alive = no
+					count = all
+				}
+			}
+			add = 10
+		}
+		desc = mourned_parent_modifier
+	}
+	# Let's also add the child's age
+	add = {
+		value = age
+		desc = age_modifier
+	}
+	add = {
+		if = {
+			limit = {
+				has_trait = curious
+			}
+			add = 5
+		}
+		desc = curious_modifier
+	}
+	# VARIABLES
+	# Nr of safe bets at examination
+	add = {
+		if = {
+			limit = { var:safe_bets > 0 }
+			value = var:safe_bets
+			multiply = 5
+		}
+		desc = played_it_safe_modifier
+	}
+	# MODIFIERS
+	if = {
+		limit = {
+			has_character_modifier = tgp_local_exam_initial_success
+		}
+		add = {
+			value = examination_success_increase_medium_value
+			desc = exam_success_chance.tgp_local_exam_initial_success
+		}
+	}
+	if = {
+		limit = {
+			has_character_modifier = tgp_local_exam_impressed_examiner
+		}
+		add = {
+			value = examination_success_increase_major_value
+			desc = exam_success_chance.tgp_local_exam_impressed_examiner
+		}
+	}
+	if = {
+		limit = {
+			has_character_modifier = tgp_local_exam_strong_finish
+		}
+		add = {
+			value = examination_success_increase_massive_value
+			desc = exam_success_chance.tgp_local_exam_strong_finish
+		}
+	}
+	# [test] 家族科举高分修正：童试通过率 +100%
+	if = {
+		limit = {
+			house ?= { has_house_modifier = test_house_exam_mastery_modifier }
+		}
+		add = {
+			value = 100
+			desc = test_house_exam_mastery_modifier
+		}
+	}
+}

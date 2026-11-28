@@ -1,0 +1,4 @@
+test_house_exam_mastery_modifier = {
+	icon = learning_positive
+	confucian_education_xp_gain_mult = 1.0
+}

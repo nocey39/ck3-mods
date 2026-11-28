@@ -1,0 +1,73 @@
+test_enable_house_exam_mastery_decision = {
+	decision_group_type = test_cheat_decisions
+	ai_check_interval = 0
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/tgp_examination_room.dds"
+	}
+	desc = test_enable_house_exam_mastery_decision_desc
+	selection_tooltip = test_enable_house_exam_mastery_decision_tooltip
+	confirm_text = test_enable_house_exam_mastery_decision_confirm
+
+	is_shown = {
+		is_ai = no
+		exists = house
+		house = {
+			NOT = { has_house_modifier = test_house_exam_mastery_modifier }
+		}
+	}
+
+	is_valid = {
+		exists = house
+	}
+
+	effect = {
+		custom_tooltip = test_enable_house_exam_mastery_decision_effect
+		house = {
+			add_house_modifier = test_house_exam_mastery_modifier
+		}
+	}
+
+	ai_potential = {
+		always = no
+	}
+	ai_will_do = {
+		base = 0
+	}
+}
+
+test_disable_house_exam_mastery_decision = {
+	decision_group_type = test_cheat_decisions
+	ai_check_interval = 0
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/tgp_examination_room.dds"
+	}
+	desc = test_disable_house_exam_mastery_decision_desc
+	selection_tooltip = test_disable_house_exam_mastery_decision_tooltip
+	confirm_text = test_disable_house_exam_mastery_decision_confirm
+
+	is_shown = {
+		is_ai = no
+		exists = house
+		house = {
+			has_house_modifier = test_house_exam_mastery_modifier
+		}
+	}
+
+	is_valid = {
+		exists = house
+	}
+
+	effect = {
+		custom_tooltip = test_disable_house_exam_mastery_decision_effect
+		house = {
+			remove_house_modifier = test_house_exam_mastery_modifier
+		}
+	}
+
+	ai_potential = {
+		always = no
+	}
+	ai_will_do = {
+		base = 0
+	}
+}

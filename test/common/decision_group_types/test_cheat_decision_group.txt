@@ -1,0 +1,3 @@
+test_cheat_decisions = {
+	sort_order = 160
+}
