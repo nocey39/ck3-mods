@@ -47,7 +47,24 @@ cfi_enable_religion_decision = {
     is_shown = {
         is_ai = no
         exists = rite
-        rite = { NOT = { rite_has_doctrine = special_doctrine_cfi_integrated } }
+        OR = {
+            rite = { NOT = { rite_has_doctrine = special_doctrine_cfi_integrated } }
+            AND = {
+                exists = faith
+                faith = {
+                    OR = {
+                        has_doctrine = unreformed_faith_doctrine
+                        has_doctrine = west_african_unreformed_faith_doctrine
+                    }
+                }
+            }
+            rite = {
+                OR = {
+                    rite_has_doctrine = unreformed_faith_doctrine
+                    rite_has_doctrine = west_african_unreformed_faith_doctrine
+                }
+            }
+        }
     }
     is_valid = { is_ai = no }
     effect = {

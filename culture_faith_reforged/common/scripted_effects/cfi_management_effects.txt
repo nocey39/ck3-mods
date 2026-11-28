@@ -17,12 +17,33 @@ cfi_disable_culture_effect = {
     }
 }
 
-# 1.20 uses rites. Only change the actor's current rite, not the parent faith.
+# 1.21 uses rites for integrated mechanics, and removes unreformed faith markers if present.
 cfi_enable_religion_effect = {
     rite = {
         if = {
             limit = { NOT = { rite_has_doctrine = special_doctrine_cfi_integrated } }
             add_rite_doctrine = special_doctrine_cfi_integrated
+        }
+        if = {
+            limit = { rite_has_doctrine = unreformed_faith_doctrine }
+            remove_rite_doctrine = unreformed_faith_doctrine
+        }
+        if = {
+            limit = { rite_has_doctrine = west_african_unreformed_faith_doctrine }
+            remove_rite_doctrine = west_african_unreformed_faith_doctrine
+        }
+    }
+    if = {
+        limit = { exists = faith }
+        faith = {
+            if = {
+                limit = { has_doctrine = unreformed_faith_doctrine }
+                remove_doctrine = unreformed_faith_doctrine
+            }
+            if = {
+                limit = { has_doctrine = west_african_unreformed_faith_doctrine }
+                remove_doctrine = west_african_unreformed_faith_doctrine
+            }
         }
     }
 }

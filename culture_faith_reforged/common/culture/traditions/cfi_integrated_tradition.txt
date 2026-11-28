@@ -392,8 +392,29 @@ tradition_cfi_integrated = {
 		zealous_people_internal_yurt_unlock = yes # tradition_sacred_hunts, tradition_sacred_mountains, tradition_zealous_people
 		zealous_trait_more_common = yes # tradition_zealous_people
     }
-	province_modifier = {
-	}
+
+    # ==================== 文化传统修正块（CK3 1.21 官方支持结构） ====================
+    # 1. 角色修正：作用于该文化的全部角色（能力、特质经验、兵士、建造、维护费等）
+    character_modifier = {
+    }
+
+    # 2. 伯爵领修正：作用于该文化的伯爵领（发展度增长、控制度、民意、税收等）
+    county_modifier = {
+    }
+
+    # 3. 地产/男爵领修正：作用于该文化伯爵领下的各男爵领地产（地产建造、补给、驻军等）
+    province_modifier = {
+    }
+
+    # 4. 文化修正：作用于文化本身（文化革新速度、文化接受度增长等）
+    culture_modifier = {
+    }
+
+    # 5. 条件角色修正（可选，需取消注释并填写 doctrine = <教义key>，空块会报错，可重复多段）
+    # faith_character_modifier = {
+    #     doctrine = doctrine_theocracy_lay_clergy
+    #     same_faith_opinion = 3
+    # }
 
     ai_will_do = { value = 0 }
 }
