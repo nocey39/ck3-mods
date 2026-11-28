@@ -275,9 +275,15 @@ check('fresh native capacity and receiver units precede rate changes', () => {
     const lastBeforeRate = budget.slice(0, setRate).lastIndexOf(name);
     assert(first > nativeEnact && lastBeforeRate > first, `${channel} units must reset and resample after native enactment, before rate changes`);
   }
-  const cap = definition('teq_development_base_rate_cap').values;
-  assert(cap.includes('primary_title.var:teq_native_development_units'), 'Development cap must use measured native receivers');
-  assert(!cap.includes('tgp_has_access_to_ministry_trigger') && !cap.includes('primary_title.var:teq_need_sum'), 'Development cap must not guess receiver units from government or TEQ need');
+  const developmentRate = definition('teq_development_base_rate').values;
+  requires(developmentRate, ['divide', '=', 'var:teq_native_development_units'], 'Development rate must use measured native receivers');
+  assert(!developmentRate.includes('tgp_has_access_to_ministry_trigger') && !developmentRate.includes('var:teq_need_sum'), 'Development rate must not guess receiver units from government or TEQ need');
+});
+
+check('a central title cannot be registered as its own region', () => {
+  requires(definition('teq_public_tax_subject').values, ['NOT', '=', '{', 'this', '=', 'top_liege'], 'Immediate registration must exclude the fiscal ruler');
+  requires(definition('teq_recipient_valid').values, ['NOT', '=', '{', 'this', '=', 'scope:teq_fiscal_title.holder'], 'Quarterly review must exclude the fiscal ruler');
+  requires(definition('teq_region_title_valid').values, ['NOT', '=', '{', 'this', '=', 'var:teq_region_owner'], 'Cached self-registration must be rejected');
 });
 
 if (game) {

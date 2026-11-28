@@ -98,7 +98,7 @@
 
  teq_fixed_payroll: "Coordinated payroll"
 
- teq_live_budget_help: "Current paid budget. Adjusting a control recalculates payments immediately. Salaries follow office, rank, and salary standard, subject to the 10% budget cap. Development and military share their common pool. Expand the paid breakdown to see individual recipients."
+ teq_live_budget_help: "Current paid budget. Adjusting a control recalculates payments immediately. Salaries follow office, rank, and salary standard, subject to the 10% budget cap. Check Total for actual development and military payments, and expand the breakdown for individual receipts."
  teq_current_budget_breakdown_title: "Current payments"
  teq_current_budget_breakdown_total: "Total: [treasury_i] [TreasuryBudgetChangeWindow.GetCurrentBudgetTotal(GuiLawGroup.Self)|1]"
  teq_current_budget_breakdown_note: "Current paid breakdown, using the same settlement as the amounts in the table. Empty when there is no actual expenditure or recipient."
@@ -118,7 +118,7 @@
 
 
 
- teq_control_public_help: "Share of the common development and military pool. The two shares total 100%. Left click changes 1 percentage point; right click changes 5. A decrease in one adds the same share to the other, immediately. Any other public budget keeps its share before the common pool is divided. A category without actual recipients pays zero."
+ teq_control_public_help: "Development and military payments follow the configured shares of their common pool, which total 100%. Left click changes 1 percentage point and right click changes 5, immediately. A category pays zero at 0% or without eligible recipients. Undisbursed funds stay in the central treasury. Check Total for actual payments."
 
  teq_control_cardinal_help: "Retains the native cardinal share of the public budget. Development and military percentages divide their own common pool and do not include this category."
 

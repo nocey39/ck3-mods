@@ -98,7 +98,7 @@
 
  teq_fixed_payroll: "统一俸禄结算"
 
- teq_live_budget_help: "此处显示当前实付预算，调整比例即重算拨款。俸禄按官职、品级和待遇标准计算，仍受总预算10%上限约束。发展与军事共同池按显示份额分配。个人实收可展开当前实付明细。"
+ teq_live_budget_help: "此处显示当前实付预算，调整比例即重算拨款。俸禄按官职、品级和待遇标准计算，仍受总预算10%上限约束。发展和军事的实际拨款请看「总额」，展开可查看个人实收。"
  teq_current_budget_breakdown_title: "当前实付明细"
  teq_current_budget_breakdown_total: "合计：[treasury_i] [TreasuryBudgetChangeWindow.GetCurrentBudgetTotal(GuiLawGroup.Self)|1]"
  teq_current_budget_breakdown_note: "当前实付明细，与左侧金额使用同一结算结果。没有实际支出或受益方时，明细为空。"
@@ -118,7 +118,7 @@
 
 
 
- teq_control_public_help: "发展和军事共同资金池中的份额，两项合计100%。左键调整1个百分点，右键调整5个百分点；一项减少多少，另一项就增加多少，即时生效。有其他公共预算时，先保留其份额，再分配发展和军事共同池。无实际受益方时，该项实付为0。"
+ teq_control_public_help: "发展与军事按共同资金池内的设定份额拨款，两项合计100%。左键调整1个百分点，右键调整5个百分点，立即生效。设为0%或没有合格受益方时，该项实付为0。未拨出的资金留在中央国库。实际拨款请看「总额」。"
 
  teq_control_cardinal_help: "保留原生枢机预算在公共预算中的份额。发展和军事的100%是两者共同资金池的内部比例，不包含此项。"
 

@@ -43,6 +43,7 @@ function parse(source, filename) {
 const definitions = new Map();
 for (const relative of [
   'common/script_values/teq_values.txt',
+  'common/script_values/teq_budget_controls_values.txt',
   'common/script_values/teq_private_split_values.txt',
   'common/scripted_triggers/teq_triggers.txt',
   'common/scripted_effects/teq_effects.txt',
@@ -272,21 +273,50 @@ test('wealthy civilian development floor is continuous and retains at least 7.5%
   assert.ok(Math.abs(before - after) < 0.00001, 'no discontinuity at former cutoff');
 });
 
-test('development cap includes native recipients even with zero TEQ need sum', () => {
-  const { title, ruler } = realm();
-  title.vars.teq_public_budget = 207.57273;
-  title.vars.teq_native_development_units = 8.5;
-  title.vars.teq_need_sum = 0;
-  const cap = get('teq_development_base_rate_cap', ruler);
-  assert.ok(cap > 0, 'native ministry recipients must keep their channel');
-  near(cap * 8.5, 211.7241846, '2% headroom on public budget');
-  title.vars.teq_need_sum = 1e8;
-  near(get('teq_development_base_rate_cap', ruler), cap, 'TEQ cache is not the native denominator');
-  for (const units of [0, -1, undefined]) {
-    if (units === undefined) delete title.vars.teq_native_development_units;
-    else title.vars.teq_native_development_units = units;
-    near(get('teq_development_base_rate_cap', ruler), 0, 'missing/zero receivers cannot divide');
-  }
+test('missing recipients leave their exact share in the treasury', () => {
+  const { title } = realm();
+  const { vars } = title;
+  vars.teq_public_budget = 51.12937;
+  vars.teq_control_dev_percent = 95;
+  vars.teq_control_cardinal_fraction = 0;
+  vars.teq_native_development_units = 0;
+  vars.teq_native_military_units = 6.6;
+  vars.teq_native_cardinal_units = 0;
+  const paid = (channel) => get(`teq_${channel}_base_rate`, title) * vars[`teq_native_${channel}_units`];
+
+  near(get('teq_development_base_rate', title), 0, 'no development receivers');
+  near(paid('military'), vars.teq_public_budget * 0.05, 'only the 5% military share is paid');
+  vars.teq_native_development_units = 8.5;
+  near(paid('development'), vars.teq_public_budget * 0.95, 'native development receivers recover the existing 95%');
+  near(paid('military'), vars.teq_public_budget * 0.05, 'military share is unchanged by development recovery');
+  vars.teq_control_dev_percent = 100;
+  near(get('teq_military_base_rate', title), 0, 'manual military zero is preserved');
+  vars.teq_control_dev_percent = 0;
+  near(get('teq_development_base_rate', title), 0, 'manual development zero is preserved');
+  near(paid('military'), vars.teq_public_budget, 'full military share is paid');
+  vars.teq_native_military_units = 0;
+  near(get('teq_military_base_rate', title), 0, 'no eligible channels can spend the pool');
+  vars.teq_native_military_units = 6.6;
+  vars.teq_public_budget = 0;
+  near(get('teq_military_base_rate', title), 0, 'zero pool with eligible recipients');
+});
+
+test('native cardinal share is reserved before dividing the development and military pool', () => {
+  const { title } = realm();
+  const { vars } = title;
+  vars.teq_public_budget = 200;
+  vars.teq_control_dev_percent = 75;
+  vars.teq_control_cardinal_fraction = 0.2;
+  vars.teq_native_development_units = 8;
+  vars.teq_native_military_units = 4;
+  vars.teq_native_cardinal_units = 2;
+  near(get('teq_development_base_rate', title) * 8, 120, 'development');
+  near(get('teq_military_base_rate', title) * 4, 40, 'military');
+  near(get('teq_cardinal_base_rate', title) * 2, 40, 'cardinals');
+  vars.teq_native_military_units = 0;
+  near(get('teq_development_base_rate', title) * 8, 120, 'development keeps its original share');
+  near(get('teq_cardinal_base_rate', title) * 2, 40, 'cardinals keep their original share');
+  near(get('teq_military_base_rate', title), 0, 'no military receivers');
 });
 
 test('salary curve advances once per real month regardless of repeated recalibration', () => {

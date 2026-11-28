@@ -64,6 +64,9 @@ teq_fiscal_title_valid = { exists = holder holder = { teq_ruler_valid = yes } ho
 teq_public_tax_subject = {
  is_alive = yes
  is_landed = yes
+ # The fiscal center cannot tax or fund itself as a region.
+ is_independent_ruler = no
+ NOT = { this = top_liege }
  highest_held_title_tier >= tier_county
  teq_government_valid = yes
  exists = liege
@@ -73,6 +76,8 @@ teq_public_tax_subject = {
 teq_recipient_valid = {
  is_alive = yes
  is_landed = yes
+ is_independent_ruler = no
+ NOT = { this = scope:teq_fiscal_title.holder }
  highest_held_title_tier >= tier_county
  teq_government_valid = yes
  exists = liege
@@ -88,10 +93,12 @@ teq_military_region = {
 }
 teq_region_title_valid = {
  exists = holder holder.primary_title = this has_variable = teq_region_owner
+ NOT = { this = var:teq_region_owner }
  exists = var:teq_region_owner.holder var:teq_region_owner = { teq_fiscal_title_valid = yes }
  holder = {
   is_alive = yes
   is_landed = yes
+  is_independent_ruler = no
   highest_held_title_tier >= tier_county
   teq_government_valid = yes
   exists = liege
@@ -150,7 +157,7 @@ teq_budget_ui_ready = {
 teq_budget_owner_needs_setup = {
  teq_ruler_valid = yes
  OR = {
-  NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version >= 14 } }
+  NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version >= 15 } }
   NOT = { has_variable = teq_policy_title }
   AND = { has_variable = teq_policy_title NOT = { primary_title = var:teq_policy_title } }
   teq_development_law_needs_setup = yes
