@@ -71,7 +71,7 @@
  teq_preview_base_gold: "[gold_i][Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), TreasuryBudgetChangeWindow.GetCurrentBudgetBaseRate(GuiLawGroup.Self), TreasuryBudgetChangeWindow.GetNewBudgetBaseRate(GuiLawGroup.Self))|2]"
  teq_preview_base_treasury: "[treasury_i][Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), TreasuryBudgetChangeWindow.GetCurrentBudgetBaseRate(GuiLawGroup.Self), TreasuryBudgetChangeWindow.GetNewBudgetBaseRate(GuiLawGroup.Self))|2]"
  teq_current_envelope: "每月总预算（含俸禄）：[treasury_i][TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_total_budget').GetValue|1]"
- teq_retained_target: "中央月度结余目标：[treasury_i][TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_retained_flow').GetValue|1]（月入库收入的[TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_retained_income_fraction')|%0]）"
+ teq_retained_target: "中央月度结余目标：[treasury_i][TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_retained_flow').GetValue|1]（扣开支后净入库的[TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_retained_income_fraction')|%0]）"
  teq_reserve_flow: "国库未分配比例"
  teq_budget_explanation: "所有箭头：左键调整1个百分点，右键调整5个百分点，即时生效。发展与军事按共同资金池直接互调；俸禄调整的是待遇标准，并非预算份额，总俸禄仍不超过总预算10%。国库未分配比例与私库收入比例分别设置。"
  teq_native_surplus_diff: "[TreasuryBudgetChangeWindow.GetBudgetSurplusDiff()|1+=]"
@@ -80,15 +80,13 @@
  teq_allocation_effects: "俸禄保留自动增长，可手动微调待遇；100%为1倍基础工资，范围0%至200%，总额不超过预算10%。\n\n发展与军事直接互调共同资金池的份额。\n\n箭头左键调整1个百分点，右键调整5个百分点，立即生效。\n\n执行预算政令另保留原版消耗与政治效果。"
  teq_vanilla_effects: "[TreasuryBudgetChangeWindow.GetBudgetEnactEffectDescription]"
 
- teq_reserve_adjust_help: "按月入库收入保留在国库、暂不拨入预算的比例，默认5%，范围0%至100%。左键调整1个百分点，右键调整5个百分点；免费即时生效并随存档保存。"
+ teq_reserve_adjust_help: "扣除军费、宫廷职位等中央固定花销后的净入库国库中，保留在中央、暂不拨入封臣预算的比例；默认5%，范围0%至100%。左键调整1个百分点，右键调整5个百分点；免费即时生效并随存档保存。"
 
  teq_private_share: "私库收入比例"
  teq_private_reset: "恢复5%"
  teq_private_adjust_help: "直辖税、封臣税和贡金等原生可分流收入，默认5%进入私库、95%进入国库。庄园、工资等其他渠道沿用原版。左键调整1个百分点，右键调整5个百分点，范围0%至100%；免费立即生效并随存档保存，现有国库余额不变。公共预算同步校准。特殊修正阻止分流时会暂时保留原生效分流，稍后重试。\n\n[SelectLocalization(EqualTo_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_private_split_status_value'), '(CFixedPoint)1'), 'teq_private_status_applied', 'teq_private_status_pending')]"
  teq_private_status_applied: "当前分流已生效（实际私库比例：[Add_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_private_applied_fraction_value'), '(CFixedPoint)0.0005')|%1]）。"
  teq_private_status_pending: "尚未验证：保留原分流，下月重试。"
-
- teq_public_share: "[Add_CFixedPoint(Divide_CFixedPoint(TreasuryBudgetChangeWindow.GetNewBudgetTotal( GuiLawGroup.Self ), Max_CFixedPoint(Max_CFixedPoint(Subtract_CFixedPoint(TreasuryBudgetChangeWindow.GetNewBudgetTotalSum, Multiply_CFixedPoint(TreasuryBudgetChangeWindow.GetNewBudgetCapacity, TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_raw_salary_fraction').GetValue)), '(CFixedPoint)0'), '(CFixedPoint)0.001')), '(CFixedPoint)0.00005')|%1]"
 
  teq_salary_tier: "[SelectLocalization(EqualTo_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_salary_tier_value'), '(CFixedPoint)0'), 'teq_salary_poor', SelectLocalization(EqualTo_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_salary_tier_value'), '(CFixedPoint)1'), 'teq_salary_normal', 'teq_salary_rich'))]"
 

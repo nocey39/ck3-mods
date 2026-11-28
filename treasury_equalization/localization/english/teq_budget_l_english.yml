@@ -71,7 +71,7 @@
  teq_preview_base_gold: "[gold_i][Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), TreasuryBudgetChangeWindow.GetCurrentBudgetBaseRate(GuiLawGroup.Self), TreasuryBudgetChangeWindow.GetNewBudgetBaseRate(GuiLawGroup.Self))|2]"
  teq_preview_base_treasury: "[treasury_i][Select_CFixedPoint(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), TreasuryBudgetChangeWindow.GetCurrentBudgetBaseRate(GuiLawGroup.Self), TreasuryBudgetChangeWindow.GetNewBudgetBaseRate(GuiLawGroup.Self))|2]"
  teq_current_envelope: "Monthly budget (including salaries): [treasury_i][TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_total_budget').GetValue|1]"
- teq_retained_target: "Central monthly surplus target：[treasury_i][TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_retained_flow').GetValue|1] ([TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_retained_income_fraction')|%0] of income)"
+ teq_retained_target: "Central monthly surplus target: [treasury_i][TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_retained_flow').GetValue|1] ([TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_retained_income_fraction')|%0] of net treasury after expenses)"
  teq_reserve_flow: "Treasury reserve"
  teq_budget_explanation: "All arrows: left click changes 1 percentage point; right click changes 5. Changes apply immediately. Development and military shares trade within their common pool. Salary controls adjust pay standards, not a share of that pool; total salaries remain capped at 10% of the monthly budget. Treasury reserve and private income are separate settings."
  teq_native_surplus_diff: "[TreasuryBudgetChangeWindow.GetBudgetSurplusDiff()|1+=]"
@@ -80,15 +80,13 @@
  teq_allocation_effects: "Salaries retain automatic growth with a manual adjustment. 100% means one base salary; range 0% to 200%. Total salaries remain capped at 10% of the budget.\n\nDevelopment and military shares trade within their common pool.\n\nLeft click changes 1 percentage point; right click changes 5. Changes apply immediately.\n\nThe budget edict separately retains native costs and political effects."
  teq_vanilla_effects: "[TreasuryBudgetChangeWindow.GetBudgetEnactEffectDescription]"
 
- teq_reserve_adjust_help: "Share of monthly treasury income kept unallocated in the treasury. Default: 5%; range: 0% to 100%. Left click changes 1 percentage point; right click changes 5. Free, immediate, and saved."
+ teq_reserve_adjust_help: "Share of net monthly treasury (after deducting Men-at-Arms, court positions, and other central expenses) kept unallocated in the central treasury. Default: 5%; range: 0% to 100%. Left click changes 1 percentage point; right click changes 5. Free, immediate, and saved."
 
  teq_private_share: "Private income"
  teq_private_reset: "Reset 5%"
  teq_private_adjust_help: "Native eligible income, including domain taxes, vassal taxes, and tribute, defaults to 5% personal gold and 95% treasury. Estate income, salaries, and other channels retain native rules. Left click changes 1 percentage point; right click changes 5, from 0% to 100%. Free, immediate, and saved. Existing treasury funds remain unchanged. Public budgets adjust immediately. If unusual modifiers block the split, the previous effective split is kept and calibration retries later.\n\n[SelectLocalization(EqualTo_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_private_split_status_value'), '(CFixedPoint)1'), 'teq_private_status_applied', 'teq_private_status_pending')]"
  teq_private_status_applied: "Current split applied (actual private share: [Add_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_private_applied_fraction_value'), '(CFixedPoint)0.0005')|%1])."
  teq_private_status_pending: "Not yet verified: the previous split is retained. Retrying next month."
-
- teq_public_share: "[Add_CFixedPoint(Divide_CFixedPoint(TreasuryBudgetChangeWindow.GetNewBudgetTotal( GuiLawGroup.Self ), Max_CFixedPoint(Max_CFixedPoint(Subtract_CFixedPoint(TreasuryBudgetChangeWindow.GetNewBudgetTotalSum, Multiply_CFixedPoint(TreasuryBudgetChangeWindow.GetNewBudgetCapacity, TreasuryBudgetChangeWindow.GetTitle.MakeScope.Var('teq_raw_salary_fraction').GetValue)), '(CFixedPoint)0'), '(CFixedPoint)0.001')), '(CFixedPoint)0.00005')|%1]"
 
  teq_salary_tier: "[SelectLocalization(EqualTo_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_salary_tier_value'), '(CFixedPoint)0'), 'teq_salary_poor', SelectLocalization(EqualTo_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_salary_tier_value'), '(CFixedPoint)1'), 'teq_salary_normal', 'teq_salary_rich'))]"
 

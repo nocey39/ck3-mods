@@ -1,0 +1,28 @@
+﻿l_simp_chinese:
+ game_rule_category_teq_rules: "国库统筹财政"
+
+ rule_teq_scope_rule: "国库统筹：生效范围"
+ setting_teq_scope_all: "全图国库政体"
+ setting_teq_scope_all_desc: "默认规则：玩家与所有拥有合格封臣的独立国库政体 AI 均启用国库统筹财政（无封臣的小型 AI 国库城邦会自动跳过以优化性能）。"
+ setting_teq_scope_major: "玩家与主要大国 AI"
+ setting_teq_scope_major_desc: "玩家始终启用；AI 仅王国级以上或领地规模达到 10 且拥有合格国库封臣时启用，进一步降低中后期多城邦运算开销。"
+ setting_teq_scope_player_only: "仅玩家启用"
+ setting_teq_scope_player_only_desc: "仅对玩家控制的独立国库政体生效，所有 AI 领主完全保留原版国库机制，最轻量且零 AI 干涉。"
+
+ rule_teq_government_scope_rule: "国库统筹：适用政体"
+ setting_teq_gov_all: "全部原生国库政体"
+ setting_teq_gov_all_desc: "默认规则：天朝、行政、功绩、草原行政、商业共和、教廷以及兼容的第三方国库政体均可启用中央统筹。"
+ setting_teq_gov_imperial_only: "仅官僚/帝国政体"
+ setting_teq_gov_imperial_only_desc: "仅天朝、行政、功绩、草原行政等官僚政体启用；独立商业共和国与教廷政体保留原版国库玩法。"
+ setting_teq_gov_no_republic: "排除商业共和"
+ setting_teq_gov_no_republic_desc: "独立商业共和国保留原版议会国库机制；其余国库政体正常启用统筹。"
+ setting_teq_gov_no_ecclesiastical: "排除教廷国库"
+ setting_teq_gov_no_ecclesiastical_desc: "独立教廷政体（如教皇国）保留原版教会国库机制；其余国库政体正常启用统筹。"
+
+ rule_teq_reserve_target_rule: "国库统筹：地方储备目标"
+ setting_teq_reserve_compact: "紧凑（0.65×）"
+ setting_teq_reserve_compact_desc: "降低地方国库富裕阈值，资金更快从富裕地区转向贫困省份，适合偏好快速均衡基建或 867 早期节奏。"
+ setting_teq_reserve_standard: "标准（1.0×）"
+ setting_teq_reserve_standard_desc: "默认规则：按直辖郡数平滑计算储备目标，并随文化时代（部落 0.8× → 晚期 1.5×）自动成长，军事省额外 ×1.5。"
+ setting_teq_reserve_generous: "宽裕（1.5×）"
+ setting_teq_reserve_generous_desc: "提高地方国库留存空间，让封臣能攒下更多建设与常备军备资金，适合高建筑花费模组或大帝国后期。"

@@ -8,7 +8,7 @@
  teq_allocation_salary: "Coordinated salary allocation"
 
  teq_public_collection: "Unified public treasury"
- teq_public_collection_desc: "Collected public taxes enter the treasury without a private-gold share."
+ teq_public_collection_desc: "Public taxes follow the private income share setting; the remaining income enters the treasury for coordinated budget allocation."
  teq_public_tax: "Unified public taxation"
  teq_public_tax_desc: "Native taxable public income is centrally collected and redistributed through budgets."
 

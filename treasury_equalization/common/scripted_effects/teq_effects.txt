@@ -1,4 +1,6 @@
 ﻿# Characters hold native modifiers; titles own the policy snapshots. All money moves in native income accounting.
+# Single encapsulated synchronous flush point for same-tick budget enactment & paused UI responsiveness.
+teq_flush_modifiers = { hidden_effect = { scriptedtests_recalculate_character_modifier = yes } }
 teq_clear_flow = { hidden_effect = {
  remove_character_modifier = teq_public_tax
  remove_character_modifier = teq_refund_paused
@@ -8,11 +10,17 @@ teq_clear_flow = { hidden_effect = {
  remove_character_modifier = teq_military_development_excluded
  remove_variable = teq_flow_title remove_variable = teq_flow_weight remove_variable = teq_flow_wealth
  remove_variable = teq_fiscal_owner
- scriptedtests_recalculate_character_modifier = yes
+ teq_flush_modifiers = yes
 } }
 teq_clear_central = { hidden_effect = {
  teq_clear_private_split = yes
  teq_clear_central_budget_modifiers = yes
+ teq_flush_modifiers = yes
+ # Native setup permits this for every treasury holder, including subjects.
+ # A full exit must restore directly-set base rates as well as modifiers.
+ if = { limit = { has_treasury = yes realm_uses_treasury_laws_trigger = yes }
+  enact_treasury_budgets_init = yes
+ }
 } }
 # Budget refreshes keep the current income policy; full teardown releases it.
 teq_clear_central_budget_modifiers = { hidden_effect = {
@@ -26,8 +34,6 @@ teq_clear_central_budget_modifiers = { hidden_effect = {
  remove_variable = teq_salary_offset
  remove_character_modifier = teq_allocation_salary
  remove_variable = teq_policy_title
- remove_variable = teq_alloc_dev_delta remove_variable = teq_alloc_mil_delta remove_variable = teq_alloc_salary_delta
- scriptedtests_recalculate_character_modifier = yes
 } }
 teq_apply_flow = { hidden_effect = {
  # Scope: local primary title, with a validated owner and current holder.
@@ -44,30 +50,62 @@ teq_apply_flow = { hidden_effect = {
    add_character_modifier = teq_military_development_excluded
    add_character_modifier = teq_military_wealth
   }
-  else = {
+  else_if = { limit = { var:teq_flow_weight > 0 }
    add_character_modifier = teq_development_flow
    add_character_modifier = teq_development_wealth
   }
-  scriptedtests_recalculate_character_modifier = yes
+  # Flush vassal modifiers synchronously so same-tick enact_treasury_budgets
+  # always sees live weights and never computes base rates from stale caches.
+  teq_flush_modifiers = yes
  }
 } }
-# Monthly feedback uses the previous settled cashflow, before any reenactment.
-teq_measure_budget = { hidden_effect = {
- save_scope_as = teq_fiscal_title
- if = { limit = { NOT = { has_variable = teq_total_budget } }
-  set_variable = { name = teq_total_budget value = holder.teq_native_budget_total }
+# Title scope. Recompute exact effective development weight sum across tracked regions.
+teq_refresh_need_sum = { hidden_effect = {
+ save_scope_as = teq_need_owner
+ set_variable = { name = teq_need_sum value = 0 }
+ every_in_list = { variable = teq_regions
+  if = {
+   limit = {
+    teq_region_title_valid = yes
+    var:teq_region_owner = scope:teq_need_owner
+    has_variable = teq_region_weight
+    var:teq_region_weight > 0
+    holder = { NOT = { teq_military_region = yes } }
+   }
+   save_scope_as = teq_need_region
+   scope:teq_need_owner = {
+    change_variable = {
+     name = teq_need_sum
+     add = {
+      value = scope:teq_need_region.var:teq_region_wealth
+      multiply = -0.5
+      add = 1
+      min = 0.5
+      max = 1
+      multiply = scope:teq_need_region.var:teq_region_weight
+      min = 0
+     }
+    }
+   }
+  }
  }
- set_variable = { name = teq_observed_income value = holder.monthly_character_treasury_income }
+} }
+# The engine exposes current spendable treasury separately from the last enacted
+# capacity. It already deducts non-budget expenses. Never reconstruct this value
+# from a balance and a saved payout: a native enactment or changed recipients can
+# make that saved payout stale, causing repeated recalibration to erase funding.
+teq_measure_budget = { hidden_effect = {
+ set_variable = { name = teq_observed_income value = { value = holder.monthly_character_treasury_income min = 0 } }
  set_variable = { name = teq_observed_balance value = holder.monthly_character_treasury_balance }
- set_variable = { name = teq_retained_flow value = { value = var:teq_observed_income multiply = holder.teq_retained_income_fraction min = 0 } }
- set_variable = { name = teq_available_flow value = { value = var:teq_total_budget add = var:teq_observed_balance } }
- set_variable = { name = teq_total_budget value = { value = var:teq_available_flow subtract = var:teq_retained_flow min = 0 max = holder.teq_budget_ceiling } }
+ set_variable = { name = teq_available_flow value = { value = holder.character_treasury_new_budget_capacity min = 0 } }
+ set_variable = { name = teq_total_budget value = holder.teq_budget_ceiling }
+ set_variable = { name = teq_retained_flow value = { value = var:teq_available_flow subtract = var:teq_total_budget min = 0 } }
 } }
 # Release the previous salary offset before an external native law reenactment.
 teq_prepare_native_budget = { hidden_effect = {
  if = { limit = { teq_budget_ui_ready = yes NOT = { has_variable = teq_budget_lock } }
   remove_character_modifier = teq_fixed_payroll
-  scriptedtests_recalculate_character_modifier = yes
+  teq_flush_modifiers = yes
  }
 } }
 # Native AI adapters call this immediately after an external reenactment.
@@ -79,89 +117,131 @@ teq_reassert_salary = { hidden_effect = {
 # Native enactment only measures job/rank units. Salary-law percentages cancel from C*A/R.
 teq_apply_budget = { hidden_effect = {
  save_scope_as = teq_budget_title
- holder = {
-  if = { limit = { NOT = { has_variable = teq_budget_lock } }
-   set_variable = teq_budget_lock
-   teq_prepare_public_allocation = yes
-   teq_ensure_private_split = yes
-   teq_ensure_budget_laws = yes
-   remove_character_modifier = teq_salary_probe
-   remove_character_modifier = teq_fixed_payroll
-   scriptedtests_recalculate_character_modifier = yes
-   enact_treasury_budgets_no_costs_no_opinion_effects = yes
-   # Native capacity is fresh even for non-player rulers. A manual income edit
-   # rebases once on that capacity, never on treasury principal or a stale AI I.
-   scope:teq_budget_title = {
-    if = { limit = { has_variable = teq_private_rebase_budget holder = { is_ai = no } }
-     set_variable = { name = teq_available_flow value = holder.character_treasury_budget_capacity }
-     set_variable = { name = teq_observed_income value = holder.monthly_character_treasury_income }
-     set_variable = { name = teq_retained_flow value = { value = var:teq_observed_income multiply = holder.teq_retained_income_fraction min = 0 } }
-     set_variable = { name = teq_total_budget value = { value = var:teq_available_flow subtract = var:teq_retained_flow min = 0 } }
+ if = {
+  limit = {
+   OR = { NOT = { has_variable = teq_policy_version } var:teq_policy_version < 14 }
+   holder = { NOT = { has_variable = teq_review_lock } NOT = { has_variable = teq_budget_lock } }
+  }
+  holder = { teq_ensure_private_split = yes }
+  teq_measure_budget = yes
+  teq_migrate_legacy = yes
+  teq_review = yes
+ }
+ else = {
+  holder = {
+   if = { limit = { NOT = { has_variable = teq_budget_lock } }
+    set_variable = teq_budget_lock
+    teq_prepare_public_allocation = yes
+    teq_ensure_private_split = yes
+    teq_ensure_budget_laws = yes
+    remove_character_modifier = teq_salary_probe
+    remove_character_modifier = teq_fixed_payroll
+    teq_flush_modifiers = yes
+    # Read current native spendable income after income/refund modifiers are fresh.
+    # Remove obsolete saved flags from 0.7.3; no stale measurement is preserved.
+    scope:teq_budget_title = {
+     remove_variable = teq_private_rebase_budget
+     remove_variable = teq_preserve_measured_flow
+     teq_measure_budget = yes
     }
-    remove_variable = teq_private_rebase_budget
-    set_variable = { name = teq_total_budget value = { value = var:teq_total_budget min = 0 max = holder.character_treasury_budget_capacity max = holder.teq_budget_ceiling } }
-   }
-   if = { limit = { NOT = { scope:teq_budget_title = { has_variable = teq_salary_units } } }
-    scope:teq_budget_title = { set_variable = { name = teq_salary_units value = 0 } }
-   }
-   if = { limit = { character_treasury_budget_capacity > 0 }
-    scope:teq_budget_title = { set_variable = { name = teq_salary_units value = 0 } }
-    if = { limit = { treasury_budget_base_rate_salaries > 0 treasury_budget_allocation_salaries > 0 }
-     scope:teq_budget_title = { set_variable = { name = teq_salary_units value = holder.teq_native_salary_units } }
+    enact_treasury_budgets_no_costs_no_opinion_effects = yes
+    if = { limit = { NOT = { scope:teq_budget_title = { has_variable = teq_salary_units } } }
+     scope:teq_budget_title = { set_variable = { name = teq_salary_units value = 0 } }
     }
-    else = {
-     # Zero salary allocation must not mean that real jobs stop existing.
-     add_character_modifier = teq_salary_probe
-     scriptedtests_recalculate_character_modifier = yes
-     enact_treasury_budgets_no_costs_no_opinion_effects = yes
+    if = { limit = { character_treasury_budget_capacity > 0 }
+     scope:teq_budget_title = { set_variable = { name = teq_salary_units value = 0 } }
      if = { limit = { treasury_budget_base_rate_salaries > 0 treasury_budget_allocation_salaries > 0 }
       scope:teq_budget_title = { set_variable = { name = teq_salary_units value = holder.teq_native_salary_units } }
      }
-     remove_character_modifier = teq_salary_probe
-     scriptedtests_recalculate_character_modifier = yes
-     enact_treasury_budgets_no_costs_no_opinion_effects = yes
+     else = {
+      # Zero salary allocation must not mean that real jobs stop existing.
+      add_character_modifier = teq_salary_probe
+      teq_flush_modifiers = yes
+      enact_treasury_budgets_no_costs_no_opinion_effects = yes
+      if = { limit = { treasury_budget_base_rate_salaries > 0 treasury_budget_allocation_salaries > 0 }
+       scope:teq_budget_title = { set_variable = { name = teq_salary_units value = holder.teq_native_salary_units } }
+      }
+      remove_character_modifier = teq_salary_probe
+      teq_flush_modifiers = yes
+      enact_treasury_budgets_no_costs_no_opinion_effects = yes
+     }
     }
-   }
-   # Read the raw allocation after native enact; do not treat stale cached values
-   # after modifier removal as the original weights. D/M corrections awaken zeros.
-   scope:teq_budget_title = { teq_ensure_public_shares = yes }
-   teq_apply_public_allocation = yes
-   # Salary law percentages no longer reserve native capacity or block public-budget controls.
-   set_variable = { name = teq_salary_offset value = treasury_budget_allocation_salaries }
-   add_character_modifier = teq_fixed_payroll
-   scriptedtests_recalculate_character_modifier = yes
-   enact_treasury_budgets_no_costs_no_opinion_effects = yes
-   scope:teq_budget_title = {
-    set_variable = { name = teq_raw_salary_fraction value = 0 }
-    if = { limit = { var:teq_salary_units > 0 }
-     set_variable = { name = teq_raw_salary_fraction value = holder.treasury_budget_allocation_salaries }
+    # Read the raw allocation after native enact; do not treat stale cached values
+    # after modifier removal as the original weights. D/M corrections awaken zeros.
+    scope:teq_budget_title = { teq_ensure_public_shares = yes }
+    teq_apply_public_allocation = yes
+    # Salary law percentages no longer reserve native capacity or block public-budget controls.
+    set_variable = { name = teq_salary_offset value = treasury_budget_allocation_salaries }
+    add_character_modifier = teq_fixed_payroll
+    teq_flush_modifiers = yes
+    enact_treasury_budgets_no_costs_no_opinion_effects = yes
+    # The native enactment knows every receiver, including ministries and native
+    # contract bonuses. Infer actual units before changing the native base rates.
+    scope:teq_budget_title = {
+     set_variable = { name = teq_native_development_units value = 0 }
+     set_variable = { name = teq_native_military_units value = 0 }
+     set_variable = { name = teq_native_cardinal_units value = 0 }
     }
-    teq_review_salary_tier = yes
-    set_variable = { name = teq_salary_rate value = teq_salary_factor_value }
-    if = { limit = { var:teq_salary_units <= 0 }
-     set_variable = { name = teq_salary_rate value = 0 }
+    if = { limit = { treasury_budget_base_rate_ministries > 0 }
+     scope:teq_budget_title = { set_variable = { name = teq_native_development_units value = {
+      value = holder.character_treasury_budget_capacity multiply = holder.treasury_budget_allocation_ministries divide = holder.treasury_budget_base_rate_ministries min = 0
+     } } }
     }
-    # When the cap can bind, its per-unit quotient is at most 2. Otherwise
-    # retain the bounded factor without dividing an extreme E by a tiny N.
-    else_if = { limit = { var:teq_salary_units > { value = var:teq_total_budget multiply = teq_salary_cost_cap divide = 2 } }
-     set_variable = { name = teq_salary_rate value = {
-      value = var:teq_total_budget multiply = teq_salary_cost_cap divide = var:teq_salary_units min = 0 max = teq_salary_factor_value
-     } }
+    if = { limit = { treasury_budget_base_rate_military > 0 }
+     scope:teq_budget_title = { set_variable = { name = teq_native_military_units value = {
+      value = holder.character_treasury_budget_capacity multiply = holder.treasury_budget_allocation_military divide = holder.treasury_budget_base_rate_military min = 0
+     } } }
     }
-    set_variable = { name = teq_payroll_total value = { value = var:teq_salary_units multiply = var:teq_salary_rate } }
-    set_variable = { name = teq_public_budget value = { value = var:teq_total_budget subtract = var:teq_payroll_total min = 0 } }
+    if = { limit = { treasury_budget_base_rate_cardinal > 0 }
+     scope:teq_budget_title = { set_variable = { name = teq_native_cardinal_units value = {
+      value = holder.character_treasury_budget_capacity multiply = holder.treasury_budget_allocation_cardinal divide = holder.treasury_budget_base_rate_cardinal min = 0
+     } } }
+    }
+    scope:teq_budget_title = {
+     teq_review_salary_tier = yes
+     set_variable = { name = teq_salary_rate value = teq_salary_factor_value }
+     if = { limit = { var:teq_salary_units <= 0 }
+      set_variable = { name = teq_salary_rate value = 0 }
+     }
+     # When the cap can bind, its per-unit quotient is at most 2. Otherwise
+     # retain the bounded factor without dividing an extreme E by a tiny N.
+     else_if = { limit = { var:teq_salary_units > { value = var:teq_total_budget multiply = teq_salary_cost_cap divide = 2 } }
+      set_variable = { name = teq_salary_rate value = {
+       value = var:teq_total_budget multiply = teq_salary_cost_cap divide = var:teq_salary_units min = 0 max = teq_salary_factor_value
+      } }
+     }
+     set_variable = { name = teq_payroll_total value = { value = var:teq_salary_units multiply = var:teq_salary_rate } }
+     set_variable = { name = teq_public_budget value = { value = var:teq_total_budget subtract = var:teq_payroll_total min = 0 } }
+    }
+    set_variable = { name = teq_budget_scale value = 0 }
+    if = { limit = { teq_native_public_total > 0 }
+     set_variable = { name = teq_budget_scale value = { value = scope:teq_budget_title.var:teq_public_budget divide = teq_native_public_total } }
+    }
+    if = {
+     limit = { treasury_budget_base_rate_ministries > 0 }
+     set_treasury_budget_base_rate_ministries = {
+      value = treasury_budget_base_rate_ministries
+      multiply = var:teq_budget_scale
+      max = teq_development_base_rate_cap
+      min = 0
+     }
+    }
+    if = { limit = { treasury_budget_base_rate_military > 0 } set_treasury_budget_base_rate_military = { value = treasury_budget_base_rate_military multiply = var:teq_budget_scale min = 0 } }
+    if = { limit = { treasury_budget_base_rate_cardinal > 0 } set_treasury_budget_base_rate_cardinal = { value = treasury_budget_base_rate_cardinal multiply = var:teq_budget_scale } }
+    if = { limit = { OR = { scope:teq_budget_title.var:teq_salary_units > 0 treasury_budget_base_rate_salaries > 0 } }
+     set_treasury_budget_base_rate_salaries = scope:teq_budget_title.var:teq_salary_rate
+    }
+    teq_flush_modifiers = yes
+    # Record actual configured payment, including any safety cap or absent channel.
+    # These are diagnostics only; spendable income never depends on saved payments.
+    scope:teq_budget_title = {
+     set_variable = { name = teq_applied_budget value = var:teq_payroll_total }
+     change_variable = { name = teq_applied_budget add = { value = var:teq_native_development_units multiply = holder.treasury_budget_base_rate_ministries } }
+     change_variable = { name = teq_applied_budget add = { value = var:teq_native_military_units multiply = holder.treasury_budget_base_rate_military } }
+     change_variable = { name = teq_applied_budget add = { value = var:teq_native_cardinal_units multiply = holder.treasury_budget_base_rate_cardinal } }
+    }
+    remove_variable = teq_budget_lock
    }
-   set_variable = { name = teq_budget_scale value = 0 }
-   if = { limit = { teq_native_public_total > 0 }
-    set_variable = { name = teq_budget_scale value = { value = scope:teq_budget_title.var:teq_public_budget divide = teq_native_public_total } }
-   }
-   if = { limit = { treasury_budget_base_rate_ministries > 0 } set_treasury_budget_base_rate_ministries = { value = treasury_budget_base_rate_ministries multiply = var:teq_budget_scale } }
-   if = { limit = { treasury_budget_base_rate_military > 0 } set_treasury_budget_base_rate_military = { value = treasury_budget_base_rate_military multiply = var:teq_budget_scale } }
-   if = { limit = { treasury_budget_base_rate_cardinal > 0 } set_treasury_budget_base_rate_cardinal = { value = treasury_budget_base_rate_cardinal multiply = var:teq_budget_scale } }
-   if = { limit = { OR = { scope:teq_budget_title.var:teq_salary_units > 0 treasury_budget_base_rate_salaries > 0 } }
-    set_treasury_budget_base_rate_salaries = scope:teq_budget_title.var:teq_salary_rate
-   }
-   remove_variable = teq_budget_lock
   }
  }
 } }
@@ -209,7 +289,6 @@ teq_ensure_development_law = { hidden_effect = {
   else_if = { limit = { has_realm_law = budget_allocation_ministry_90 } add_realm_law_skip_effects = teq_development_90 }
   else_if = { limit = { has_realm_law = budget_allocation_ministry_95 } add_realm_law_skip_effects = teq_development_95 }
   else_if = { limit = { has_realm_law = budget_allocation_ministry_100 } add_realm_law_skip_effects = teq_development_100 }
-  scriptedtests_recalculate_character_modifier = yes
  }
 } }
 teq_ensure_budget_laws = { hidden_effect = {
@@ -221,7 +300,7 @@ teq_ensure_budget_laws = { hidden_effect = {
 # Initialize once when native budget capability appears. Do not run monthly feedback twice for a ready owner.
 teq_initialize_budget_owner = { hidden_effect = {
  if = { limit = { teq_budget_owner_needs_setup = yes }
-  if = { limit = { NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version = 9 } } }
+  if = { limit = { NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version >= 14 } } }
    primary_title = { teq_auto_tick = yes }
   }
   else = {
@@ -238,18 +317,53 @@ teq_initialize_development_laws = { hidden_effect = {
 } }
 teq_apply_central = { hidden_effect = {
  save_scope_as = teq_central_title
+ if = { limit = { holder = { NOT = { has_variable = teq_review_lock } } }
+  teq_measure_budget = yes
+ }
  holder = {
   teq_clear_central_budget_modifiers = yes
   add_character_modifier = teq_central_tax
   add_character_modifier = teq_public_collection
   set_variable = { name = teq_policy_title value = scope:teq_central_title }
-  scriptedtests_recalculate_character_modifier = yes
  }
  teq_apply_budget = yes
 } }
+# Character scope. Join a newly eligible region immediately and keep it in the
+# same title-owned list used by monthly maintenance and teardown.
+teq_register_region = { hidden_effect = {
+ save_scope_as = teq_join_holder
+ top_liege.primary_title = { save_scope_as = teq_join_owner }
+ set_variable = { name = teq_admin_counties value = 0 }
+ every_held_title = {
+  limit = { tier = tier_county }
+  scope:teq_join_holder = { change_variable = { name = teq_admin_counties add = 1 } }
+ }
+ set_variable = { name = teq_admin_counties value = { value = var:teq_admin_counties min = 1 } }
+ primary_title = {
+  save_scope_as = teq_join_title
+  set_variable = { name = teq_region_owner value = scope:teq_join_owner }
+  set_variable = { name = teq_region_target value = holder.teq_local_target_value }
+  set_variable = { name = teq_region_base value = holder.teq_base_need_value }
+  set_variable = { name = teq_region_wealth value = holder.teq_wealth_value }
+  set_variable = { name = teq_region_weight value = { value = var:teq_region_base multiply = holder.teq_pressure_value } }
+  if = { limit = { holder = { teq_military_region = yes } } set_variable = { name = teq_region_weight value = 0 } }
+  scope:teq_join_owner = {
+   if = { limit = { NOT = { is_target_in_variable_list = { name = teq_regions target = scope:teq_join_title } } }
+    add_to_variable_list = { name = teq_regions target = scope:teq_join_title }
+   }
+  }
+  teq_apply_flow = yes
+ }
+ set_variable = teq_flow_sync_needed
+} }
 teq_reconcile_character = { hidden_effect = {
+ remove_variable = teq_flow_sync_needed
  if = { limit = { has_variable = teq_flow_title }
-  if = { limit = { OR = { NOT = { primary_title = var:teq_flow_title } NOT = { var:teq_flow_title = { teq_region_title_valid = yes } } } } teq_clear_flow = yes }
+  if = { limit = { OR = { NOT = { primary_title = var:teq_flow_title } NOT = { var:teq_flow_title = { teq_region_title_valid = yes } } } }
+   if = { limit = { has_variable = teq_fiscal_owner exists = var:teq_fiscal_owner } var:teq_fiscal_owner = { save_scope_as = teq_old_sync_title } }
+   teq_clear_flow = yes
+   set_variable = teq_flow_sync_needed
+  }
  }
  else_if = { limit = { has_variable = teq_fiscal_owner }
   if = {
@@ -259,17 +373,31 @@ teq_reconcile_character = { hidden_effect = {
      NOT = { top_liege = var:teq_fiscal_owner.holder }
     }
    }
+   if = { limit = { exists = var:teq_fiscal_owner } var:teq_fiscal_owner = { save_scope_as = teq_old_sync_title } }
    teq_clear_flow = yes
+   set_variable = teq_flow_sync_needed
   }
  }
  if = { limit = { has_variable = teq_policy_title }
-  if = { limit = { OR = { NOT = { primary_title = var:teq_policy_title } NOT = { var:teq_policy_title = { teq_fiscal_title_valid = yes } } } } teq_clear_central = yes }
+  if = { limit = { OR = { NOT = { primary_title = var:teq_policy_title } NOT = { var:teq_policy_title = { teq_fiscal_title_valid = yes } } } }
+   # A new eligible holder keeps the title's policy and regions. Only an
+   # actually invalid fiscal title releases its regions immediately.
+   if = { limit = { var:teq_policy_title = { teq_fiscal_title_valid = no } }
+    var:teq_policy_title = { teq_restore_regions = yes }
+   }
+   teq_clear_central = yes
+  }
  }
- # Refresh only changed military/civilian roles; do not wait for the quarterly review.
+ # Refresh changed roles and missing native flow modifiers immediately.
  if = { limit = { has_variable = teq_flow_title var:teq_flow_title = { teq_region_title_valid = yes }
   OR = {
    AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_development_excluded } }
    AND = { NOT = { teq_military_region = yes } has_character_modifier = teq_military_development_excluded }
+   NOT = { has_character_modifier = teq_public_tax }
+   NOT = { has_character_modifier = teq_refund_paused }
+   AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_wealth } }
+   AND = { NOT = { teq_military_region = yes } var:teq_flow_weight > 0 NOT = { has_character_modifier = teq_development_flow } }
+   AND = { NOT = { teq_military_region = yes } var:teq_flow_weight > 0 NOT = { has_character_modifier = teq_development_wealth } }
   }
  }
   var:teq_flow_title = {
@@ -281,25 +409,57 @@ teq_reconcile_character = { hidden_effect = {
    }
    teq_apply_flow = yes
   }
+  set_variable = teq_flow_sync_needed
  }
  if = { limit = { is_landed = yes NOT = { has_variable = teq_flow_title } primary_title = { teq_region_title_valid = yes } }
-  primary_title = { teq_apply_flow = yes }
+  # Recompute the new holder's county count, pressure and wealth, and repair
+  # an inherited region whose title is missing from the owner's saved list.
+  teq_register_region = yes
  }
- if = { limit = { is_landed = yes NOT = { has_variable = teq_policy_title } primary_title = { teq_fiscal_title_valid = yes has_variable = teq_policy_version var:teq_policy_version = 9 } }
+ if = { limit = { is_landed = yes NOT = { has_variable = teq_policy_title } primary_title = { teq_fiscal_title_valid = yes has_variable = teq_policy_version var:teq_policy_version >= 9 } }
   primary_title = { teq_apply_central = yes }
  }
 
- # New regions stop tax-linked refunds immediately and join development distribution at the next review.
+ # Register before stopping the old refund, so every collected region has a
+ # live budget flow and can be found again when its fiscal owner exits.
  if = { limit = { is_landed = yes teq_public_tax_subject = yes NOT = { has_variable = teq_flow_title } exists = liege top_liege = { teq_ruler_valid = yes }
-  top_liege.primary_title = { has_variable = teq_policy_version var:teq_policy_version = 9 }
-  NOT = { has_variable = teq_fiscal_owner }
+  top_liege.primary_title = { has_variable = teq_policy_version var:teq_policy_version >= 9 }
  }
-  set_variable = { name = teq_fiscal_owner value = top_liege.primary_title }
-  add_character_modifier = teq_public_tax
-  add_character_modifier = teq_refund_paused
-  scriptedtests_recalculate_character_modifier = yes
+  teq_register_region = yes
  }
  teq_ensure_private_split = yes
+ # If a vassal's development flow changed mid-month (succession, role flip, detachment),
+ # immediately re-sync the liege's need sum and base rate so payouts can never overshoot.
+ if = { limit = { has_variable = teq_flow_sync_needed }
+  remove_variable = teq_flow_sync_needed
+  if = {
+   limit = {
+    exists = scope:teq_old_sync_title
+    scope:teq_old_sync_title = {
+     teq_fiscal_title_valid = yes
+     holder = { teq_budget_ui_ready = yes NOT = { has_variable = teq_review_lock } NOT = { has_variable = teq_budget_lock } }
+    }
+   }
+   scope:teq_old_sync_title = {
+    teq_refresh_need_sum = yes
+    teq_apply_budget = yes
+   }
+  }
+  if = {
+   limit = {
+    exists = top_liege
+    top_liege = { teq_budget_ui_ready = yes NOT = { has_variable = teq_review_lock } NOT = { has_variable = teq_budget_lock } }
+    OR = {
+     NOT = { exists = scope:teq_old_sync_title }
+     NOT = { top_liege.primary_title = scope:teq_old_sync_title }
+    }
+   }
+   top_liege.primary_title = {
+    teq_refresh_need_sum = yes
+    teq_apply_budget = yes
+   }
+  }
+ }
 } }
 teq_restore_regions = { hidden_effect = {
  save_scope_as = teq_fiscal_title
@@ -310,26 +470,36 @@ teq_restore_regions = { hidden_effect = {
    remove_variable = teq_region_target remove_variable = teq_region_base
   }
  }
+ # Older versions collected some new regions before recording their titles.
+ # Release only characters still owned by this fiscal title; do not touch a
+ # region that has already transferred to a different fiscal owner.
+ holder = {
+  every_vassal_or_below = {
+   limit = { has_variable = teq_fiscal_owner var:teq_fiscal_owner = scope:teq_fiscal_title NOT = { has_variable = teq_flow_title } }
+   teq_clear_flow = yes
+   teq_ensure_private_split = yes
+  }
+ }
  clear_variable_list = teq_regions
 } }
 teq_migrate_legacy = { hidden_effect = {
- save_scope_as = teq_fiscal_title
- every_in_list = { variable = teq_rows limit = { is_alive = yes }
-  if = { limit = { has_variable = teq_row_owner var:teq_row_owner = scope:teq_fiscal_title }
-   teq_clear_flow = yes
-   remove_variable = teq_row_owner remove_variable = teq_row_title remove_variable = teq_row_target
-   remove_variable = teq_row_cash remove_variable = teq_row_gap remove_variable = teq_row_paid
-  }
- }
- clear_variable_list = teq_rows clear_variable_list = teq_stopped clear_variable_list = teq_receivers clear_variable_list = teq_ui_rows
- remove_variable = teq_allocation_dev remove_variable = teq_allocation_mil remove_variable = teq_development_suspended
- remove_variable = teq_rate_dev remove_variable = teq_rate_mil remove_variable = teq_rate_salary
- remove_variable = teq_threshold remove_variable = teq_pending remove_variable = teq_scheduler remove_variable = teq_generation remove_variable = teq_tick_lock
- holder = { remove_variable = teq_panel_open }
- set_variable = { name = teq_policy_version value = 9 }
- set_variable = { name = teq_reviews value = 0 }
+ set_variable = { name = teq_policy_version value = 14 }
+ if = { limit = { NOT = { has_variable = teq_reviews } } set_variable = { name = teq_reviews value = 0 } }
 } }
 teq_review = { hidden_effect = {
+ holder = {
+  set_variable = teq_review_lock
+  # A fiscal owner is independent and cannot simultaneously remain a local
+  # recipient. Old saves can retain these markers after an imperial succession.
+  if = { limit = { OR = {
+   has_variable = teq_flow_title has_variable = teq_fiscal_owner
+   has_character_modifier = teq_public_tax has_character_modifier = teq_refund_paused
+   has_character_modifier = teq_development_flow has_character_modifier = teq_development_wealth
+   has_character_modifier = teq_military_wealth has_character_modifier = teq_military_development_excluded
+  } }
+   teq_clear_flow = yes
+  }
+ }
  teq_restore_regions = yes
  save_scope_as = teq_fiscal_title
  set_variable = { name = teq_need_sum value = 0 }
@@ -354,7 +524,20 @@ teq_review = { hidden_effect = {
     save_scope_as = teq_region_title
     scope:teq_fiscal_title = {
      add_to_variable_list = { name = teq_regions target = scope:teq_region_title }
-     change_variable = { name = teq_need_sum add = scope:teq_region_title.var:teq_region_weight }
+     if = { limit = { scope:teq_local_holder = { NOT = { teq_military_region = yes } } scope:teq_region_title.var:teq_region_weight > 0 }
+      change_variable = {
+       name = teq_need_sum
+       add = {
+        value = scope:teq_region_title.var:teq_region_wealth
+        multiply = -0.5
+        add = 1
+        min = 0.5
+        max = 1
+        multiply = scope:teq_region_title.var:teq_region_weight
+        min = 0
+       }
+      }
+     }
      if = { limit = { scope:teq_local_holder = { NOT = { teq_military_region = yes } } }
       change_variable = { name = teq_base_sum add = scope:teq_region_title.var:teq_region_base }
      }
@@ -371,31 +554,69 @@ teq_review = { hidden_effect = {
  teq_apply_central = yes
  set_variable = { name = teq_last_quarter value = teq_quarter_key }
  change_variable = { name = teq_reviews add = 1 }
+ holder = { remove_variable = teq_review_lock }
 } }
 teq_monthly_safety = { hidden_effect = {
  save_scope_as = teq_fiscal_title
+ holder = { set_variable = teq_review_lock }
  holder = { teq_reconcile_character = yes }
  every_in_list = { variable = teq_regions
-  if = { limit = { teq_region_title_valid = yes } holder = { teq_reconcile_character = yes } }
-  else_if = { limit = { exists = holder holder = { is_alive = yes has_variable = teq_flow_title var:teq_flow_title = prev } } holder = { teq_clear_flow = yes } }
+  limit = { has_variable = teq_region_owner var:teq_region_owner = scope:teq_fiscal_title }
+  if = {
+   limit = {
+    teq_region_title_valid = yes
+    holder = {
+     OR = {
+      NOT = { has_variable = teq_flow_title }
+      NOT = { has_character_modifier = teq_public_tax }
+      NOT = { has_character_modifier = teq_refund_paused }
+      AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_development_excluded } }
+      AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_wealth } }
+      AND = { NOT = { teq_military_region = yes } has_character_modifier = teq_military_development_excluded }
+      AND = { NOT = { teq_military_region = yes } var:teq_flow_weight > 0 NOT = { has_character_modifier = teq_development_flow } }
+      AND = { NOT = { teq_military_region = yes } var:teq_flow_weight > 0 NOT = { has_character_modifier = teq_development_wealth } }
+     }
+    }
+   }
+   holder = { teq_reconcile_character = yes }
+  }
+  else_if = { limit = { NOT = { teq_region_title_valid = yes } exists = holder holder = { is_alive = yes has_variable = teq_flow_title var:teq_flow_title = prev } } holder = { teq_clear_flow = yes } }
  }
+ # Repair tax-only pre-registration left by older saves without a world-wide
+ # character scan. Reconciliation either joins a valid local or clears it.
+ holder = {
+  every_vassal_or_below = {
+   limit = { has_variable = teq_fiscal_owner NOT = { has_variable = teq_flow_title } }
+   teq_reconcile_character = yes
+  }
+ }
+ teq_refresh_need_sum = yes
  teq_apply_budget = yes
+ holder = { remove_variable = teq_review_lock }
 } }
 
 teq_disable = { hidden_effect = {
  teq_restore_regions = yes
  if = { limit = { exists = holder holder = { is_alive = yes has_variable = teq_policy_title var:teq_policy_title = prev } } holder = { teq_clear_central = yes } }
  remove_variable = teq_policy_version remove_variable = teq_last_quarter
- remove_variable = teq_total_budget remove_variable = teq_available_flow remove_variable = teq_observed_income remove_variable = teq_observed_balance remove_variable = teq_retained_flow
+ remove_variable = teq_total_budget remove_variable = teq_applied_budget remove_variable = teq_available_flow remove_variable = teq_observed_income remove_variable = teq_observed_balance remove_variable = teq_retained_flow remove_variable = teq_preserve_measured_flow
 } }
 teq_auto_tick = { hidden_effect = {
  if = { limit = { teq_fiscal_title_valid = yes }
-  teq_measure_budget = yes
-  if = { limit = { OR = { NOT = { has_variable = teq_policy_version } NOT = { var:teq_policy_version = 9 } } }
-   teq_migrate_legacy = yes teq_review = yes
+  holder = { teq_ensure_private_split = yes }
+  if = { limit = { OR = { NOT = { has_variable = teq_policy_version } var:teq_policy_version < 14 } }
+   teq_measure_budget = yes
+   teq_migrate_legacy = yes
+   teq_review = yes
   }
-  else_if = { limit = { NOT = { var:teq_last_quarter = teq_quarter_key } } teq_review = yes }
-  else = { teq_monthly_safety = yes }
+  else_if = { limit = { NOT = { var:teq_last_quarter = teq_quarter_key } }
+   teq_measure_budget = yes
+   teq_review = yes
+  }
+  else = {
+   teq_measure_budget = yes
+   teq_monthly_safety = yes
+  }
  }
 } }
 teq_world_step = { hidden_effect = {
@@ -411,18 +632,11 @@ teq_world_step = { hidden_effect = {
  }
 } }
 
-# Title scope. Adjust the envelope by the reserve difference, without running cashflow feedback twice.
+# Title scope. Update reserve percentage and immediately recompute the net-after-expenses budget split.
 teq_change_retained_fraction = { hidden_effect = {
  set_variable = { name = teq_old_retained_fraction value = holder.teq_retained_income_fraction }
- if = { limit = { NOT = { has_variable = teq_available_flow } }
-  set_variable = { name = teq_available_flow value = { value = var:teq_total_budget add = var:teq_retained_flow } }
- }
  set_variable = { name = teq_retained_fraction value = { value = var:teq_old_retained_fraction add = $STEP$ min = 0 max = 1 } }
- set_variable = { name = teq_retained_flow value = { value = holder.monthly_character_treasury_income multiply = var:teq_retained_fraction min = 0 } }
- set_variable = { name = teq_total_budget value = {
-  value = var:teq_available_flow subtract = var:teq_retained_flow
-  min = 0 max = holder.teq_budget_ceiling
- } }
  remove_variable = teq_old_retained_fraction
+ teq_measure_budget = yes
  teq_apply_budget = yes
 } }

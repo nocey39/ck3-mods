@@ -8,7 +8,7 @@
  teq_allocation_salary: "统筹俸禄预算"
 
  teq_public_collection: "公共收入统一入库"
- teq_public_collection_desc: "征收的公共税收全额进入国库，不再分流为统治者的私人金币。"
+ teq_public_collection_desc: "公共税收按“私库收入比例”设置分流，剩余收入进入国库，再由预算统筹分配。"
  teq_public_tax: "公共财政统收"
  teq_public_tax_desc: "本财政体系统一征收原生可征税收入，再通过预算分配公共资金。"
 

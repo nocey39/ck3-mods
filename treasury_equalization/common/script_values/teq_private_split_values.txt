@@ -1,4 +1,5 @@
-﻿# Native taxable-income V channel only. Treasury reserve policy is separate.
+﻿# Native taxable-income private/treasury split values.
+# Uses CK3 1.21 official mod-only modifier_value() instead of internal test income probes.
 teq_private_income_fraction = {
  value = 0.05
  if = { limit = { exists = primary_title primary_title = { has_variable = teq_private_fraction } } value = primary_title.var:teq_private_fraction }
@@ -6,13 +7,22 @@ teq_private_income_fraction = {
 }
 teq_private_split_status_value = { value = 0 if = { limit = { has_variable = teq_private_calibration_status } value = var:teq_private_calibration_status } }
 teq_private_applied_fraction_value = { value = 0 if = { limit = { has_variable = teq_private_applied_fraction } value = var:teq_private_applied_fraction } min = 0 max = 1 }
-# Scales are sampled on assignment. Never ask the engine to use a negative scale.
-teq_private_offset_value = {
- value = 0
- if = { limit = { has_variable = teq_private_work_x } value = var:teq_private_work_x }
- else_if = { limit = { has_variable = teq_private_offset } value = var:teq_private_offset }
-}
+
+# Scales are sampled on assignment. Never pass a negative scale to the engine.
+teq_private_offset_value = { value = 0 if = { limit = { has_variable = teq_private_offset } value = var:teq_private_offset } }
 teq_private_positive_scale = { value = teq_private_offset_value min = 0 }
 teq_private_negative_scale = { value = teq_private_offset_value multiply = -1 min = 0 }
-teq_private_work_error = { value = var:teq_private_work_q subtract = teq_private_income_fraction abs = yes }
-teq_private_work_step_size = { value = var:teq_private_work_step abs = yes }
+
+teq_private_nv_offset_value = { value = 0 if = { limit = { has_variable = teq_private_nv_offset } value = var:teq_private_nv_offset } }
+teq_private_nv_positive_scale = { value = teq_private_nv_offset_value min = 0 }
+teq_private_nv_negative_scale = { value = teq_private_nv_offset_value multiply = -1 min = 0 }
+
+# Live engine modifier readers (official mod-only modifier_value trigger).
+teq_live_vassal_treasury_base = { value = "modifier_value(monthly_treasury_from_vassals)" }
+teq_live_vassal_treasury_denom = { value = 1 add = "modifier_value(monthly_treasury_from_vassals_mult)" }
+teq_live_vassal_treasury_share = { value = teq_live_vassal_treasury_base multiply = teq_live_vassal_treasury_denom min = 0 max = 1 }
+
+teq_live_non_vassal_treasury_base = { value = "modifier_value(monthly_treasury_from_non_vassals)" }
+teq_live_non_vassal_treasury_denom = { value = 1 add = "modifier_value(monthly_treasury_from_non_vassals_mult)" }
+
+teq_private_applied_error = { value = 1 subtract = teq_live_vassal_treasury_share subtract = teq_private_income_fraction abs = yes }
