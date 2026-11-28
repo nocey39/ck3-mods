@@ -1,13 +1,16 @@
 ﻿# Characters hold native modifiers; titles own the policy snapshots. All money moves in native income accounting.
 # Single encapsulated synchronous flush point for same-tick budget enactment & paused UI responsiveness.
 teq_flush_modifiers = { hidden_effect = { scriptedtests_recalculate_character_modifier = yes } }
-teq_clear_flow = { hidden_effect = {
- remove_character_modifier = teq_public_tax
+teq_clear_actual_flow_modifiers = { hidden_effect = {
  remove_character_modifier = teq_refund_paused
  remove_character_modifier = teq_development_flow
  remove_character_modifier = teq_development_wealth
  remove_character_modifier = teq_military_wealth
  remove_character_modifier = teq_military_development_excluded
+} }
+teq_clear_flow = { hidden_effect = {
+ remove_character_modifier = teq_public_tax
+ teq_clear_actual_flow_modifiers = yes
  remove_variable = teq_flow_title remove_variable = teq_flow_weight remove_variable = teq_flow_wealth
  remove_variable = teq_fiscal_owner
  teq_flush_modifiers = yes
@@ -35,25 +38,84 @@ teq_clear_central_budget_modifiers = { hidden_effect = {
  remove_character_modifier = teq_allocation_salary
  remove_variable = teq_policy_title
 } }
+# Eligibility, not active taxation, initializes a newly added obligation in old
+# saves. The flag confirms that the current native contract contains its level.
+teq_ensure_public_tax_obligation = { hidden_effect = {
+ if = { limit = { teq_fiscal_chain_eligible = yes NOT = { vassal_contract_has_flag = teq_public_tax_contract } }
+  vassal_contract_set_obligation_level = { type = teq_public_tax_obligation level = teq_public_tax_standard }
+ }
+} }
+# Keep the native refund and no TEQ payouts until the complete registered
+# chain is ready. Registration itself remains intact so activation can resume.
+# This never depends on a positive payment, nor on either calculation lock.
+teq_refresh_refund_policy = { hidden_effect = {
+ if = { limit = { teq_public_flow_active = yes }
+  if = { limit = { OR = {
+   NOT = { has_character_modifier = teq_refund_paused }
+   AND = { teq_military_region = yes OR = {
+    NOT = { has_character_modifier = teq_military_development_excluded }
+    NOT = { has_character_modifier = teq_military_wealth }
+    has_character_modifier = teq_development_flow
+    has_character_modifier = teq_development_wealth
+   } }
+   AND = { teq_military_region = no OR = {
+    has_character_modifier = teq_military_development_excluded
+    has_character_modifier = teq_military_wealth
+    AND = { var:teq_flow_weight > 0 OR = {
+     NOT = { has_character_modifier = teq_development_flow }
+     NOT = { has_character_modifier = teq_development_wealth }
+    } }
+    AND = { NOT = { var:teq_flow_weight > 0 } OR = {
+     has_character_modifier = teq_development_flow
+     has_character_modifier = teq_development_wealth
+    } }
+   } }
+  } }
+   teq_clear_actual_flow_modifiers = yes
+   add_character_modifier = teq_refund_paused
+   if = { limit = { teq_military_region = yes }
+    add_character_modifier = teq_military_development_excluded
+    add_character_modifier = teq_military_wealth
+   }
+   else_if = { limit = { var:teq_flow_weight > 0 }
+    add_character_modifier = teq_development_flow
+    add_character_modifier = teq_development_wealth
+   }
+   teq_flush_modifiers = yes
+  }
+ }
+ else_if = { limit = { OR = {
+  has_character_modifier = teq_refund_paused
+  has_character_modifier = teq_development_flow
+  has_character_modifier = teq_development_wealth
+  has_character_modifier = teq_military_wealth
+  has_character_modifier = teq_military_development_excluded
+ } }
+  teq_clear_actual_flow_modifiers = yes
+  teq_flush_modifiers = yes
+ }
+} }
+teq_activate_registered_flows = { hidden_effect = {
+ save_scope_as = teq_activation_owner
+ every_in_list = { variable = teq_regions
+  limit = { has_variable = teq_region_owner var:teq_region_owner = scope:teq_activation_owner exists = holder }
+  holder = { teq_refresh_refund_policy = yes }
+ }
+} }
 teq_apply_flow = { hidden_effect = {
  # Scope: local primary title, with a validated owner and current holder.
  save_scope_as = teq_local_title
  holder = {
   teq_clear_flow = yes
+  teq_ensure_public_tax_obligation = yes
   set_variable = { name = teq_flow_title value = scope:teq_local_title }
   set_variable = { name = teq_fiscal_owner value = scope:teq_local_title.var:teq_region_owner }
   set_variable = { name = teq_flow_weight value = scope:teq_local_title.var:teq_region_weight }
   set_variable = { name = teq_flow_wealth value = scope:teq_local_title.var:teq_region_wealth }
-  add_character_modifier = teq_public_tax
-  add_character_modifier = teq_refund_paused
-  if = { limit = { teq_military_region = yes }
-   add_character_modifier = teq_military_development_excluded
-   add_character_modifier = teq_military_wealth
+  if = { limit = { vassal_contract_has_flag = teq_public_tax_contract }
+   add_character_modifier = teq_public_tax
   }
-  else_if = { limit = { var:teq_flow_weight > 0 }
-   add_character_modifier = teq_development_flow
-   add_character_modifier = teq_development_wealth
-  }
+  teq_refresh_refund_policy = yes
   # Flush vassal modifiers synchronously so same-tick enact_treasury_budgets
   # always sees live weights and never computes base rates from stale caches.
   teq_flush_modifiers = yes
@@ -119,7 +181,7 @@ teq_apply_budget = { hidden_effect = {
  save_scope_as = teq_budget_title
  if = {
   limit = {
-   OR = { NOT = { has_variable = teq_policy_version } var:teq_policy_version < 15 }
+   OR = { NOT = { has_variable = teq_policy_version } var:teq_policy_version < 16 }
    holder = { NOT = { has_variable = teq_review_lock } NOT = { has_variable = teq_budget_lock } }
   }
   holder = { teq_ensure_private_split = yes }
@@ -290,13 +352,17 @@ teq_ensure_budget_laws = { hidden_effect = {
 } }
 # Initialize once when native budget capability appears. Do not run monthly feedback twice for a ready owner.
 teq_initialize_budget_owner = { hidden_effect = {
- if = { limit = { teq_budget_owner_needs_setup = yes }
-  if = { limit = { NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version >= 15 } } }
+ if = { limit = { teq_budget_owner_needs_setup = yes NOT = { has_variable = teq_review_lock } NOT = { has_variable = teq_budget_lock } }
+  if = { limit = { NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version >= 16 } } }
    primary_title = { teq_auto_tick = yes }
   }
   else = {
    teq_reconcile_character = yes
-   primary_title = { teq_apply_budget = yes }
+   # Reconciliation may already rebuild a missing central marker and enact
+   # the current budget. Only an outstanding law repair needs another apply.
+   if = { limit = { teq_budget_owner_needs_setup = yes }
+    primary_title = { teq_apply_budget = yes }
+   }
   }
  }
 } }
@@ -317,6 +383,7 @@ teq_apply_central = { hidden_effect = {
   add_character_modifier = teq_public_collection
   set_variable = { name = teq_policy_title value = scope:teq_central_title }
  }
+ teq_activate_registered_flows = yes
  teq_apply_budget = yes
 } }
 # Character scope. Join a newly eligible region immediately and keep it in the
@@ -369,6 +436,15 @@ teq_reconcile_character = { hidden_effect = {
    set_variable = teq_flow_sync_needed
   }
  }
+ # Old saves can have orphaned local modifiers without either saved title.
+ # Capability failure restores the original refund even in that state.
+ if = { limit = { teq_fiscal_chain_eligible = no OR = {
+  has_character_modifier = teq_public_tax has_character_modifier = teq_refund_paused
+  has_character_modifier = teq_development_flow has_character_modifier = teq_development_wealth
+  has_character_modifier = teq_military_wealth has_character_modifier = teq_military_development_excluded
+ } }
+  teq_clear_flow = yes
+ }
  if = { limit = { has_variable = teq_policy_title }
   if = { limit = { OR = { NOT = { primary_title = var:teq_policy_title } NOT = { var:teq_policy_title = { teq_fiscal_title_valid = yes } } } }
    # A new eligible holder keeps the title's policy and regions. Only an
@@ -385,7 +461,7 @@ teq_reconcile_character = { hidden_effect = {
    AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_development_excluded } }
    AND = { NOT = { teq_military_region = yes } has_character_modifier = teq_military_development_excluded }
    NOT = { has_character_modifier = teq_public_tax }
-   NOT = { has_character_modifier = teq_refund_paused }
+   NOT = { vassal_contract_has_flag = teq_public_tax_contract }
    AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_wealth } }
    AND = { NOT = { teq_military_region = yes } var:teq_flow_weight > 0 NOT = { has_character_modifier = teq_development_flow } }
    AND = { NOT = { teq_military_region = yes } var:teq_flow_weight > 0 NOT = { has_character_modifier = teq_development_wealth } }
@@ -407,8 +483,19 @@ teq_reconcile_character = { hidden_effect = {
   # an inherited region whose title is missing from the owner's saved list.
   teq_register_region = yes
  }
- if = { limit = { is_landed = yes NOT = { has_variable = teq_policy_title } primary_title = { teq_fiscal_title_valid = yes has_variable = teq_policy_version var:teq_policy_version >= 9 } }
-  primary_title = { teq_apply_central = yes }
+ if = { limit = { is_landed = yes OR = {
+  NOT = { has_variable = teq_policy_title }
+  NOT = { has_character_modifier = teq_central_tax }
+  NOT = { has_character_modifier = teq_public_collection }
+ } primary_title = { teq_fiscal_title_valid = yes has_variable = teq_policy_version var:teq_policy_version >= 9 } }
+  # A different current title can carry another ruler's old roster. Rebuild
+  # it when no batch is running; a batch repairs the center once at its end.
+  if = { limit = { NOT = { has_variable = teq_review_lock } NOT = { has_variable = teq_budget_lock } }
+   primary_title = {
+    if = { limit = { var:teq_policy_version < 16 } teq_migrate_legacy = yes }
+    teq_review = yes
+   }
+  }
  }
 
  # Register before stopping the old refund, so every collected region has a
@@ -418,6 +505,7 @@ teq_reconcile_character = { hidden_effect = {
  }
   teq_register_region = yes
  }
+ teq_refresh_refund_policy = yes
  teq_ensure_private_split = yes
  # If a vassal's development flow changed mid-month (succession, role flip, detachment),
  # immediately re-sync the liege's need sum and base rate so payouts can never overshoot.
@@ -433,6 +521,7 @@ teq_reconcile_character = { hidden_effect = {
    }
    scope:teq_old_sync_title = {
     teq_refresh_need_sum = yes
+    teq_activate_registered_flows = yes
     teq_apply_budget = yes
    }
   }
@@ -447,9 +536,74 @@ teq_reconcile_character = { hidden_effect = {
    }
    top_liege.primary_title = {
     teq_refresh_need_sum = yes
+    teq_activate_registered_flows = yes
     teq_apply_budget = yes
    }
   }
+ }
+} }
+# Collect the old and new fiscal owners before a changed branch clears its
+# saved references. These temporary lists belong to that branch, not the world.
+teq_track_subtree_owner = { hidden_effect = {
+ save_scope_as = teq_subtree_owner_candidate
+ scope:teq_subtree_root = {
+  if = { limit = { NOT = { is_target_in_variable_list = { name = teq_subtree_owners target = scope:teq_subtree_owner_candidate } } }
+   add_to_variable_list = { name = teq_subtree_owners target = scope:teq_subtree_owner_candidate }
+  }
+ }
+} }
+teq_collect_subtree_owners = { hidden_effect = {
+ if = { limit = { has_variable = teq_fiscal_owner exists = var:teq_fiscal_owner }
+  var:teq_fiscal_owner = { teq_track_subtree_owner = yes }
+ }
+ if = { limit = { has_variable = teq_policy_title exists = var:teq_policy_title }
+  var:teq_policy_title = { teq_track_subtree_owner = yes }
+ }
+ if = { limit = { top_liege = { teq_ruler_valid = yes } }
+  top_liege.primary_title = { teq_track_subtree_owner = yes }
+ }
+} }
+# Government and liege changes can invalidate every descendant, even though
+# only the branch root receives the native callback. Reconcile that subtree
+# with at most one final budget refresh per affected fiscal owner.
+teq_reconcile_fiscal_subtree = { hidden_effect = {
+ if = { limit = { NOT = { has_variable = teq_subtree_lock } }
+  set_variable = teq_subtree_lock
+  save_scope_as = teq_subtree_root
+  clear_variable_list = teq_subtree_owners
+  clear_variable_list = teq_subtree_locked_owners
+  teq_collect_subtree_owners = yes
+  every_vassal_or_below = { teq_collect_subtree_owners = yes }
+  every_in_list = { variable = teq_subtree_owners
+   save_scope_as = teq_subtree_lock_owner
+   if = { limit = { exists = holder holder = { is_alive = yes NOT = { has_variable = teq_review_lock } NOT = { has_variable = teq_budget_lock } } }
+    holder = { set_variable = teq_review_lock }
+    scope:teq_subtree_root = {
+     add_to_variable_list = { name = teq_subtree_locked_owners target = scope:teq_subtree_lock_owner }
+    }
+   }
+  }
+  teq_reconcile_character = yes
+  every_vassal_or_below = { limit = { is_alive = yes } teq_reconcile_character = yes }
+  every_in_list = { variable = teq_subtree_locked_owners
+   if = { limit = { exists = holder }
+    holder = { remove_variable = teq_review_lock }
+    if = { limit = { teq_fiscal_title_valid = yes }
+     if = { limit = { holder = { teq_budget_owner_needs_setup = yes } }
+      holder = { teq_initialize_budget_owner = yes }
+     }
+     else = {
+      teq_refresh_need_sum = yes
+      teq_activate_registered_flows = yes
+      teq_apply_budget = yes
+     }
+    }
+    else = { teq_disable = yes }
+   }
+  }
+  clear_variable_list = teq_subtree_owners
+  clear_variable_list = teq_subtree_locked_owners
+  remove_variable = teq_subtree_lock
  }
 } }
 teq_restore_regions = { hidden_effect = {
@@ -474,7 +628,7 @@ teq_restore_regions = { hidden_effect = {
  clear_variable_list = teq_regions
 } }
 teq_migrate_legacy = { hidden_effect = {
- set_variable = { name = teq_policy_version value = 15 }
+ set_variable = { name = teq_policy_version value = 16 }
  if = { limit = { NOT = { has_variable = teq_reviews } } set_variable = { name = teq_reviews value = 0 } }
 } }
 teq_review = { hidden_effect = {
@@ -560,7 +714,7 @@ teq_monthly_safety = { hidden_effect = {
      OR = {
       NOT = { has_variable = teq_flow_title }
       NOT = { has_character_modifier = teq_public_tax }
-      NOT = { has_character_modifier = teq_refund_paused }
+      NOT = { vassal_contract_has_flag = teq_public_tax_contract }
       AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_development_excluded } }
       AND = { teq_military_region = yes NOT = { has_character_modifier = teq_military_wealth } }
       AND = { NOT = { teq_military_region = yes } has_character_modifier = teq_military_development_excluded }
@@ -582,7 +736,13 @@ teq_monthly_safety = { hidden_effect = {
   }
  }
  teq_refresh_need_sum = yes
- teq_apply_budget = yes
+ if = { limit = { holder = { teq_fiscal_center_ready = no } }
+  teq_apply_central = yes
+ }
+ else = {
+  teq_activate_registered_flows = yes
+  teq_apply_budget = yes
+ }
  holder = { remove_variable = teq_review_lock }
 } }
 
@@ -595,7 +755,7 @@ teq_disable = { hidden_effect = {
 teq_auto_tick = { hidden_effect = {
  if = { limit = { teq_fiscal_title_valid = yes }
   holder = { teq_ensure_private_split = yes }
-  if = { limit = { OR = { NOT = { has_variable = teq_policy_version } var:teq_policy_version < 15 } }
+  if = { limit = { OR = { NOT = { has_variable = teq_policy_version } var:teq_policy_version < 16 } }
    teq_measure_budget = yes
    teq_migrate_legacy = yes
    teq_review = yes

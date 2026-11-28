@@ -8,8 +8,12 @@ teq_calendar_pulse = { trigger = { teq_world_month_due = yes } effect = { hidden
 teq_monthly = { trigger = { always = no } }
 on_title_gain = { on_actions = { teq_check_detached } }
 on_title_lost = { on_actions = { teq_check_detached } }
-on_vassal_change = { on_actions = { teq_check_detached teq_check_old_liege_budget } }
+on_vassal_change = { on_actions = { teq_check_fiscal_subtree teq_check_old_liege_budget } }
 teq_check_detached = { trigger = { is_alive = yes } effect = { teq_reconcile_character = yes if = { limit = { has_global_variable = teq_world_month global_var:teq_world_month = teq_month_key } teq_initialize_budget_owner = yes } } }
+teq_check_fiscal_subtree = { trigger = { is_alive = yes } effect = {
+ teq_reconcile_fiscal_subtree = yes
+ if = { limit = { has_global_variable = teq_world_month global_var:teq_world_month = teq_month_key } teq_initialize_budget_owner = yes }
+} }
 # Reassert TEQ budget if an old liege ran a native budget enactment during vassal detachment (e.g. 1.21 merchant creation).
 teq_check_old_liege_budget = { effect = { scope:old_liege ?= { if = { limit = { is_alive = yes teq_budget_ui_ready = yes } teq_reassert_salary = yes } } } }
 
@@ -20,5 +24,5 @@ teq_yearly_salary_guard = { trigger = { is_ai = yes teq_budget_ui_ready = yes } 
 teq_development_startup = { effect = { teq_world_step = yes teq_initialize_development_laws = yes } }
 
 # Native government_on_actions.txt documents root as the character whose government changed.
-on_government_change = { on_actions = { teq_private_government_refresh teq_check_detached } }
+on_government_change = { on_actions = { teq_private_government_refresh teq_check_fiscal_subtree } }
 teq_private_government_refresh = { effect = { remove_variable = teq_private_split_month } }

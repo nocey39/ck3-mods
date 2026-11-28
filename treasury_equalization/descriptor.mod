@@ -1,4 +1,4 @@
-version="0.7.5"
+version="0.7.6"
 name="国库统筹财政"
 tags={
 	"Gameplay"
@@ -6,4 +6,5 @@ tags={
 }
 picture="thumbnail.png"
 supported_version="1.21.0.3"
+replace_path="common/subject_contracts"
 remote_file_id="3839551460"

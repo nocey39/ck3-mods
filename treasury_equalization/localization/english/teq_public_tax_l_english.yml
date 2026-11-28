@@ -1,0 +1,5 @@
+﻿l_english:
+ teq_public_tax_obligation:0 "Public revenue collection"
+ teq_public_tax_standard:0 "Treasury revenue"
+ teq_public_tax_standard_short:0 "Treasury revenue"
+ teq_public_tax_standard_desc:0 "Full public taxation applies only while this subject is connected to an initialized treasury budget system. Personal income follows the native rules."

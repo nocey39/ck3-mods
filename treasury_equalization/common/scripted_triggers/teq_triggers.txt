@@ -59,9 +59,9 @@ teq_ruler_valid = {
  teq_ai_has_eligible_vassal = yes
 }
 teq_fiscal_title_valid = { exists = holder holder = { teq_ruler_valid = yes } holder.primary_title = this }
-# Require landed count+ vassals whose direct liege is also inside the treasury fiscal chain.
-# Excludes 1.21 city mayor barons, landless patricians, and sub-vassals under non-treasury lieges.
-teq_public_tax_subject = {
+# Registration checks capabilities only, never saved flow state. Requiring an
+# existing registration here would prevent a new fiscal system from starting.
+teq_fiscal_chain_eligible = {
  is_alive = yes
  is_landed = yes
  # The fiscal center cannot tax or fund itself as a region.
@@ -70,19 +70,78 @@ teq_public_tax_subject = {
  highest_held_title_tier >= tier_county
  teq_government_valid = yes
  exists = liege
- liege = { teq_government_valid = yes }
+ NOT = { any_liege_or_above = { teq_government_valid = no } }
  top_liege = { teq_ruler_valid = yes }
 }
+teq_public_tax_subject = { teq_fiscal_chain_eligible = yes }
 teq_recipient_valid = {
- is_alive = yes
- is_landed = yes
- is_independent_ruler = no
+ teq_fiscal_chain_eligible = yes
  NOT = { this = scope:teq_fiscal_title.holder }
- highest_held_title_tier >= tier_county
- teq_government_valid = yes
- exists = liege
- liege = { teq_government_valid = yes }
  top_liege = scope:teq_fiscal_title.holder
+}
+# The hidden obligation is initialized from eligibility before this predicate
+# is used. A saved marker without the matching current title/list is not ready.
+teq_local_flow_registered = {
+ teq_fiscal_chain_eligible = yes
+ vassal_contract_has_flag = teq_public_tax_contract
+ has_character_modifier = teq_public_tax
+ has_variable = teq_fiscal_owner
+ var:teq_fiscal_owner = top_liege.primary_title
+ has_variable = teq_flow_title
+ primary_title = var:teq_flow_title
+ primary_title = {
+  has_variable = teq_region_owner
+  var:teq_region_owner = prev.var:teq_fiscal_owner
+  var:teq_region_owner = {
+   is_target_in_variable_list = { name = teq_regions target = prev }
+  }
+ }
+}
+teq_fiscal_center_ready = {
+ teq_ruler_valid = yes
+ has_character_modifier = teq_central_tax
+ has_character_modifier = teq_public_collection
+ has_variable = teq_policy_title
+ primary_title = var:teq_policy_title
+ primary_title = {
+  has_variable = teq_total_budget
+  has_variable = teq_policy_version
+  var:teq_policy_version >= 16
+ }
+}
+# Locks protect calculations against reentry; they must not change the tax
+# income being measured by that same calculation. Zero budgets remain valid.
+teq_public_flow_active = {
+ teq_local_flow_registered = yes
+ top_liege = { teq_fiscal_center_ready = yes }
+ NOT = {
+  any_liege_or_above = {
+   is_independent_ruler = no
+   teq_local_flow_registered = no
+  }
+ }
+}
+# Contract scope may refer to a suzerain. Only the live direct vassal relation
+# within the already registered fiscal chain receives the universal obligation.
+teq_public_contract_active = {
+ exists = scope:subject
+ exists = scope:liege
+ scope:subject = {
+  liege = scope:liege
+  teq_public_flow_active = yes
+ }
+ scope:liege = {
+  OR = {
+   AND = {
+    teq_fiscal_center_ready = yes
+    primary_title = scope:subject.var:teq_fiscal_owner
+   }
+   AND = {
+    teq_local_flow_registered = yes
+    var:teq_fiscal_owner = scope:subject.var:teq_fiscal_owner
+   }
+  }
+ }
 }
 teq_military_region = {
  OR = {
@@ -96,13 +155,7 @@ teq_region_title_valid = {
  NOT = { this = var:teq_region_owner }
  exists = var:teq_region_owner.holder var:teq_region_owner = { teq_fiscal_title_valid = yes }
  holder = {
-  is_alive = yes
-  is_landed = yes
-  is_independent_ruler = no
-  highest_held_title_tier >= tier_county
-  teq_government_valid = yes
-  exists = liege
-  liege = { teq_government_valid = yes }
+  teq_fiscal_chain_eligible = yes
   top_liege = prev.var:teq_region_owner.holder
  }
 }
@@ -157,9 +210,11 @@ teq_budget_ui_ready = {
 teq_budget_owner_needs_setup = {
  teq_ruler_valid = yes
  OR = {
-  NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version >= 15 } }
+  NOT = { primary_title = { has_variable = teq_total_budget has_variable = teq_policy_version var:teq_policy_version >= 16 } }
   NOT = { has_variable = teq_policy_title }
   AND = { has_variable = teq_policy_title NOT = { primary_title = var:teq_policy_title } }
+  NOT = { has_character_modifier = teq_central_tax }
+  NOT = { has_character_modifier = teq_public_collection }
   teq_development_law_needs_setup = yes
   teq_military_budget_needs_law = yes
  }

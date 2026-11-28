@@ -1,0 +1,5 @@
+﻿l_simp_chinese:
+ teq_public_tax_obligation:0 "公共税收统筹"
+ teq_public_tax_standard:0 "国库统收"
+ teq_public_tax_standard_short:0 "国库统收"
+ teq_public_tax_standard_desc:0 "只有已接入完整国库拨款体系的地方才全额上缴公共税收。个人收入沿用原生规则。"

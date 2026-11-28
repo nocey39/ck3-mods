@@ -1,0 +1,1398 @@
+{
+  "schema": 1,
+  "generator": "teq-universal-public-tax",
+  "policy": {
+    "publicContract": "teq_public_tax_obligation",
+    "publicLevel": "teq_public_tax_standard",
+    "publicFlag": "teq_public_tax_contract",
+    "predicate": "teq_public_contract_active",
+    "activeOriginalFinance": 0,
+    "activePublicTax": 1,
+    "requiredReplacePath": "common/subject_contracts",
+    "requiredPosition": "after every adapted mod",
+    "regeneration": "Required when enabled mods, their contents, the game version or load order change. This is a load-time adapter, not a runtime universal override.",
+    "personalIncome": "No salary, domicile or income-source modifier is changed; final engine taxable-income exclusions require in-game validation."
+  },
+  "precedence": "Apply replace_path and same-virtual-file overlays in enabled_mods order; parse remaining virtual paths in lexical order; the last named definition wins.",
+  "sources": [
+    {
+      "id": "game",
+      "descriptorHash": null,
+      "replacePaths": []
+    }
+  ],
+  "effectiveFiles": [
+    {
+      "path": "common/subject_contracts/contracts/_subject_contracts.info",
+      "source": "game",
+      "hash": "42c89cc2a503e699857a22b2a761ad9e31fe44f375ce70bf6a36b450894b1e3a",
+      "kind": "opaque"
+    },
+    {
+      "path": "common/subject_contracts/contracts/administrative.txt",
+      "source": "game",
+      "hash": "dc242d70b3ca17d1bdf312cc95d82c711cc7e7321be44cd40ee8c9ae5d8e8f28",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "source": "game",
+      "hash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/clan.txt",
+      "source": "game",
+      "hash": "c64f26d63a44bc0b1396000bdca15d2d83139c1fea926aada744afced4f009da",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/default_tributary.txt",
+      "source": "game",
+      "hash": "0487ceed6b9c9424cbb3a721f731f89f47cd50d25b8a43a4a145dc623c577d1f",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/feudal.txt",
+      "source": "game",
+      "hash": "41f3cb969ede8eac74a7329013866486a21c2bdb9051da89c8385254f1dc5d0f",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/herder.txt",
+      "source": "game",
+      "hash": "beff7435d4d5f2fc3f39601ed34636adc21798b680ffe0ec2d6e119ef1d23629",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/japan_administrative.txt",
+      "source": "game",
+      "hash": "c4d2e929c005c3e9d76077cc75cc0869e4ab04b77d6634adab88755235abf724",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/mandala.txt",
+      "source": "game",
+      "hash": "6cbd57ffeb5ed9f07baba34bdb03526806bfbc5e2a8cb255e8c16b9eb1a7270e",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/merchant.txt",
+      "source": "game",
+      "hash": "85b71bf19acf8322f54a08ac8f9ed11902b7a958cc4db8e7f29b592f3bef4ca7",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "source": "game",
+      "hash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/nomad.txt",
+      "source": "game",
+      "hash": "2cffc260ee395628895c04cf040cce07b43cb99a814eae82a61e959ace3b4c31",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/republic.txt",
+      "source": "game",
+      "hash": "ff5708cd4119b231acb1c65ad8002bff68301528d4199413e198757685a7581f",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "source": "game",
+      "hash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/theocratic.txt",
+      "source": "game",
+      "hash": "bc710613b7073bc093603a6b15fdb8c3442a5421f486e2611037a8d151e1a486",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/tribal.txt",
+      "source": "game",
+      "hash": "61e1421de164daa7bb31194efbd94ad4bf22e14dc7fea0ca97379c81cee6c895",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/contracts/wanua.txt",
+      "source": "game",
+      "hash": "c78cf51c56a7c52bc362d31bb7de1548fc23d233f04083652b4aab6a39b013b8",
+      "kind": "contracts"
+    },
+    {
+      "path": "common/subject_contracts/groups/_subject_contract_groups.info",
+      "source": "game",
+      "hash": "e8bd2b9b98efda2e3803da31517b5b9298384a0a208f3986c1d7352e3ceeb909",
+      "kind": "opaque"
+    },
+    {
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "source": "game",
+      "hash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "kind": "groups"
+    }
+  ],
+  "excludedSources": [],
+  "excludedAdapterFiles": [],
+  "shadowedDefinitions": [],
+  "groups": [
+    {
+      "name": "feudal_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "feudal_government_taxes",
+        "feudal_government_levies",
+        "special_contract",
+        "religious_rights",
+        "fortification_rights",
+        "coinage_rights",
+        "succession_rights",
+        "war_declaration_rights",
+        "council_rights",
+        "kurultai_rights",
+        "title_revocation_rights",
+        "jizya_special_rights"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "4edfb3761f16806ec410ba644e028dc44afe3a02ff1960a5966500a1087fefeb"
+    },
+    {
+      "name": "republic_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "republic_government_obligations",
+        "republic_government_salaries",
+        "republic_government_treasury_conversion",
+        "republic_government_free_city",
+        "republic_government_defensive_obligation",
+        "republic_government_war_aids"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "3dc9e02693abc2ffc98604eea686251ae77c58b77aa1f3d1c8988d8b79693c60"
+    },
+    {
+      "name": "theocracy_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "theocracy_government_obligations"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "e56591df804d01a5b38fa18366de957c8ddc89d8398919ffb061e83d7516c684"
+    },
+    {
+      "name": "clan_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "clan_tax_collector_obligations",
+        "special_contract",
+        "religious_rights",
+        "war_declaration_rights",
+        "council_rights",
+        "kurultai_rights",
+        "title_revocation_rights",
+        "marriage_favor_rights"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "d8096a00b86bc644b89c953ab2ea7774535cfe15fafec19f53f4434d83b89933"
+    },
+    {
+      "name": "tribal_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "tribal_government_obligations"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "8b0ccf41b863533925491876b3c94695f7d86bc50c905dc12cdca54125e29b65"
+    },
+    {
+      "name": "admin_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "administrative_obligations",
+        "administrative_themes",
+        "administrative_salary_rank"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "74e91fb747034bb651f294bd5f233a9b286c16064c84311c14fd9159d5647ad0"
+    },
+    {
+      "name": "nomad_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "nomad_government_herd",
+        "nomad_government_taxes",
+        "liege_war_participation_obligation",
+        "council_rights",
+        "kurultai_rights",
+        "war_declaration_rights"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "252fa819e29a120a5803299b2582364dfbc073d2eaf0c44ce59eeb3d5257b681"
+    },
+    {
+      "name": "tributary_settled",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "default_tributary_taxes",
+        "default_tributary_levies",
+        "default_tributary_prestige",
+        "suzerain_war_participation_guarantee",
+        "tributary_war_participation_obligation"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "e48c0a1765f8937e58281fc359d1eefdace06f6c39173fcc839307fbe71b784d"
+    },
+    {
+      "name": "tributary_nomadic",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "nomad_government_herd",
+        "nomad_government_prestige",
+        "suzerain_war_participation_guarantee",
+        "tributary_war_participation_obligation"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "44fe9d7e44bec6070f3c78122e80bb20afb52153f476ea9750ac64c3217f7d2b"
+    },
+    {
+      "name": "tributary_subjugated",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "default_tributary_taxes",
+        "default_tributary_prestige",
+        "suzerain_war_participation_guarantee",
+        "tributary_war_participation_obligation"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "d1d05625b763757f1d764021f39bf4d9c2279ad7af313436a0d70a68284490dc"
+    },
+    {
+      "name": "tributary_steppe",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "default_tributary_taxes",
+        "nomad_government_prestige",
+        "suzerain_war_participation_guarantee",
+        "tributary_war_participation_obligation"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "89142f7e96227a4c03d277f4d1613c6e7c88cf23a18981ec6a35bec0ed6cc887"
+    },
+    {
+      "name": "herder_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "herder_government_obligations"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "dd5675b738a327361d6b39555f138868c299bb945db4176c6fd597e56337de2f"
+    },
+    {
+      "name": "celestial_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "celestial_obligations",
+        "celestial_ministry_obligations",
+        "celestial_provinces",
+        "celestial_treasury",
+        "celestial_salary",
+        "celestial_ministry_budget",
+        "celestial_salary_rank"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "583a3a4e3283fe88ccb7032ab4df9228afd06d359e42b5e4f0e10882ddbf85b0"
+    },
+    {
+      "name": "tributary_celestial",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "celestial_tribute_gold",
+        "celestial_tribute_prestige",
+        "celestial_tributary_investiture_privilege_trade",
+        "celestial_tributary_investiture_privilege_marriage",
+        "celestial_tributary_investiture_privilege_politics"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "0b99f5b7e1044765e5465fd3087846fde227ffd59278c85617e5ef53cc1b7cb9"
+    },
+    {
+      "name": "tributary_hegemonic",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "hegemonic_tribute_gold",
+        "hegemonic_tribute_prestige"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "9d29f6c474be461edb13a6392ea826b9896dddba32728dd8905e27df4db3392a"
+    },
+    {
+      "name": "mandala_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "mandala_government_taxes",
+        "mandala_government_piety",
+        "mandala_government_levies",
+        "religious_rights",
+        "fortification_rights",
+        "coinage_rights",
+        "succession_rights",
+        "title_revocation_rights"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "06eb2bfbec2f708963dbb9005452cc2a506ad5db911a1d27e8c92c74999141f0"
+    },
+    {
+      "name": "tributary_mandala",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "mandala_government_taxes",
+        "mandala_government_piety",
+        "mandala_government_levies",
+        "mandala_suzerain_war_participation_guarantee"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "31d3bdd29d0430cec38fee2a4b1bf30de5e576a0949e20f5269df4770cbcb047"
+    },
+    {
+      "name": "tributary_mandala_tribal",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "mandala_government_taxes",
+        "mandala_government_prestige",
+        "mandala_government_piety",
+        "mandala_government_levies",
+        "mandala_suzerain_war_participation_guarantee"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "b1d5f1b6b8f0dfce602a8918887b613002c82b87050ef769062ed39665d98520"
+    },
+    {
+      "name": "japan_administrative_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "japan_administrative_obligations",
+        "japan_administrative_provinces"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "50fae305445fa9ba39d46f6eb721d65568ba2c13d235f876d9cc4f2928abd8ce"
+    },
+    {
+      "name": "japan_feudal_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "feudal_government_taxes",
+        "feudal_government_levies",
+        "special_contract",
+        "religious_rights",
+        "fortification_rights",
+        "coinage_rights",
+        "succession_rights",
+        "war_declaration_rights",
+        "council_rights",
+        "kurultai_rights",
+        "title_revocation_rights",
+        "jizya_special_rights"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "5fb147be6c5ce78e9aa30b0fa26867a3c5249f95224251a6d56cd1987f695b99"
+    },
+    {
+      "name": "wanua_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "wanua_obligations"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "4d146531542a21ba211061137f4e4dab3045baac55fb63768e748daf73b14f61"
+    },
+    {
+      "name": "tributary_wanua",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "default_tributary_taxes",
+        "default_tributary_prestige",
+        "barter_goods_obligations"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "b99b604bb7867d6a50edda24e226e696e148ccaa6ec8aa9e9b17c6dca71dee09"
+    },
+    {
+      "name": "meritocratic_vassal",
+      "tributary": false,
+      "adapted": true,
+      "contracts": [
+        "meritocratic_obligations",
+        "meritocratic_provinces",
+        "meritocratic_treasury",
+        "meritocratic_salary",
+        "meritocratic_salary_rank"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "c2d1da1ecdacc7ec75823e994e737328bd3d1bc74d6d46d86f2063c206e2f613"
+    },
+    {
+      "name": "tributary_merchant",
+      "tributary": true,
+      "adapted": false,
+      "contracts": [
+        "merchant_taxes",
+        "merchant_prestige",
+        "merchant_competitiveness",
+        "merchant_marriage"
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/groups/subject_contract_groups.txt",
+      "fileHash": "ced24a51651390b6c75d53cc12826987a0bb734bc8b59b1c0a35326c725cdb92",
+      "definitionHash": "25c1372afd840ec1a121f482f1c4148c3186da0cb5da5f0ec235d1fe1981c4eb"
+    }
+  ],
+  "contracts": [
+    {
+      "name": "administrative_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/administrative.txt",
+      "fileHash": "dc242d70b3ca17d1bdf312cc95d82c711cc7e7321be44cd40ee8c9ae5d8e8f28",
+      "definitionHash": "cc67f7cca2a0eea785278092faff1910634ccf74753dea993aa08caf86a82fa8"
+    },
+    {
+      "name": "administrative_themes",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "admin_theme_civilian",
+          "field": "tax_factor"
+        },
+        {
+          "level": "admin_theme_frontier",
+          "field": "tax_factor"
+        },
+        {
+          "level": "admin_theme_imperial",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/administrative.txt",
+      "fileHash": "dc242d70b3ca17d1bdf312cc95d82c711cc7e7321be44cd40ee8c9ae5d8e8f28",
+      "definitionHash": "7a1877080a54700d07406424b78a55f4950b43a95884c14f8b4ea6daede26c70"
+    },
+    {
+      "name": "administrative_salary_rank",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/administrative.txt",
+      "fileHash": "dc242d70b3ca17d1bdf312cc95d82c711cc7e7321be44cd40ee8c9ae5d8e8f28",
+      "definitionHash": "d4f9bb8898c2b00d6cd011c5f9643ea147c3eae76dd99ee46376b5344ea8a65e"
+    },
+    {
+      "name": "celestial_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "c6bf927897ec6523f4d7b3dcf8b835a2e009385074aad0755109258d59e42912"
+    },
+    {
+      "name": "celestial_provinces",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "celestial_province_metropolitan",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "7ba061f96154a058b36051237b817fe0eb4816f162b8ccd5b8a39930cbe63ece"
+    },
+    {
+      "name": "celestial_ministry_obligations",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "b9bd03ac0e3c10d1c1fabf0ade805e4e449ecaecfc672c5237a730622d88144d"
+    },
+    {
+      "name": "celestial_treasury",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "4f4419e7406c8cc73dbbdb7cfc80efba7c670dfc7427d8c827b85ac890ac3c18"
+    },
+    {
+      "name": "celestial_ministry_budget",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "50f14805d1550c40d50a72d921e987db58933a646a8b5c04d584735a9939052f"
+    },
+    {
+      "name": "celestial_salary",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "6aa38afed8737984939766d690f2c31f01b67ef3269fc9ad0016e8ad8e126e49"
+    },
+    {
+      "name": "celestial_salary_rank",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "7d2c6d9ab660c3b5fe4a0a747363ea318bf098bc725e595af2bcb9dd32b66874"
+    },
+    {
+      "name": "celestial_tribute_gold",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "e9d57a46d9f56c2b0baa0f7798ec2bfbc1d8a1020a0132c35cceb6e23de5f203"
+    },
+    {
+      "name": "celestial_tribute_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "19cb9b8a281cb6d4b8a34813036511ab14348c0132a90f5979646c499a696163"
+    },
+    {
+      "name": "celestial_tributary_investiture_privilege_trade",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "fb81639cd1fa64e14d1f6681dc322bbb6d20036cc855ea301fc51e83b9910ab8"
+    },
+    {
+      "name": "celestial_tributary_investiture_privilege_marriage",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "2ef2b2afbae0f529851ec0c5327355fda37315eb10d1e0e065a5ed3114162cd7"
+    },
+    {
+      "name": "celestial_tributary_investiture_privilege_politics",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "e1312f823c2d4142798d38e517a988583dbd993da38a3a41c40cae8c2974a694"
+    },
+    {
+      "name": "hegemonic_tribute_gold",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "4536d2d6b10e2ea5df2a1b6d415f0091b0e5e7295124a98e1604be103dca57c6"
+    },
+    {
+      "name": "hegemonic_tribute_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/celestial.txt",
+      "fileHash": "148d85f17a58800e885cbceb4bb31c195a2b9152037077faddc959b8508a72cc",
+      "definitionHash": "2ceea150006f3bda4f38c3edca1dd9098c66ac24306b079a65416b1f843849ca"
+    },
+    {
+      "name": "clan_tax_collector_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/clan.txt",
+      "fileHash": "c64f26d63a44bc0b1396000bdca15d2d83139c1fea926aada744afced4f009da",
+      "definitionHash": "170b0324c268aa5f851af2eb8873d69ae8a074bb2f7e993017bffc419d159e4c"
+    },
+    {
+      "name": "default_tributary_taxes",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/default_tributary.txt",
+      "fileHash": "0487ceed6b9c9424cbb3a721f731f89f47cd50d25b8a43a4a145dc623c577d1f",
+      "definitionHash": "62fd2326cb33438a759ed9192de5a1ad8308e75d1a0983891a40ac5bd72739b0"
+    },
+    {
+      "name": "default_tributary_levies",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/default_tributary.txt",
+      "fileHash": "0487ceed6b9c9424cbb3a721f731f89f47cd50d25b8a43a4a145dc623c577d1f",
+      "definitionHash": "b9a777728dfc2c0b19675d3a1f79bb969305fae33a9ce3b72a2c1189e72eb044"
+    },
+    {
+      "name": "default_tributary_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/default_tributary.txt",
+      "fileHash": "0487ceed6b9c9424cbb3a721f731f89f47cd50d25b8a43a4a145dc623c577d1f",
+      "definitionHash": "b0aac0a79043f92b51e28f4d30e54fe2c76a8b79f8300f8ba179f70cd4e61cff"
+    },
+    {
+      "name": "feudal_government_taxes",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "feudal_tax_exempt",
+          "field": "tax"
+        },
+        {
+          "level": "feudal_tax_low",
+          "field": "tax"
+        },
+        {
+          "level": "feudal_tax_normal",
+          "field": "tax"
+        },
+        {
+          "level": "feudal_tax_high",
+          "field": "tax"
+        },
+        {
+          "level": "feudal_tax_extortionate",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/feudal.txt",
+      "fileHash": "41f3cb969ede8eac74a7329013866486a21c2bdb9051da89c8385254f1dc5d0f",
+      "definitionHash": "8456703a91f556c711586f4af31154162ff6c4d12e6388f91d106cd5f5e265db"
+    },
+    {
+      "name": "feudal_government_levies",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/feudal.txt",
+      "fileHash": "41f3cb969ede8eac74a7329013866486a21c2bdb9051da89c8385254f1dc5d0f",
+      "definitionHash": "01b4ea4ecd84808ba53b592b5b1992cc77c672c8ca3e117e43665190f90d72bd"
+    },
+    {
+      "name": "feudal_government_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/feudal.txt",
+      "fileHash": "41f3cb969ede8eac74a7329013866486a21c2bdb9051da89c8385254f1dc5d0f",
+      "definitionHash": "e0fd08bf7c583f7f52f025a277a896c6eb8cff76229460911651b88cb12db3b2"
+    },
+    {
+      "name": "herder_government_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/herder.txt",
+      "fileHash": "beff7435d4d5f2fc3f39601ed34636adc21798b680ffe0ec2d6e119ef1d23629",
+      "definitionHash": "6d753968816e620b76b12793c68a60644c6d05ccbcc0fef69c956f4ecd445032"
+    },
+    {
+      "name": "japan_administrative_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/japan_administrative.txt",
+      "fileHash": "c4d2e929c005c3e9d76077cc75cc0869e4ab04b77d6634adab88755235abf724",
+      "definitionHash": "5656e33f648d0e22a199e1f406e24f3b08ffeecb093da25a2dbff086fc204765"
+    },
+    {
+      "name": "japan_administrative_provinces",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "japan_administrative_province_trade",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/japan_administrative.txt",
+      "fileHash": "c4d2e929c005c3e9d76077cc75cc0869e4ab04b77d6634adab88755235abf724",
+      "definitionHash": "0fbe1047e3d0e5c7fffb6c85fc03a9a1677ebd6a69880596775f8e22fbe937cd"
+    },
+    {
+      "name": "japan_administrative_salary",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/japan_administrative.txt",
+      "fileHash": "c4d2e929c005c3e9d76077cc75cc0869e4ab04b77d6634adab88755235abf724",
+      "definitionHash": "d949dbf5486dc14589e03ff103c311e793dad7b3cfc501f3171e9b46f1356f75"
+    },
+    {
+      "name": "mandala_government_piety",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/mandala.txt",
+      "fileHash": "6cbd57ffeb5ed9f07baba34bdb03526806bfbc5e2a8cb255e8c16b9eb1a7270e",
+      "definitionHash": "698f77c87d329d8e00e31de21c2aed388c3395d1b96efa93646778beb8b526c4"
+    },
+    {
+      "name": "mandala_government_taxes",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "mandala_tax_exempt",
+          "field": "tax"
+        },
+        {
+          "level": "mandala_tax_low",
+          "field": "tax"
+        },
+        {
+          "level": "mandala_tax_normal",
+          "field": "tax"
+        },
+        {
+          "level": "mandala_tax_high",
+          "field": "tax"
+        },
+        {
+          "level": "mandala_tax_extortionate",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/mandala.txt",
+      "fileHash": "6cbd57ffeb5ed9f07baba34bdb03526806bfbc5e2a8cb255e8c16b9eb1a7270e",
+      "definitionHash": "51e0b26cfb279563419a3cf11a0efef41295d2a79eb704137438df98185b26c4"
+    },
+    {
+      "name": "mandala_government_levies",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/mandala.txt",
+      "fileHash": "6cbd57ffeb5ed9f07baba34bdb03526806bfbc5e2a8cb255e8c16b9eb1a7270e",
+      "definitionHash": "2fcb6b9a16e743b01aa148fb83a845b86b6a93555afb816e89cb84cecab349c3"
+    },
+    {
+      "name": "mandala_government_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/mandala.txt",
+      "fileHash": "6cbd57ffeb5ed9f07baba34bdb03526806bfbc5e2a8cb255e8c16b9eb1a7270e",
+      "definitionHash": "093acc03109e0b290c2050486d26414e26416a3543a45ed1b07cb14ae1939c90"
+    },
+    {
+      "name": "merchant_taxes",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/merchant.txt",
+      "fileHash": "85b71bf19acf8322f54a08ac8f9ed11902b7a958cc4db8e7f29b592f3bef4ca7",
+      "definitionHash": "924000facadd434b8adde69f4fddbbe8083ad66248c34cc34d3db38e4b464b86"
+    },
+    {
+      "name": "merchant_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/merchant.txt",
+      "fileHash": "85b71bf19acf8322f54a08ac8f9ed11902b7a958cc4db8e7f29b592f3bef4ca7",
+      "definitionHash": "e90a247843bc79e165909c1cae84bab7a60c7d9ca596b1cd4d455cce02e3ebdf"
+    },
+    {
+      "name": "merchant_competitiveness",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/merchant.txt",
+      "fileHash": "85b71bf19acf8322f54a08ac8f9ed11902b7a958cc4db8e7f29b592f3bef4ca7",
+      "definitionHash": "20fa0a15af60d6a877145a75b8077581a457e69151a41b827d5c0a3238b79e6f"
+    },
+    {
+      "name": "merchant_marriage",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/merchant.txt",
+      "fileHash": "85b71bf19acf8322f54a08ac8f9ed11902b7a958cc4db8e7f29b592f3bef4ca7",
+      "definitionHash": "39b6bb1b874a65914f345b3e86f5e04e256d7658fc930e435a4ad73f3008e1a2"
+    },
+    {
+      "name": "meritocratic_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "fileHash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "definitionHash": "d1ad98c047bbb69107960975e9fc8af5afe1445e565571743b99dedf8e6e735b"
+    },
+    {
+      "name": "meritocratic_provinces",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "meritocratic_province_industrial",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "fileHash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "definitionHash": "be977b46be8038114269859a40a5d818552a280c450c8cab6488dce46a2244dd"
+    },
+    {
+      "name": "meritocratic_treasury",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "fileHash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "definitionHash": "d0c7fd1260167ef47862982796055669ccd29ae58f3c564dc0acbc760c423c97"
+    },
+    {
+      "name": "meritocratic_salary",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "fileHash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "definitionHash": "8fc3d0cae76fd839c6a9bd78029dad7a5f2f612ff104525f9fe3e6f6fcd65d1a"
+    },
+    {
+      "name": "meritocratic_salary_rank",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "fileHash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "definitionHash": "8ef8eb89bc3ffe0a1576dd123ac8b23ee0c05cf79ac858deb6c29fc72f147723"
+    },
+    {
+      "name": "meritocratic_tribute_gold",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "fileHash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "definitionHash": "1886be849539df9c70ac42c8df91bd357723f32d76cf424f4bac6a21db393542"
+    },
+    {
+      "name": "meritocratic_tribute_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/meritocratic.txt",
+      "fileHash": "d1e672fd135c942d108aba2a719422f35230323cf043624cec9690c16c997374",
+      "definitionHash": "90362d7e1853ad9190ac609418122cbb84a8d2e28144e81cff64e66ed502659d"
+    },
+    {
+      "name": "nomad_government_herd",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/nomad.txt",
+      "fileHash": "2cffc260ee395628895c04cf040cce07b43cb99a814eae82a61e959ace3b4c31",
+      "definitionHash": "a1326cb0ae6505f462c5d46f7770ffd7e863425ca7691e3ce091b2c07ab49bf2"
+    },
+    {
+      "name": "nomad_government_taxes",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "nomad_tax_exempt",
+          "field": "tax"
+        },
+        {
+          "level": "nomad_tax_low",
+          "field": "tax"
+        },
+        {
+          "level": "nomad_tax_normal",
+          "field": "tax"
+        },
+        {
+          "level": "nomad_tax_high",
+          "field": "tax"
+        },
+        {
+          "level": "nomad_tax_extortionate",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/nomad.txt",
+      "fileHash": "2cffc260ee395628895c04cf040cce07b43cb99a814eae82a61e959ace3b4c31",
+      "definitionHash": "304738bff3ba3a6f54dbf49ff7c925958e2d092a76dd57fc07d2387315f01dd0"
+    },
+    {
+      "name": "nomad_government_prestige",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/nomad.txt",
+      "fileHash": "2cffc260ee395628895c04cf040cce07b43cb99a814eae82a61e959ace3b4c31",
+      "definitionHash": "58bbbfd08b929a7fa506091ba8d20bc85715ede80475558ad51380bd6fe35346"
+    },
+    {
+      "name": "republic_government_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/republic.txt",
+      "fileHash": "ff5708cd4119b231acb1c65ad8002bff68301528d4199413e198757685a7581f",
+      "definitionHash": "4db3e108a2e969d77e5f82206234f0fa28a0d5f592de93f1f5ad7d7bd9bfe313"
+    },
+    {
+      "name": "republic_government_salaries",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/republic.txt",
+      "fileHash": "ff5708cd4119b231acb1c65ad8002bff68301528d4199413e198757685a7581f",
+      "definitionHash": "e2db01aa4a9d55c02044e23f6591312be1bb4a46fdd3145ccf87f6a7fbed7751"
+    },
+    {
+      "name": "republic_government_treasury_conversion",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/republic.txt",
+      "fileHash": "ff5708cd4119b231acb1c65ad8002bff68301528d4199413e198757685a7581f",
+      "definitionHash": "c704eb45124159a54b7cdf2112ee16dcb17779e63f12e05372433e792def97a6"
+    },
+    {
+      "name": "republic_government_free_city",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "republic_government_free_city_chartered",
+          "field": "tax_factor"
+        },
+        {
+          "level": "republic_government_free_city_granted",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/republic.txt",
+      "fileHash": "ff5708cd4119b231acb1c65ad8002bff68301528d4199413e198757685a7581f",
+      "definitionHash": "c96420c79513b5d3e39bd5aee255e63e893d3dcc3ef510ee680bf0bb54d0eef5"
+    },
+    {
+      "name": "republic_government_defensive_obligation",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "republic_government_defensive_obligation_enforced",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/republic.txt",
+      "fileHash": "ff5708cd4119b231acb1c65ad8002bff68301528d4199413e198757685a7581f",
+      "definitionHash": "4caca9b81067896a38fe5a1cb01b998851f58f53f83b0c753329d521e344f76d"
+    },
+    {
+      "name": "republic_government_war_aids",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "republic_government_war_aids_enforced",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/republic.txt",
+      "fileHash": "ff5708cd4119b231acb1c65ad8002bff68301528d4199413e198757685a7581f",
+      "definitionHash": "471dbebdf76a2bcbc68794a41c2791fd52aa253ef5540cb3548191cc17d38061"
+    },
+    {
+      "name": "special_contract",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "special_contract_scutage",
+          "field": "tax_factor"
+        },
+        {
+          "level": "special_contract_march",
+          "field": "tax_factor"
+        },
+        {
+          "level": "special_contract_castellan",
+          "field": "tax_factor"
+        },
+        {
+          "level": "special_contract_palatinate",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "8baa32681444060cbffd6b838ddb7706eb1e5468fc21f2508c6751b8e3f62e21"
+    },
+    {
+      "name": "religious_rights",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "d0f5a7f304c578c14c0c24b52483fd09432077f237a000623c69860e8b5755da"
+    },
+    {
+      "name": "fortification_rights",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "fortification_rights_granted",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "7810f1e0702bfaaf117988d3ddf02dac175b9a919ae3175b01f851aab411e44c"
+    },
+    {
+      "name": "coinage_rights",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "56c68d356231be73c57a6c0d87c719459085544f4c200678d362f018f2237891"
+    },
+    {
+      "name": "succession_rights",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "e22a0afad605f1df0d7e84f067c8ae2e7febe5969f0c40170da88b579f46f167"
+    },
+    {
+      "name": "war_declaration_rights",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "1042f3876fb11e2e944bb375a061cb6e09ec36de14f64f750366b5002083c3b3"
+    },
+    {
+      "name": "council_rights",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "3926b8e4943de602316f08d87588ecd06e2c75ff591cebd2ddf21987d1adc2f4"
+    },
+    {
+      "name": "title_revocation_rights",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "7d20ab750122598ea17ce0e021d8dd63a6f824a093b022c67f12532313c630c9"
+    },
+    {
+      "name": "jizya_special_rights",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "jizya_special_rights_granted",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "873505808eb93133d529ccdfe17c021878726b18cf807d1b3b311ec3c6dba862"
+    },
+    {
+      "name": "iqta_special_rights",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "2122ac3ca2505ae7833e41ff5fe7590f1a5b706e211004698f02033515ceacac"
+    },
+    {
+      "name": "ghazi_special_rights",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "11879b478d99ac157a30de294cb0dad41a9cd5efa09f5ef0d02b73c65b805871"
+    },
+    {
+      "name": "marriage_favor_rights",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "marriage_favor_rights_granted",
+          "field": "tax_factor"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "0e924679f516904e9fee1a7369b6886cd39c7a442c78ca29bc8edeeff3438b26"
+    },
+    {
+      "name": "kurultai_rights",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "bb59429d2c4d60c199a7c28c6a9647a5045f0241ab6ad249d7a7c598c02b76b9"
+    },
+    {
+      "name": "liege_war_participation_obligation",
+      "adapted": true,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "22fd1a379e82110b3d7c33eaa2558a84cbd5aff885e1b6bc226994e1bd739ba2"
+    },
+    {
+      "name": "suzerain_war_participation_guarantee",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "8fc314b9a4e96a6d8ddf827fcce6a6efdb88153cfce276f7ec525dc17c7d4952"
+    },
+    {
+      "name": "mandala_suzerain_war_participation_guarantee",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "00c6478fceed8702c4fffb1b95455d3ab6b3e6cf1cafe2fcfc68ed9331126248"
+    },
+    {
+      "name": "tributary_war_participation_obligation",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/special_contracts.txt",
+      "fileHash": "87342b8b911fc424123355672e1cb823793a4625c6c3169e545a0b81ea07d2d3",
+      "definitionHash": "b9684915ce36bc7c8d4c350af313bc5b2bbe1031467185d29a7bacdf397a750a"
+    },
+    {
+      "name": "theocracy_government_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/theocratic.txt",
+      "fileHash": "bc710613b7073bc093603a6b15fdb8c3442a5421f486e2611037a8d151e1a486",
+      "definitionHash": "d285e1148a8e243cd7a9d34bc33773529ac5cfdc45bebbb1248abe686d999f45"
+    },
+    {
+      "name": "tribal_government_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/tribal.txt",
+      "fileHash": "61e1421de164daa7bb31194efbd94ad4bf22e14dc7fea0ca97379c81cee6c895",
+      "definitionHash": "9c8346dba14efc7d3483a4e45c9c1542b7e9dde33012869b59c3582306f23553"
+    },
+    {
+      "name": "wanua_obligations",
+      "adapted": true,
+      "financeFields": [
+        {
+          "level": "default",
+          "field": "tax"
+        }
+      ],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/wanua.txt",
+      "fileHash": "c78cf51c56a7c52bc362d31bb7de1548fc23d233f04083652b4aab6a39b013b8",
+      "definitionHash": "3a60741183f414eae60c6b45cf6d1a1f496e045b1f72caa778221a0b3afedd5a"
+    },
+    {
+      "name": "barter_goods_obligations",
+      "adapted": false,
+      "financeFields": [],
+      "source": "game",
+      "path": "common/subject_contracts/contracts/wanua.txt",
+      "fileHash": "c78cf51c56a7c52bc362d31bb7de1548fc23d233f04083652b4aab6a39b013b8",
+      "definitionHash": "9f0f0ffb01e8048ff1617dd2f291bc4c8cfb127f66e1dafb93478624217936ac"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "common/subject_contracts/contracts/_subject_contracts.info",
+      "hash": "42c89cc2a503e699857a22b2a761ad9e31fe44f375ce70bf6a36b450894b1e3a"
+    },
+    {
+      "path": "common/subject_contracts/groups/_subject_contract_groups.info",
+      "hash": "e8bd2b9b98efda2e3803da31517b5b9298384a0a208f3986c1d7352e3ceeb909"
+    },
+    {
+      "path": "common/subject_contracts/contracts/zzzz_teq_universal_tax_contracts.txt",
+      "hash": "65ac32a2ab559d40631db70e46572da64689d3acfe0c308950db666bd0ff0aa5"
+    },
+    {
+      "path": "common/subject_contracts/groups/zzzz_teq_universal_tax_groups.txt",
+      "hash": "877b61a2165cf689fea2111ff9b6bc29995d89835b11d53fc6238ee6a8b26f90"
+    }
+  ],
+  "counts": {
+    "groups": 24,
+    "nonTributaryGroups": 14,
+    "contracts": 73,
+    "adaptedContracts": 47,
+    "wrappedFinanceFields": 42
+  }
+}

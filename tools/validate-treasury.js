@@ -7,6 +7,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
 
 const args = process.argv.slice(2);
 function option(name, fallback) {
@@ -155,12 +156,18 @@ check('active TEQ calls, GUI bindings, laws, modifiers, and script values resolv
   for (const item of parsed) {
     const tokens = item.tokens;
     const isGameRules = item.filename.includes(`${path.sep}game_rules${path.sep}`);
+    const levelDeclarations = new Set();
+    if (item.filename.includes(`${path.sep}subject_contracts${path.sep}contracts${path.sep}`)) {
+      for (const contract of item.blocks) for (const levels of contract.children.filter(b => b.key === 'obligation_levels')) {
+        for (const level of levels.children) levelDeclarations.add(level.start - 3);
+      }
+    }
     let depth = 0;
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
       const where = `${item.filename}:${token.line}`;
       const call = /(?:^|\.)(teq_\w+)$/.exec(token.value);
-      if (depth > 0 && !(isGameRules && depth === 1) && token.type === 'word' && call && ['=', '?=', '>', '<', '>=', '<=', '!='].includes(tokens[i + 1]?.value)) {
+      if (depth > 0 && !(isGameRules && depth === 1) && !levelDeclarations.has(i) && token.type === 'word' && call && ['=', '?=', '>', '<', '>=', '<=', '!='].includes(tokens[i + 1]?.value)) {
         assert(anyCallable.some(kind => kinds.get(kind)?.has(call[1])), `${where}: undefined TEQ callable ${call[1]}`);
       }
       if (token.type === 'word' && token.value.startsWith('teq_') && tokens[i - 1]?.value === '=') {
@@ -209,6 +216,28 @@ function definition(key) {
   }
   throw new Error(`Missing definition ${key}`);
 }
+
+check('generated contract snapshot and initialized obligation references agree', () => {
+  const manifest = JSON.parse(fs.readFileSync(path.join(mod, 'manifest.json'), 'utf8'));
+  assert.equal(manifest.generator, 'teq-universal-public-tax');
+  assert.equal(manifest.policy.requiredReplacePath, 'common/subject_contracts');
+  assert(/replace_path\s*=\s*"common\/subject_contracts"/.test(fs.readFileSync(path.join(mod, 'descriptor.mod'), 'utf8')),
+    'The complete generated database requires its declared replacement layer');
+  for (const file of manifest.outputs) {
+    assert(!path.isAbsolute(file.path) && !file.path.split(/[\\/]/).includes('..'), 'Unsafe snapshot manifest path');
+    const hash = crypto.createHash('sha256').update(fs.readFileSync(path.join(mod, file.path))).digest('hex');
+    assert.equal(hash, file.hash, `Generated snapshot differs from its manifest: ${file.path}`);
+  }
+  const contract = definition(manifest.policy.publicContract);
+  const levels = contract.block.children.find(b => b.key === 'obligation_levels');
+  const level = levels?.children.find(b => b.key === manifest.policy.publicLevel);
+  assert(level, 'The initialized public obligation level does not exist');
+  const values = contract.item.tokens.slice(level.start, level.end).map(t => t.value);
+  requires(values, ['flag', '=', manifest.policy.publicFlag], 'Public obligation must expose the readiness flag used by live fiscal checks');
+  requires(definition('teq_ensure_public_tax_obligation').values,
+    ['type', '=', manifest.policy.publicContract, 'level', '=', manifest.policy.publicLevel],
+    'Old saves must initialize the generated obligation');
+});
 function hasSequence(values, sequence) {
   return values.some((_, i) => sequence.every((token, offset) => values[i + offset] === token));
 }
@@ -281,7 +310,9 @@ check('fresh native capacity and receiver units precede rate changes', () => {
 });
 
 check('a central title cannot be registered as its own region', () => {
-  requires(definition('teq_public_tax_subject').values, ['NOT', '=', '{', 'this', '=', 'top_liege'], 'Immediate registration must exclude the fiscal ruler');
+  const subject = definition('teq_public_tax_subject').values;
+  const eligibility = subject.includes('teq_fiscal_chain_eligible') ? definition('teq_fiscal_chain_eligible').values : subject;
+  requires(eligibility, ['NOT', '=', '{', 'this', '=', 'top_liege'], 'Immediate registration must exclude the fiscal ruler');
   requires(definition('teq_recipient_valid').values, ['NOT', '=', '{', 'this', '=', 'scope:teq_fiscal_title.holder'], 'Quarterly review must exclude the fiscal ruler');
   requires(definition('teq_region_title_valid').values, ['NOT', '=', '{', 'this', '=', 'var:teq_region_owner'], 'Cached self-registration must be rejected');
 });
