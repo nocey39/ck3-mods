@@ -195,19 +195,19 @@ window = {
 										}
 									}
 									# Keep the law-group argument in the direct row context.
-widget = { size = { 100 40 } min_width = 100 max_width = 100 margin_left = 10
- text_single = { size = { 100% 100% } visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
+widget = { size = { 100 40 } min_width = 100 max_width = 100
+ text_single = { size = { 100% 100% } margin_left = 10 visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
   text = "[TreasuryBudgetChangeWindow.GetCurrentBudgetReceiverCount(GuiLawGroup.Self)]"
   align = left|nobaseline tooltip = "WINDOW_TREASURY_BUDGET_CHANGE_RECEIVER_TOOLTIP" using = tooltip_se
  }
- text_single = { size = { 100% 100% } visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
+ text_single = { size = { 100% 100% } margin_left = 10 visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
   text = "[TreasuryBudgetChangeWindow.GetNewBudgetReceiverCount(GuiLawGroup.Self)]"
   align = left|nobaseline tooltip = "WINDOW_TREASURY_BUDGET_CHANGE_RECEIVER_TOOLTIP" using = tooltip_se
  }
 }
 									# The native law preview is retained for characters outside the shared system.
 # Fixed cell: mutually exclusive controls overlap instead of adding hidden widths.
-widget = { size = { 110 40 } min_width = 110 max_width = 110 margin_right = 20
+widget = { size = { 130 40 } min_width = 130 max_width = 130
 hbox = { position = { 0 0 } size = { 110 40 } max_width = 110 visible = "[Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End))]"
  button_round = { raw_text = "<" size = { 20 20 }
   onclick = "[TreasuryBudgetChangeWindow.DecreaseBudgetGroupLaw(GuiLawGroup.AccessSelf)]"
@@ -553,6 +553,14 @@ text = "[Add_CFixedPoint(Subtract_CFixedPoint(Select_CFixedPoint(GetScriptedGui(
                                       tooltip = "teq_reserve_adjust_help"
                                      }
                                     }
+                                    text_single = {
+                                     visible = "[And(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), Not(ObjectsEqual(TreasuryBudgetChangeWindow.GetTitle.GetHolder.Self, GetPlayer.Self)))]"
+                                     min_width = 90
+                                     text = "[Add_CFixedPoint(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope.ScriptValue('teq_retained_income_fraction'), '(CFixedPoint)0.00005')|%0]"
+                                     align = center|nobaseline
+                                     default_format = "#high"
+                                     tooltip = "teq_reserve_adjust_help"
+                                    }
 								}
 								text_single = {
 									min_width = 100
@@ -653,7 +661,7 @@ text = "[Add_CFixedPoint(Subtract_CFixedPoint(Select_CFixedPoint(GetScriptedGui(
 
 
 						text_multi = {
-							visible = "[Not( GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' ) )]"
+							visible = "[Or(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End), Not( GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' ) ))]"
 							layoutpolicy_horizontal = expanding
 							size = { 0 90 }
 							max_width = 630
@@ -663,7 +671,7 @@ text = "[Add_CFixedPoint(Subtract_CFixedPoint(Select_CFixedPoint(GetScriptedGui(
 						}
 
 						text_multi = {
-							visible = "[GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' )]"
+							visible = "[And(Not(GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)), GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' ))]"
 							layoutpolicy_horizontal = expanding
 							size = { 0 90 }
 							max_width = 630
@@ -744,6 +752,7 @@ text = "[Add_CFixedPoint(Subtract_CFixedPoint(Select_CFixedPoint(GetScriptedGui(
                     button_primary = {
 						visible = "[GetScriptedGui('teq_budget_shared_ui').IsShown(GuiScope.SetRoot(TreasuryBudgetChangeWindow.GetTitle.GetHolder.MakeScope).End)]"
                         enabled = "[TreasuryBudgetChangeWindow.CanEnact]"
+                        onclick = "[GetScriptedGui('teq_budget_prepare_enact').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						onclick = "[TreasuryBudgetChangeWindow.EnactBudget]"
                         onclick = "[GetScriptedGui('teq_budget_commit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 

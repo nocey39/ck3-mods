@@ -1,0 +1,39 @@
+﻿# Treasury Equalization (TEQ) Game Rules
+# All defaults are save-safe fallbacks (existing 0.6.x Ironman saves load with default behavior).
+
+teq_scope_rule = {
+	categories = {
+		teq_rules tweaks
+	}
+
+	default = teq_scope_all
+
+	teq_scope_all = {}
+	teq_scope_major = {}
+	teq_scope_player_only = {}
+}
+
+teq_government_scope_rule = {
+	categories = {
+		teq_rules tweaks
+	}
+
+	default = teq_gov_all
+
+	teq_gov_all = {}
+	teq_gov_imperial_only = {}
+	teq_gov_no_republic = {}
+	teq_gov_no_ecclesiastical = {}
+}
+
+teq_reserve_target_rule = {
+	categories = {
+		teq_rules tweaks
+	}
+
+	default = teq_reserve_standard
+
+	teq_reserve_compact = {}
+	teq_reserve_standard = {}
+	teq_reserve_generous = {}
+}

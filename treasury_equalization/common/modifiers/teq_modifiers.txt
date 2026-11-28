@@ -1,7 +1,7 @@
 ﻿# Legacy name retained so old saves can remove it cleanly. No new duration-based finance.
 teq_refund_paused = { hide_effects = yes monthly_treasury_from_liege_mult = -1000 }
 teq_development_flow = { monthly_treasury_from_ministry_budget_base = 1 scale = { value = teq_development_scale desc = teq_development_flow display_mode = scaled } }
-teq_development_wealth = { monthly_treasury_from_ministry_budget_mult = -1 scale = { value = teq_wealth_scale desc = teq_development_wealth display_mode = scaled } }
+teq_development_wealth = { monthly_treasury_from_ministry_budget_mult = -1 scale = { value = teq_dev_wealth_scale desc = teq_development_wealth display_mode = scaled } }
 teq_military_wealth = { monthly_treasury_from_military_budget_mult = -1 scale = { value = teq_military_scale desc = teq_military_wealth display_mode = scaled } }
 teq_allocation_development = { hide_effects = yes }
 teq_allocation_military = { hide_effects = yes }
@@ -9,9 +9,12 @@ teq_allocation_salary = { hide_effects = yes }
 
 # Keep the old modifier key inert: the native government controls gold/treasury splitting.
 teq_public_collection = { hide_effects = yes }
-teq_public_tax = { hide_effects = yes vassal_tax_contribution_add = 1000 vassal_tax_contribution_mult = 1000 }
+# Marker modifiers only: 100% public tax collection is applied strictly in the five native
+# treasury-vassal obligation contracts (zz_teq_vassal_tax_contracts.txt) so tributaries
+# and non-treasury vassals are never affected by vassal_tax_contribution_add/mult.
+teq_public_tax = { hide_effects = yes }
 
-teq_central_tax = { hide_effects = yes vassal_tax_contribution_add = 1000 vassal_tax_contribution_mult = 1000 }
+teq_central_tax = { hide_effects = yes }
 
 # Block the entire native development channel, including other native base contributions.
 teq_military_development_excluded = { hide_effects = yes monthly_treasury_from_ministry_budget_mult = -1000 }

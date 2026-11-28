@@ -2,6 +2,14 @@
  scope = character
  is_shown = { teq_budget_ui_ready = yes }
 }
+teq_budget_prepare_enact = {
+ scope = character
+ is_shown = { teq_budget_ui_ready = yes }
+ is_valid = { teq_budget_ui_ready = yes }
+ effect = { if = { limit = { teq_budget_ui_ready = yes }
+  teq_prepare_native_budget = yes
+ } }
+}
 teq_budget_commit = {
  scope = character
  is_shown = { teq_budget_ui_ready = yes }

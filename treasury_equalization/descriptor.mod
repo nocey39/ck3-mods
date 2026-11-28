@@ -1,4 +1,4 @@
-version="0.6.7"
+version="0.7.5"
 name="国库统筹财政"
 tags={
 	"Gameplay"

@@ -1,25 +1,85 @@
 ﻿teq_month_key = { value = current_year multiply = 12 add = current_month }
 teq_quarter_key = { value = teq_month_key subtract = 1 divide = 3 floor = yes }
+teq_era_target_mult = {
+ value = 0.8
+ if = { limit = { culture ?= { has_cultural_era_or_later = culture_era_late_medieval } } value = 1.5 }
+ else_if = { limit = { culture ?= { has_cultural_era_or_later = culture_era_high_medieval } } value = 1.25 }
+ else_if = { limit = { culture ?= { has_cultural_era_or_later = culture_era_early_medieval } } value = 1.0 }
+}
+teq_reserve_target_rule_mult = {
+ value = 1
+ if = { limit = { has_game_rule = teq_reserve_compact } value = 0.65 }
+ else_if = { limit = { has_game_rule = teq_reserve_generous } value = 1.5 }
+}
+# Smooth county scaling (300 + 180 * counties, capped at 10000), scaled by culture era,
+# military province role (1.5x), and the reserve target game rule.
 teq_local_target_value = {
- value = 1500
- if = { limit = { teq_admin_counties_value >= 60 } value = 12000 }
- else_if = { limit = { teq_admin_counties_value >= 30 } value = 8000 }
- else_if = { limit = { teq_admin_counties_value >= 15 } value = 5000 }
- else_if = { limit = { teq_admin_counties_value >= 5 } value = 3000 }
+ value = teq_admin_counties_value
+ multiply = 180
+ add = 300
+ max = 10000
+ multiply = teq_era_target_mult
  if = { limit = { teq_military_region = yes } multiply = 1.5 }
+ multiply = teq_reserve_target_rule_mult
+ min = 200
 }
 teq_central_reserve_value = { value = sub_realm_size multiply = 20 add = 2000 max = 15000 }
 # Cached county count, no building traversal. Ordinary development weight is 1 + counties/5, capped at 20.
 teq_base_need_value = { value = teq_admin_counties_value divide = 5 add = 1 max = 20 }
-teq_pressure_value = { value = treasury divide = teq_local_target_value multiply = -1 add = 2 min = 0 max = 2 }
+teq_pressure_raw_value = { value = treasury divide = teq_local_target_value multiply = -1 add = 2 min = 0 max = 2 }
+# Keep a continuous minimum development weight for wealthy civilian regions.
+# The 0.15 pressure floor and at most 50% wealth reduction retain 7.5% of base need.
+teq_pressure_value = {
+ value = teq_pressure_raw_value
+ min = 0.15
+ max = 2
+}
 teq_wealth_value = { value = treasury divide = teq_local_target_value subtract = 1 min = 0 max = 1 }
 teq_development_scale = { value = 0 if = { limit = { has_variable = teq_flow_weight } value = var:teq_flow_weight } }
 teq_wealth_scale = { value = 0 if = { limit = { has_variable = teq_flow_wealth } value = var:teq_flow_wealth } }
+# Cap development reserve reduction at 50% (effective mult >= 0.5) to prevent quadratic near-zero collapse.
+teq_dev_wealth_scale = { value = teq_wealth_scale multiply = 0.5 min = 0 max = 0.5 }
 teq_military_scale = { value = teq_wealth_scale multiply = 0.5 }
+# Title scope. Target payments use the configured shares of the full public
+# budget. A missing channel never changes another channel's denominator.
+teq_public_pair_budget = {
+ value = var:teq_public_budget
+ multiply = { value = 1 subtract = holder.teq_control_cardinal_share }
+}
+teq_development_base_rate = {
+ value = 0
+ if = { limit = { var:teq_native_development_units > 0 }
+  value = teq_public_pair_budget
+  multiply = holder.teq_control_development_share
+  divide = var:teq_native_development_units
+ }
+}
+teq_military_base_rate = {
+ value = 0
+ if = { limit = { var:teq_native_military_units > 0 }
+  value = teq_public_pair_budget
+  multiply = holder.teq_control_military_share
+  divide = var:teq_native_military_units
+ }
+}
+teq_cardinal_base_rate = {
+ value = 0
+ if = { limit = { var:teq_native_cardinal_units > 0 }
+  value = var:teq_public_budget
+  multiply = holder.teq_control_cardinal_share
+  divide = var:teq_native_cardinal_units
+ }
+}
 # Each county is counted only for its direct holder, never again for higher administrators.
 teq_admin_counties_value = { value = 1 if = { limit = { has_variable = teq_admin_counties } value = var:teq_admin_counties } }
 
-# Internal law percentages are weights. The total envelope tracks disposable monthly income.
+# Net-after-expenses treasury split (Plan A):
+# Private gold split p% is applied pre-treasury by the engine as before.
+# From the resulting treasury income, deduct all central non-budget expenses
+# (unraised/raised Men-at-Arms, court positions, mercenaries, etc.) to get:
+# NetSpendable = max(character_treasury_new_budget_capacity, 0).
+# Central treasury reserve = NetSpendable * r (default 5%),
+# Distributed vassal budget = NetSpendable * (1 - r).
 teq_retained_income_fraction = {
  value = 0.05
  if = { limit = { primary_title = { has_variable = teq_retained_fraction } }
@@ -27,7 +87,22 @@ teq_retained_income_fraction = {
  }
  min = 0 max = 1
 }
-teq_budget_ceiling = { value = 1 subtract = teq_retained_income_fraction multiply = monthly_character_treasury_income min = 0 }
+teq_treasury_share_of_gross = { value = 1 subtract = teq_private_income_fraction min = 0 max = 1 }
+teq_budget_share_of_treasury = {
+ value = 1
+ subtract = teq_retained_income_fraction
+ min = 0
+ max = 1
+}
+teq_net_spendable_treasury = {
+ value = character_treasury_new_budget_capacity
+ if = {
+  limit = { exists = primary_title primary_title = { has_variable = teq_available_flow } }
+  value = primary_title.var:teq_available_flow
+ }
+ min = 0
+}
+teq_budget_ceiling = { value = teq_net_spendable_treasury multiply = teq_budget_share_of_treasury min = 0 }
 teq_native_budget_total = { value = treasury_budget_allocation_ministries add = treasury_budget_allocation_military add = treasury_budget_allocation_salaries add = treasury_budget_allocation_cardinal multiply = character_treasury_budget_capacity min = 0 }
 
 # National salary standard per native office/rank unit, not per coin of revenue.
@@ -35,13 +110,6 @@ teq_salary_cost_cap = 0.10
 teq_salary_offset_value = { value = 0 if = { limit = { has_variable = teq_salary_offset } value = var:teq_salary_offset } }
 teq_previous_quarter_key = { value = teq_quarter_key subtract = 1 }
 teq_native_salary_units = { value = character_treasury_budget_capacity multiply = treasury_budget_allocation_salaries divide = treasury_budget_base_rate_salaries }
-teq_native_public_total = {
- value = 0
- if = { limit = { treasury_budget_base_rate_ministries > 0 } add = treasury_budget_allocation_ministries }
- if = { limit = { treasury_budget_base_rate_military > 0 } add = treasury_budget_allocation_military }
- if = { limit = { treasury_budget_base_rate_cardinal > 0 } add = treasury_budget_allocation_cardinal }
- multiply = character_treasury_budget_capacity min = 0
-}
 teq_salary_factor_value = {
  value = 0.5
  if = { limit = { has_variable = teq_salary_curve_factor } value = var:teq_salary_curve_factor }

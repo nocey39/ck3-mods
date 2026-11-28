@@ -1,6 +1,6 @@
-﻿teq_private_v_positive = { hide_effects = yes monthly_treasury_from_vassals = 1 scale = teq_private_positive_scale }
+﻿# Scaled offsets for the native vassal/domain and ecclesiastical non-vassal treasury conversion channels.
+# Computed analytically via the official mod-only modifier_value trigger (zero probe modifiers).
+teq_private_v_positive = { hide_effects = yes monthly_treasury_from_vassals = 1 scale = teq_private_positive_scale }
 teq_private_v_negative = { hide_effects = yes monthly_treasury_from_vassals = -1 scale = teq_private_negative_scale }
-# Temporary sensors, removed within the same effect before any time advances.
-teq_private_probe_public = { hide_effects = yes monthly_treasury_from_vassals = 1000 }
-teq_private_probe_private = { hide_effects = yes monthly_treasury_from_vassals = -1000 }
-teq_private_probe_source = { hide_effects = yes monthly_income = 1000 }
+teq_private_nv_positive = { hide_effects = yes monthly_treasury_from_non_vassals = 1 scale = teq_private_nv_positive_scale }
+teq_private_nv_negative = { hide_effects = yes monthly_treasury_from_non_vassals = -1 scale = teq_private_nv_negative_scale }

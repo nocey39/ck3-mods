@@ -1,0 +1,28 @@
+﻿l_english:
+ game_rule_category_teq_rules: "Treasury Equalization"
+
+ rule_teq_scope_rule: "Treasury Equalization: Scope"
+ setting_teq_scope_all: "All Treasury Realms"
+ setting_teq_scope_all_desc: "Default: Enabled for players and all independent AI treasury realms that have at least one eligible treasury vassal (0-vassal minor AI realms are skipped automatically for performance)."
+ setting_teq_scope_major: "Player & Major AI Realms"
+ setting_teq_scope_major_desc: "Always enabled for players; AI realms only qualify at Kingdom tier or higher, or with realm size 10+ and eligible treasury vassals."
+ setting_teq_scope_player_only: "Player Only"
+ setting_teq_scope_player_only_desc: "Only applies to player-controlled independent treasury realms. All AI realms retain 100% vanilla treasury behavior."
+
+ rule_teq_government_scope_rule: "Treasury Equalization: Governments"
+ setting_teq_gov_all: "All Native Treasury Governments"
+ setting_teq_gov_all_desc: "Default: Celestial, Administrative, Meritocratic, Steppe Admin, Republic, Ecclesiastical, and compatible custom treasury governments."
+ setting_teq_gov_imperial_only: "Bureaucratic / Imperial Only"
+ setting_teq_gov_imperial_only_desc: "Excludes independent Republics and Ecclesiastical realms; keeps Celestial, Administrative, Meritocratic, and Steppe Admin realms."
+ setting_teq_gov_no_republic: "Exclude Republics"
+ setting_teq_gov_no_republic_desc: "Independent merchant republics retain vanilla assembly budgeting; all other treasury governments use Treasury Equalization."
+ setting_teq_gov_no_ecclesiastical: "Exclude Ecclesiastical"
+ setting_teq_gov_no_ecclesiastical_desc: "Independent ecclesiastical realms retain vanilla church budgeting; all other treasury governments use Treasury Equalization."
+
+ rule_teq_reserve_target_rule: "Treasury Equalization: Provincial Reserve Target"
+ setting_teq_reserve_compact: "Compact (0.65x)"
+ setting_teq_reserve_compact_desc: "Lower provincial reserve thresholds so surplus provinces taper earlier and funding shifts faster to poorer provinces."
+ setting_teq_reserve_standard: "Standard (1.0x)"
+ setting_teq_reserve_standard_desc: "Default: Smooth county-based target scaled by cultural era (Tribal 0.8x to Late Medieval 1.5x), with a 1.5x multiplier for military provinces."
+ setting_teq_reserve_generous: "Generous (1.5x)"
+ setting_teq_reserve_generous_desc: "Higher provincial reserve targets so governors retain more treasury for expensive buildings and military upkeep."

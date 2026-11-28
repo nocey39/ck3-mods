@@ -12,7 +12,6 @@ teq_control_change_private = { hidden_effect = {
  if = { limit = { teq_fiscal_title_valid = yes holder = { is_ai = no teq_budget_ui_ready = yes } }
   set_variable = { name = teq_private_fraction value = { value = holder.teq_private_income_fraction add = $STEP$ min = 0 max = 1 } }
   holder = { teq_ensure_private_split = yes }
-  set_variable = teq_private_rebase_budget
   teq_apply_budget = yes
  }
 } }
