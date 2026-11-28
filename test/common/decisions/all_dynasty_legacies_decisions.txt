@@ -1,0 +1,76 @@
+﻿# All Dynasty Legacies - decision
+#
+# One click unlocks every dynasty legacy perk of the player's dynasty.
+# The decision hides itself once every available track is complete.
+
+unlock_all_dynasty_legacies = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_dynasty_house.dds"
+	}
+
+	decision_group_type = major
+	sort_order = 1000
+
+	title = unlock_all_dynasty_legacies
+	desc = unlock_all_dynasty_legacies_desc
+	selection_tooltip = unlock_all_dynasty_legacies_tooltip
+	confirm_text = unlock_all_dynasty_legacies_confirm
+
+	is_shown = {
+		is_ai = no
+		NOT = { has_character_flag = adl_choice_open }
+		exists = dynasty
+		trigger_if = {
+			limit = { exists = dynasty }
+			NOT = { all_dynasty_legacies_complete_trigger = yes }
+		}
+	}
+
+	is_valid = {
+		is_ai = no
+		exists = dynasty
+		NOR = {
+			has_character_flag = adl_choice_open
+			all_dynasty_legacies_complete_trigger = yes
+		}
+	}
+
+	effect = {
+		custom_tooltip = adl_unlock_effect_tt
+		hidden_effect = { all_dynasty_legacies_effect = yes }
+	}
+
+	ai_check_interval = 0
+	ai_will_do = { base = 0 }
+}
+
+adl_renown_recovery = {
+	picture = { reference = "gfx/interface/illustrations/decisions/decision_dynasty_house.dds" }
+	decision_group_type = major
+	sort_order = 1001
+	title = adl_renown_recovery
+	desc = adl_renown_recovery_desc
+	selection_tooltip = adl_renown_recovery_tooltip
+	confirm_text = adl_renown_recovery_confirm
+	is_shown = {
+		is_ai = no
+		exists = dynasty
+		dynasty = { dynasty_prestige < 0 NOT = { has_variable = adl_renown_recovery_used } }
+	}
+	is_valid = {
+		is_ai = no
+		exists = dynasty
+		dynasty = { dynasty_prestige < 0 NOT = { has_variable = adl_renown_recovery_used } }
+	}
+	effect = {
+		custom_tooltip = adl_renown_recovery_tooltip
+		hidden_effect = {
+			dynasty = {
+				add_dynasty_prestige = { value = 0 subtract = dynasty_prestige }
+				set_variable = adl_renown_recovery_used
+			}
+		}
+	}
+	ai_check_interval = 0
+	ai_will_do = { base = 0 }
+}

@@ -1,0 +1,465 @@
+﻿namespace = adl_choices
+
+adl_choices.0001 = {
+	type = character_event
+	theme = dynasty
+	title = ce1_heroic_legacy_3_name
+	desc = adl_choose_trait_desc
+	option = {
+		name = trait_herald
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_ce1_heroic_legacy_3_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_ce1_heroic_legacy_3_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = ce1_heroic_legacy_3 }
+					if = {
+						limit = { has_dynasty_perk = ce1_heroic_legacy_3 }
+						set_variable = { name = ce1_heroic_legacy_3_herald value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_ce1_heroic_legacy_3_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = adl_choose_later
+		hidden_effect = { remove_character_flag = adl_choice_open }
+	}
+}
+
+adl_choices.0002 = {
+	type = character_event
+	theme = dynasty
+	title = ce1_heroic_legacy_4_name
+	desc = adl_choose_trait_desc
+	option = {
+		name = trait_legend
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_ce1_heroic_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_ce1_heroic_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = ce1_heroic_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = ce1_heroic_legacy_4 }
+						set_variable = { name = ce1_heroic_legacy_4_legend value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_ce1_heroic_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = adl_choose_later
+		hidden_effect = { remove_character_flag = adl_choice_open }
+	}
+}
+
+adl_choices.0003 = {
+	type = character_event
+	theme = dynasty
+	title = ce1_legitimacy_legacy_5_name
+	desc = adl_choose_trait_desc
+	option = {
+		name = trait_education_intrigue_5
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = ce1_legitimacy_legacy_5 }
+					if = {
+						limit = { has_dynasty_perk = ce1_legitimacy_legacy_5 }
+						set_variable = { name = ce1_legitimacy_legacy_5_education_intrigue_5 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_ce1_legitimacy_legacy_5_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_education_diplomacy_5
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = ce1_legitimacy_legacy_5 }
+					if = {
+						limit = { has_dynasty_perk = ce1_legitimacy_legacy_5 }
+						set_variable = { name = ce1_legitimacy_legacy_5_education_diplomacy_5 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_ce1_legitimacy_legacy_5_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_education_stewardship_5
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = ce1_legitimacy_legacy_5 }
+					if = {
+						limit = { has_dynasty_perk = ce1_legitimacy_legacy_5 }
+						set_variable = { name = ce1_legitimacy_legacy_5_education_stewardship_5 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_ce1_legitimacy_legacy_5_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_education_martial_5
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = ce1_legitimacy_legacy_5 }
+					if = {
+						limit = { has_dynasty_perk = ce1_legitimacy_legacy_5 }
+						set_variable = { name = ce1_legitimacy_legacy_5_education_martial_5 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_ce1_legitimacy_legacy_5_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_education_learning_5
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_ce1_legitimacy_legacy_5_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = ce1_legitimacy_legacy_5 }
+					if = {
+						limit = { has_dynasty_perk = ce1_legitimacy_legacy_5 }
+						set_variable = { name = ce1_legitimacy_legacy_5_education_learning_5 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_ce1_legitimacy_legacy_5_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = adl_choose_later
+		hidden_effect = { remove_character_flag = adl_choice_open }
+	}
+}
+
+adl_choices.0004 = {
+	type = character_event
+	theme = dynasty
+	title = blood_legacy_4_name
+	desc = adl_choose_trait_desc
+	option = {
+		name = trait_beauty_good_1
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_beauty_good_1 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_intellect_good_1
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_intellect_good_1 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_physique_good_1
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_physique_good_1 value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_fecund
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_fecund value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_albino
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_albino value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_giant
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_giant value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_dwarf
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_dwarf value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = trait_scaly
+		trigger = {
+			is_ai = no
+			exists = scope:adl_choice_dynasty
+			dynasty = scope:adl_choice_dynasty
+			adl_can_choose_blood_legacy_4_trigger = yes
+		}
+		hidden_effect = {
+			remove_character_flag = adl_choice_open
+			if = {
+				limit = {
+					is_ai = no
+					exists = scope:adl_choice_dynasty
+					dynasty = scope:adl_choice_dynasty
+					adl_can_choose_blood_legacy_4_trigger = yes
+				}
+				dynasty = {
+					all_dynasty_legacy_perk_effect = { PERK = blood_legacy_4 }
+					if = {
+						limit = { has_dynasty_perk = blood_legacy_4 }
+						set_variable = { name = blood_legacy_4_scaly value = yes }
+					}
+				}
+				if = { limit = { dynasty = { adl_selected_blood_legacy_4_trigger = yes } } all_dynasty_legacies_effect = yes }
+			}
+		}
+	}
+	option = {
+		name = adl_choose_later
+		hidden_effect = { remove_character_flag = adl_choice_open }
+	}
+}

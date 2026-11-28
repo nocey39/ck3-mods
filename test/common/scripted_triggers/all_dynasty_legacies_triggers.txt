@@ -1,0 +1,259 @@
+﻿all_dynasty_legacies_complete_trigger = {
+	exists = dynasty
+	trigger_if = {
+		limit = { has_dlc_feature = silk_and_silver }
+		dynasty = {
+			has_dynasty_perk = gdp_republic_legacy_1
+			has_dynasty_perk = gdp_republic_legacy_2
+			has_dynasty_perk = gdp_republic_legacy_3
+			has_dynasty_perk = gdp_republic_legacy_4
+			has_dynasty_perk = gdp_republic_legacy_5
+			has_dynasty_perk = gdp_merchant_legacy_1
+			has_dynasty_perk = gdp_merchant_legacy_2
+			has_dynasty_perk = gdp_merchant_legacy_3
+			has_dynasty_perk = gdp_merchant_legacy_4
+			has_dynasty_perk = gdp_merchant_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = by_god_alone }
+		dynasty = {
+			has_dynasty_perk = pam_legacy_1
+			has_dynasty_perk = pam_legacy_2
+			has_dynasty_perk = pam_legacy_3
+			has_dynasty_perk = pam_legacy_4
+			has_dynasty_perk = pam_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = all_under_heaven }
+		dynasty = {
+			has_dynasty_perk = tgp_sea_legacy_1
+			has_dynasty_perk = tgp_sea_legacy_2
+			has_dynasty_perk = tgp_sea_legacy_3
+			has_dynasty_perk = tgp_sea_legacy_4
+			has_dynasty_perk = tgp_sea_legacy_5
+			has_dynasty_perk = tgp_japan_legacy_1
+			has_dynasty_perk = tgp_japan_legacy_2
+			has_dynasty_perk = tgp_japan_legacy_3
+			has_dynasty_perk = tgp_japan_legacy_4
+			has_dynasty_perk = tgp_japan_legacy_5
+			has_dynasty_perk = tgp_chinese_legacy_1
+			has_dynasty_perk = tgp_chinese_legacy_2
+			has_dynasty_perk = tgp_chinese_legacy_3
+			has_dynasty_perk = tgp_chinese_legacy_4
+			has_dynasty_perk = tgp_chinese_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = roads_to_power }
+		dynasty = {
+			has_dynasty_perk = ep3_administrative_legacy_1
+			has_dynasty_perk = ep3_administrative_legacy_2
+			has_dynasty_perk = ep3_administrative_legacy_3
+			has_dynasty_perk = ep3_administrative_legacy_4
+			has_dynasty_perk = ep3_administrative_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = khans_of_the_steppe }
+		dynasty = {
+			has_dynasty_perk = mpo_nomad_legacy_1
+			has_dynasty_perk = mpo_nomad_legacy_2
+			has_dynasty_perk = mpo_nomad_legacy_3
+			has_dynasty_perk = mpo_nomad_legacy_4
+			has_dynasty_perk = mpo_nomad_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = legends_of_the_dead }
+		dynasty = {
+			has_dynasty_perk = ce1_heroic_legacy_1
+			has_dynasty_perk = ce1_heroic_legacy_2
+			has_dynasty_perk = ce1_heroic_legacy_3
+			adl_selected_ce1_heroic_legacy_3_trigger = yes
+			has_dynasty_perk = ce1_heroic_legacy_4
+			adl_selected_ce1_heroic_legacy_4_trigger = yes
+			has_dynasty_perk = ce1_heroic_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = legends_of_the_dead }
+		dynasty = {
+			has_dynasty_perk = ce1_legitimacy_legacy_1
+			has_dynasty_perk = ce1_legitimacy_legacy_2
+			has_dynasty_perk = ce1_legitimacy_legacy_3
+			has_dynasty_perk = ce1_legitimacy_legacy_4
+			has_dynasty_perk = ce1_legitimacy_legacy_5
+			adl_selected_ce1_legitimacy_legacy_5_trigger = yes
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = legacy_of_persia }
+		dynasty = {
+			has_dynasty_perk = fp3_khvarenah_legacy_1
+			has_dynasty_perk = fp3_khvarenah_legacy_2
+			has_dynasty_perk = fp3_khvarenah_legacy_3
+			has_dynasty_perk = fp3_khvarenah_legacy_4
+			has_dynasty_perk = fp3_khvarenah_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = the_fate_of_iberia }
+		dynasty = {
+			has_dynasty_perk = fp2_urbanism_legacy_1
+			has_dynasty_perk = fp2_urbanism_legacy_2
+			has_dynasty_perk = fp2_urbanism_legacy_3
+			has_dynasty_perk = fp2_urbanism_legacy_4
+			has_dynasty_perk = fp2_urbanism_legacy_5
+			has_dynasty_perk = fp2_coterie_legacy_1
+			has_dynasty_perk = fp2_coterie_legacy_2
+			has_dynasty_perk = fp2_coterie_legacy_3
+			has_dynasty_perk = fp2_coterie_legacy_4
+			has_dynasty_perk = fp2_coterie_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = the_northern_lords }
+		dynasty = {
+			has_dynasty_perk = fp1_adventure_legacy_1
+			has_dynasty_perk = fp1_adventure_legacy_2
+			has_dynasty_perk = fp1_adventure_legacy_3
+			has_dynasty_perk = fp1_adventure_legacy_4
+			has_dynasty_perk = fp1_adventure_legacy_5
+			has_dynasty_perk = fp1_pillage_legacy_1
+			has_dynasty_perk = fp1_pillage_legacy_2
+			has_dynasty_perk = fp1_pillage_legacy_3
+			has_dynasty_perk = fp1_pillage_legacy_4
+			has_dynasty_perk = fp1_pillage_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = hybridize_culture }
+		dynasty = {
+			has_dynasty_perk = ep1_culture_legacy_1
+			has_dynasty_perk = ep1_culture_legacy_2
+			has_dynasty_perk = ep1_culture_legacy_3
+			has_dynasty_perk = ep1_culture_legacy_4
+			has_dynasty_perk = ep1_culture_legacy_5
+		}
+	}
+	trigger_if = {
+		limit = { has_dlc_feature = tours_and_tournaments }
+		dynasty = {
+			has_dynasty_perk = ep2_activities_legacy_2
+			has_dynasty_perk = ep2_activities_legacy_1
+			has_dynasty_perk = ep2_activities_legacy_3
+			has_dynasty_perk = ep2_activities_legacy_4
+			has_dynasty_perk = ep2_activities_legacy_5
+		}
+	}
+	dynasty = {
+		has_dynasty_perk = warfare_legacy_1
+		has_dynasty_perk = warfare_legacy_2
+		has_dynasty_perk = warfare_legacy_3
+		has_dynasty_perk = warfare_legacy_4
+		has_dynasty_perk = warfare_legacy_5
+		has_dynasty_perk = law_legacy_1
+		has_dynasty_perk = law_legacy_2
+		has_dynasty_perk = law_legacy_3
+		has_dynasty_perk = law_legacy_4
+		has_dynasty_perk = law_legacy_5
+		has_dynasty_perk = guile_legacy_1
+		has_dynasty_perk = guile_legacy_2
+		has_dynasty_perk = guile_legacy_3
+		has_dynasty_perk = guile_legacy_4
+		has_dynasty_perk = guile_legacy_5
+		has_dynasty_perk = blood_legacy_1
+		has_dynasty_perk = blood_legacy_2
+		has_dynasty_perk = blood_legacy_3
+		has_dynasty_perk = blood_legacy_4
+		adl_selected_blood_legacy_4_trigger = yes
+		has_dynasty_perk = blood_legacy_5
+		has_dynasty_perk = erudition_legacy_1
+		has_dynasty_perk = erudition_legacy_2
+		has_dynasty_perk = erudition_legacy_3
+		has_dynasty_perk = erudition_legacy_4
+		has_dynasty_perk = erudition_legacy_5
+		has_dynasty_perk = glory_legacy_1
+		has_dynasty_perk = glory_legacy_2
+		has_dynasty_perk = glory_legacy_3
+		has_dynasty_perk = glory_legacy_4
+		has_dynasty_perk = glory_legacy_5
+		has_dynasty_perk = kin_legacy_1
+		has_dynasty_perk = kin_legacy_2
+		has_dynasty_perk = kin_legacy_3
+		has_dynasty_perk = kin_legacy_4
+		has_dynasty_perk = kin_legacy_5
+	}
+}
+
+adl_selected_ce1_heroic_legacy_3_trigger = {
+	has_variable = ce1_heroic_legacy_3_herald
+}
+
+adl_can_choose_ce1_heroic_legacy_3_trigger = {
+	has_dlc_feature = legends_of_the_dead
+	dynasty = {
+		has_dynasty_perk = ce1_heroic_legacy_1
+		has_dynasty_perk = ce1_heroic_legacy_2
+		NOT = { adl_selected_ce1_heroic_legacy_3_trigger = yes }
+	}
+}
+
+adl_selected_ce1_heroic_legacy_4_trigger = {
+	has_variable = ce1_heroic_legacy_4_legend
+}
+
+adl_can_choose_ce1_heroic_legacy_4_trigger = {
+	has_dlc_feature = legends_of_the_dead
+	dynasty = {
+		has_dynasty_perk = ce1_heroic_legacy_1
+		has_dynasty_perk = ce1_heroic_legacy_2
+		has_dynasty_perk = ce1_heroic_legacy_3
+		NOT = { adl_selected_ce1_heroic_legacy_4_trigger = yes }
+	}
+}
+
+adl_selected_ce1_legitimacy_legacy_5_trigger = {
+	OR = {
+		has_variable = ce1_legitimacy_legacy_5_education_intrigue_5
+		has_variable = ce1_legitimacy_legacy_5_education_diplomacy_5
+		has_variable = ce1_legitimacy_legacy_5_education_stewardship_5
+		has_variable = ce1_legitimacy_legacy_5_education_martial_5
+		has_variable = ce1_legitimacy_legacy_5_education_learning_5
+	}
+}
+
+adl_can_choose_ce1_legitimacy_legacy_5_trigger = {
+	has_dlc_feature = legends_of_the_dead
+	dynasty = {
+		has_dynasty_perk = ce1_legitimacy_legacy_1
+		has_dynasty_perk = ce1_legitimacy_legacy_2
+		has_dynasty_perk = ce1_legitimacy_legacy_3
+		has_dynasty_perk = ce1_legitimacy_legacy_4
+		NOT = { adl_selected_ce1_legitimacy_legacy_5_trigger = yes }
+	}
+}
+
+adl_selected_blood_legacy_4_trigger = {
+	OR = {
+		has_variable = blood_legacy_4_beauty_good_1
+		has_variable = blood_legacy_4_intellect_good_1
+		has_variable = blood_legacy_4_physique_good_1
+		has_variable = blood_legacy_4_fecund
+		has_variable = blood_legacy_4_albino
+		has_variable = blood_legacy_4_giant
+		has_variable = blood_legacy_4_dwarf
+		has_variable = blood_legacy_4_scaly
+	}
+}
+
+adl_can_choose_blood_legacy_4_trigger = {
+	dynasty = {
+		has_dynasty_perk = blood_legacy_1
+		has_dynasty_perk = blood_legacy_2
+		has_dynasty_perk = blood_legacy_3
+		NOT = { adl_selected_blood_legacy_4_trigger = yes }
+	}
+}
