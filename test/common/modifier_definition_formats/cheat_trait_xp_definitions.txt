@@ -1,0 +1,25 @@
+# 补齐原版 00_definitions.txt 中未定义格式的动态特质经验修正
+devoted_xp_gain_mult = {
+	decimals = 0
+	percent = yes
+}
+trait_track_monastic_xp_gain_mult = {
+	decimals = 0
+	percent = yes
+}
+knight_errant_xp_gain_mult = {
+	decimals = 0
+	percent = yes
+}
+the_wake_xp_gain_mult = {
+	decimals = 0
+	percent = yes
+}
+violet_poet_xp_gain_mult = {
+	decimals = 0
+	percent = yes
+}
+gallowsbait_xp_gain_mult = {
+	decimals = 0
+	percent = yes
+}

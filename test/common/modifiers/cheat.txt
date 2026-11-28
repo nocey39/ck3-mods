@@ -63,54 +63,61 @@ domain_limit                                   = 999  # 直辖上限
 domain_limit_max                               = 999  # 最大直辖上限
 domain_limit_min                               = 999  # 最小直辖上限
 
-# 将领特质经验
-trait_track_aggressive_attacker_xp_gain_mult   = 100  # 激进的进攻者经验轨道获取加成（按结构推导，待实测）
-trait_track_cautious_leader_xp_gain_mult       = 100  # 谨慎的将领经验轨道获取加成（按结构推导，待实测）
-trait_track_desert_warrior_xp_gain_mult        = 100  # 沙漠战士经验轨道获取加成（按结构推导，待实测）
-trait_track_flexible_leader_xp_gain_mult       = 100  # 灵活的将领经验轨道获取加成（按结构推导，待实测）
-trait_track_forder_xp_gain_mult                = 100  # 涉水者经验轨道获取加成（按结构推导，待实测）
-trait_track_forest_fighter_xp_gain_mult        = 100  # 森林斗士经验轨道获取加成（按结构推导，待实测）
-trait_track_holy_warrior_xp_gain_mult          = 100  # 虔信之剑经验轨道获取加成（按结构推导，待实测）
-trait_track_jungle_stalker_xp_gain_mult        = 100  # 丛林追猎者经验轨道获取加成（按结构推导，待实测）
-trait_track_logistician_xp_gain_mult           = 100  # 后勤专家经验轨道获取加成（按结构推导，待实测）
-trait_track_military_engineer_xp_gain_mult     = 100  # 军事工程师经验轨道获取加成（按结构推导，待实测）
-trait_track_open_terrain_expert_xp_gain_mult   = 100  # 开阔地形专家经验轨道获取加成（按结构推导，待实测）
-trait_track_organizer_xp_gain_mult             = 100  # 组织者经验轨道获取加成（按结构推导，待实测）
-trait_track_reaver_xp_gain_mult                = 100  # 劫掠者经验轨道获取加成（按结构推导，待实测）
-trait_track_reckless_xp_gain_mult              = 100  # 鲁莽经验轨道获取加成（按结构推导，待实测）
-trait_track_rough_terrain_expert_xp_gain_mult  = 100  # 崎岖地形专家经验轨道获取加成（按结构推导，待实测）
-trait_track_unyielding_defender_xp_gain_mult   = 100  # 防御者经验轨道获取加成（按结构推导，待实测）
-trait_track_winter_soldier_xp_gain_mult        = 100  # 冬将军经验轨道获取加成（按结构推导，待实测）
+# 将领特质经验（17 项，原版 1.21 已内置定义与汉化）
+trait_track_aggressive_attacker_xp_gain_mult   = 100  # 激进的进攻者经验轨道获取加成
+trait_track_cautious_leader_xp_gain_mult       = 100  # 谨慎的将领经验轨道获取加成
+trait_track_desert_warrior_xp_gain_mult        = 100  # 沙漠战士经验轨道获取加成
+trait_track_flexible_leader_xp_gain_mult       = 100  # 灵活的将领经验轨道获取加成
+trait_track_forder_xp_gain_mult                = 100  # 涉水者经验轨道获取加成
+trait_track_forest_fighter_xp_gain_mult        = 100  # 森林斗士经验轨道获取加成
+trait_track_holy_warrior_xp_gain_mult          = 100  # 虔信之剑经验轨道获取加成
+trait_track_jungle_stalker_xp_gain_mult        = 100  # 丛林追猎者经验轨道获取加成
+trait_track_logistician_xp_gain_mult           = 100  # 后勤专家经验轨道获取加成
+trait_track_military_engineer_xp_gain_mult     = 100  # 军事工程师经验轨道获取加成
+trait_track_open_terrain_expert_xp_gain_mult   = 100  # 开阔地形专家经验轨道获取加成
+trait_track_organizer_xp_gain_mult             = 100  # 组织者经验轨道获取加成
+trait_track_reaver_xp_gain_mult                = 100  # 劫掠者经验轨道获取加成
+trait_track_reckless_xp_gain_mult              = 100  # 鲁莽经验轨道获取加成
+trait_track_rough_terrain_expert_xp_gain_mult  = 100  # 崎岖地形专家经验轨道获取加成
+trait_track_unyielding_defender_xp_gain_mult   = 100  # 防御者经验轨道获取加成
+trait_track_winter_soldier_xp_gain_mult        = 100  # 冬将军经验轨道获取加成
 
-# 战车车手特质经验
-trait_track_charioteer_blue_xp_gain_mult       = 100  # 蓝队车手经验轨道获取加成（按结构推导，待实测）
-trait_track_charioteer_green_xp_gain_mult      = 100  # 绿队车手经验轨道获取加成（按结构推导，待实测）
-trait_track_charioteer_red_xp_gain_mult        = 100  # 红队车手经验轨道获取加成（按结构推导，待实测）
-trait_track_charioteer_white_xp_gain_mult      = 100  # 白队车手经验轨道获取加成（按结构推导，待实测）
+# 战车车手特质经验（原版正式键名）
+charioteer_blue_xp_gain_mult                   = 100  # 蓝队车手特质经验获取加成
+charioteer_green_xp_gain_mult                  = 100  # 绿队车手特质经验获取加成
+charioteer_red_xp_gain_mult                    = 100  # 红队车手特质经验获取加成
+charioteer_white_xp_gain_mult                  = 100  # 白队车手特质经验获取加成
 
 # 教育、宗教、治理与游侠特质经验
-trait_track_confucian_education_xp_gain_mult   = 100  # 儒家教育经验轨道获取加成（按结构推导，待实测）
-trait_track_monastic_xp_gain_mult              = 100  # 誓愿者的修会资历轨道经验获取加成（按结构推导，待实测）
-trait_track_governor_xp_gain_mult              = 100  # 总督经验轨道获取加成（按结构推导，待实测）
-trait_track_knight_errant_xp_gain_mult         = 100  # 游侠骑士经验轨道获取加成（按结构推导，待实测）
+confucian_education_xp_gain_mult               = 100  # 儒家教育特质经验获取加成（原版正式键）
+governor_xp_gain_mult                          = 100  # 总督特质经验获取加成（原版正式键）
+pilgrim_xp_gain_mult                           = 100  # 朝圣者特质经验获取加成（原版正式键）
+lifestyle_scholar_xp_gain_mult                 = 100  # 宗教学者特质经验获取加成（原版正式键）
+devoted_xp_gain_mult                           = 100  # 修士/誓愿者特质经验获取加成（特质级，命中 add_trait_xp = { trait = devoted }）
+trait_track_monastic_xp_gain_mult              = 100  # 修士/誓愿者的修会资历轨道经验获取加成（轨道级双保险）
+knight_errant_xp_gain_mult                     = 100  # 游侠骑士特质经验获取加成
 
 # 生活技能与旅行特质经验
 trait_track_lifestyle_blademaster_xp_gain_mult = 100  # 剑术大师经验轨道获取加成
 trait_track_hunter_xp_gain_mult                = 100  # 猎人的猎手轨道经验获取加成
 trait_track_falconer_xp_gain_mult              = 100  # 猎人的驯鹰师轨道经验获取加成
-trait_track_lifestyle_mystic_xp_gain_mult      = 100  # 神秘主义者经验轨道获取加成（按结构推导，待实测）
-trait_track_lifestyle_physician_xp_gain_mult   = 100  # 医生经验轨道获取加成（按结构推导，待实测）
+lifestyle_mystic_xp_gain_mult                  = 100  # 神秘主义者特质经验获取加成（原版正式键）
+lifestyle_physician_xp_gain_mult               = 100  # 医生特质经验获取加成（原版正式键）
 trait_track_lifestyle_poet_xp_gain_mult        = 100  # 诗人经验轨道获取加成
-trait_track_lifestyle_reveler_xp_gain_mult     = 100  # 狂欢者经验轨道获取加成（按结构推导，待实测）
-trait_track_lifestyle_scholar_xp_gain_mult     = 100  # 宗教学者经验轨道获取加成（按结构推导，待实测）
+lifestyle_reveler_xp_gain_mult                 = 100  # 狂欢者特质经验获取加成（原版正式键）
 trait_track_travel_xp_gain_mult                = 100  # 旅行者的漫游者轨道经验获取加成
 trait_track_danger_xp_gain_mult                = 100  # 旅行者的老成者轨道经验获取加成
 
-# 其他特质经验
+# 其他正面特质经验
 trait_track_peasant_leader_xp_gain_mult        = 100  # 农民领袖经验轨道获取加成
-trait_track_pilgrim_xp_gain_mult               = 100  # 朝圣者经验轨道获取加成（按结构推导，待实测）
-trait_track_the_wake_xp_gain_mult              = 100  # 警觉者经验轨道获取加成（按结构推导，待实测）
-trait_track_violet_poet_xp_gain_mult           = 100  # 紫罗兰诗人经验轨道获取加成（按结构推导，待实测）
+the_wake_xp_gain_mult                          = 100  # 沼泽猎手/警觉者特质经验获取加成
+violet_poet_xp_gain_mult                       = 100  # 紫罗兰诗人特质经验获取加成
+
+# 以下为已排查但默认未启用的恶名/负面特质轨道（如需启用可取消注释）：
+# gallowsbait_xp_gain_mult                     = 100  # 不法之徒全 5 轨道（强盗/骗子/窃贼/偷猎者/掠夺者，升级会扣好感）
+# scarred_xp_gain_mult                         = 100  # 伤疤（升级会扣吸引力与健康，偏负面）
+# 其余 5 个纯负面衰老/健康退化特质轨道已刻意排除，避免加速恶化：
+# infirm（体弱多病）、withering_mind（认知衰退）、clouded_eyes（瞳孔浑浊）、faltering_heart（心脏衰竭）、fragile_bones（骨质脆弱）
 
 # 竞技选手经验
 trait_track_foot_xp_gain_mult                  = 100  # 竞技选手的步战轨道经验获取加成
@@ -118,6 +125,32 @@ trait_track_bow_xp_gain_mult                   = 100  # 竞技选手的弓箭轨
 trait_track_horse_xp_gain_mult                 = 100  # 竞技选手的骑术轨道经验获取加成
 trait_track_wit_xp_gain_mult                   = 100  # 竞技选手的智慧轨道经验获取加成
 
+# 1.21 商人特质经验（纯正面三轨道）
+trait_track_caravaneer_xp_gain_mult            = 100  # 商人的商旅轨道经验获取加成
+trait_track_artisan_xp_gain_mult               = 100  # 商人的工匠轨道经验获取加成
+trait_track_creditor_xp_gain_mult              = 100  # 商人的放贷者轨道经验获取加成
+
+# 1.21 贸易商品品类精通经验（20 项）
+trade_category_alcohol_xp_gain_mult            = 100  # 酒类精通经验获取加成
+trade_category_alum_xp_gain_mult               = 100  # 明矾精通经验获取加成
+trade_category_base_metals_xp_gain_mult        = 100  # 基础金属精通经验获取加成
+trade_category_beasts_of_burden_xp_gain_mult   = 100  # 驮畜精通经验获取加成
+trade_category_books_xp_gain_mult              = 100  # 书籍精通经验获取加成
+trade_category_carpentry_supplies_xp_gain_mult = 100  # 木材建材精通经验获取加成
+trade_category_cereals_xp_gain_mult            = 100  # 谷物精通经验获取加成
+trade_category_clothes_xp_gain_mult            = 100  # 服饰精通经验获取加成
+trade_category_comforts_xp_gain_mult           = 100  # 日用享乐品精通经验获取加成
+trade_category_dyes_xp_gain_mult               = 100  # 染料精通经验获取加成
+trade_category_fabrics_xp_gain_mult            = 100  # 织物精通经验获取加成
+trade_category_incense_xp_gain_mult            = 100  # 香料薰香精通经验获取加成
+trade_category_jewelry_materials_xp_gain_mult  = 100  # 珠宝原料精通经验获取加成
+trade_category_luxury_consumption_xp_gain_mult = 100  # 奢华消费品精通经验获取加成
+trade_category_luxury_items_xp_gain_mult       = 100  # 奢侈品精通经验获取加成
+trade_category_meat_xp_gain_mult               = 100  # 肉类精通经验获取加成
+trade_category_medicaments_xp_gain_mult        = 100  # 药材精通经验获取加成
+trade_category_precious_metals_xp_gain_mult    = 100  # 贵金属精通经验获取加成
+trade_category_salt_xp_gain_mult               = 100  # 食盐精通经验获取加成
+trade_category_stone_xp_gain_mult              = 100  # 石料精通经验获取加成
 
 
 }

@@ -1,0 +1,7 @@
+﻿l_english:
+ devoted_xp_gain_mult:0 "[GetTrait('devoted').GetName( GetNullCharacter )] [trait_level_track_xp|E] Gain"
+ trait_track_monastic_xp_gain_mult:0 "$trait_track_monastic$ #weak ([GetTrait('devoted').GetName( GetNullCharacter )])#! [trait_level_track_xp|E] Gain"
+ knight_errant_xp_gain_mult:0 "[GetTrait('knight_errant').GetName( GetNullCharacter )] [trait_level_track_xp|E] Gain"
+ the_wake_xp_gain_mult:0 "[GetTrait('the_wake').GetName( GetNullCharacter )] [trait_level_track_xp|E] Gain"
+ violet_poet_xp_gain_mult:0 "[GetTrait('violet_poet').GetName( GetNullCharacter )] [trait_level_track_xp|E] Gain"
+ gallowsbait_xp_gain_mult:0 "[GetTrait('gallowsbait').GetName( GetNullCharacter )] [trait_level_track_xp|E] Gain"
